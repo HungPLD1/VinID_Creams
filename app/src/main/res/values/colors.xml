@@ -13,4 +13,6 @@
     <color name="errorText">#ff7878</color>
     <color name="backgroundBottom">#2196F3</color>
     <color name="bottomchat">#D5FF7906</color>
+    <color name="colorBackground">#B2A8D5A8</color>
+    <color name="colorTopLayout">#363739</color>
 </resources>
