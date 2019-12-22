@@ -35,35 +35,38 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun setupSpinerDiscount() {
-        val mListType = arrayOf("10%","20%","50%")
+        val mListType = arrayOf("Filter by discount","10%","20%","50%")
         val mAdapterDiscount = ArrayAdapter(
             this, // Context
             android.R.layout.simple_spinner_item, // Layout
             mListType // Array
         )
         spinerFilterByType.adapter = mAdapterDiscount
+        spinerFilterByType.setSelection(0)
         spinerFilterByType.onItemSelectedListener = this
     }
 
     private fun setupSpinerPrice() {
-        val mListType = arrayOf("0 - 100K","100K - 200K","200K - 300K","300 - 400K","400K - 500K","> 500K")
+        val mListType = arrayOf("Filter by price","0 - 100K","100K - 200K","200K - 300K","300 - 400K","400K - 500K","> 500K")
         val mAdapterPrice = ArrayAdapter(
             this, // Context
             android.R.layout.simple_spinner_item, // Layout
             mListType // Array
         )
         spinerFilterByType.adapter = mAdapterPrice
+        spinerFilterByType.setSelection(0)
         spinerFilterByType.onItemSelectedListener = this
     }
 
     private fun setupSpinerType() {
-        val mListType = arrayOf("Chocolate","Matcha","Strawberry","Cacao","Vani","Other","Mix")
+        val mListType = arrayOf("Filter by type","Chocolate","Matcha","Strawberry","Cacao","Vani","Other","Mix")
         val mAdapterType = ArrayAdapter(
             this, // Context
             android.R.layout.simple_spinner_item, // Layout
             mListType // Array
         )
         spinerFilterByType.adapter = mAdapterType
+        spinerFilterByType.setSelection(0)
         spinerFilterByType.onItemSelectedListener = this
     }
 
