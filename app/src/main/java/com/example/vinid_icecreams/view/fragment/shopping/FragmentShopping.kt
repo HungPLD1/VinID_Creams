@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.view.fragment.homescreen
+package com.example.vinid_icecreams.view.fragment.shopping
 
 
 import android.os.Bundle
@@ -9,16 +9,16 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
-import kotlinx.android.synthetic.main.fragment_homescreen.*
+import kotlinx.android.synthetic.main.fragment_shopping.*
 
 
-class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val mView = inflater.inflate(R.layout.fragment_homescreen,container,false)
+        val mView = inflater.inflate(R.layout.fragment_shopping,container,false)
         iniView()
         return mView
     }

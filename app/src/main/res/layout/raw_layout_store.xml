@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:id="@+id/rawStore"
+    android:layout_height="100dp">
+    <ImageView
+        android:id="@+id/imgStatusStore"
+        android:src="@drawable/ic_open"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txtNameStore"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:text="Store name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <view
+            android:layout_marginTop="5dp"
+            android:background="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/txtAddress"
+            android:textStyle="bold"
+            android:text="Store location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
