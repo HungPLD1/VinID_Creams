@@ -36,11 +36,13 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener {
 
     private fun setupSpinerDiscount() {
         val mListType = arrayOf("Filter by discount","10%","20%","50%")
-        val mAdapterDiscount = ArrayAdapter(
-            this, // Context
-            android.R.layout.simple_spinner_item, // Layout
-            mListType // Array
-        )
+        val mAdapterDiscount = context?.let {
+            ArrayAdapter(
+                it, // Context
+                android.R.layout.simple_spinner_item, // Layout
+                mListType // Array
+            )
+        }
         spinerFilterByType.adapter = mAdapterDiscount
         spinerFilterByType.setSelection(0)
         spinerFilterByType.onItemSelectedListener = this
@@ -48,11 +50,13 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener {
 
     private fun setupSpinerPrice() {
         val mListType = arrayOf("Filter by price","0 - 100K","100K - 200K","200K - 300K","300 - 400K","400K - 500K","> 500K")
-        val mAdapterPrice = ArrayAdapter(
-            this, // Context
-            android.R.layout.simple_spinner_item, // Layout
-            mListType // Array
-        )
+        val mAdapterPrice = context?.let {
+            ArrayAdapter(
+                it, // Context
+                android.R.layout.simple_spinner_item, // Layout
+                mListType // Array
+            )
+        }
         spinerFilterByType.adapter = mAdapterPrice
         spinerFilterByType.setSelection(0)
         spinerFilterByType.onItemSelectedListener = this
@@ -60,11 +64,13 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener {
 
     private fun setupSpinerType() {
         val mListType = arrayOf("Filter by type","Chocolate","Matcha","Strawberry","Cacao","Vani","Other","Mix")
-        val mAdapterType = ArrayAdapter(
-            this, // Context
-            android.R.layout.simple_spinner_item, // Layout
-            mListType // Array
-        )
+        val mAdapterType = context?.let {
+            ArrayAdapter(
+                it, // Context
+                android.R.layout.simple_spinner_item, // Layout
+                mListType // Array
+            )
+        }
         spinerFilterByType.adapter = mAdapterType
         spinerFilterByType.setSelection(0)
         spinerFilterByType.onItemSelectedListener = this
