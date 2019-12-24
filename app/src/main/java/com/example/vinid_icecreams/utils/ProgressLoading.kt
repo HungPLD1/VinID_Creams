@@ -7,11 +7,9 @@ import android.view.Gravity
 import android.view.Window
 import com.example.vinid_icecreams.R
 
-class ProgressLoading {
+object ProgressLoading {
     private var pdLoading: Dialog? = null
     private var isHide = false
-
-    private fun ProgressLoading() {}
 
     fun dontShow() {
         isHide = true

@@ -12,20 +12,7 @@ class CommonUtils {
         var instace = CommonUtils()
     }
 
-    fun isNotEmail(input: String): Boolean {
-        if (input.contains("@")) {
-            val tmp = input.split("@").toTypedArray()
-            if (tmp[0].length > 64) return true
-        }
-         if (input.length > 100)
-             return true
-        return !input.matches(
-            "^([a-zA-Z0-9í'_+\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1," +
-                    "3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,24}|[0-9]{1,3})(\\]?)(;" +
-                    "([a-zA-Z0-9í'_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(" +
-                    "([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,24}|[0-9]{1,3})(\\]?))*$"
-        )
-    }
+
 
     fun getDateNow(dateStyle: String?): String? {
         try {

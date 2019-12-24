@@ -1,59 +1,48 @@
 package com.example.vinid_icecreams.view.fragment.login
 
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.example.vinid_icecreams.utils.ProgressLoading
+import com.example.vinid_icecreams.view.activity.HomeActivity
 
 
-class FragmentLogin : Fragment() {
-    var mEmail : String = ""
-    var mPassword : String = ""
+class FragmentLogin : Fragment() ,View.OnClickListener {
+
+
+    var btnLogin : Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.fragment_login,container,false)
-        initView()
+        val view = inflater.inflate(R.layout.fragment_login,container,false)
+        initView(view)
         return view
     }
 
-    private fun initView() {
-        edt_username.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                validateEmail(edt_username.text.toString())
-            }
-        })
-
-        edt_password.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                validatePassword(edt_password.text.toString())
-            }
-        })
+    private fun initView(view: View?) {
+        btnLogin = view?.findViewById(R.id.btn_go)
+        btnLogin?.setOnClickListener(this)
     }
 
-    private fun validateEmail(email : String) {
-
+    override fun onClick(view: View?) {
+        if(view != null){
+            when(view.id){
+                R.id.btn_go-> logginSuccess()
+            }
+        }
     }
 
-    private fun validatePassword(password : String) {
-
+    private fun logginSuccess() {
+        Handler().postDelayed({
+            ProgressLoading.show(context)
+            startActivity(Intent(activity,HomeActivity::class.java))
+            activity?.finish()
+        },1000)
     }
-
 
 }

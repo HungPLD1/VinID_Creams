@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".view.activity.WaitingActivity">
+    tools:context=".view.activity.LoginActivity">
     <LinearLayout
         android:background="@color/colorTopLayout"
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:padding="10dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:layout_weight="6"
+            android:layout_weight="7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:ignore="Suspicious0dp" />
@@ -39,7 +39,7 @@
             android:layout_gravity="center"
             android:layout_width="0dp"
             android:padding="10dp"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:textColor="@android:color/white"
             android:text="200"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:id="@+id/containerMain"
+            android:id="@+id/containerHome"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="50dp" />

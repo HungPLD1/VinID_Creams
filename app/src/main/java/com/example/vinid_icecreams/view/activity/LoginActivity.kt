@@ -15,11 +15,12 @@ import com.example.vinid_icecreams.view.fragment.listFragmentViewIndicator.Fragm
 import com.example.vinid_icecreams.view.fragment.listFragmentViewIndicator.FragmentSecondIndicator
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
-import kotlinx.android.synthetic.main.activity_waiting.*
+import kotlinx.android.synthetic.main.activity_login.*
+
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
-class WaitingActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private var LOG = "HungPLD1"
     private var REFERENCE = "com.example.vinid_icecreams"
 
@@ -27,7 +28,7 @@ class WaitingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_waiting)
+        setContentView(R.layout.activity_login)
         setFlagFullScreen()
         getHaskey()
         //setupSDKFaceBook()
