@@ -4,19 +4,19 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
-        android:title="HOME"/>
+        android:title="@string/home"/>
 
     <item
         android:id="@+id/event"
         android:icon="@drawable/ic_alarm"
-        android:title="EVENT"
+        android:title="@string/event"
         />
     <item
         android:id="@+id/chat"
         android:icon="@drawable/chat"
-        android:title="CHAT"/>
+        android:title="@string/chat"/>
     <item
         android:id="@+id/profile"
         android:icon="@drawable/person"
-        android:title="USER"/>
+        android:title="@string/user"/>
 </menu>

@@ -68,7 +68,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 val mFragmentStore = FragmentStore()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentStore).addToBackStack(null).commit()
-                mToolBar?.setTitle(resources.getString(R.string.home))
+                mToolBar?.title = resources.getString(R.string.home)
                 return true
             }
             R.id.event -> {
@@ -76,7 +76,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 val mFragmentEvent = FragmentEvent()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentEvent).addToBackStack(null).commit()
-                mToolBar?.setTitle(resources.getString(R.string.event))
+                mToolBar?.title = resources.getString(R.string.event)
                 return true
             }
             R.id.chat -> {
@@ -84,7 +84,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 val mFragmentChat = FragmentChat()
                 supportFragmentManager.beginTransaction().replace(R.id.containerHome, mFragmentChat)
                     .addToBackStack(null).commit()
-                mToolBar?.setTitle(resources.getString(R.string.chat))
+                mToolBar?.title = resources.getString(R.string.chat)
                 return true
             }
             R.id.profile -> {
@@ -92,7 +92,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 val mFragmentProfile = FragmentProfile()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentProfile).addToBackStack(null).commit()
-                mToolBar?.setTitle(resources.getString(R.string.user))
+                mToolBar?.title = resources.getString(R.string.user)
                 return true
             }
         }
