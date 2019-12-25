@@ -42,7 +42,7 @@ object ProgressLoading {
         isHide = false
     }
 
-    fun dismiss() { //For Unit Test
+    fun dismiss() {
             Handler().postDelayed({
                 try {
                     if (pdLoading != null && pdLoading!!.isShowing()) {

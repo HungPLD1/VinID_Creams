@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -23,21 +22,20 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
-import kotlinx.android.synthetic.main.fragment_store.*
 
-class FragmentStore : Fragment(),View.OnClickListener ,OnItemStoreClicklistener  {
-    var mListStore : ArrayList<Store> = ArrayList()
-    var mLocationManager : LocationManager? = null
-    var mImgLocation : ImageView? = null
-    var mTxtLocation : TextView? = null
+class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
+    var mListStore: ArrayList<Store> = ArrayList()
+    var mLocationManager: LocationManager? = null
+    var mImgLocation: ImageView? = null
+    var mTxtLocation: TextView? = null
 
-    var mRcvStore : RecyclerView? = null
+    var mRcvStore: RecyclerView? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_store,container,false)
+        val view = inflater.inflate(R.layout.fragment_store, container, false)
         initView(view)
         setupView()
         return view
@@ -57,7 +55,7 @@ class FragmentStore : Fragment(),View.OnClickListener ,OnItemStoreClicklistener 
     }
 
     private fun setupListStore() {
-        val mAdapterStore = AdapterStore(context, mListStore, this )
+        val mAdapterStore = AdapterStore(context, mListStore, this)
         mRcvStore?.adapter = mAdapterStore
     }
 
@@ -66,10 +64,14 @@ class FragmentStore : Fragment(),View.OnClickListener ,OnItemStoreClicklistener 
     }
 
     override fun onClick(view: View?) {
-        if(view != null){
-            when(view.id){
-                R.id.imgLocation ->{
-                    if(CommonUtils.instace.checkPermission(context!!,Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (view != null) {
+            when (view.id) {
+                R.id.imgLocation -> {
+                    if (CommonUtils.instace.checkPermission(
+                            context!!,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        )
+                    ) {
                         ProgressLoading.show(context)
                         try {
                             mLocationManager?.requestLocationUpdates(
@@ -81,7 +83,7 @@ class FragmentStore : Fragment(),View.OnClickListener ,OnItemStoreClicklistener 
                         } catch (ex: SecurityException) {
                             Log.d("myTag", "Security Exception, no location available")
                         }
-                    }else{
+                    } else {
                         handleRequestPermission()
                     }
                 }
@@ -92,7 +94,13 @@ class FragmentStore : Fragment(),View.OnClickListener ,OnItemStoreClicklistener 
     //handle reuqest permission
     private fun handleRequestPermission() {
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-        activity?.let { ActivityCompat.requestPermissions(it, permissions, CommonUtils.instace.REQUEST_CODE_PEMISSION) }
+        activity?.let {
+            ActivityCompat.requestPermissions(
+                it,
+                permissions,
+                CommonUtils.instace.REQUEST_CODE_PEMISSION
+            )
+        }
     }
 
     //define the listener
@@ -101,6 +109,7 @@ class FragmentStore : Fragment(),View.OnClickListener ,OnItemStoreClicklistener 
             ProgressLoading.dismiss()
             mTxtLocation?.text = ("" + location.longitude + ":" + location.latitude)
         }
+
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
@@ -112,8 +121,10 @@ class FragmentStore : Fragment(),View.OnClickListener ,OnItemStoreClicklistener 
         grantResults: IntArray
     ) {
         when (requestCode) {
-                CommonUtils.instace.REQUEST_CODE_PEMISSION -> {
+            CommonUtils.instace.REQUEST_CODE_PEMISSION -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     try {
+                        ProgressLoading.show(context)
                         mLocationManager?.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             0L,
@@ -124,7 +135,8 @@ class FragmentStore : Fragment(),View.OnClickListener ,OnItemStoreClicklistener 
                         Log.d("myTag", "Security Exception, no location available")
                     }
                 }
-            else ->{
+            }
+            else -> {
 
             }
         }
