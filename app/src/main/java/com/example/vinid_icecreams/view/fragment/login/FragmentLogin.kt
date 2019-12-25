@@ -43,6 +43,8 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
             startActivity(Intent(activity,HomeActivity::class.java))
             activity?.finish()
         },1000)
+
     }
+
 
 }

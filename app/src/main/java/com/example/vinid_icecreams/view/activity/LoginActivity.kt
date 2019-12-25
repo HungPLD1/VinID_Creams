@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.view.activity
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -7,8 +8,10 @@ import android.util.Base64
 import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicator
 import com.example.vinid_icecreams.view.fragment.listFragmentViewIndicator.FragmentFirstIndicator
 import com.example.vinid_icecreams.view.fragment.listFragmentViewIndicator.FragmentLastIndicator
@@ -23,7 +26,6 @@ import java.security.NoSuchAlgorithmException
 class LoginActivity : AppCompatActivity() {
     private var LOG = "HungPLD1"
     private var REFERENCE = "com.example.vinid_icecreams"
-
     private var  mAdapterViewPagerIndicator : AdapterViewPagerIndicator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +33,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         setFlagFullScreen()
         getHaskey()
+        handleRequestPermission()
         //setupSDKFaceBook()
         setupViewIndicator()
+    }
+
+    private fun handleRequestPermission() {
+        val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        ActivityCompat.requestPermissions(this, permissions, CommonUtils.instace.REQUEST_CODE_PEMISSION)
     }
 
     private fun setupViewIndicator() {
@@ -85,4 +93,18 @@ class LoginActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+
+            else ->{
+
+            }
+        }
+    }
+
 }

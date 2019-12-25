@@ -1,13 +1,18 @@
 package com.example.vinid_icecreams.utils
 
 import android.app.Dialog
+import android.content.Context
+import android.content.pm.PackageManager
 import android.util.Log
 import android.view.WindowManager
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class CommonUtils {
     val TAG = "Hungpld"
+    val REQUEST_CODE_PEMISSION = 0
+
     companion object{
         var instace = CommonUtils()
     }
@@ -36,5 +41,9 @@ class CommonUtils {
         dialog.window!!.attributes = lp
     }
 
+    fun checkPermission(context : Context,permission : String): Boolean {
+        val res: Int =  context.checkCallingOrSelfPermission(permission)
+        return (res == PackageManager.PERMISSION_GRANTED)
+    }
 
 }
