@@ -8,6 +8,8 @@ import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Toast
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -24,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     var mBottomNavigationView: BottomNavigationView? = null
+    var mToolBar : ActionBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun initView() {
         mBottomNavigationView = findViewById(R.id.navHomeScreen)
+        mToolBar = supportActionBar
         mBottomNavigationView?.setOnNavigationItemSelectedListener(this)
     }
 
@@ -64,28 +68,32 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 val mFragmentStore = FragmentStore()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentStore).addToBackStack(null).commit()
-//                mBottomNavigationView?.setSelectedItemId(R.id.home)
+                mToolBar?.setTitle(resources.getString(R.string.home))
+                return true
             }
             R.id.event -> {
                 Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
                 val mFragmentEvent = FragmentEvent()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentEvent).addToBackStack(null).commit()
-                mBottomNavigationView?.setSelectedItemId(R.id.event)
+                mToolBar?.setTitle(resources.getString(R.string.event))
+                return true
             }
             R.id.chat -> {
                 Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
                 val mFragmentChat = FragmentChat()
                 supportFragmentManager.beginTransaction().replace(R.id.containerHome, mFragmentChat)
                     .addToBackStack(null).commit()
-                mBottomNavigationView?.setSelectedItemId(R.id.chat)
+                mToolBar?.setTitle(resources.getString(R.string.chat))
+                return true
             }
             R.id.profile -> {
                 Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
                 val mFragmentProfile = FragmentProfile()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentProfile).addToBackStack(null).commit()
-                mBottomNavigationView?.setSelectedItemId(R.id.profile)
+                mToolBar?.setTitle(resources.getString(R.string.user))
+                return true
             }
         }
         return false

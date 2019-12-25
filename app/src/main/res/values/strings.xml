@@ -19,6 +19,10 @@
     <string name="hint_username">Enter a new username</string>
     <string name="hint_email_reset">Enter your email</string>
     <string name="enter_group_name">Enter group name</string>
+    <string name="home">HOME</string>
+    <string name="event">EVENT</string>
+    <string name="chat">CHAT</string>
+    <string name="user">USER</string>
 
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
