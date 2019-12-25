@@ -3,8 +3,11 @@ package com.example.vinid_icecreams.utils
 import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.util.Log
 import android.view.WindowManager
+import androidx.core.content.ContextCompat.getSystemService
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,6 +47,12 @@ class CommonUtils {
     fun checkPermission(context : Context,permission : String): Boolean {
         val res: Int =  context.checkCallingOrSelfPermission(permission)
         return (res == PackageManager.PERMISSION_GRANTED)
+    }
+
+    fun isConnectToNetwork(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
 }
