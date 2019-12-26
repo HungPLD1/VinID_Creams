@@ -47,6 +47,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_store, container, false)
+        ProgressLoading.dismiss()
         initView(view)
         setupViewIndicatorAd()
         setupView()
@@ -80,6 +81,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         val bundle = Bundle()
         bundle.putSerializable("DATA", mListStore[positon].mListIceCream)
         mFragmentShopping.arguments = bundle
+        ProgressLoading.show(context)
         fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.containerHome, mFragmentShopping)
             ?.commit()
     }

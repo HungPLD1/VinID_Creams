@@ -30,7 +30,7 @@ object MockData {
                 i,
                 "Kem dâu",
                 5,
-                "http://2sao.vietnamnetjsc.vn/images/2017/11/10/15/51/kem-dau-tay.jpg",
+                "https://cdn.apartmenttherapy.info/image/fetch/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2014%2F06%2F04a3c9323983d070e1177a0c6300d1afce24ae04.jpeg",
                 100,
                 20,
                 3.5f,

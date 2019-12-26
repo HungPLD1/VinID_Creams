@@ -30,4 +30,7 @@
     <string name="event_noti">Thông báo</string>
     <string name="details_ice_cream">Chi tiết sản phẩm</string>
     <string name="shopping">Mua hàng</string>
+    <string name="list_store">Danh sách cửa hàng</string>
+    <string name="info_user">Thông tin người dùng</string>
+    <string name="chat_list">Danh sách trò chuyện</string>
 </resources>

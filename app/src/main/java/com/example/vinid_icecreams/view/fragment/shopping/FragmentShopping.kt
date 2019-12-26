@@ -6,26 +6,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.IceCream
+import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.AdapterIceCream
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.OnItemIceCreamClicklistener
 import com.example.vinid_icecreams.view.fragment.details.FragmentDetails
+import com.example.vinid_icecreams.view.fragment.store.FragmentStore
 
 
-class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener{
+class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener , View.OnClickListener{
     var rcvIceCream : RecyclerView? = null
     var mListIceCream : ArrayList<IceCream> = ArrayList()
     var spinerFilterByType : Spinner?= null
     var spinerFilterByPrice : Spinner?= null
     var spinerFilterByDiscount : Spinner?= null
+    var imgBack : ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +34,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     ): View? {
         val mView = inflater.inflate(R.layout.fragment_shopping,container,false)
         iniView(mView)
+        ProgressLoading.dismiss()
         setUpSpinerFilter()
         return mView
     }
@@ -43,6 +44,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         spinerFilterByType = mView.findViewById(R.id.spinerFilterByType)
         spinerFilterByPrice = mView.findViewById(R.id.spinerFilterByPrice)
         spinerFilterByDiscount = mView.findViewById(R.id.spinerFilterByDiscount)
+        imgBack = mView.findViewById(R.id.imgBack)
+
+        imgBack?.setOnClickListener(this)
     }
 
     /*Set up and add data spiner filter*/
@@ -53,11 +57,12 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         setupListIcream()
     }
 
+    /*Chú ý : Đang dummy data nên khi back lại fragment này sẽ k tìm được bundle nên sẽ bị null và crash*/
     private fun setupListIcream() {
         val bundle = arguments
         val mData = bundle?.getSerializable("DATA")
         Log.d("Hungpld",mData.toString())
-          mListIceCream.addAll(mData as ArrayList<IceCream>)
+        mListIceCream.addAll(mData as ArrayList<IceCream>)
         val mAdapter = AdapterIceCream(context,mListIceCream,this)
         rcvIceCream?.layoutManager = GridLayoutManager(context,2)
         rcvIceCream?.adapter = mAdapter
@@ -80,7 +85,10 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
 
     override fun onItemClick(positon: Int) {
+        val bundle = Bundle()
         val fragmentDetails = FragmentDetails()
+        bundle.putSerializable("DETAILS", mListIceCream[positon])
+        fragmentDetails.arguments = bundle
         fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentDetails)?.addToBackStack(null)?.commit()
     }
 
@@ -133,6 +141,18 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     }
 
     private fun handleLogicFileterByType() {
+    }
+
+    override fun onClick(v: View?) {
+        if(v != null){
+            when(v.id){
+                R.id.imgBack ->{
+                    val fragmentStore = FragmentStore()
+                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentStore)?.addToBackStack(null)?.commit()
+                    ProgressLoading.show(context)
+                }
+            }
+        }
     }
 
 
