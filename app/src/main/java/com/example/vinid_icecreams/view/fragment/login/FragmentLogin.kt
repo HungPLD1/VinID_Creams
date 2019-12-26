@@ -32,12 +32,12 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     override fun onClick(view: View?) {
         if(view != null){
             when(view.id){
-                R.id.btn_go-> logginSuccess()
+                R.id.btn_go-> loginSuccess()
             }
         }
     }
 
-    private fun logginSuccess() {
+    private fun loginSuccess() {
         Handler().postDelayed({
             ProgressLoading.show(context)
             startActivity(Intent(activity,HomeActivity::class.java))

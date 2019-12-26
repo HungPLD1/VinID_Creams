@@ -15,21 +15,32 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
+import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicator
+import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicatorAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
+import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_store.*
 
 class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
-    var mListStore: ArrayList<Store> = ArrayList()
-    var mLocationManager: LocationManager? = null
-    var mImgLocation: ImageView? = null
-    var mTxtLocation: TextView? = null
+    private var mListStore: ArrayList<Store> = ArrayList()
+    private var mLocationManager: LocationManager? = null
+    private var mImgLocation: ImageView? = null
+    private var mTxtLocation: TextView? = null
+    private var mPagerAd: ViewPager? = null
+    private var mDotsIndicator : DotsIndicator? = null
 
-    var mRcvStore: RecyclerView? = null
+    private var mRcvStore: RecyclerView? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +48,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     ): View? {
         val view = inflater.inflate(R.layout.fragment_store, container, false)
         initView(view)
+        setupViewIndicatorAd()
         setupView()
         return view
     }
@@ -45,6 +57,8 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mRcvStore = view?.findViewById(R.id.rcvStore)
         mImgLocation = view?.findViewById(R.id.imgLocation)
         mTxtLocation = view?.findViewById(R.id.txtLocation)
+        mPagerAd = view?.findViewById(R.id.mViewPagerAd)
+        mDotsIndicator = view?.findViewById(R.id.mDotsIndicatorAd)
 
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         mImgLocation?.setOnClickListener(this)
@@ -55,12 +69,19 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     }
 
     private fun setupListStore() {
+        mListStore.addAll(MockData.getListStore())
         val mAdapterStore = AdapterStore(context, mListStore, this)
+        mRcvStore?.layoutManager = LinearLayoutManager(context)
         mRcvStore?.adapter = mAdapterStore
     }
 
     override fun onItemClick(positon: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val mFragmentShopping = FragmentShopping()
+        val bundle = Bundle()
+        bundle.putSerializable("DATA", mListStore[positon].mListIceCream)
+        mFragmentShopping.arguments = bundle
+        fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.containerHome, mFragmentShopping)
+            ?.commit()
     }
 
     override fun onClick(view: View?) {
@@ -140,5 +161,17 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
             }
         }
+    }
+
+    /*set up view indicator ad*/
+    private fun setupViewIndicatorAd() {
+        val mListAd: ArrayList<Int> = ArrayList()
+        mListAd.add(R.drawable.first_ad)
+        mListAd.add(R.drawable.second_ad)
+        mListAd.add(R.drawable.last_ad)
+        val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndicatorAd(context!!,mListAd)
+        mPagerAd!!.adapter = mAdapterViewPagerIndicatorAd
+        mDotsIndicator?.setViewPager(mPagerAd!!)
+
     }
 }

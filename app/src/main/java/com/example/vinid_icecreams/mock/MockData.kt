@@ -6,9 +6,9 @@ import com.example.vinid_icecreams.model.User
 
 object MockData {
     fun getListStore(): ArrayList<Store> {
-        var mListStore = ArrayList<Store>()
+        val mListStore = ArrayList<Store>()
         for (i in 1..10) {
-            var mMockStore = Store(
+            val mMockStore = Store(
                 i,
                 "Cửa hàng thứ $i" ,
                 "Hà nội",
@@ -24,17 +24,19 @@ object MockData {
     }
 
     fun getListCream(): ArrayList<IceCream> {
-        var mListCream = ArrayList<IceCream>()
+        val mListCream = ArrayList<IceCream>()
         for (i in 1..20) {
-            var mMockIcream = IceCream(
+            val mMockIcream = IceCream(
                 i,
                 "Kem dâu",
-                "dâu",
+                5,
                 "http://2sao.vietnamnetjsc.vn/images/2017/11/10/15/51/kem-dau-tay.jpg",
                 100,
                 20,
+                3.5f,
                 31263712836
             )
+            mListCream.add(mMockIcream)
         }
         return mListCream
     }

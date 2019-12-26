@@ -8,7 +8,7 @@
     <string name="about">About</string>
     <string name="login_success">login success</string>
     <string name="login">LOGIN</string>
-    <string name="Username">Email</string>
+    <string name="phone_Number">Phone number</string>
     <string name="Password">Password</string>
     <string name="forgot_your_password">Forgot your password ?</string>
     <string name="go">GO</string>
@@ -27,4 +27,7 @@
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+    <string name="event_noti">Thông báo</string>
+    <string name="details_ice_cream">Chi tiết sản phẩm</string>
+    <string name="shopping">Mua hàng</string>
 </resources>

@@ -26,11 +26,11 @@ object ProgressLoading {
                     pdLoading = Dialog(context)
                     pdLoading!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
                     pdLoading!!.setContentView(R.layout.layout_loading)
-                    if (pdLoading!!.getWindow() != null) {
-                        pdLoading!!.getWindow()!!.setBackgroundDrawableResource(R.drawable.bg_transparent)
+                    if (pdLoading!!.window != null) {
+                        pdLoading!!.window!!.setBackgroundDrawableResource(R.drawable.bg_transparent)
                     }
                     pdLoading!!.setCanceledOnTouchOutside(false)
-                    pdLoading!!.getWindow()!!.setGravity(Gravity.CENTER)
+                    pdLoading!!.window!!.setGravity(Gravity.CENTER)
                     pdLoading!!.setCancelable(false)
                 }
                 pdLoading!!.show()
@@ -45,7 +45,7 @@ object ProgressLoading {
     fun dismiss() {
             Handler().postDelayed({
                 try {
-                    if (pdLoading != null && pdLoading!!.isShowing()) {
+                    if (pdLoading != null && pdLoading!!.isShowing) {
                         pdLoading!!.dismiss()
                         pdLoading = null
                     }

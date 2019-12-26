@@ -55,4 +55,5 @@ class CommonUtils {
         return networkInfo != null && networkInfo.isConnected
     }
 
+
 }

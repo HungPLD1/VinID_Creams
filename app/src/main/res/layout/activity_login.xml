@@ -10,7 +10,8 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/mViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
+        android:layout_height="match_parent" />
+
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/mDotsIndicator"
         android:layout_centerInParent="true"
@@ -21,5 +22,5 @@
         android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"></com.tbuonomo.viewpagerdotsindicator.DotsIndicator>
+        tools:ignore="MissingConstraints" />
 </RelativeLayout>

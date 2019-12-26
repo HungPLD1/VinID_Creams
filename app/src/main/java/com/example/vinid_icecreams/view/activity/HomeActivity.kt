@@ -1,20 +1,12 @@
 package com.example.vinid_icecreams.view.activity
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.fragment.chat.FragmentChat
 import com.example.vinid_icecreams.view.fragment.event.FragmentEvent

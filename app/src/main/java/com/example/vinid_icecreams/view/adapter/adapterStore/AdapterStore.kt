@@ -27,7 +27,7 @@ class AdapterStore(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val status = mListStore.get(position).status
+        val status = mListStore[position].status
         /*
         0 : store is close
         1 : store is open
@@ -37,8 +37,8 @@ class AdapterStore(
             1 -> holder.imgStatusStore!!.setImageResource(R.drawable.ic_open)
         }
 
-        holder.txtNameStore!!.text = mListStore.get(position).name
-        holder.txtAddressStore!!.text = mListStore.get(position).address
+        holder.txtNameStore!!.text = mListStore[position].name
+        holder.txtAddressStore!!.text = mListStore[position].address
 
         /*handle click on item Store*/
         holder.rawStore!!.setOnClickListener {

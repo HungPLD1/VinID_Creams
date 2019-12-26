@@ -7,44 +7,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".view.activity.LoginActivity">
-    <LinearLayout
-        android:background="@color/colorTopLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:weightSum="10"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/txtHello"
-            android:text="Xin chao,hung"
-            android:layout_gravity="center"
-            android:lines="1"
-            android:padding="10dp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:layout_weight="7"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:ignore="Suspicious0dp" />
-        <ImageView
-            android:layout_weight="1"
-            android:layout_gravity="end"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:src="@drawable/ic_coin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/txtCoin"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:padding="10dp"
-            android:layout_weight="2"
-            android:textColor="@android:color/white"
-            android:text="200"
-            android:layout_height="wrap_content"
-            tools:ignore="Suspicious0dp" />
-    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

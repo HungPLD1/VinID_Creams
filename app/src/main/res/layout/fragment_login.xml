@@ -25,7 +25,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_bg_edit"
-                    android:hint="@string/Username"
+                    android:hint="@string/phone_Number"
                     android:inputType="textEmailAddress"
                     android:paddingBottom="2dp"
                     android:textColor="#2fa881"

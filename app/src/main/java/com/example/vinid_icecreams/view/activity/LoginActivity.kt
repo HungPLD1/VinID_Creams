@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getListFragmentIndicator(): ArrayList<Fragment> {
-        var mListIndicator: ArrayList<Fragment> = ArrayList()
+        val mListIndicator: ArrayList<Fragment> = ArrayList()
         mListIndicator.add(FragmentFirstIndicator())
         mListIndicator.add(FragmentSecondIndicator())
         mListIndicator.add(FragmentLastIndicator())
