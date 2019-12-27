@@ -2,7 +2,6 @@ package com.example.vinid_icecreams.view.adapter.adapterIceCream
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +43,7 @@ class AdapterIceCream(
         5: Other
         6: Mix
         */
-        Picasso.with(mContext).load(mListIceCream[position].imagePath)
+        Picasso.with(mContext).load(mListIceCream[position].mListImage[0])
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgIceCream)

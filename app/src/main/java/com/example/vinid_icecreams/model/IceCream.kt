@@ -17,7 +17,7 @@ data class IceCream (
     var id: Int,
     var name: String,
     var type: Int,
-    var imagePath: String,
+    var mListImage: ArrayList<String>,
     var price: Int,
     var discount: Int,
     var rating: Float,

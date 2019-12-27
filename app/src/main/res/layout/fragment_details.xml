@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -42,14 +44,28 @@
         android:background="@android:color/holo_blue_light"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <ImageView
-        android:id="@+id/imgDetails"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:scaleType="centerCrop" />
+        android:layout_height="250dp">
 
+        <androidx.viewpager.widget.ViewPager
+            android:layout_margin="10dp"
+            android:id="@+id/mViewPagerDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/mDotsIndicatorDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_margin="20dp"
+            app:dotsColor="@android:color/white"
+            app:dotsSpacing="7dp"
+            app:selectedDotColor="#0C70C2"
+            tools:ignore="MissingConstraints" />
+    </RelativeLayout>
     <TextView
         android:id="@+id/txtNameDetails"
         android:layout_width="match_parent"

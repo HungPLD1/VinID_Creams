@@ -9,10 +9,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.view.adapter.adapterComment.AdapterComment
-import com.squareup.picasso.Picasso
+import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_details.*
 
@@ -20,7 +22,8 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     private var mIceCream : IceCream? = null
 
     private var mBtnBack : ImageView? = null
-    private var mImageDetails: ImageView? = null
+    private var mPager: ViewPager? = null
+    private var mDotsIndicator : DotsIndicator? = null
     private var mTxtNameDetails : TextView? = null
     private var mTxtPriceDetails : TextView? = null
     private var rcvListComment : RecyclerView? = null
@@ -46,16 +49,22 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun setupView() {
-        Picasso.with(context).load(mIceCream?.imagePath)
-            .placeholder(R.drawable.loading_image)
-            .error(R.drawable.default_image)
-            .into(mImageDetails)
         txtNameDetails?.text = mIceCream?.name
         txtPriceDetails?.text = mIceCream?.price.toString()
         setupListComment()
+        setupImagePager()
 
         mBtnBack?.setOnClickListener(this)
         mImgAddToCart?.setOnClickListener(this)
+    }
+
+    private fun setupImagePager() {
+        val mListImage = ArrayList<String>()
+        mIceCream?.mListImage?.let { mListImage.addAll(it) }
+        val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndiCatorDetails(context!!,mListImage)
+        mPager!!.adapter = mAdapterViewPagerIndicatorAd
+        mDotsIndicator?.setViewPager(mPager!!)
+
     }
 
     private fun setupListComment() {
@@ -68,7 +77,8 @@ class FragmentDetails : Fragment(),View.OnClickListener {
 
     private fun initView(view: View) {
         mBtnBack = view.findViewById(R.id.imgBack)
-        mImageDetails = view.findViewById(R.id.imgDetails)
+        mPager = view.findViewById(R.id.mViewPagerDetails)
+        mDotsIndicator = view.findViewById(R.id.mDotsIndicatorDetails)
         mTxtNameDetails = view.findViewById(R.id.txtNameDetails)
         mTxtPriceDetails = view.findViewById(R.id.txtPriceDetails)
         rcvListComment = view.findViewById(R.id.rcvListComment)

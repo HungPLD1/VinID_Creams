@@ -7,27 +7,31 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.example.vinid_icecreams.R
+import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
-
-
-
-class AdapterViewPagerIndicatorAd (var mContext: Context,var arrAd: ArrayList<Int>) :PagerAdapter() {
+class AdapterViewPagerIndiCatorDetails (var mContext: Context, var arrDetails: ArrayList<String>) :
+    PagerAdapter() {
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view == `object` as View
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val mView = LayoutInflater.from(mContext).inflate(R.layout.raw_layout_pager_ad,container,false)
-        val imageView:ImageView = mView.findViewById(R.id.imgAd)
-        imageView.setImageResource(arrAd[position])
+        val mView = LayoutInflater.from(mContext).inflate(R.layout.raw_layout_pager_details,container,false)
+
+        val imageView: ImageView = mView.findViewById(R.id.imgDetails)
+        Picasso.with(mContext).load(arrDetails[position])
+            .placeholder(R.drawable.loading_image)
+            .error(R.drawable.default_image)
+            .into(imageView)
+
         container.addView(mView)
         return mView
     }
 
     override fun getCount(): Int {
-        return arrAd.size
+        return arrDetails.size
     }
 
 
