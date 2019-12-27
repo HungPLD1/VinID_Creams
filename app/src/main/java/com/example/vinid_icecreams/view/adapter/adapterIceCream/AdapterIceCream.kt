@@ -2,6 +2,7 @@ package com.example.vinid_icecreams.view.adapter.adapterIceCream
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.IceCream
+import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
 
 class AdapterIceCream(
@@ -48,7 +50,13 @@ class AdapterIceCream(
             .into(holder.imgIceCream)
         holder.txtNameIceCream?.text = mListIceCream[position].name
         holder.txtPriceIceCream?.text = mListIceCream[position].price.toString() + " $"
-        holder.rbIceCream?.rating = mListIceCream[position].rating
+
+        val mListComment = mListIceCream[position].listComment
+        val mListRatingBar = ArrayList<Float>()
+        for (i in 0 until mListComment.size -1) {
+            mListRatingBar.add(mListComment[i].mRating)
+        }
+        holder.rbIceCream?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
 
         /*handle click on item Store*/
         holder.rawIceCream?.setOnClickListener {

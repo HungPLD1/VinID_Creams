@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.IceCream
-import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
+import com.example.vinid_icecreams.view.adapter.adapterComment.AdapterComment
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -25,6 +25,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     private var mTxtPriceDetails : TextView? = null
     private var rcvListComment : RecyclerView? = null
     private var mImgAddToCart : CircleImageView? = null
+    private var mAdapterComment : AdapterComment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,9 +52,18 @@ class FragmentDetails : Fragment(),View.OnClickListener {
             .into(mImageDetails)
         txtNameDetails?.text = mIceCream?.name
         txtPriceDetails?.text = mIceCream?.price.toString()
+        setupListComment()
 
         mBtnBack?.setOnClickListener(this)
         mImgAddToCart?.setOnClickListener(this)
+    }
+
+    private fun setupListComment() {
+        val mListComment = mIceCream?.listComment
+        mAdapterComment = mListComment?.let { AdapterComment(context, it) }
+        rcvListComment?.layoutManager = LinearLayoutManager(context)
+        rcvListComment?.adapter = mAdapterComment
+
     }
 
     private fun initView(view: View) {
@@ -70,9 +80,10 @@ class FragmentDetails : Fragment(),View.OnClickListener {
         if (v != null){
             when(v.id){
                 R.id.imgBack ->{
-                    val mFragmentShopping = FragmentShopping()
-                    ProgressLoading.show(context)
-                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentShopping)?.addToBackStack(null)?.commit()
+//                    val mFragmentShopping = FragmentShopping()
+//                    ProgressLoading.show(context)
+//                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentShopping)?.addToBackStack(null)?.commit()
+                    activity?.onBackPressed()
                 }
                 R.id.imgAddToCart ->{
 

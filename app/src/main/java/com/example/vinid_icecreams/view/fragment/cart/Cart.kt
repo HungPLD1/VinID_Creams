@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.vinid_icecreams.R
 
 class Cart : Fragment() {
     override fun onCreateView(
@@ -12,7 +13,7 @@ class Cart : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        return super.onCreateView(inflater, container, savedInstanceState)
+        val view =  inflater.inflate(R.layout.fragment_cart,container,false)
+        return view
     }
 }

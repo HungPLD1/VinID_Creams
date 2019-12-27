@@ -4,10 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.util.Log
 import android.view.WindowManager
-import androidx.core.content.ContextCompat.getSystemService
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -53,6 +51,17 @@ class CommonUtils {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
+    }
+
+    fun calculateAverage(marks: List<Float>): Float {
+        var sum = 0F
+        if (!marks.isEmpty()) {
+            for (mark in marks) {
+                sum += mark
+            }
+            return sum / marks.size
+        }
+        return sum
     }
 
 

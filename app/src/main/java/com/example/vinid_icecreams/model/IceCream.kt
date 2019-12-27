@@ -21,5 +21,6 @@ data class IceCream (
     var price: Int,
     var discount: Int,
     var rating: Float,
-    var createdAt: Long
+    var createdAt: Long,
+    var listComment:ArrayList<Comment>
 ):Serializable

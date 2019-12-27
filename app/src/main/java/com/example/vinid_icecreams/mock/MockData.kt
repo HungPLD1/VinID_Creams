@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.mock
 
+import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.model.User
@@ -10,7 +11,7 @@ object MockData {
         for (i in 1..10) {
             val mMockStore = Store(
                 i,
-                "Cửa hàng thứ $i" ,
+                "Cửa hàng thứ $i",
                 "Hà nội",
                 123213,
                 31231,
@@ -34,7 +35,8 @@ object MockData {
                 100,
                 20,
                 3.5f,
-                31263712836
+                31263712836,
+                getListComment()
             )
             mListCream.add(mMockIcream)
         }
@@ -55,5 +57,19 @@ object MockData {
             0,
             3123124124214
         )
+    }
+
+    fun getListComment(): ArrayList<Comment> {
+        val mListComment = ArrayList<Comment>()
+        for (i in 1..5) {
+            val mComment = Comment(
+                "Trần dần",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQG1oykVGaj4HQ_U-uCEFbfX_hFQ7QqaNyMWs_pUmGYf5IByGta&s",
+                4.5F,
+                "Kem rất ngon"
+            )
+            mListComment.add(mComment)
+        }
+        return mListComment
     }
 }

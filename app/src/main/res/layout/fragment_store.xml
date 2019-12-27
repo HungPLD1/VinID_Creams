@@ -42,7 +42,7 @@
             tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/txtLocation"
+            android:id="@+id/txt_Location"
             android:layout_width="0dp"
             android:layout_weight="6"
             android:layout_height="wrap_content"

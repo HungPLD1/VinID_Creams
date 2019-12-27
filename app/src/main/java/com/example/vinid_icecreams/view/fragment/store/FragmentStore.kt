@@ -1,11 +1,10 @@
 package com.example.vinid_icecreams.view.fragment.store
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
+import android.location.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,14 +22,16 @@ import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicator
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicatorAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_store.*
+import java.io.IOException
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
     private var mListStore: ArrayList<Store> = ArrayList()
@@ -57,7 +58,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     private fun initView(view: View?) {
         mRcvStore = view?.findViewById(R.id.rcvStore)
         mImgLocation = view?.findViewById(R.id.imgLocation)
-        mTxtLocation = view?.findViewById(R.id.txtLocation)
+        mTxtLocation = view?.findViewById(R.id.txt_Location)
         mPagerAd = view?.findViewById(R.id.mViewPagerAd)
         mDotsIndicator = view?.findViewById(R.id.mDotsIndicatorAd)
 
@@ -129,13 +130,39 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     //define the listener
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
-            ProgressLoading.dismiss()
-            mTxtLocation?.text = ("" + location.longitude + ":" + location.latitude)
+            Log.d("Location","" + location.longitude + ":" + location.latitude)
+            setLocalName(location.longitude,location.latitude)
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
+    }
+
+    private fun setLocalName(longitude: Double, latitude: Double){
+        val geoCoder = Geocoder(context, Locale.getDefault()) //it is Geocoder
+
+        val builder = StringBuilder()
+        try {
+            val mListAddress: List<Address> =
+                geoCoder.getFromLocation(latitude, longitude, 1)
+            val maxLines: Int = mListAddress[0].maxAddressLineIndex
+            for (i in 0 until maxLines) {
+                val addressStr: String = mListAddress[0].getAddressLine(i)
+                builder.append(addressStr)
+                builder.append(" ")
+            }
+            val address = builder.toString() //This is the complete address.
+
+            if (address == ""){
+                mTxtLocation?.text = resources.getString(R.string.default_city)
+            }else{
+                mTxtLocation?.text = address
+            }
+            ProgressLoading.dismiss()
+        } catch (e: IOException) {
+        } catch (e: NullPointerException) {
+        }
     }
 
     override fun onRequestPermissionsResult(
