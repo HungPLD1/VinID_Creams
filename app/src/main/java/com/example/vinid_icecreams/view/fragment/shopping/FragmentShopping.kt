@@ -20,7 +20,8 @@ import com.example.vinid_icecreams.view.fragment.details.FragmentDetails
 import com.example.vinid_icecreams.view.fragment.store.FragmentStore
 
 
-class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener , View.OnClickListener{
+class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener , View.OnClickListener ,
+    SearchView.OnQueryTextListener {
     private var rcvIceCream : RecyclerView? = null
     private var mListIceCream : ArrayList<IceCream> = ArrayList()
     private var spinerFilterByType : Spinner?= null
@@ -28,6 +29,8 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     private var spinerFilterByDiscount : Spinner?= null
     private var imgBack : ImageView? = null
     private var btnCart : ImageView? = null
+    private var mSvIceCream : SearchView? = null
+    private var mAdapter : AdapterIceCream? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,9 +51,10 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         spinerFilterByDiscount = mView.findViewById(R.id.spinerFilterByDiscount)
         imgBack = mView.findViewById(R.id.imgBack)
         btnCart = mView.findViewById(R.id.imgShoppingToCart)
-
+        mSvIceCream = mView.findViewById(R.id.svIcecream)
         imgBack?.setOnClickListener(this)
         btnCart?.setOnClickListener(this)
+        mSvIceCream?.setOnQueryTextListener(this)
     }
 
     /*Set up and add data spiner filter*/
@@ -67,9 +71,10 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         val mData = bundle?.getSerializable("DATA")
         Log.d("Hungpld",mData.toString())
         mListIceCream.addAll(mData as ArrayList<IceCream>)
-        val mAdapter = AdapterIceCream(context,mListIceCream,this)
+        mAdapter = AdapterIceCream(context,mListIceCream,this)
         rcvIceCream?.layoutManager = GridLayoutManager(context,2)
         rcvIceCream?.adapter = mAdapter
+        mAdapter!!.notifyDataSetChanged()
     }
 
 
@@ -163,6 +168,26 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
                 }
             }
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query == null || query.isEmpty()){
+            setupListIcream()
+        }else {
+            setupListIcream()
+            mAdapter?.filter(query.toLowerCase())
+        }
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText == null || newText.isEmpty()){
+            setupListIcream()
+        }else {
+            setupListIcream()
+            mAdapter?.filter(newText.toLowerCase())
+        }
+        return false
     }
 
 

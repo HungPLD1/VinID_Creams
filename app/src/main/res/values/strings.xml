@@ -35,4 +35,5 @@
     <string name="chat_list">Danh sách trò chuyện</string>
     <string name="default_city">Không xác định được tên thành phố</string>
     <string name="info_cart">Thông tin giỏ hàng</string>
+    <string name="total_price">Tổng Hóa Đơn</string>
 </resources>

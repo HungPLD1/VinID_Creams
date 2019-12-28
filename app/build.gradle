@@ -57,6 +57,13 @@ dependencies {
 // (see https://github.com/ReactiveX/RxJava/releases for latest 2.x.x version)
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    //picatso
+    //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    // RxJava adapter for retrofit
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //Viewmodel
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }

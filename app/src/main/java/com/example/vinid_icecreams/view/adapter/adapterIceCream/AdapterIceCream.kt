@@ -78,4 +78,23 @@ class AdapterIceCream(
             rbIceCream = itemView.findViewById(R.id.rbIceCream)
         }
     }
+
+    /*handle search item in list ice cream*/
+    fun filter( input: String) {
+        var text = input
+        val mListCopyIceCream: ArrayList<IceCream> = ArrayList()
+        mListCopyIceCream.addAll(mListIceCream)
+        mListIceCream.clear()
+        if (text.isEmpty()) {
+            mListIceCream.addAll(mListCopyIceCream)
+        } else {
+            text = text.toLowerCase()
+            for (iceCream in mListCopyIceCream) {
+                if (iceCream.name.toLowerCase().contains(text)) {
+                    mListIceCream.add(iceCream)
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
 }
