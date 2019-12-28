@@ -3,25 +3,28 @@ package com.example.vinid_icecreams.view.adapter.adapterCart
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
 import com.squareup.picasso.Picasso
 
-class AdapterCart(
+class AdapterOrder(
     var mContext: Context?,
     var mListOrder: ArrayList<Order>
-) : RecyclerView.Adapter<AdapterCart.MyViewHolder>() {
-    var mCount: Int = 1
+) : RecyclerView.Adapter<AdapterOrder.MyViewHolder>() {
+    private var mTotal = MutableLiveData<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val mView = LayoutInflater.from(mContext).inflate(R.layout.raw_layout_store, parent, false)
+        val mView = LayoutInflater.from(mContext).inflate(R.layout.raw_layout_cart, parent, false)
         return MyViewHolder(mView)
     }
 
@@ -30,42 +33,38 @@ class AdapterCart(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        var mCount = mListOrder[position].mAmount
+
         holder.txtNameOrder?.text = mListOrder[position].mNameOrder
         holder.txtPriceOrder?.text = mListOrder[position].mPrice.toString()
         holder.txtTotal?.text = (mListOrder[position].mPrice * mCount).toString()
-        holder.txtCount?.text = mCount.toString()
-
-        holder.txtCount?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(count: Editable?) {
-                mCount = count as Int
-                holder.txtTotal?.text = (mCount * mListOrder[position].mPrice).toString()
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
+        holder.txtCount?.text = (mListOrder[position].mAmount).toString()
 
         Picasso.with(mContext).load(mListOrder[position].mImageOrder)
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgOrder)
 
+        mTotal.value = mListOrder[position].mPrice * mCount
+
         /*handle click in plus and minus*/
+
         holder.btnPlus?.setOnClickListener {
             if (mCount < 99) {
                 mCount += 1
+                mListOrder[position].mAmount = mCount
+                Log.d("Mcount", mListOrder[position].mAmount.toString())
+                notifyDataSetChanged()
             }
         }
 
         holder.btnMinus?.setOnClickListener {
             if (mCount > 1){
                 mCount -= 1
+                mListOrder[position].mAmount = mCount
+                notifyDataSetChanged()
             }
         }
-
 
 
     }
@@ -89,4 +88,9 @@ class AdapterCart(
             imgOrder = itemView.findViewById(R.id.imgOrder)
         }
     }
+
+    fun getTotal():MutableLiveData<Int>{
+        return mTotal
+    }
+
 }

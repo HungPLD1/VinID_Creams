@@ -15,17 +15,19 @@ import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.AdapterIceCream
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.OnItemIceCreamClicklistener
+import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.example.vinid_icecreams.view.fragment.details.FragmentDetails
 import com.example.vinid_icecreams.view.fragment.store.FragmentStore
 
 
 class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener , View.OnClickListener{
-    var rcvIceCream : RecyclerView? = null
-    var mListIceCream : ArrayList<IceCream> = ArrayList()
-    var spinerFilterByType : Spinner?= null
-    var spinerFilterByPrice : Spinner?= null
-    var spinerFilterByDiscount : Spinner?= null
-    var imgBack : ImageView? = null
+    private var rcvIceCream : RecyclerView? = null
+    private var mListIceCream : ArrayList<IceCream> = ArrayList()
+    private var spinerFilterByType : Spinner?= null
+    private var spinerFilterByPrice : Spinner?= null
+    private var spinerFilterByDiscount : Spinner?= null
+    private var imgBack : ImageView? = null
+    private var btnCart : ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +47,10 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         spinerFilterByPrice = mView.findViewById(R.id.spinerFilterByPrice)
         spinerFilterByDiscount = mView.findViewById(R.id.spinerFilterByDiscount)
         imgBack = mView.findViewById(R.id.imgBack)
+        btnCart = mView.findViewById(R.id.imgShoppingToCart)
 
         imgBack?.setOnClickListener(this)
+        btnCart?.setOnClickListener(this)
     }
 
     /*Set up and add data spiner filter*/
@@ -89,7 +93,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         val fragmentDetails = FragmentDetails()
         bundle.putSerializable("DETAILS", mListIceCream[positon])
         fragmentDetails.arguments = bundle
-        fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentDetails)?.addToBackStack(null)?.commit()
+        fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentDetails)?.addToBackStack("Hungpld")?.commit()
     }
 
 
@@ -150,6 +154,12 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
                     val fragmentStore = FragmentStore()
                     fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentStore)?.addToBackStack(null)?.commit()
                     ProgressLoading.show(context)
+                }
+                R.id.imgShoppingToCart->{
+                    val mFragmentCart = FragmentCart()
+                    val tag = mFragmentCart.javaClass.name
+                    ProgressLoading.show(context)
+                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentCart)?.addToBackStack(tag)?.commit()
                 }
             }
         }

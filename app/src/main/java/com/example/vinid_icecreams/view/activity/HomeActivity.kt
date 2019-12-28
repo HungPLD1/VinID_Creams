@@ -38,6 +38,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         //add fragmnet
         mFragmentTransaction.add(R.id.containerHome, fragmentStore)
         mFragmentTransaction.commit()
+
     }
 
     private fun setDefaultFragmentBottom(savedInstanceState: Bundle?) {
@@ -52,7 +53,14 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         mBottomNavigationView?.setOnNavigationItemSelectedListener(this)
     }
 
+    override fun onResume() {
+        super.onResume()
 
+//        var name = supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount-1).name
+//        val fragment = supportFragmentManager.findFragmentByTag(name)
+//        supportFragmentManager.beginTransaction().replace(R.id.containerHome,fragment!!).addToBackStack(null).commit()
+
+    }
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.home -> {

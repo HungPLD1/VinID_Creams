@@ -6,16 +6,20 @@ import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.util.Log
 import android.view.WindowManager
+import com.example.vinid_icecreams.model.Order
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CommonUtils {
     val TAG = "Hungpld"
     val REQUEST_CODE_PEMISSION = 0
 
+
     companion object{
         var instace = CommonUtils()
+        var  mListOrder : ArrayList<Order>? = ArrayList()
     }
 
 
@@ -62,6 +66,24 @@ class CommonUtils {
             return sum / marks.size
         }
         return sum
+    }
+
+    fun setOrderToList(order: Order){
+        if (mListOrder?.size!! > 0) {
+            for (i in 0 until mListOrder?.size!!) {
+                if (order.mIdOrder == mListOrder!![i].mIdOrder) {
+                    mListOrder!![i].mAmount += 1
+                } else {
+                    mListOrder?.add(order)
+                }
+            }
+        }else{
+            mListOrder?.add(order)
+        }
+    }
+
+    fun getOrderList():ArrayList<Order>?{
+        return mListOrder
     }
 
 

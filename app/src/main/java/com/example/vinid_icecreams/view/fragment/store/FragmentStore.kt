@@ -25,6 +25,7 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicatorAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
+import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import kotlinx.android.synthetic.main.fragment_store.*
@@ -40,6 +41,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     private var mTxtLocation: TextView? = null
     private var mPagerAd: ViewPager? = null
     private var mDotsIndicator : DotsIndicator? = null
+    private var mBtnGoToCart : ImageView? = null
 
     private var mRcvStore: RecyclerView? = null
     override fun onCreateView(
@@ -61,9 +63,11 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mTxtLocation = view?.findViewById(R.id.txt_Location)
         mPagerAd = view?.findViewById(R.id.mViewPagerAd)
         mDotsIndicator = view?.findViewById(R.id.mDotsIndicatorAd)
+        mBtnGoToCart = view?.findViewById(R.id.imgStoreGoToCart)
 
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         mImgLocation?.setOnClickListener(this)
+        mBtnGoToCart?.setOnClickListener(this)
     }
 
     private fun setupView() {
@@ -83,8 +87,10 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         bundle.putSerializable("DATA", mListStore[positon].mListIceCream)
         mFragmentShopping.arguments = bundle
         ProgressLoading.show(context)
-        fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.containerHome, mFragmentShopping)
+        fragmentManager?.beginTransaction()?.addToBackStack("Store")?.replace(R.id.containerHome, mFragmentShopping)
             ?.commit()
+        var count = fragmentManager?.backStackEntryCount
+        Log.i("test123 " ,count.toString())
     }
 
     override fun onClick(view: View?) {
@@ -110,6 +116,12 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
                     } else {
                         handleRequestPermission()
                     }
+                }
+                R.id.imgStoreGoToCart->{
+                    val mFragmentCart = FragmentCart()
+                    val tag = mFragmentCart.javaClass.name
+                    ProgressLoading.show(context)
+                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentCart)?.addToBackStack(tag)?.commit()
                 }
             }
         }

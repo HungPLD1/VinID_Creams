@@ -6,14 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.IceCream
+import com.example.vinid_icecreams.model.Order
+import com.example.vinid_icecreams.utils.CommonUtils
+import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterComment.AdapterComment
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
+import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -29,6 +34,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     private var rcvListComment : RecyclerView? = null
     private var mImgAddToCart : CircleImageView? = null
     private var mAdapterComment : AdapterComment? = null
+    private var mBtnCart : ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +62,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
 
         mBtnBack?.setOnClickListener(this)
         mImgAddToCart?.setOnClickListener(this)
+        mBtnCart?.setOnClickListener(this)
     }
 
     private fun setupImagePager() {
@@ -83,6 +90,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
         mTxtPriceDetails = view.findViewById(R.id.txtPriceDetails)
         rcvListComment = view.findViewById(R.id.rcvListComment)
         mImgAddToCart = view.findViewById(R.id.imgAddToCart)
+        mBtnCart = view.findViewById(R.id.btnCart)
 
     }
 
@@ -96,9 +104,21 @@ class FragmentDetails : Fragment(),View.OnClickListener {
                     activity?.onBackPressed()
                 }
                 R.id.imgAddToCart ->{
-
+                    Toast.makeText(context,"Thêm vào giỏ hàng thành công",Toast.LENGTH_SHORT).show()
+                    sendOrderToCart()
+                }
+                R.id.btnCart ->{
+                    val mFragmentCart = FragmentCart()
+                    val tag = mFragmentCart.javaClass.name
+                    ProgressLoading.show(context)
+                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentCart)?.addToBackStack(tag)?.commit()
                 }
             }
         }
+    }
+
+    private fun sendOrderToCart() {
+        val order = Order(mIceCream!!.id,mIceCream!!.mListImage[0],mIceCream!!.name,1,mIceCream!!.price)
+        CommonUtils.instace.setOrderToList(order)
     }
 }
