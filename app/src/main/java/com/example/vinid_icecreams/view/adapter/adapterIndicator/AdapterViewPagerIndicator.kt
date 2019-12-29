@@ -8,7 +8,8 @@ import androidx.viewpager.widget.ViewPager
 import java.util.*
 
 
-class AdapterViewPagerIndicator(fm: FragmentManager?, arrFragment: ArrayList<Fragment>?) : FragmentPagerAdapter(fm!!) {
+class AdapterViewPagerIndicator(fm: FragmentManager?, arrFragment: ArrayList<Fragment>?) :
+    FragmentPagerAdapter(fm!!) {
     private val mListFragment: List<Fragment>?
 
     override fun getCount(): Int {

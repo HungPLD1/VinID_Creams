@@ -10,8 +10,10 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.IceCream
+import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.AdapterIceCream
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.OnItemIceCreamClicklistener
@@ -161,10 +163,17 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
                     ProgressLoading.show(context)
                 }
                 R.id.imgShoppingToCart->{
-                    val mFragmentCart = FragmentCart()
-                    val tag = mFragmentCart.javaClass.name
-                    ProgressLoading.show(context)
-                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentCart)?.addToBackStack(tag)?.commit()
+                    if (CommonUtils.instace.getOrderList()!!.size > 0){
+                        val mFragmentCart = FragmentCart()
+                        val tag = mFragmentCart.javaClass.name
+                        ProgressLoading.show(context)
+                        fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentCart)?.addToBackStack(tag)?.commit()
+                    }else{
+                        val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
+                        pDialog.titleText = "Giỏ hàng trống"
+                        pDialog.setCancelable(true)
+                        pDialog.show()
+                    }
                 }
             }
         }

@@ -11,8 +11,8 @@ import com.example.vinid_icecreams.view.adapter.adapterViewpagerLogin.AdapterVie
 import com.google.android.material.tabs.TabLayout
 
 class FragmentLastIndicator : Fragment(), View.OnClickListener {
-    var mPager : ViewPager? = null
-    var mTabLayout : TabLayout? = null
+    private  var mPager : ViewPager? = null
+    private  var mTabLayout : TabLayout? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -13,14 +13,14 @@ import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterCart.AdapterOrder
+import com.example.vinid_icecreams.view.adapter.adapterCart.OnItemOrderListener
 
-class FragmentCart : Fragment(),View.OnClickListener {
+class FragmentCart : Fragment(),View.OnClickListener , OnItemOrderListener {
 
-
-    var mRcvOrder : RecyclerView? = null
-    var mAdapterOrder : AdapterOrder? = null
-    var mListOrder : ArrayList<Order>? = null
-    var mBtnBack : ImageView? = null
+    private var mRcvOrder : RecyclerView? = null
+    private var mAdapterOrder : AdapterOrder? = null
+    private var mListOrder : ArrayList<Order>? = null
+    private var mBtnBack : ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +37,7 @@ class FragmentCart : Fragment(),View.OnClickListener {
     private fun setupListOrder() {
         mListOrder = CommonUtils.instace.getOrderList()
         if(mListOrder!= null){
-            mAdapterOrder = AdapterOrder(context,mListOrder!!)
+            mAdapterOrder = AdapterOrder(context,mListOrder!!,this)
             mRcvOrder?.layoutManager = LinearLayoutManager(context)
             mRcvOrder?.adapter = mAdapterOrder
         }
@@ -58,5 +58,9 @@ class FragmentCart : Fragment(),View.OnClickListener {
                 }
             }
         }
+    }
+
+    override fun onReturn() {
+        activity?.onBackPressed()
     }
 }

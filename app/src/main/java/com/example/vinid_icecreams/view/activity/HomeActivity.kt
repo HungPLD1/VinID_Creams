@@ -17,8 +17,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    var mBottomNavigationView: BottomNavigationView? = null
-    var mToolBar : ActionBar? = null
+    private var mBottomNavigationView: BottomNavigationView? = null
+    private var mToolBar : ActionBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

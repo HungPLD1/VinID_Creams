@@ -13,8 +13,8 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 class AdapterComment(
-    var mContext: Context?,
-    var mListComment: ArrayList<Comment>
+    private var mContext: Context?,
+    private var mListComment: ArrayList<Comment>
 ) : RecyclerView.Adapter<AdapterComment.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

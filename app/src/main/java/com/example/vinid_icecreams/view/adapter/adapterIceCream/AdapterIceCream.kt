@@ -16,9 +16,9 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
 
 class AdapterIceCream(
-    var mContext: Context?,
-    var mListIceCream: ArrayList<IceCream>,
-    var clicklistener: OnItemIceCreamClicklistener
+    private var mContext: Context?,
+    private var mListIceCream: ArrayList<IceCream>,
+    private var clicklistener: OnItemIceCreamClicklistener
 ) : RecyclerView.Adapter<AdapterIceCream.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

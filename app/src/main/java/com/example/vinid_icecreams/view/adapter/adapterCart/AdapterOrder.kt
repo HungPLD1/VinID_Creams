@@ -1,8 +1,6 @@
 package com.example.vinid_icecreams.view.adapter.adapterCart
 
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +8,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
+import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
 
+
 class AdapterOrder(
-    var mContext: Context?,
-    var mListOrder: ArrayList<Order>
+    private var mContext: Context?,
+    private var mListOrder: ArrayList<Order>,
+    private var mCallBack : OnItemOrderListener
 ) : RecyclerView.Adapter<AdapterOrder.MyViewHolder>() {
     private var mTotal = MutableLiveData<Int>()
 
@@ -63,6 +63,22 @@ class AdapterOrder(
                 mCount -= 1
                 mListOrder[position].mAmount = mCount
                 notifyDataSetChanged()
+            }else{
+                val mDialog = KAlertDialog(mContext, KAlertDialog.WARNING_TYPE)
+                    .setTitleText("Are you sure?")
+                    .setContentText("Delete this file")
+                    .setConfirmText("Yes,delete it!")
+                    mDialog.setConfirmClickListener {
+                        CommonUtils.instace.getOrderList()?.removeAt(position)
+                        mDialog.dismiss()
+                        if (CommonUtils.instace.getOrderList()?.size == 0){
+                            mCallBack.onReturn()
+                        }
+                        notifyDataSetChanged()
+                    }
+                    .show()
+
+
             }
         }
 

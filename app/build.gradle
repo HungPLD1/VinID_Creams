@@ -66,4 +66,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     //Viewmodel
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    //lib dialog https://medium.com/@t_akshay_m/alert-dialog-android-library-23494864365?
+    implementation 'com.github.TutorialsAndroid:KAlertDialog:v4.0.19'
 }
