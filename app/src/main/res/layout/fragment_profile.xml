@@ -22,11 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <LinearLayout
+        android:id="@+id/backgroundUser"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="horizontal"
         android:background="@color/colorIndivateTab"
         android:gravity="bottom"
+        android:scaleType = "centerCrop"
         android:layout_margin="10dp"
         android:padding="10dp">
 

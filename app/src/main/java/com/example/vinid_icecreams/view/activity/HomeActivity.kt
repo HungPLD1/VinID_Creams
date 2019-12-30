@@ -64,7 +64,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.home -> {
-                Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
                 val mFragmentStore = FragmentStore()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentStore).addToBackStack(null).commit()
@@ -72,7 +71,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 return true
             }
             R.id.event -> {
-                Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
                 val mFragmentEvent = FragmentEvent()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentEvent).addToBackStack(null).commit()
@@ -80,7 +78,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 return true
             }
             R.id.chat -> {
-                Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
                 val mFragmentChat = FragmentChat()
                 supportFragmentManager.beginTransaction().replace(R.id.containerHome, mFragmentChat)
                     .addToBackStack(null).commit()
@@ -88,7 +85,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 return true
             }
             R.id.profile -> {
-                Toast.makeText(this, "click", Toast.LENGTH_SHORT).show()
                 val mFragmentProfile = FragmentProfile()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentProfile).addToBackStack(null).commit()
