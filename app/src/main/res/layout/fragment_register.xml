@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/selector_bg_edit_2"
                         android:hint="@string/phone_Number"
-                        android:inputType="textEmailAddress"
+                        android:inputType="number"
                         android:paddingBottom="2dp"
                         android:textColor="#f0f7f4"
                         android:textCursorDrawable="@drawable/bg_input_cursor_2"

@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitIceCream {
     private const val TOKEN = "token"
-    private const val BASE_URL = ""
+    private const val BASE_URL = "vinid.ap.loclx.io"
     private var retrofit : Retrofit? = null
 
     fun createRetrofit (): APIService? {

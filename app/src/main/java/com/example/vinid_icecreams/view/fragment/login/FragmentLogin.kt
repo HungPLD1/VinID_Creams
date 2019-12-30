@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.activity.HomeActivity
@@ -44,6 +45,13 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
             activity?.finish()
         },1000)
 
+    }
+
+    private fun loginFailse(){
+        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Login error")
+            .setContentText("Sai số diện thoại hoặc mật khẩu")
+            .show()
     }
 
 
