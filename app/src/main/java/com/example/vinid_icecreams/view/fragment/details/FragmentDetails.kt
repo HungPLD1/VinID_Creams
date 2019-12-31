@@ -127,7 +127,12 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun sendOrderToCart() {
-        val order = Order(mIceCream!!.id,mIceCream!!.mListImage[0],mIceCream!!.name,1,mIceCream!!.price)
+        val order = Order(mIceCream!!,1)
         CommonUtils.instace.setOrderToList(order)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.actionBar?.title = resources.getString(R.string.home)
     }
 }

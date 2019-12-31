@@ -1,7 +1,9 @@
 package com.example.vinid_icecreams.repository
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.example.vinid_icecreams.connection.RetrofitIceCream
+import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.model.User
 import com.example.vinid_icecreams.utils.ProgressLoading
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,30 +22,54 @@ class Repository {
     val CODE_401 = 401
     // not found
     val CODE_404 = 404
+    //tag
+    val TAG = "Hungpld1VINID"
 
-
-
-    companion object{
+    companion object {
         val mInstance = Repository()
     }
 
     @SuppressLint("CheckResult")
-    fun callAuthenticateAccount(mPhoneNumber : Int, mPassword : String): User?{
-        val mUser : User? = null
-        RetrofitIceCream.createRetrofit()!!.authenticateAccount(mPhoneNumber,mPassword).observeOn(AndroidSchedulers.mainThread())
+    fun callAuthenticateAccount(mPhoneNumber: Int, mPassword: String): User? {
+        val mUser: User? = null
+        RetrofitIceCream.createRetrofit()!!.authenticateAccount(mPhoneNumber, mPassword)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe ({ result ->
-                when(result.code()){
-                    CODE_200,CODE_201,CODE_204 ->{
+            .subscribe({ result ->
+                when (result.code()) {
+                    CODE_200, CODE_201, CODE_204 -> {
                         ProgressLoading.dismiss()
                     }
-                    CODE_400,CODE_401,CODE_404 ->{
+                    CODE_400, CODE_401, CODE_404 -> {
                         ProgressLoading.dismiss()
                     }
                 }
-            }){
-                error ->
+            }) { error ->
             }
         return mUser
+    }
+
+    @SuppressLint("CheckResult")
+    fun getListStore(): ArrayList<Store> {
+        val mListStore = ArrayList<Store>()
+        RetrofitIceCream.createRetrofit()!!.getListStore().observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ result ->
+                when (result.code()) {
+                    CODE_200 -> {
+                        Log.d(TAG, result.body()!!.toString())
+                        mListStore.addAll(result.body() as ArrayList<Store>)
+                        ProgressLoading.dismiss()
+                    }
+                    CODE_400, CODE_401, CODE_404 -> {
+                        ProgressLoading.dismiss()
+                    }
+                }
+            }) { error ->
+                Log.d(TAG,error.toString())
+                ProgressLoading.dismiss()
+            }
+
+        return mListStore
     }
 }

@@ -15,7 +15,7 @@
     <string name="repeat_password">Repeat Password</string>
     <string name="next">NEXT</string>
     <string name="register">REGISTER</string>
-    <string name="click_location">Click here to get location</string>
+    <string name="click_location">Your Location</string>
     <string name="hint_username">Enter a new username</string>
     <string name="hint_email_reset">Enter your email</string>
     <string name="enter_group_name">Enter group name</string>
@@ -36,4 +36,10 @@
     <string name="default_city">Không xác định được tên thành phố</string>
     <string name="info_cart">Thông tin giỏ hàng</string>
     <string name="total_price">Tổng Hóa Đơn</string>
+    <string name="payment">Thanh toán</string>
+    <string name="total_payment">Tổng hóa đơn :</string>
+    <string name="ship">Phí vận chuyển :</string>
+    <string name="total_pay">Tổng chi phí :</string>
+    <string name="accept">Xác nhận</string>
+    <string name="type_payment">Hình thức thanh toán :</string>
 </resources>

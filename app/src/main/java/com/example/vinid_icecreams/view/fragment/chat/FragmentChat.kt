@@ -16,4 +16,9 @@ class FragmentChat : Fragment() {
         val view  = layoutInflater.inflate(R.layout.fragment_chat,container,false)
         return view
     }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.actionBar?.title = resources.getString(R.string.chat)
+    }
 }

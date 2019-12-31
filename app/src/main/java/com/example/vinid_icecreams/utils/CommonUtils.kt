@@ -71,7 +71,7 @@ class CommonUtils {
     fun setOrderToList(order: Order){
         if (mListOrder?.size!! > 0) {
             for (i in 0 until mListOrder?.size!!) {
-                if (order.mIdOrder == mListOrder!![i].mIdOrder) {
+                if (order.mIceCream.id == mListOrder!![i].mIceCream.id) {
                     mListOrder!![i].mAmount += 1
                 } else {
                     mListOrder?.add(order)

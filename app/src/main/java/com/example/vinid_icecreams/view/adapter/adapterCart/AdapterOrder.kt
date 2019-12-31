@@ -16,10 +16,12 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
 
 
+
+
 class AdapterOrder(
     private var mContext: Context?,
     private var mListOrder: ArrayList<Order>,
-    private var mCallBack : OnItemOrderListener
+    private var mCallBack: OnItemOrderListener
 ) : RecyclerView.Adapter<AdapterOrder.MyViewHolder>() {
     private var mTotal = MutableLiveData<Int>()
 
@@ -35,17 +37,17 @@ class AdapterOrder(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var mCount = mListOrder[position].mAmount
 
-        holder.txtNameOrder?.text = mListOrder[position].mNameOrder
-        holder.txtPriceOrder?.text = mListOrder[position].mPrice.toString()
-        holder.txtTotal?.text = (mListOrder[position].mPrice * mCount).toString()
+        holder.txtNameOrder?.text = mListOrder[position].mIceCream.name
+        holder.txtPriceOrder?.text = mListOrder[position].mIceCream.price.toString()
+        holder.txtTotal?.text = (mListOrder[position].mIceCream.price * mCount).toString()
         holder.txtCount?.text = (mListOrder[position].mAmount).toString()
 
-        Picasso.with(mContext).load(mListOrder[position].mImageOrder)
+        Picasso.with(mContext).load(mListOrder[position].mIceCream.mListImage[0])
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgOrder)
 
-        mTotal.value = mListOrder[position].mPrice * mCount
+        mTotal.value = mListOrder[position].mIceCream.price * mCount
 
         /*handle click in plus and minus*/
 
@@ -53,29 +55,30 @@ class AdapterOrder(
             if (mCount < 99) {
                 mCount += 1
                 mListOrder[position].mAmount = mCount
-                Log.d("Mcount", mListOrder[position].mAmount.toString())
+                insertTotal()
                 notifyDataSetChanged()
             }
         }
 
         holder.btnMinus?.setOnClickListener {
-            if (mCount > 1){
+            if (mCount > 1) {
                 mCount -= 1
                 mListOrder[position].mAmount = mCount
+                insertTotal()
                 notifyDataSetChanged()
-            }else{
+            } else {
                 val mDialog = KAlertDialog(mContext, KAlertDialog.WARNING_TYPE)
                     .setTitleText("Are you sure?")
                     .setContentText("Delete this file")
                     .setConfirmText("Yes,delete it!")
-                    mDialog.setConfirmClickListener {
-                        CommonUtils.instace.getOrderList()?.removeAt(position)
-                        mDialog.dismiss()
-                        if (CommonUtils.instace.getOrderList()?.size == 0){
-                            mCallBack.onReturn()
-                        }
-                        notifyDataSetChanged()
+                mDialog.setConfirmClickListener {
+                    CommonUtils.instace.getOrderList()?.removeAt(position)
+                    mDialog.dismiss()
+                    if (CommonUtils.instace.getOrderList()?.size == 0) {
+                        mCallBack.onReturn()
                     }
+                    notifyDataSetChanged()
+                }
                     .show()
 
 
@@ -105,8 +108,20 @@ class AdapterOrder(
         }
     }
 
-    fun getTotal():MutableLiveData<Int>{
+    fun getTotal(): MutableLiveData<Int> {
         return mTotal
+    }
+
+    fun insertTotal() {
+        val mListPriceOrder = ArrayList<Int>()
+        var mSum = 0
+        for (i in 0 until mListOrder.size) {
+            mListPriceOrder.add(mListOrder[i].mAmount * mListOrder[i].mIceCream.price)
+        }
+        for (element in mListPriceOrder) {
+            mSum += element
+        }
+        mTotal.value = mSum
     }
 
 }

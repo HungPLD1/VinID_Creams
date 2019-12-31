@@ -47,6 +47,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     }
 
     private fun iniView(mView: View) {
+        activity?.actionBar?.title = resources.getString(R.string.home)
         rcvIceCream = mView.findViewById(R.id.rcvIceCream)
         spinerFilterByType = mView.findViewById(R.id.spinerFilterByType)
         spinerFilterByPrice = mView.findViewById(R.id.spinerFilterByPrice)

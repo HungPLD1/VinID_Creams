@@ -9,10 +9,10 @@ object MockData {
             val mMockStore = Store(
                 i,
                 "Cửa hàng thứ $i",
-                "Hà nội",
+                "Nhà No9 KĐT, Pháp Vân, Hoàng Ma,Hà Nội",
+                "https://www.brandsvietnam.com/upload/news/480px/2016/9588_Vinmart.jpg",
                 123213,
                 31231,
-                0,
                 312312312312,
                 getListCream()
             )

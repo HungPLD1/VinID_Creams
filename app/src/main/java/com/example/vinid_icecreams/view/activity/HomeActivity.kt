@@ -3,8 +3,6 @@ package com.example.vinid_icecreams.view.activity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.ProgressLoading
@@ -18,7 +16,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private var mBottomNavigationView: BottomNavigationView? = null
-    private var mToolBar : ActionBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +33,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val mFragmentTransaction = mFragmentManager.beginTransaction()
         val fragmentStore = FragmentStore()
         //add fragmnet
+
         mFragmentTransaction.add(R.id.containerHome, fragmentStore)
         mFragmentTransaction.commit()
 
@@ -49,46 +47,34 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun initView() {
         mBottomNavigationView = findViewById(R.id.navHomeScreen)
-        mToolBar = supportActionBar
         mBottomNavigationView?.setOnNavigationItemSelectedListener(this)
     }
 
-    override fun onResume() {
-        super.onResume()
 
-//        var name = supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount-1).name
-//        val fragment = supportFragmentManager.findFragmentByTag(name)
-//        supportFragmentManager.beginTransaction().replace(R.id.containerHome,fragment!!).addToBackStack(null).commit()
-
-    }
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
             R.id.home -> {
                 val mFragmentStore = FragmentStore()
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.containerHome, mFragmentStore).addToBackStack(null).commit()
-                mToolBar?.title = resources.getString(R.string.home)
+                    .replace(R.id.containerHome, mFragmentStore).addToBackStack("store").commit()
                 return true
             }
             R.id.event -> {
                 val mFragmentEvent = FragmentEvent()
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.containerHome, mFragmentEvent).addToBackStack(null).commit()
-                mToolBar?.title = resources.getString(R.string.event)
+                    .replace(R.id.containerHome, mFragmentEvent).addToBackStack("event").commit()
                 return true
             }
             R.id.chat -> {
                 val mFragmentChat = FragmentChat()
                 supportFragmentManager.beginTransaction().replace(R.id.containerHome, mFragmentChat)
                     .addToBackStack(null).commit()
-                mToolBar?.title = resources.getString(R.string.chat)
                 return true
             }
             R.id.profile -> {
                 val mFragmentProfile = FragmentProfile()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.containerHome, mFragmentProfile).addToBackStack(null).commit()
-                mToolBar?.title = resources.getString(R.string.user)
                 return true
             }
         }
@@ -102,4 +88,5 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
     }
+
 }

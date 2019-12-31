@@ -1,7 +1,6 @@
 package com.example.vinid_icecreams.view.fragment.store
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.*
@@ -14,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -22,14 +22,16 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
+import androidx.lifecycle.Observer
 import com.example.vinid_icecreams.utils.ProgressLoading
+import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicatorAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
 import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
+import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-import kotlinx.android.synthetic.main.fragment_store.*
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -43,6 +45,9 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     private var mPagerAd: ViewPager? = null
     private var mDotsIndicator : DotsIndicator? = null
     private var mBtnGoToCart : ImageView? = null
+    private val mViewModel: ViewModelIceCream by lazy {
+        ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
+    }
 
     private var mRcvStore: RecyclerView? = null
     override fun onCreateView(
@@ -59,12 +64,15 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     }
 
     private fun initView(view: View?) {
+        activity?.actionBar?.title = resources.getString(R.string.home)
         mRcvStore = view?.findViewById(R.id.rcvStore)
         mImgLocation = view?.findViewById(R.id.imgLocation)
         mTxtLocation = view?.findViewById(R.id.txt_Location)
         mPagerAd = view?.findViewById(R.id.mViewPagerAd)
         mDotsIndicator = view?.findViewById(R.id.mDotsIndicatorAd)
         mBtnGoToCart = view?.findViewById(R.id.imgStoreGoToCart)
+
+
 
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         mImgLocation?.setOnClickListener(this)
@@ -75,11 +83,15 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         setupListStore()
     }
 
+
     private fun setupListStore() {
-        mListStore.addAll(MockData.getListStore())
-        val mAdapterStore = AdapterStore(context, mListStore, this)
-        mRcvStore?.layoutManager = LinearLayoutManager(context)
-        mRcvStore?.adapter = mAdapterStore
+        ProgressLoading.show(context)
+        mViewModel.getListStore().observe(this,Observer { data ->
+            mListStore.addAll(data)
+            val mAdapterStore = AdapterStore(context, mListStore, this)
+            mRcvStore?.layoutManager = LinearLayoutManager(context)
+            mRcvStore?.adapter = mAdapterStore
+        })
     }
 
     override fun onItemClick(positon: Int) {
@@ -210,6 +222,11 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var mCount = fragmentManager!!.backStackEntryCount
     }
 
     /*set up view indicator ad*/

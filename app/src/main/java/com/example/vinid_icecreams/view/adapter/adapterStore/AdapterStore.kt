@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.view.adapter.adapterStore
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
+import com.squareup.picasso.Picasso
 
 class AdapterStore(
     var mContext: Context?,
@@ -27,37 +29,31 @@ class AdapterStore(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val status = mListStore[position].status
-        /*
-        0 : store is close
-        1 : store is open
-        */
-        when(status){
-            0 -> holder.imgStatusStore!!.setImageResource(R.drawable.ic_close)
-            1 -> holder.imgStatusStore!!.setImageResource(R.drawable.ic_open)
-        }
 
-        holder.txtNameStore!!.text = mListStore[position].name
-        holder.txtAddressStore!!.text = mListStore[position].address
 
+        holder.txtNameStore?.text = mListStore[position].name
+        holder.txtAddressStore?.text = mListStore[position].address
+        Picasso.with(mContext).load(mListStore[position].image)
+            .placeholder(R.drawable.loading_image)
+            .error(R.drawable.default_image)
+            .into(holder.imgStore)
         /*handle click on item Store*/
-        holder.rawStore!!.setOnClickListener {
+
+        holder.itemView.setOnClickListener{
             clicklistener.onItemClick(position)
         }
 
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imgStatusStore : ImageView? = null
+        var imgStore : ImageView? = null
         var txtNameStore: TextView? = null
         var txtAddressStore: TextView? = null
-        var rawStore : LinearLayout? = null
 
         init {
-          imgStatusStore = itemView.findViewById(R.id.imgStatusStore)
+          imgStore = itemView.findViewById(R.id.imgImageStore)
             txtNameStore = itemView.findViewById(R.id.txtNameStore)
             txtAddressStore = itemView.findViewById(R.id.txtAddress)
-            rawStore = itemView.findViewById(R.id.rawStore)
         }
     }
 }

@@ -45,4 +45,9 @@ class FragmentEvent : Fragment(),OnItemNotificationClicklistener {
     override fun onItemClick(positon: Int) {
         Toast.makeText(context,"Chỗ này chưa click được",Toast.LENGTH_SHORT).show()
     }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.actionBar?.title = resources.getString(R.string.event)
+    }
 }

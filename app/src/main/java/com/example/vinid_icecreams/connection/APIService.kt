@@ -24,7 +24,7 @@ interface APIService {
         , @Query("password") password: String
     ): Observable<Response<User>>
 
-    @GET("")
+    @GET("/stores")
     fun getListStore(): Observable<Response<ArrayList<Store>>>
 
     @GET("")

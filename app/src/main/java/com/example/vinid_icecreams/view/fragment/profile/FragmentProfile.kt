@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.view.activity.HomeActivity
 import de.hdodenhof.circleimageview.CircleImageView
 
 class FragmentProfile : Fragment(),View.OnClickListener {
@@ -51,5 +52,10 @@ class FragmentProfile : Fragment(),View.OnClickListener {
 
     override fun onClick(v: View?) {
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as HomeActivity).supportActionBar?.title = resources.getString(R.string.user)
     }
 }
