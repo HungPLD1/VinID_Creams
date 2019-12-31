@@ -232,9 +232,9 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     /*set up view indicator ad*/
     private fun setupViewIndicatorAd() {
         val mListAd: ArrayList<Int> = ArrayList()
-        mListAd.add(R.drawable.first_ad)
-        mListAd.add(R.drawable.second_ad)
-        mListAd.add(R.drawable.last_ad)
+        mListAd.add(R.drawable.green_ice)
+        mListAd.add(R.drawable.ad_3)
+        mListAd.add(R.drawable.green_2)
         val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndicatorAd(context!!,mListAd)
         mPagerAd!!.adapter = mAdapterViewPagerIndicatorAd
         mDotsIndicator?.setViewPager(mPagerAd!!)

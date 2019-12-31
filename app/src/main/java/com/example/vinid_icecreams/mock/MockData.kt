@@ -10,7 +10,7 @@ object MockData {
                 i,
                 "Cửa hàng thứ $i",
                 "Nhà No9 KĐT, Pháp Vân, Hoàng Ma,Hà Nội",
-                "https://www.brandsvietnam.com/upload/news/480px/2016/9588_Vinmart.jpg",
+                "https://f.thuongtruong.com.vn/2018/01/vinmart2-09_50_45_735.jpg?width=420&height=200&mode=crop&anchor=middle",
                 123213,
                 31231,
                 312312312312,
