@@ -16,4 +16,5 @@
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorTopLayout">#363739</color>
     <color name="backGroundIceCream">#B760B0FF</color>
+    <color name="notChecked">#B0DADDFD</color>
 </resources>

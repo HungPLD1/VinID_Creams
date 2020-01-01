@@ -23,6 +23,8 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:background="@color/colorTopLayout"
+            app:itemIconTint="@color/selector_bottom_navi"
+            app:itemTextColor="@color/selector_bottom_navi"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/menu_bottom_home" />
     </RelativeLayout>

@@ -41,7 +41,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun setDefaultFragmentBottom(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            mBottomNavigationView?.setSelectedItemId(R.id.home)
+            mBottomNavigationView?.selectedItemId = R.id.home
         }
     }
 

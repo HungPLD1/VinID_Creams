@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -19,18 +20,18 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicatorAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
 import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
+import com.example.vinid_icecreams.view.fragment.map.FragmentGoogleMap
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.io.IOException
 import java.util.*
@@ -45,6 +46,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     private var mPagerAd: ViewPager? = null
     private var mDotsIndicator : DotsIndicator? = null
     private var mBtnGoToCart : ImageView? = null
+    private var mBottomSheetGoogleMap : FragmentGoogleMap? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
@@ -67,16 +69,18 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         activity?.actionBar?.title = resources.getString(R.string.home)
         mRcvStore = view?.findViewById(R.id.rcvStore)
         mImgLocation = view?.findViewById(R.id.imgLocation)
-        mTxtLocation = view?.findViewById(R.id.txt_Location)
+        mTxtLocation = view?.findViewById(R.id.txt_Store_Location)
         mPagerAd = view?.findViewById(R.id.mViewPagerAd)
         mDotsIndicator = view?.findViewById(R.id.mDotsIndicatorAd)
         mBtnGoToCart = view?.findViewById(R.id.imgStoreGoToCart)
 
 
-
+        /*click event*/
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         mImgLocation?.setOnClickListener(this)
         mBtnGoToCart?.setOnClickListener(this)
+
+        mTxtLocation?.setOnClickListener(this)
     }
 
     private fun setupView() {
@@ -142,6 +146,10 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
                         pDialog.setCancelable(true)
                         pDialog.show()
                     }
+                }
+                R.id.txt_Store_Location ->{
+                    mBottomSheetGoogleMap = FragmentGoogleMap()
+                    mBottomSheetGoogleMap?.show(fragmentManager!!,mBottomSheetGoogleMap?.tag)
                 }
             }
         }

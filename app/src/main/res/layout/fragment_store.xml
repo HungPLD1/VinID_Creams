@@ -42,7 +42,7 @@
             tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/txt_Location"
+            android:id="@+id/txt_Store_Location"
             android:layout_width="0dp"
             android:layout_weight="6"
             android:layout_height="wrap_content"
@@ -51,8 +51,8 @@
             android:textStyle="bold" />
         <ImageView
             android:id="@+id/imgStoreGoToCart"
-            android:padding="5dp"
-            android:src="@drawable/shoppingcart50"
+            android:padding="2dp"
+            android:src="@drawable/ic_cart_3"
             android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
@@ -85,4 +85,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp" />
+    <include layout="@layout/bottom_sheet_googlemap"/>
 </LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/backGroundIceCream"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="5dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    >
+    <Button
+        android:text="click here"
+        android:id="@+id/click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

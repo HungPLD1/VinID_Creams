@@ -42,4 +42,6 @@
     <string name="total_pay">Tổng chi phí :</string>
     <string name="accept">Xác nhận</string>
     <string name="type_payment">Hình thức thanh toán :</string>
+    <string name="Close_map">Close map</string>
+    <string name="your_location">Your Location</string>
 </resources>

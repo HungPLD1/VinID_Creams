@@ -26,9 +26,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     SearchView.OnQueryTextListener {
     private var rcvIceCream : RecyclerView? = null
     private var mListIceCream : ArrayList<IceCream> = ArrayList()
-    private var spinerFilterByType : Spinner?= null
-    private var spinerFilterByPrice : Spinner?= null
-    private var spinerFilterByDiscount : Spinner?= null
+    private var spnFilterByType : Spinner?= null
+    private var spnFilterByPrice : Spinner?= null
+    private var spnFilterByDiscount : Spinner?= null
     private var imgBack : ImageView? = null
     private var btnCart : ImageView? = null
     private var mSvIceCream : SearchView? = null
@@ -49,9 +49,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     private fun iniView(mView: View) {
         activity?.actionBar?.title = resources.getString(R.string.home)
         rcvIceCream = mView.findViewById(R.id.rcvIceCream)
-        spinerFilterByType = mView.findViewById(R.id.spinerFilterByType)
-        spinerFilterByPrice = mView.findViewById(R.id.spinerFilterByPrice)
-        spinerFilterByDiscount = mView.findViewById(R.id.spinerFilterByDiscount)
+        spnFilterByType = mView.findViewById(R.id.spinerFilterByType)
+        spnFilterByPrice = mView.findViewById(R.id.spinerFilterByPrice)
+        spnFilterByDiscount = mView.findViewById(R.id.spinerFilterByDiscount)
         imgBack = mView.findViewById(R.id.imgBack)
         btnCart = mView.findViewById(R.id.imgShoppingToCart)
         mSvIceCream = mView.findViewById(R.id.svIcecream)
@@ -90,9 +90,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
                 mListType // Array
             )
         }
-        spinerFilterByDiscount?.adapter = mAdapterDiscount
-        spinerFilterByDiscount?.setSelection(0)
-        spinerFilterByDiscount?.onItemSelectedListener = this
+        spnFilterByDiscount?.adapter = mAdapterDiscount
+        spnFilterByDiscount?.setSelection(0)
+        spnFilterByDiscount?.onItemSelectedListener = this
     }
 
 
@@ -114,9 +114,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
                 mListType // Array
             )
         }
-        spinerFilterByPrice?.adapter = mAdapterPrice
-        spinerFilterByPrice?.setSelection(0)
-        spinerFilterByPrice?.onItemSelectedListener = this
+        spnFilterByPrice?.adapter = mAdapterPrice
+        spnFilterByPrice?.setSelection(0)
+        spnFilterByPrice?.onItemSelectedListener = this
     }
 
     private fun setupSpinerType() {
@@ -124,21 +124,21 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         val mAdapterType = context?.let {
             ArrayAdapter(
                 it, // Context
-                android.R.layout.simple_spinner_item, // Layout
+                android.R.layout.simple_spinner_dropdown_item, // Layout
                 mListType // Array
             )
         }
-        spinerFilterByType?.adapter = mAdapterType
-        spinerFilterByType?.setSelection(0)
-        spinerFilterByType?.onItemSelectedListener = this
+        spnFilterByType?.adapter = mAdapterType
+        spnFilterByType?.setSelection(0)
+        spnFilterByType?.onItemSelectedListener = this
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (parent != null) {
             when(parent){
-                spinerFilterByType -> handleLogicFileterByType()
-                spinerFilterByPrice ->handleLogicFileterByPrice()
-                spinerFilterByDiscount ->handleLogicFileterByDiscount()
+                spnFilterByType -> handleLogicFileterByType()
+                spnFilterByPrice ->handleLogicFileterByPrice()
+                spnFilterByDiscount ->handleLogicFileterByDiscount()
             }
         }
     }
