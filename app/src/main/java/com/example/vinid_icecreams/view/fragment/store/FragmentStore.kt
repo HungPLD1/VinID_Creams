@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -31,7 +30,6 @@ import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.example.vinid_icecreams.view.fragment.map.FragmentGoogleMap
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.io.IOException
 import java.util.*

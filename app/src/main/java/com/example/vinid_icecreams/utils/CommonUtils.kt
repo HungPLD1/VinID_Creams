@@ -20,6 +20,7 @@ class CommonUtils {
     companion object{
         var instace = CommonUtils()
         var  mListOrder : ArrayList<Order>? = ArrayList()
+        var mTotalPayment  = 0
     }
 
 
@@ -86,5 +87,11 @@ class CommonUtils {
         return mListOrder
     }
 
+    fun setTotalPayment(total :Int){
+        mTotalPayment = total
+    }
 
+    fun getTotalPayment(): Int{
+        return mTotalPayment
+    }
 }

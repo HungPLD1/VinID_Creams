@@ -91,7 +91,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_weight="6"
+                    android:layout_weight="5"
                     android:gravity="center_vertical"
                     android:text="@string/total_payment"
                     android:textColor="@android:color/black" />
@@ -100,10 +100,10 @@
                     android:id="@+id/txt_charge_order"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_weight="4"
+                    android:layout_weight="5"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="1000" />
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -116,7 +116,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_weight="6"
+                    android:layout_weight="5"
                     android:gravity="center_vertical"
                     android:lines="1"
                     android:text="@string/ship"
@@ -126,8 +126,9 @@
                     android:id="@+id/txt_charge_ship"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
+                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:layout_weight="4" />
+                    android:layout_weight="5" />
             </LinearLayout>
 
             <View
@@ -147,7 +148,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_weight="6"
+                    android:layout_weight="5"
                     android:gravity="center_vertical"
                     android:text="@string/total_pay"
                     android:textColor="@android:color/black" />
@@ -157,8 +158,8 @@
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:layout_weight="4"
-                    android:gravity="center_vertical"
+                    android:layout_weight="5"
+                    android:gravity="center"
                     android:lines="1" />
             </LinearLayout>
 
@@ -172,7 +173,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_weight="6"
+                    android:layout_weight="5"
                     android:gravity="center_vertical"
                     android:text="@string/type_payment"
                     android:textColor="@android:color/black" />
@@ -181,7 +182,7 @@
                     android:id="@+id/spnPayments"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
-                    android:layout_weight="4"
+                    android:layout_weight="5"
                     android:gravity="center"
                     android:lines="1" />
             </LinearLayout>

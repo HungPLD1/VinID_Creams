@@ -80,6 +80,7 @@ class FragmentCart : Fragment(),View.OnClickListener , OnItemOrderListener {
     }
 
     override fun showTotal(total: Int) {
+        CommonUtils.instace.setTotalPayment(total)
         mTxtTotalPayment?.text = total.toString()
     }
 }

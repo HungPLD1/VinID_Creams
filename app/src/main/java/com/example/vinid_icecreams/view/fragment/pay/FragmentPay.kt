@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.utils.CommonUtils
 
-class FragmentPay : DialogFragment(),View.OnClickListener {
+class FragmentPay : DialogFragment(),View.OnClickListener, AdapterView.OnItemSelectedListener {
+    private var mShip = 0
 
 
     private var txtChargeOrder : TextView? = null
@@ -40,9 +39,31 @@ class FragmentPay : DialogFragment(),View.OnClickListener {
         btnPayment= view.findViewById(R.id.btn_payment)
         btnClose = view.findViewById(R.id.imgClose)
 
+        prepareView()
         /*even click*/
         btnClose?.setOnClickListener(this)
 
+    }
+
+    private fun prepareView() {
+        txtChargeShip?.text = mShip.toString()
+        txtChargeOrder?.text = CommonUtils.instace.getTotalPayment().toString()
+        txtChargeTotal?.text = (CommonUtils.instace.getTotalPayment() + mShip).toString()
+        prepareSpinner()
+    }
+
+    private fun prepareSpinner() {
+            val mListType = arrayOf("Giao hàng nhận tiền","Point")
+            val mAdapterType = context?.let {
+                ArrayAdapter(
+                    it, // Context
+                    android.R.layout.simple_spinner_dropdown_item, // Layout
+                    mListType // Array
+                )
+            }
+            spnPayment?.adapter = mAdapterType
+            spnPayment?.setSelection(0)
+            spnPayment?.onItemSelectedListener = this
     }
 
 
@@ -54,5 +75,13 @@ class FragmentPay : DialogFragment(),View.OnClickListener {
                 }
            }
        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
     }
 }
