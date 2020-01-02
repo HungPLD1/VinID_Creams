@@ -6,16 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.adapter.adapterCart.AdapterOrder
-import com.example.vinid_icecreams.view.adapter.adapterCart.OnItemOrderListener
+import com.example.vinid_icecreams.view.adapter.adapterOrder.AdapterOrder
+import com.example.vinid_icecreams.view.adapter.adapterOrder.OnItemOrderListener
 import com.example.vinid_icecreams.view.fragment.pay.FragmentPay
+import kotlinx.android.synthetic.main.fragment_cart.*
 
 class FragmentCart : Fragment(),View.OnClickListener , OnItemOrderListener {
 
@@ -24,6 +27,7 @@ class FragmentCart : Fragment(),View.OnClickListener , OnItemOrderListener {
     private var mListOrder : ArrayList<Order>? = null
     private var mBtnBack : ImageView? = null
     private var mBtnPayment: Button? = null
+    private var mTxtTotalPayment : TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +54,7 @@ class FragmentCart : Fragment(),View.OnClickListener , OnItemOrderListener {
         mRcvOrder = view?.findViewById(R.id.rcvOrder)
         mBtnBack = view?.findViewById(R.id.imgBack)
         mBtnPayment = view?.findViewById(R.id.btn_payment)
+        mTxtTotalPayment = view?.findViewById(R.id.txt_total_payment)
 
         mBtnBack?.setOnClickListener(this)
         mBtnPayment?.setOnClickListener(this)
@@ -63,7 +68,8 @@ class FragmentCart : Fragment(),View.OnClickListener , OnItemOrderListener {
                 }
                 R.id.btn_payment ->{
                     val fragmentPay  = FragmentPay()
-                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentPay)?.addToBackStack(null)?.commit()
+                    fragmentPay.isCancelable = false
+                    fragmentManager?.let { fragmentPay.show(it,null) }
                 }
             }
         }
@@ -71,5 +77,9 @@ class FragmentCart : Fragment(),View.OnClickListener , OnItemOrderListener {
 
     override fun onReturn() {
         activity?.onBackPressed()
+    }
+
+    override fun showTotal(total: Int) {
+        mTxtTotalPayment?.text = total.toString()
     }
 }

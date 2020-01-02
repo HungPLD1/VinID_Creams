@@ -4,5 +4,6 @@ import java.io.Serializable
 
 class Order (
     var mIceCream : IceCream,
-    var mAmount  : Int
+    var mAmount  : Int,
+    var mTotal :Int
 ): Serializable

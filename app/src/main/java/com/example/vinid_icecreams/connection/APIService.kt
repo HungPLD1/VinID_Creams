@@ -1,9 +1,6 @@
 package com.example.vinid_icecreams.connection
 
-import com.example.vinid_icecreams.model.IceCream
-import com.example.vinid_icecreams.model.Order
-import com.example.vinid_icecreams.model.Store
-import com.example.vinid_icecreams.model.User
+import com.example.vinid_icecreams.model.*
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.GET
@@ -24,8 +21,8 @@ interface APIService {
         , @Query("password") password: String
     ): Observable<Response<User>>
 
-    @GET("/stores")
-    fun getListStore(): Observable<Response<ArrayList<Store>>>
+    @GET("/api/demo")
+    fun getListStore(): Observable<Response<ResponeBody>>
 
     @GET("")
     fun getListStoreWithCurrentLocation(

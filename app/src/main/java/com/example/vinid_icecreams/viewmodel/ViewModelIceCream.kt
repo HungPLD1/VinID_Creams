@@ -12,8 +12,9 @@ class ViewModelIceCream : ViewModel() {
     private var mListStore  = MutableLiveData<ArrayList<Store>>()
 
     fun getListStore () : LiveData<ArrayList<Store>> {
-        Log.d("hungpld1",Repository.mInstance.getListStore().size.toString())
         mListStore.value = MockData.getListStore()
+        Log.d("hungpld1",Repository.mInstance.getListStore().size.toString())
         return mListStore
     }
+
 }

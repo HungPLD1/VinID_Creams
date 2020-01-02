@@ -1,13 +1,11 @@
-package com.example.vinid_icecreams.view.adapter.adapterCart
+package com.example.vinid_icecreams.view.adapter.adapterOrder
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
@@ -23,7 +21,8 @@ class AdapterOrder(
     private var mListOrder: ArrayList<Order>,
     private var mCallBack: OnItemOrderListener
 ) : RecyclerView.Adapter<AdapterOrder.MyViewHolder>() {
-    private var mTotal = MutableLiveData<Int>()
+    var TAG = "hungpld1order"
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val mView = LayoutInflater.from(mContext).inflate(R.layout.raw_layout_cart, parent, false)
@@ -39,22 +38,22 @@ class AdapterOrder(
 
         holder.txtNameOrder?.text = mListOrder[position].mIceCream.name
         holder.txtPriceOrder?.text = mListOrder[position].mIceCream.price.toString()
-        holder.txtTotal?.text = (mListOrder[position].mIceCream.price * mCount).toString()
+        mListOrder[position].mTotal = mListOrder[position].mIceCream.price * mCount
+        holder.txtTotal?.text = mListOrder[position].mTotal.toString()
         holder.txtCount?.text = (mListOrder[position].mAmount).toString()
 
+        insertTotal()
         Picasso.with(mContext).load(mListOrder[position].mIceCream.mListImage[0])
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgOrder)
 
-        mTotal.value = mListOrder[position].mIceCream.price * mCount
-
         /*handle click in plus and minus*/
-
         holder.btnPlus?.setOnClickListener {
             if (mCount < 99) {
                 mCount += 1
                 mListOrder[position].mAmount = mCount
+                mListOrder[position].mTotal = mListOrder[position].mIceCream.price * mCount
                 insertTotal()
                 notifyDataSetChanged()
             }
@@ -64,6 +63,7 @@ class AdapterOrder(
             if (mCount > 1) {
                 mCount -= 1
                 mListOrder[position].mAmount = mCount
+                mListOrder[position].mTotal = mListOrder[position].mIceCream.price * mCount
                 insertTotal()
                 notifyDataSetChanged()
             } else {
@@ -108,20 +108,20 @@ class AdapterOrder(
         }
     }
 
-    fun getTotal(): MutableLiveData<Int> {
-        return mTotal
+    private fun insertTotal() {
+        var mListPrice = ArrayList<Int>()
+        for (i in 0 until mListOrder.size){
+            mListPrice.add(mListOrder[i].mTotal)
+        }
+        showTotalOnView(mListPrice)
     }
 
-    fun insertTotal() {
-        val mListPriceOrder = ArrayList<Int>()
-        var mSum = 0
-        for (i in 0 until mListOrder.size) {
-            mListPriceOrder.add(mListOrder[i].mAmount * mListOrder[i].mIceCream.price)
+    private fun showTotalOnView(mListPrice: ArrayList<Int>) {
+        var mTotal = 0
+        for (i in 0 until mListPrice.size){
+            mTotal += mListPrice[i]
         }
-        for (element in mListPriceOrder) {
-            mSum += element
-        }
-        mTotal.value = mSum
+        mCallBack.showTotal(mTotal)
     }
 
 }

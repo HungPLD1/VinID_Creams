@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitIceCream {
     private const val TOKEN = "token"
-    private const val BASE_URL = "http://vinid.ap.loclx.io"
+    private const val BASE_URL = "http://34.80.70.61/"
     private var retrofit: Retrofit? = null
 
 

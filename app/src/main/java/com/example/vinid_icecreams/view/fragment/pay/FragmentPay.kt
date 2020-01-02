@@ -8,11 +8,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 
-class FragmentPay : Fragment(),View.OnClickListener {
+class FragmentPay : DialogFragment(),View.OnClickListener {
 
 
     private var txtChargeOrder : TextView? = null
@@ -20,34 +19,39 @@ class FragmentPay : Fragment(),View.OnClickListener {
     private var txtChargeTotal : TextView? = null
     private var spnPayment : Spinner? = null
     private var btnPayment : Button? = null
-    private var btnBack : ImageView? = null
+    private var btnClose : ImageView? = null
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view  = inflater.inflate(R.layout.fragment_pay,container,false)
-        initView(view)
-        return view
+        return inflater.inflate(R.layout.fragment_pay,container,false)
     }
 
-    private fun initView(view: View?) {
-        txtChargeOrder = view?.findViewById(R.id.txt_charge_order)
-        txtChargeShip= view?.findViewById(R.id.txt_charge_ship)
-        txtChargeTotal= view?.findViewById(R.id.txt_total_charge)
-        spnPayment= view?.findViewById(R.id.spnPayments)
-        btnPayment= view?.findViewById(R.id.btn_payment)
-        btnBack = view?.findViewById(R.id.imgBack_To_Cart)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        txtChargeOrder = view.findViewById(R.id.txt_charge_order)
+        txtChargeShip= view.findViewById(R.id.txt_charge_ship)
+        txtChargeTotal= view.findViewById(R.id.txt_total_charge)
+        spnPayment= view.findViewById(R.id.spnPayments)
+        btnPayment= view.findViewById(R.id.btn_payment)
+        btnClose = view.findViewById(R.id.imgClose)
+
+        /*even click*/
+        btnClose?.setOnClickListener(this)
+
     }
+
 
     override fun onClick(view: View?) {
        if (view != null){
            when(view.id){
-               R.id.imgBack_To_Cart ->{
-                   val fragmentCart  = FragmentCart()
-                   fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentCart)?.addToBackStack(null)?.commit()
-               }
+                R.id.imgClose ->{
+                    dismiss()
+                }
            }
        }
     }

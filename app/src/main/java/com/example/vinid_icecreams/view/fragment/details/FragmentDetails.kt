@@ -127,7 +127,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun sendOrderToCart() {
-        val order = Order(mIceCream!!,1)
+        val order = Order(mIceCream!!,1,0)
         CommonUtils.instace.setOrderToList(order)
     }
 

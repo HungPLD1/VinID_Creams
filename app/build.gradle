@@ -70,6 +70,4 @@ dependencies {
     implementation 'com.github.TutorialsAndroid:KAlertDialog:v4.0.19'
     //Viewmodel
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    //google map
-    implementation 'com.google.android.gms:play-services:12.0.1'
 }
