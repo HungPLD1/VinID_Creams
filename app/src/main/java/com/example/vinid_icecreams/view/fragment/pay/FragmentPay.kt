@@ -27,7 +27,7 @@ class FragmentPay : DialogFragment(),View.OnClickListener, AdapterView.OnItemSel
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_pay,container,false)
+        return inflater.inflate(R.layout.dialog_pay,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -27,7 +27,6 @@ import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPage
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
 import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
-import com.example.vinid_icecreams.view.fragment.map.FragmentGoogleMap
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
@@ -44,7 +43,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     private var mPagerAd: ViewPager? = null
     private var mDotsIndicator : DotsIndicator? = null
     private var mBtnGoToCart : ImageView? = null
-    private var mBottomSheetGoogleMap : FragmentGoogleMap? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
@@ -146,8 +144,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
                     }
                 }
                 R.id.txt_Store_Location ->{
-                    mBottomSheetGoogleMap = FragmentGoogleMap()
-                    mBottomSheetGoogleMap?.show(fragmentManager!!,mBottomSheetGoogleMap?.tag)
                 }
             }
         }

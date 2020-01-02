@@ -44,4 +44,7 @@
     <string name="type_payment">Hình thức thanh toán :</string>
     <string name="Close_map">Close map</string>
     <string name="your_location">Your Location</string>
+
+    <!--map api key-->
+    <string name="map_api_key">AIzaSyAeiV0M8udpKTdYBNgOuTbanL2IUsdtI8o</string>
 </resources>

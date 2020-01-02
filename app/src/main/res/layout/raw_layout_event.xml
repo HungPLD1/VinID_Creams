@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:elevation="1dp"
+    app:cardCornerRadius="10dp"
+    android:innerRadius="0dp"
+    android:shape="ring"
+    android:thicknessRatio="1.9"
     android:layout_height="120dp">
     <LinearLayout
         android:layout_width="match_parent"

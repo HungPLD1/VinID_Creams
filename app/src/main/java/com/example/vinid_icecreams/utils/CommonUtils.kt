@@ -60,7 +60,7 @@ class CommonUtils {
 
     fun calculateAverage(marks: List<Float>): Float {
         var sum = 0F
-        if (!marks.isEmpty()) {
+        if (marks.isNotEmpty()) {
             for (mark in marks) {
                 sum += mark
             }

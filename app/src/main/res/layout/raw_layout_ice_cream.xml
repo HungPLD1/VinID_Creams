@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="300dp"
-    android:layout_margin="5dp"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp"
-    android:weightSum="11"
-    android:background="@drawable/custum_background"
-    android:id="@+id/rawIceCream"
+    android:elevation="1dp"
+    app:cardCornerRadius="10dp"
+    android:innerRadius="0dp"
+    android:shape="ring"
+    android:thicknessRatio="1.9"
     android:layout_gravity="center_horizontal"
+    android:layout_margin="5dp"
+
     >
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/rawIceCream"
+        android:weightSum="11"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/custum_background">
+
     <ImageView
         android:id="@+id/imgIceCream"
         android:layout_gravity="center"
@@ -55,3 +66,4 @@
         android:layout_marginStart="10dp"
         android:lines="1" />
 </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -12,8 +12,10 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
-
-
+import java.util.*
+import java.util.logging.Handler
+import kotlin.collections.ArrayList
+import kotlin.concurrent.timerTask
 
 
 class AdapterOrder(
@@ -78,8 +80,7 @@ class AdapterOrder(
                         mCallBack.onReturn()
                     }
                     notifyDataSetChanged()
-                }
-                    .show()
+                }.show()
 
 
             }
@@ -110,7 +111,7 @@ class AdapterOrder(
 
     private fun insertTotal() {
         var mListPrice = ArrayList<Int>()
-        for (i in 0 until mListOrder.size){
+        for (i in 0 until mListOrder.size) {
             mListPrice.add(mListOrder[i].mTotal)
         }
         showTotalOnView(mListPrice)
@@ -118,7 +119,7 @@ class AdapterOrder(
 
     private fun showTotalOnView(mListPrice: ArrayList<Int>) {
         var mTotal = 0
-        for (i in 0 until mListPrice.size){
+        for (i in 0 until mListPrice.size) {
             mTotal += mListPrice[i]
         }
         mCallBack.showTotal(mTotal)
