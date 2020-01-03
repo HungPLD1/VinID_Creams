@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import android.util.Log
 import android.view.WindowManager
 import com.example.vinid_icecreams.model.Order
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -93,5 +94,32 @@ class CommonUtils {
 
     fun getTotalPayment(): Int{
         return mTotalPayment
+    }
+
+    /*fun get rage of two point*/
+    fun CalculationByDistance( startLatitude :Double,startLongitude : Double , endLatitude :Double,endLongitude : Double): Double {
+        val Radius = 6371 // radius of earth in Km
+        val lat1: Double = startLatitude
+        val lat2: Double = endLatitude
+        val lon1: Double = startLongitude
+        val lon2: Double = endLongitude
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val a = (Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + (Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2)))
+        val c = 2 * Math.asin(Math.sqrt(a))
+        val valueResult = Radius * c
+        val km = valueResult / 1
+        val newFormat = DecimalFormat("####")
+        val kmInDec: Int = Integer.valueOf(newFormat.format(km))
+        val meter = valueResult % 1000
+        val meterInDec: Int = Integer.valueOf(newFormat.format(meter))
+        Log.i(
+            "Radius Value", "" + valueResult + "   KM  " + kmInDec
+                    + " Meter   " + meterInDec
+        )
+        return Radius * c
     }
 }
