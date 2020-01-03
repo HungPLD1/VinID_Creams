@@ -43,7 +43,7 @@ object MockData {
     fun getUser(): User {
         return User(
             0,
-            "pham le duy hung",
+            "phạm lê duy hùng",
             981438710,
             "hung0894",
             "Hà Nội",

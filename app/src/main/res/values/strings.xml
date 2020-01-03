@@ -47,4 +47,9 @@
 
     <!--map api key-->
     <string name="map_api_key">AIzaSyAeiV0M8udpKTdYBNgOuTbanL2IUsdtI8o</string>
+    <string name="all_ratting">Tất cả đánh giá</string>
+    <string name="setup_profile">Thiết lập tài khoản</string>
+    <string name="history_order">Lịch sử mua hàng</string>
+    <string name="my_wallet">Ví của tôi</string>
+    <string name="log_out">Đăng xuất</string>
 </resources>

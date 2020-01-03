@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
@@ -21,7 +19,6 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterComment.AdapterComment
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
 import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
-import com.google.android.material.button.MaterialButton
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -29,7 +26,9 @@ import kotlinx.android.synthetic.main.fragment_details.*
 
 class FragmentDetails : Fragment(),View.OnClickListener {
     private var mIceCream : IceCream? = null
+    private var mListComment : ArrayList<Comment>? = ArrayList()
 
+    private var mRatiing : RatingBar? = null
     private var mBtnBack : ImageView? = null
     private var mPager: ViewPager? = null
     private var mDotsIndicator : DotsIndicator? = null
@@ -63,10 +62,20 @@ class FragmentDetails : Fragment(),View.OnClickListener {
         txtPriceDetails?.text = mIceCream?.price.toString()
         setupListComment()
         setupImagePager()
+        setupRattingBar()
 
         mBtnBack?.setOnClickListener(this)
         mImgAddToCart?.setOnClickListener(this)
         mBtnCart?.setOnClickListener(this)
+    }
+
+    private fun setupRattingBar() {
+        mListComment = mIceCream?.listComment
+        val mListRatingBar = ArrayList<Float>()
+        for (i in 0 until mListComment!!.size -1 ) {
+            mListComment?.get(i)?.mRating?.let { mListRatingBar.add(it) }
+        }
+        mRatiing?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
     }
 
     private fun setupImagePager() {
@@ -79,7 +88,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun setupListComment() {
-        val mListComment = mIceCream?.listComment
+        mListComment = mIceCream?.listComment
         mAdapterComment = mListComment?.let { AdapterComment(context, it) }
         rcvListComment?.layoutManager = LinearLayoutManager(context)
         rcvListComment?.adapter = mAdapterComment
@@ -95,6 +104,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
         rcvListComment = view.findViewById(R.id.rcvListComment)
         mImgAddToCart = view.findViewById(R.id.imgAddToCart)
         mBtnCart = view.findViewById(R.id.btnCart)
+        mRatiing = view.findViewById(R.id.ratting_details)
 
     }
 
