@@ -14,7 +14,7 @@ class ViewModelIceCream : ViewModel() {
     private var mListStore  = MutableLiveData<ArrayList<Store>>()
     private var mListIceCream = MutableLiveData<ArrayList<IceCream>>()
     private var mListEvent = MutableLiveData<ArrayList<Event>>()
-    
+
 
     fun getListStore () : LiveData<ArrayList<Store>> {
         mListStore.value = MockData.getListStore()

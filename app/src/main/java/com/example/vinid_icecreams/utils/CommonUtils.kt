@@ -18,12 +18,11 @@ class CommonUtils {
     val REQUEST_CODE_PEMISSION = 0
 
 
-    companion object{
+    companion object {
         var instace = CommonUtils()
-        var  mListOrder : ArrayList<Order>? = ArrayList()
-        var mTotalPayment  = 0
+        var mListOrder: ArrayList<Order>? = ArrayList()
+        var mTotalPayment = 0
     }
-
 
 
     fun getDateNow(dateStyle: String?): String? {
@@ -33,7 +32,7 @@ class CommonUtils {
             dateFormat.timeZone = TimeZone.getDefault()
             return dateFormat.format(Date(System.currentTimeMillis()))
         } catch (e: Exception) {
-            Log.d(TAG,e.toString())
+            Log.d(TAG, e.toString())
         }
         return null
     }
@@ -48,13 +47,14 @@ class CommonUtils {
         dialog.window!!.attributes = lp
     }
 
-    fun checkPermission(context : Context,permission : String): Boolean {
-        val res: Int =  context.checkCallingOrSelfPermission(permission)
+    fun checkPermission(context: Context, permission: String): Boolean {
+        val res: Int = context.checkCallingOrSelfPermission(permission)
         return (res == PackageManager.PERMISSION_GRANTED)
     }
 
     fun isConnectToNetwork(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
@@ -70,34 +70,39 @@ class CommonUtils {
         return sum
     }
 
-    fun setOrderToList(order: Order){
+    fun setOrderToList(order: Order) {
         if (mListOrder?.size!! > 0) {
-            for (i in 0 until mListOrder?.size!!) {
-                if (order.mIceCream.id == mListOrder!![i].mIceCream.id) {
-                    mListOrder!![i].mAmount += 1
-                } else {
-                    mListOrder?.add(order)
-                }
+            val i = mListOrder!!.size -1
+            if (order.mIceCream.id == mListOrder!![i].mIceCream.id) {
+                mListOrder!![i].mAmount += 1
+            } else {
+                mListOrder?.add(order)
             }
-        }else{
+
+        } else {
             mListOrder?.add(order)
         }
     }
 
-    fun getOrderList():ArrayList<Order>?{
+    fun getOrderList(): ArrayList<Order>? {
         return mListOrder
     }
 
-    fun setTotalPayment(total :Int){
+    fun setTotalPayment(total: Int) {
         mTotalPayment = total
     }
 
-    fun getTotalPayment(): Int{
+    fun getTotalPayment(): Int {
         return mTotalPayment
     }
 
     /*fun get rage of two point*/
-    fun CalculationByDistance( startLatitude :Double,startLongitude : Double , endLatitude :Double,endLongitude : Double): Double {
+    fun CalculationByDistance(
+        startLatitude: Double,
+        startLongitude: Double,
+        endLatitude: Double,
+        endLongitude: Double
+    ): Double {
         val Radius = 6371 // radius of earth in Km
         val lat1: Double = startLatitude
         val lat2: Double = endLatitude
