@@ -5,8 +5,8 @@ data class Store(
     var name:String,
     var address: String,
     var image :String,
-    var latitude: Int,
-    var longitude: Int,
+    var latitude: Double,
+    var longitude: Double,
     var createdAt: Long,
     var mListIceCream: ArrayList<IceCream>
 )

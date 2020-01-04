@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
@@ -20,6 +22,7 @@ import com.example.vinid_icecreams.view.adapter.adapterIceCream.OnItemIceCreamCl
 import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.example.vinid_icecreams.view.fragment.details.FragmentDetails
 import com.example.vinid_icecreams.view.fragment.store.FragmentStore
+import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
 
 class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener , View.OnClickListener ,
@@ -33,6 +36,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     private var btnCart : ImageView? = null
     private var mSvIceCream : SearchView? = null
     private var mAdapter : AdapterIceCream? = null
+    private val mViewModel: ViewModelIceCream by lazy {
+        ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,16 +74,18 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         setupListIcream()
     }
 
-    /*Chú ý : Đang dummy data nên khi back lại fragment này sẽ k tìm được bundle nên sẽ bị null và crash*/
     private fun setupListIcream() {
         val bundle = arguments
-        val mData = bundle?.getSerializable("DATA")
-        Log.d("Hungpld",mData.toString())
-        mListIceCream.addAll(mData as ArrayList<IceCream>)
-        mAdapter = AdapterIceCream(context,mListIceCream,this)
-        rcvIceCream?.layoutManager = GridLayoutManager(context,2)
-        rcvIceCream?.adapter = mAdapter
-        mAdapter!!.notifyDataSetChanged()
+        val id = bundle?.getInt("ID")
+        id?.let { mViewModel.getListIceCream(it) }
+        mViewModel.mListIceCream.observe(this, Observer { data ->
+            Log.d("Hungplđjádja",data.size.toString())
+            mListIceCream.addAll(data)
+            mAdapter = AdapterIceCream(context,mListIceCream,this)
+            rcvIceCream?.layoutManager = GridLayoutManager(context,2)
+            rcvIceCream?.adapter = mAdapter
+            mAdapter!!.notifyDataSetChanged()
+        })
     }
 
 

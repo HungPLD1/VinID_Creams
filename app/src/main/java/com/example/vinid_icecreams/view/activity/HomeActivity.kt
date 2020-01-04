@@ -20,7 +20,6 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        ProgressLoading.dismiss()
         setFlagFullScreen()
         initView()
         addFragment()

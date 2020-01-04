@@ -11,8 +11,8 @@ object MockData {
                 "Cửa hàng thứ $i",
                 "Nhà No9 KĐT, Pháp Vân, Hoàng Ma,Hà Nội",
                 "https://f.thuongtruong.com.vn/2018/01/vinmart2-09_50_45_735.jpg?width=420&height=200&mode=crop&anchor=middle",
-                123213,
-                31231,
+                123.213,
+                312.311,
                 312312312312,
                 getListCream()
             )
@@ -27,7 +27,7 @@ object MockData {
             val mMockIcream = IceCream(
                 i,
                 "Kem dâu",
-                5,
+                "Kem ốc quế",
                 getListImageIceCream(),
                 100,
                 20,

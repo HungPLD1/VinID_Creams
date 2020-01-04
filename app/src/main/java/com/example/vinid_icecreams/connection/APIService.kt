@@ -5,10 +5,12 @@ import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
 interface APIService {
+
     @POST("")
     fun registerAccount(
         @Query("phoneNumber") phoneNumber: Int
@@ -22,16 +24,10 @@ interface APIService {
     ): Observable<Response<User>>
 
     @GET("/stores")
-    fun getListStore(): Observable<Response<ResponeBody>>
+    fun getListStore(): Observable<Response<ResponeBody<ArrayList<Store>>>>
 
-    @GET("")
-    fun getListStoreWithCurrentLocation(
-        @Query("longitude") longitude: Int
-        , @Query("latitude") latitude: Int
-    ): Observable<Response<ArrayList<Store>>>
-
-    @GET("")
-    fun getListIceCream(@Query("storeID") storeID: Int): Observable<Response<ArrayList<IceCream>>>
+    @GET("/stores/{id}/items")
+    fun getListIceCream(@Path("id")storeID : Int): Observable<Response<ResponeBody<ArrayList<IceCream>>>>
 
     @POST("")
     fun payOrderUser(

@@ -47,6 +47,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
 
+
     private var mRcvStore: RecyclerView? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +55,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_store, container, false)
-        ProgressLoading.dismiss()
         initView(view)
         setupViewIndicatorAd()
         setupView()
@@ -86,24 +86,23 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
     private fun setupListStore() {
         ProgressLoading.show(context)
-        mViewModel.getListStore().observe(this,Observer { data ->
+        mViewModel.getListStore()
+        mViewModel.mListStore.observe(this,Observer { data ->
             mListStore.addAll(data)
             val mAdapterStore = AdapterStore(context, mListStore, this)
             mRcvStore?.layoutManager = LinearLayoutManager(context)
             mRcvStore?.adapter = mAdapterStore
+            mAdapterStore.notifyDataSetChanged()
         })
     }
 
     override fun onItemClick(positon: Int) {
-        val mFragmentShopping = FragmentShopping()
         val bundle = Bundle()
-        bundle.putSerializable("DATA", mListStore[positon].mListIceCream)
+        val mFragmentShopping = FragmentShopping()
+        bundle.putSerializable("ID", mListStore[positon].id)
         mFragmentShopping.arguments = bundle
-        ProgressLoading.show(context)
         fragmentManager?.beginTransaction()?.addToBackStack("Store")?.replace(R.id.containerHome, mFragmentShopping)
             ?.commit()
-        var count = fragmentManager?.backStackEntryCount
-        Log.i("test123 " ,count.toString())
     }
 
     override fun onClick(view: View?) {
