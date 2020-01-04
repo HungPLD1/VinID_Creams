@@ -8,6 +8,7 @@ import com.example.vinid_icecreams.model.User
 import com.example.vinid_icecreams.utils.ProgressLoading
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.net.SocketTimeoutException
 
 class Repository {
     //success
@@ -32,10 +33,9 @@ class Repository {
     @SuppressLint("CheckResult")
     fun callAuthenticateAccount(mPhoneNumber: Int, mPassword: String): User? {
         val mUser: User? = null
-        RetrofitIceCream.createRetrofit()!!.authenticateAccount(mPhoneNumber, mPassword)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ result ->
+        RetrofitIceCream.createRetrofit()?.authenticateAccount(mPhoneNumber, mPassword)
+            ?.observeOn(AndroidSchedulers.mainThread())?.subscribeOn(Schedulers.io())
+            ?.subscribe({ result ->
                 when (result.code()) {
                     CODE_200, CODE_201, CODE_204 -> {
                         ProgressLoading.dismiss()
@@ -45,6 +45,7 @@ class Repository {
                     }
                 }
             }) { error ->
+                Log.d(TAG, error.toString())
             }
         return mUser
     }
@@ -55,9 +56,9 @@ class Repository {
         RetrofitIceCream.createRetrofit()!!.getListStore().observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ result ->
+                Log.d(TAG, result.code().toString())
                 when (result.code()) {
                     CODE_200 -> {
-                        Log.d(TAG, result.body()!!.toString())
                         mListStore.addAll(result.body() as ArrayList<Store>)
                         ProgressLoading.dismiss()
                     }
@@ -66,8 +67,7 @@ class Repository {
                     }
                 }
             }) { error ->
-                Log.d(TAG,error.toString())
-                ProgressLoading.dismiss()
+                Log.d(TAG, error.toString())
             }
 
         return mListStore

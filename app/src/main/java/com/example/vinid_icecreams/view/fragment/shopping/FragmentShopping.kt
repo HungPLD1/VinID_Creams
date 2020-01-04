@@ -180,7 +180,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         }
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
+    override fun onQueryTextSubmit(query: String?): Boolean   {
         if (query == null || query.isEmpty()){
             setupListIcream()
         }else {

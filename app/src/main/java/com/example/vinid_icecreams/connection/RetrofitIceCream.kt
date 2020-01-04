@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitIceCream {
     private const val TOKEN = "token"
-    private const val BASE_URL = "http://34.80.70.61/"
+    private const val BASE_URL = "http://35.198.221.214:8080"
     private var retrofit: Retrofit? = null
     private const val TIME_OUT = 60L
 
@@ -23,7 +23,7 @@ object RetrofitIceCream {
             chain.proceed(request)
         }
 
-        val gson = GsonBuilder()
+        val gSon = GsonBuilder()
             .setLenient()
             .create()
 
@@ -31,9 +31,9 @@ object RetrofitIceCream {
             retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(httpClient.build())
                 .addCallAdapterFactory(
                     RxJava2CallAdapterFactory.create()
-                ).addConverterFactory(GsonConverterFactory.create(gson)).build()
+                ).addConverterFactory(GsonConverterFactory.create(gSon)).build()
         }
-        return retrofit!!.create(APIService::class.java)
+        return retrofit?.create(APIService::class.java)
     }
 
 }
