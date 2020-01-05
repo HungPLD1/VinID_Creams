@@ -13,7 +13,8 @@ class ViewModelIceCream : ViewModel() {
     private var TAG = "viewmodel"
     var mListStore  = MutableLiveData<ArrayList<Store>>()
     var mListIceCream = MutableLiveData<ArrayList<IceCream>>()
-    private var mListEvent = MutableLiveData<ArrayList<Event>>()
+    var mListEvent = MutableLiveData<ArrayList<Event>>()
+    var mIsRequestLogin  = MutableLiveData<Boolean>()
 
 
     fun getListStore(){
@@ -42,6 +43,14 @@ class ViewModelIceCream : ViewModel() {
             }
 
         })
+    }
+
+    fun handleLogicLogin(phoneNumber :String ,password : String){
+        if (phoneNumber.length == 9 || phoneNumber.length == 11 && password.length > 6 ){
+            Repository.mInstance.callAuthenticateAccount(phoneNumber.toInt(),password)
+        }else{
+            mIsRequestLogin.value = false
+        }
     }
 
 

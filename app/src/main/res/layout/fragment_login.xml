@@ -71,7 +71,7 @@
                 android:id="@+id/btn_go"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:background="@drawable/custum_button"
+                android:background="@drawable/custum_button_enable"
                 android:stateListAnimator="@drawable/state_list_animator_z"
                 android:text="@string/go"
                 android:textColor="#d3d3d3" />

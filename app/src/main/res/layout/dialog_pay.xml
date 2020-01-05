@@ -202,7 +202,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/custum_button"
+                android:background="@drawable/custum_button_enable"
                 android:text="@string/accept"
                 android:textColor="@android:color/white" />
         </LinearLayout>

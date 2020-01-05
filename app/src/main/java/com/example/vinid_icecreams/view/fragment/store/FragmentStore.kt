@@ -83,7 +83,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         setupListStore()
     }
 
-
+    /*set up list store */
     private fun setupListStore() {
         ProgressLoading.show(context)
         mViewModel.getListStore()
@@ -96,6 +96,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         })
     }
 
+    /*click on list store*/
     override fun onItemClick(positon: Int) {
         val bundle = Bundle()
         val mFragmentShopping = FragmentShopping()
