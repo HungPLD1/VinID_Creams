@@ -8,7 +8,7 @@
     <string name="about">About</string>
     <string name="login_success">login success</string>
     <string name="login">LOGIN</string>
-    <string name="phone_Number">Phone</string>
+    <string name="phone_Number">Phone number</string>
     <string name="Password">Password</string>
     <string name="forgot_your_password">Forgot your password ?</string>
     <string name="go">GO</string>
@@ -52,4 +52,5 @@
     <string name="history_order">Lịch sử mua hàng</string>
     <string name="my_wallet">Ví của tôi</string>
     <string name="log_out">Đăng xuất</string>
+    <string name="remid_user"> Kiểm tra lại số điện thoại hoặc mật khẩu </string>
 </resources>

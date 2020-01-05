@@ -8,5 +8,6 @@ data class Store(
     var latitude: Double,
     var longitude: Double,
     var createdAt: Long,
-    var mListIceCream: ArrayList<IceCream>
+    var mListIceCream: ArrayList<IceCream>,
+    var range : Double
 )

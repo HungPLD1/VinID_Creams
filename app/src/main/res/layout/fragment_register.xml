@@ -64,7 +64,7 @@
                     android:theme="@style/TextLabel">
 
                     <EditText
-                        android:id="@+id/edt_regis_password"
+                        android:id="@+id/edt_register_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/selector_bg_edit_2"
@@ -92,7 +92,7 @@
                     android:theme="@style/TextLabel">
 
                     <EditText
-                        android:id="@+id/edt_regis_repeatpassword"
+                        android:id="@+id/edt_register_repeat_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/selector_bg_edit_2"

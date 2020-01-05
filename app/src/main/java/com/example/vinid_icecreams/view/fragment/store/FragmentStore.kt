@@ -1,6 +1,7 @@
 package com.example.vinid_icecreams.view.fragment.store
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.*
@@ -36,6 +37,8 @@ import kotlin.collections.ArrayList
 
 
 class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
+    private var TAG = FragmentStore::class.java.name
+
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
     private var mImgLocation: ImageView? = null
@@ -43,6 +46,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     private var mPagerAd: ViewPager? = null
     private var mDotsIndicator : DotsIndicator? = null
     private var mBtnGoToCart : ImageView? = null
+    private var mAdapterStore : AdapterStore? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
@@ -80,20 +84,25 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     }
 
     private fun setupView() {
-        setupListStore()
+        observeData()
     }
 
-    /*set up list store */
-    private fun setupListStore() {
+
+    private fun observeData() {
         ProgressLoading.show(context)
         mViewModel.getListStore()
         mViewModel.mListStore.observe(this,Observer { data ->
             mListStore.addAll(data)
-            val mAdapterStore = AdapterStore(context, mListStore, this)
-            mRcvStore?.layoutManager = LinearLayoutManager(context)
-            mRcvStore?.adapter = mAdapterStore
-            mAdapterStore.notifyDataSetChanged()
+            setupListStore(mListStore)
         })
+    }
+
+    /*set up list store */
+    private fun setupListStore (mListStore: ArrayList<Store>){
+        mAdapterStore  = AdapterStore(context, mListStore, this)
+        mRcvStore?.layoutManager = LinearLayoutManager(context)
+        mRcvStore?.adapter = mAdapterStore
+        mAdapterStore?.notifyDataSetChanged()
     }
 
     /*click on list store*/
@@ -163,9 +172,17 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
     //define the listener
     private val locationListener: LocationListener = object : LocationListener {
+        @SuppressLint("SetTextI18n")
         override fun onLocationChanged(location: Location) {
             Log.d("Location","" + location.longitude + ":" + location.latitude)
-            setLocalName(location.longitude,location.latitude)
+            //setLocalName(location.longitude,location.latitude)
+            for (position in 0 until mListStore.size){
+                val range  = CommonUtils.instace.calculationByDistance(location.latitude,location.longitude,mListStore[position].latitude,mListStore[position].longitude)
+                mListStore[position].range = range
+            }
+            mListStore = CommonUtils.instace.sortList(mListStore)
+            setupListStore(mListStore)
+            ProgressLoading.dismiss()
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -224,11 +241,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        var mCount = fragmentManager!!.backStackEntryCount
     }
 
     /*set up view indicator ad*/

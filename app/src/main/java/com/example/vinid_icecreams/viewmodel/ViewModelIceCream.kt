@@ -53,7 +53,9 @@ class ViewModelIceCream : ViewModel() {
         }
     }
 
+    fun getListEvent(){
 
+    }
 
 
 

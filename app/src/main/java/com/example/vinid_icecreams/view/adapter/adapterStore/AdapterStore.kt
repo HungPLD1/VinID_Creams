@@ -1,22 +1,21 @@
 package com.example.vinid_icecreams.view.adapter.adapterStore
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.squareup.picasso.Picasso
+import java.text.DecimalFormat
 
 class AdapterStore(
     var mContext: Context?,
     var mListStore: ArrayList<Store>,
-    var clicklistener: OnItemStoreClicklistener
+    private var callback: OnItemStoreClicklistener
 ) : RecyclerView.Adapter<AdapterStore.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -29,18 +28,23 @@ class AdapterStore(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-
         holder.txtNameStore?.text = mListStore[position].name
         holder.txtAddressStore?.text = mListStore[position].address
         Picasso.with(mContext).load(mListStore[position].image)
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgStore)
+
+        if (mListStore[position].range != 0.0){
+            val newFormat = DecimalFormat("###.#")
+            val rangeInDec: String = String.format(newFormat.format(mListStore[position].range))
+            holder.txtRangeStore?.text = "$rangeInDec km"
+        }
+
         /*handle click on item Store*/
 
         holder.itemView.setOnClickListener{
-            clicklistener.onItemClick(position)
+            callback.onItemClick(position)
         }
 
     }
@@ -49,11 +53,13 @@ class AdapterStore(
         var imgStore : ImageView? = null
         var txtNameStore: TextView? = null
         var txtAddressStore: TextView? = null
+        var txtRangeStore : TextView? = null
 
         init {
-          imgStore = itemView.findViewById(R.id.imgImageStore)
-            txtNameStore = itemView.findViewById(R.id.txtNameStore)
+          imgStore = itemView.findViewById(R.id.img_ImageStore)
+            txtNameStore = itemView.findViewById(R.id.tx_tNameStore)
             txtAddressStore = itemView.findViewById(R.id.txtAddress)
+            txtRangeStore = itemView.findViewById(R.id.txt_RangeStore)
         }
     }
 }

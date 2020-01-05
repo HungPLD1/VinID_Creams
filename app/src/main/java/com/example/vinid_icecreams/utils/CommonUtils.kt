@@ -7,10 +7,15 @@ import android.net.ConnectivityManager
 import android.util.Log
 import android.view.WindowManager
 import com.example.vinid_icecreams.model.Order
+import com.example.vinid_icecreams.model.Store
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.asin
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 
 class CommonUtils {
@@ -97,25 +102,25 @@ class CommonUtils {
     }
 
     /*fun get rage of two point*/
-    fun CalculationByDistance(
+    fun calculationByDistance(
         startLatitude: Double,
         startLongitude: Double,
         endLatitude: Double,
         endLongitude: Double
     ): Double {
-        val Radius = 6371 // radius of earth in Km
+        val radius = 6371 // radius of earth in Km
         val lat1: Double = startLatitude
         val lat2: Double = endLatitude
         val lon1: Double = startLongitude
         val lon2: Double = endLongitude
         val dLat = Math.toRadians(lat2 - lat1)
         val dLon = Math.toRadians(lon2 - lon1)
-        val a = (Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                + (Math.cos(Math.toRadians(lat1))
-                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
-                * Math.sin(dLon / 2)))
-        val c = 2 * Math.asin(Math.sqrt(a))
-        val valueResult = Radius * c
+        val a = (sin(dLat / 2) * sin(dLat / 2)
+                + (cos(Math.toRadians(lat1))
+                * cos(Math.toRadians(lat2)) * sin(dLon / 2)
+                * sin(dLon / 2)))
+        val c = 2 * asin(sqrt(a))
+        val valueResult = radius * c
         val km = valueResult / 1
         val newFormat = DecimalFormat("####")
         val kmInDec: Int = Integer.valueOf(newFormat.format(km))
@@ -125,6 +130,10 @@ class CommonUtils {
             "Radius Value", "" + valueResult + "   KM  " + kmInDec
                     + " Meter   " + meterInDec
         )
-        return Radius * c
+        return valueResult
+    }
+
+    fun sortList(mListData : ArrayList<Store>) : ArrayList<Store> {
+        return ArrayList(mListData.sortedWith(compareBy {it.range}))
     }
 }

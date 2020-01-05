@@ -14,7 +14,8 @@ object MockData {
                 123.213,
                 312.311,
                 312312312312,
-                getListCream()
+                getListCream(),
+                37123.312
             )
             mListStore.add(mMockStore)
         }

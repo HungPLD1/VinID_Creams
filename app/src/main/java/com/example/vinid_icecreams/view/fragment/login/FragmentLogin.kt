@@ -91,7 +91,7 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     private fun loginFailse(){
         KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Login error")
-            .setContentText("Sai số diện thoại hoặc mật khẩu")
+            .setContentText(getString(R.string.remid_user))
             .show()
     }
 
