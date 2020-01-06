@@ -12,10 +12,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
-import java.util.*
-import java.util.logging.Handler
 import kotlin.collections.ArrayList
-import kotlin.concurrent.timerTask
 
 
 class AdapterOrder(
@@ -45,7 +42,7 @@ class AdapterOrder(
         holder.txtCount?.text = (mListOrder[position].mAmount).toString()
 
         insertTotal()
-        Picasso.with(mContext).load(mListOrder[position].mIceCream.mListImage[0])
+        Picasso.with(mContext).load(mListOrder[position].mIceCream.image_paths[0])
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgOrder)

@@ -30,7 +30,7 @@ class AdapterStore(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.txtNameStore?.text = mListStore[position].name
         holder.txtAddressStore?.text = mListStore[position].address
-        Picasso.with(mContext).load(mListStore[position].image)
+        Picasso.with(mContext).load(mListStore[position].image_path)
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgStore)

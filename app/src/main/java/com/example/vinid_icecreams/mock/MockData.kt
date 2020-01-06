@@ -69,7 +69,7 @@ object MockData {
 
     fun getListImageIceCream(): ArrayList<String> {
         val mListImage = ArrayList<String>()
-        mListImage.add("https://cdn.apartmenttherapy.info/image/fetch/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2014%2F06%2F04a3c9323983d070e1177a0c6300d1afce24ae04.jpeg")
+        mListImage.add("https://cdn.apartmenttherapy.info/image_path/fetch/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2014%2F06%2F04a3c9323983d070e1177a0c6300d1afce24ae04.jpeg")
         mListImage.add("https://media.gettyimages.com/photos/ice-cream-picture-id157671800?s=612x612")
         mListImage.add("https://5.imimg.com/data5/MN/OY/MY-5505468/5-500x500.jpg")
         return mListImage

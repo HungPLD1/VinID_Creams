@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
@@ -70,7 +71,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun setupRattingBar() {
-        mListComment = mIceCream?.listComment
+        mListComment = MockData.getListComment()
         val mListRatingBar = ArrayList<Float>()
         for (i in 0 until mListComment!!.size -1 ) {
             mListComment?.get(i)?.mRating?.let { mListRatingBar.add(it) }
@@ -80,7 +81,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
 
     private fun setupImagePager() {
         val mListImage = ArrayList<String>()
-        mIceCream?.mListImage?.let { mListImage.addAll(it) }
+        mIceCream?.image_paths?.let { mListImage.addAll(it) }
         val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndiCatorDetails(context!!,mListImage)
         mPager!!.adapter = mAdapterViewPagerIndicatorAd
         mDotsIndicator?.setViewPager(mPager!!)
@@ -88,7 +89,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun setupListComment() {
-        mListComment = mIceCream?.listComment
+        mListComment = MockData.getListComment()
         mAdapterComment = mListComment?.let { AdapterComment(context, it) }
         rcvListComment?.layoutManager = LinearLayoutManager(context)
         rcvListComment?.adapter = mAdapterComment

@@ -11,6 +11,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
@@ -43,14 +44,14 @@ class AdapterIceCream(
         5: Other
         6: Mix
         */
-        Picasso.with(mContext).load(mListIceCream[position].mListImage[0])
+        Picasso.with(mContext).load(mListIceCream[position].image_paths[0])
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgIceCream)
         holder.txtNameIceCream?.text = mListIceCream[position].name
         holder.txtPriceIceCream?.text = mListIceCream[position].price.toString() + " $"
 
-        val mListComment = mListIceCream[position].listComment
+        val mListComment = MockData.getListComment()
         val mListRatingBar = ArrayList<Float>()
         for (i in 0 until mListComment.size -1) {
             mListRatingBar.add(mListComment[i].mRating)

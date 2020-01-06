@@ -4,7 +4,7 @@ data class Store(
     var id:Int,
     var name:String,
     var address: String,
-    var image :String,
+    var image_path :String,
     var latitude: Double,
     var longitude: Double,
     var createdAt: Long,
