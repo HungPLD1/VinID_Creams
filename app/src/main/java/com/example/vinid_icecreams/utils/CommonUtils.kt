@@ -8,7 +8,6 @@ import android.net.ConnectivityManager
 import android.util.Log
 import android.view.WindowManager
 import com.developer.kalert.KAlertDialog
-import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
 import java.text.DecimalFormat
@@ -146,9 +145,12 @@ class CommonUtils {
             .show()
     }
 
-    fun showNoConnection (activity: Activity?){
+    fun showNoConnection (activity: Activity?, callback : NoConnectionListener){
         KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-            .setTitleText("No internet").setContentText("Check your internet")
+            .setTitleText("No internet").setContentText("Check your internet").setConfirmClickListener {
+                it.cancel()
+                callback.onClickButtonOk(it)
+            }
             .show()
     }
 }

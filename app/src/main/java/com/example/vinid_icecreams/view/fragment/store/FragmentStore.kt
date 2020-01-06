@@ -23,6 +23,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
+import com.example.vinid_icecreams.utils.NoConnectionListener
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicatorAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
@@ -36,7 +37,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
+class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener ,NoConnectionListener {
     var TAG = FragmentStore::class.java.name
 
     private var mListStore: ArrayList<Store> = ArrayList()
@@ -97,7 +98,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
                 setupListStore(mListStore)
             })
         }else{
-            CommonUtils.instace.showNoConnection(activity)
+            CommonUtils.instace.showNoConnection(activity,this)
         }
     }
 
@@ -257,5 +258,10 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mPagerAd!!.adapter = mAdapterViewPagerIndicatorAd
         mDotsIndicator?.setViewPager(mPagerAd!!)
 
+    }
+
+    override fun onClickButtonOk(it: KAlertDialog) {
+        observeData()
+        it.cancel()
     }
 }

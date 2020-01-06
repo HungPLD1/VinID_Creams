@@ -5,7 +5,6 @@ import android.view.MenuItem
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.fragment.chat.FragmentChat
 import com.example.vinid_icecreams.view.fragment.event.FragmentEvent
 import com.example.vinid_icecreams.view.fragment.profile.FragmentProfile
