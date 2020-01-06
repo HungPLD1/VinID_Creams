@@ -2,23 +2,17 @@ package com.example.vinid_icecreams.repository
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.fragment.app.DialogFragment
 import com.example.vinid_icecreams.connection.RetrofitIceCream
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.model.User
-import com.example.vinid_icecreams.utils.ProgressLoading
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.net.SocketTimeoutException
 
 class Repository {
     //success
-    val CODE_200 = 200
-    val TAG = "Hungpld1VINID"
-
-    private var mListStore  = ArrayList<Store>()
-
+    private val CODE_200 = 200
+    private val TAG = Repository::class.java.name
 
     companion object {
         val mInstance = Repository()

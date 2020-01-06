@@ -27,6 +27,8 @@ import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
 class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener , View.OnClickListener ,
     SearchView.OnQueryTextListener {
+    var TAG = FragmentShopping::class.java.name
+
     private var rcvIceCream : RecyclerView? = null
     private var mListIceCream : ArrayList<IceCream> = ArrayList()
     private var spnFilterByType : Spinner?= null
@@ -48,7 +50,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         val mView = inflater.inflate(R.layout.fragment_shopping,container,false)
         iniView(mView)
         ProgressLoading.dismiss()
-        setUpSpinerFilter()
+        setUpSpinnerFilter()
         return mView
     }
 
@@ -66,26 +68,32 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         mSvIceCream?.setOnQueryTextListener(this)
     }
 
-    /*Set up and add data spiner filter*/
-    private fun setUpSpinerFilter() {
+    /*Set up and add data spinner filter*/
+    private fun setUpSpinnerFilter() {
         setupSpinerType()
         setupSpinerPrice()
         setupSpinerDiscount()
-        setupListIcream()
+        setupListIceCream()
     }
 
-    private fun setupListIcream() {
+    /*observe data*/
+    private fun setupListIceCream() {
         val bundle = arguments
         val id = bundle?.getInt("ID")
         id?.let { mViewModel.getListIceCream(it) }
-        mViewModel.mListIceCream.observe(this, Observer { data ->
-            Log.d("Hungplđjádja",data.size.toString())
-            mListIceCream.addAll(data)
-            mAdapter = AdapterIceCream(context,mListIceCream,this)
-            rcvIceCream?.layoutManager = GridLayoutManager(context,2)
-            rcvIceCream?.adapter = mAdapter
-            mAdapter!!.notifyDataSetChanged()
-        })
+        if (id == null){
+            CommonUtils.instace.showSomeThingWentWrong(activity)
+            return
+        }
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            mViewModel.mListIceCream.observe(this, Observer { data ->
+                mListIceCream.addAll(data)
+                mAdapter = AdapterIceCream(context, mListIceCream, this)
+                rcvIceCream?.layoutManager = GridLayoutManager(context, 2)
+                rcvIceCream?.adapter = mAdapter
+                mAdapter!!.notifyDataSetChanged()
+            })
+        }
     }
 
 
@@ -190,9 +198,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     override fun onQueryTextSubmit(query: String?): Boolean   {
         if (query == null || query.isEmpty()){
-            setupListIcream()
+            setupListIceCream()
         }else {
-            setupListIcream()
+            setupListIceCream()
             mAdapter?.filter(query.toLowerCase())
         }
         return false
@@ -200,9 +208,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText == null || newText.isEmpty()){
-            setupListIcream()
+            setupListIceCream()
         }else {
-            setupListIcream()
+            setupListIceCream()
             mAdapter?.filter(newText.toLowerCase())
         }
         return false

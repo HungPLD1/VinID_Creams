@@ -10,7 +10,7 @@ import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.utils.ProgressLoading
 
 class ViewModelIceCream : ViewModel() {
-    private var TAG = "viewmodel"
+    var TAG = ViewModelIceCream::class.java.name
     var mListStore  = MutableLiveData<ArrayList<Store>>()
     var mListIceCream = MutableLiveData<ArrayList<IceCream>>()
     var mListEvent = MutableLiveData<ArrayList<Event>>()

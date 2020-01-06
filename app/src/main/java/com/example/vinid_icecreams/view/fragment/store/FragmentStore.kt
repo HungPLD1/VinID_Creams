@@ -37,7 +37,7 @@ import kotlin.collections.ArrayList
 
 
 class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
-    private var TAG = FragmentStore::class.java.name
+    var TAG = FragmentStore::class.java.name
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
@@ -87,14 +87,18 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         observeData()
     }
 
-
+    /*observe data*/
     private fun observeData() {
-        ProgressLoading.show(context)
-        mViewModel.getListStore()
-        mViewModel.mListStore.observe(this,Observer { data ->
-            mListStore.addAll(data)
-            setupListStore(mListStore)
-        })
+        if(CommonUtils.instace.isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            mViewModel.getListStore()
+            mViewModel.mListStore.observe(this, Observer { data ->
+                mListStore.addAll(data)
+                setupListStore(mListStore)
+            })
+        }else{
+            CommonUtils.instace.showNoConnection(activity)
+        }
     }
 
     /*set up list store */
@@ -170,7 +174,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         }
     }
 
-    //define the listener
+    /*define the listener*/
     private val locationListener: LocationListener = object : LocationListener {
         @SuppressLint("SetTextI18n")
         override fun onLocationChanged(location: Location) {

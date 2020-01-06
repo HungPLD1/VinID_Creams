@@ -1,11 +1,14 @@
 package com.example.vinid_icecreams.utils
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.util.Log
 import android.view.WindowManager
+import com.developer.kalert.KAlertDialog
+import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
 import java.text.DecimalFormat
@@ -57,9 +60,9 @@ class CommonUtils {
         return (res == PackageManager.PERMISSION_GRANTED)
     }
 
-    fun isConnectToNetwork(context: Context): Boolean {
+    fun isConnectToNetwork(context: Context?): Boolean {
         val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
@@ -135,5 +138,17 @@ class CommonUtils {
 
     fun sortList(mListData : ArrayList<Store>) : ArrayList<Store> {
         return ArrayList(mListData.sortedWith(compareBy {it.range}))
+    }
+
+    fun showSomeThingWentWrong(activity: Activity?){
+        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Some thing went wrong")
+            .show()
+    }
+
+    fun showNoConnection (activity: Activity?){
+        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("No internet").setContentText("Check your internet")
+            .show()
     }
 }
