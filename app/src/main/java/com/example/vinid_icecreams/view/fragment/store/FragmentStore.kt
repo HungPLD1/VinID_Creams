@@ -73,7 +73,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mTxtLocation = view?.findViewById(R.id.txt_Store_Location)
         mPagerAd = view?.findViewById(R.id.mViewPagerAd)
         mDotsIndicator = view?.findViewById(R.id.mDotsIndicatorAd)
-        mBtnGoToCart = view?.findViewById(R.id.imgStoreGoToCart)
 
 
         /*click event*/
@@ -115,6 +114,8 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         val bundle = Bundle()
         val mFragmentShopping = FragmentShopping()
         bundle.putSerializable("ID", mListStore[positon].id)
+        CommonUtils.instace.saveStoreSelected(mListStore[positon])
+        CommonUtils.mListOrder = ArrayList()
         mFragmentShopping.arguments = bundle
         fragmentManager?.beginTransaction()?.addToBackStack("Store")?.replace(R.id.containerHome, mFragmentShopping)
             ?.commit()
@@ -144,19 +145,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
                         handleRequestPermission()
                     }
                 }
-                R.id.imgStoreGoToCart->{
-                    if (CommonUtils.instace.getOrderList()!!.size > 0){
-                        val mFragmentCart = FragmentCart()
-                        val tag = mFragmentCart.javaClass.name
-                        ProgressLoading.show(context)
-                        fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentCart)?.addToBackStack(tag)?.commit()
-                    }else{
-                        val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
-                        pDialog.titleText = "Giỏ hàng trống"
-                        pDialog.setCancelable(true)
-                        pDialog.show()
-                    }
-                }
                 R.id.txt_Store_Location ->{
                 }
             }
@@ -166,13 +154,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     //handle reuqest permission
     private fun handleRequestPermission() {
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-        activity?.let {
-            ActivityCompat.requestPermissions(
-                it,
-                permissions,
-                CommonUtils.instace.REQUEST_CODE_PEMISSION
-            )
-        }
+        requestPermissions(permissions, CommonUtils.instace.REQUEST_CODE_PEMISSION)
     }
 
     /*define the listener*/

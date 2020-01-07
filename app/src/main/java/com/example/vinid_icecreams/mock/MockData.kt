@@ -3,43 +3,43 @@ package com.example.vinid_icecreams.mock
 import com.example.vinid_icecreams.model.*
 
 object MockData {
-    fun getListStore(): ArrayList<Store> {
-        val mListStore = ArrayList<Store>()
-        for (i in 1..10) {
-            val mMockStore = Store(
-                i,
-                "Cửa hàng thứ $i",
-                "Nhà No9 KĐT, Pháp Vân, Hoàng Ma,Hà Nội",
-                "https://f.thuongtruong.com.vn/2018/01/vinmart2-09_50_45_735.jpg?width=420&height=200&mode=crop&anchor=middle",
-                123.213,
-                312.311,
-                312312312312,
-                getListCream(),
-                37123.312
-            )
-            mListStore.add(mMockStore)
-        }
-        return mListStore
-    }
+//    fun getListStore(): ArrayList<Store> {
+//        val mListStore = ArrayList<Store>()
+//        for (i in 1..10) {
+//            val mMockStore = Store(
+//                i,
+//                "Cửa hàng thứ $i",
+//                "Nhà No9 KĐT, Pháp Vân, Hoàng Ma,Hà Nội",
+//                "https://f.thuongtruong.com.vn/2018/01/vinmart2-09_50_45_735.jpg?width=420&height=200&mode=crop&anchor=middle",
+//                123.213,
+//                312.311,
+//                312312312312,
+//                getListCream(),
+//                37123.312
+//            )
+//            mListStore.add(mMockStore)
+//        }
+//        return mListStore
+//    }
 
-    fun getListCream(): ArrayList<IceCream> {
-        val mListCream = ArrayList<IceCream>()
-        for (i in 1..20) {
-            val mMockIcream = IceCream(
-                i,
-                "Kem dâu",
-                "Kem ốc quế",
-                getListImageIceCream(),
-                100,
-                20,
-                3.5f,
-                31263712836,
-                getListComment()
-            )
-            mListCream.add(mMockIcream)
-        }
-        return mListCream
-    }
+//    fun getListCream(): ArrayList<IceCream> {
+//        val mListCream = ArrayList<IceCream>()
+//        for (i in 1..20) {
+//            val mMockIcream = IceCream(
+//                i,
+//                "Kem dâu",
+//                "Kem ốc quế",
+//                getListImageIceCream(),
+//                100,
+//                20,
+//                3.5f,
+//                31263712836,
+//                getListComment()
+//            )
+//            mListCream.add(mMockIcream)
+//        }
+//        return mListCream
+//    }
 
     fun getUser(): User {
         return User(

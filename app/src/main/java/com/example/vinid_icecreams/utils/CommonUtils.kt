@@ -29,6 +29,7 @@ class CommonUtils {
         var instace = CommonUtils()
         var mListOrder: ArrayList<Order>? = ArrayList()
         var mTotalPayment = 0
+        var mSelectedStore : Store? = null
     }
 
 
@@ -152,5 +153,14 @@ class CommonUtils {
                 callback.onClickButtonOk(it)
             }
             .show()
+    }
+
+
+    fun saveStoreSelected (store: Store){
+        mSelectedStore = store
+    }
+
+    fun getStoreSelected() : Store?{
+        return mSelectedStore
     }
 }
