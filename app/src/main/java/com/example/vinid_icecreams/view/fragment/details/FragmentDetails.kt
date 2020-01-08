@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.view.fragment.details
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
@@ -58,9 +58,10 @@ class FragmentDetails : Fragment(),View.OnClickListener {
         mIceCream = mData as IceCream
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupView() {
-        txtNameDetails?.text = mIceCream?.name
-        txtPriceDetails?.text = mIceCream?.price.toString()
+        mTxtNameDetails?.text = mIceCream?.name
+        mTxtPriceDetails?.text = mIceCream?.price.toString() + " $"
         setupListComment()
         setupImagePager()
         setupRattingBar()
@@ -71,12 +72,16 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun setupRattingBar() {
-        mListComment = MockData.getListComment()
-        val mListRatingBar = ArrayList<Float>()
+        mListComment = mIceCream?.listComment
+        val mListRatingBar = ArrayList<Int>()
         for (i in 0 until mListComment!!.size -1 ) {
-            mListComment?.get(i)?.mRating?.let { mListRatingBar.add(it) }
+            mListComment?.get(i)?.rating_star?.let { mListRatingBar.add(it) }
         }
-        mRatiing?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
+        if (mListRatingBar.size > 1){
+            mRatiing?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
+        }else{
+            mRatiing?.rating = mListRatingBar[0].toFloat()
+        }
     }
 
     private fun setupImagePager() {
@@ -89,7 +94,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun setupListComment() {
-        mListComment = MockData.getListComment()
+        mListComment = mIceCream?.listComment
         mAdapterComment = mListComment?.let { AdapterComment(context, it) }
         rcvListComment?.layoutManager = LinearLayoutManager(context)
         rcvListComment?.adapter = mAdapterComment
@@ -100,8 +105,8 @@ class FragmentDetails : Fragment(),View.OnClickListener {
         mBtnBack = view.findViewById(R.id.imgBack)
         mPager = view.findViewById(R.id.mViewPagerDetails)
         mDotsIndicator = view.findViewById(R.id.mDotsIndicatorDetails)
-        mTxtNameDetails = view.findViewById(R.id.txtNameDetails)
-        mTxtPriceDetails = view.findViewById(R.id.txtPriceDetails)
+        mTxtNameDetails = view.findViewById(R.id.txt_NameDetails)
+        mTxtPriceDetails = view.findViewById(R.id.txt_PriceDetails)
         rcvListComment = view.findViewById(R.id.rcvListComment)
         mImgAddToCart = view.findViewById(R.id.imgAddToCart)
         mBtnCart = view.findViewById(R.id.btnCart)
@@ -113,9 +118,6 @@ class FragmentDetails : Fragment(),View.OnClickListener {
         if (v != null){
             when(v.id){
                 R.id.imgBack ->{
-//                    val mFragmentShopping = FragmentShopping()
-//                    ProgressLoading.show(context)
-//                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentShopping)?.addToBackStack(null)?.commit()
                     activity?.onBackPressed()
                 }
                 R.id.imgAddToCart ->{

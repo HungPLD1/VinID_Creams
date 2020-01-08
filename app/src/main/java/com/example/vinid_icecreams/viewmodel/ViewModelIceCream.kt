@@ -16,7 +16,6 @@ class ViewModelIceCream : ViewModel() {
     var mListEvent = MutableLiveData<ArrayList<Event>>()
     var mIsRequestLogin  = MutableLiveData<Boolean>()
 
-
     fun getListStore(){
         Repository.mInstance.callRequestListStore(object  : OnRespone<ArrayList<Store>,String> {
             override fun onSuccess(value: ArrayList<Store>) {

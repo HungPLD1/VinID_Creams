@@ -67,7 +67,7 @@ class CommonUtils {
         return networkInfo != null && networkInfo.isConnected
     }
 
-    fun calculateAverage(marks: List<Float>): Float {
+    fun calculateAverage(marks: List<Int>): Float {
         var sum = 0F
         if (marks.isNotEmpty()) {
             for (mark in marks) {

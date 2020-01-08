@@ -111,7 +111,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         spnFilterByDiscount?.onItemSelectedListener = this
     }
 
-
+    /*click item on list fragment */
     override fun onItemClick(positon: Int) {
         val bundle = Bundle()
         val fragmentDetails = FragmentDetails()

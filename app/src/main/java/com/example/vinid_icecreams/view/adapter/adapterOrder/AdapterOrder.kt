@@ -37,12 +37,12 @@ class AdapterOrder(
 
         holder.txtNameOrder?.text = mListOrder[position].mIceCream.name
         holder.txtPriceOrder?.text = mListOrder[position].mIceCream.price.toString()
-        mListOrder[position].mTotal = mListOrder[position].mIceCream.price * mCount
+        mListOrder[position].mTotal = mListOrder[position].mIceCream.price!! * mCount
         holder.txtTotal?.text = mListOrder[position].mTotal.toString()
         holder.txtCount?.text = (mListOrder[position].mAmount).toString()
 
         insertTotal()
-        Picasso.with(mContext).load(mListOrder[position].mIceCream.image_paths[0])
+        Picasso.with(mContext).load(mListOrder[position].mIceCream.image_paths?.get(0))
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgOrder)
@@ -52,7 +52,7 @@ class AdapterOrder(
             if (mCount < 99) {
                 mCount += 1
                 mListOrder[position].mAmount = mCount
-                mListOrder[position].mTotal = mListOrder[position].mIceCream.price * mCount
+                mListOrder[position].mTotal = mListOrder[position].mIceCream.price!! * mCount
                 insertTotal()
                 notifyDataSetChanged()
             }
@@ -62,7 +62,7 @@ class AdapterOrder(
             if (mCount > 1) {
                 mCount -= 1
                 mListOrder[position].mAmount = mCount
-                mListOrder[position].mTotal = mListOrder[position].mIceCream.price * mCount
+                mListOrder[position].mTotal = mListOrder[position].mIceCream.price!! * mCount
                 insertTotal()
                 notifyDataSetChanged()
             } else {

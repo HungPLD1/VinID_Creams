@@ -11,7 +11,6 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
@@ -21,6 +20,7 @@ class AdapterIceCream(
     private var mListIceCream: ArrayList<IceCream>,
     private var clicklistener: OnItemIceCreamClicklistener
 ) : RecyclerView.Adapter<AdapterIceCream.MyViewHolder>() {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val mView =
@@ -44,19 +44,19 @@ class AdapterIceCream(
         5: Other
         6: Mix
         */
-        Picasso.with(mContext).load(mListIceCream[position].image_paths[0])
+        Picasso.with(mContext).load(mListIceCream[position].image_paths?.get(0))
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgIceCream)
         holder.txtNameIceCream?.text = mListIceCream[position].name
         holder.txtPriceIceCream?.text = mListIceCream[position].price.toString() + " $"
 
-        val mListComment = MockData.getListComment()
-        val mListRatingBar = ArrayList<Float>()
-        for (i in 0 until mListComment.size -1) {
-            mListRatingBar.add(mListComment[i].mRating)
+        val mListComment = mListIceCream[position].listComment.orEmpty()
+        val mListRatingBar = mutableListOf<Int>()
+        for (element in mListComment) {
+            mListRatingBar.add(element.rating_star)
         }
-        holder.rbIceCream?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
+            holder.rbIceCream?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
 
         /*handle click on item Store*/
         holder.rawIceCream?.setOnClickListener {
@@ -91,7 +91,7 @@ class AdapterIceCream(
         } else {
             text = text.toLowerCase()
             for (iceCream in mListCopyIceCream) {
-                if (iceCream.name.toLowerCase().contains(text)) {
+                if (iceCream.name!!.toLowerCase().contains(text)) {
                     mListIceCream.add(iceCream)
                 }
             }

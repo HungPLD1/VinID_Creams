@@ -27,10 +27,10 @@ class AdapterComment(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-       holder.txtName?.text = mListComment[position].mNameUser
-        holder.rattingComment?.rating = mListComment[position].mRating
-        holder.txtContentComment?.text = mListComment[position].mConTent
-        Picasso.with(mContext).load(mListComment[position].mImageUser)
+       holder.txtName?.text = mListComment[position].user_name
+        holder.rattingComment?.rating = mListComment[position].rating_star.toFloat()
+        holder.txtContentComment?.text = mListComment[position].comment
+        Picasso.with(mContext).load(mListComment[position].user_avatar)
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_avata)
             .into(holder.imgComment)

@@ -53,19 +53,19 @@ object MockData {
         )
     }
 
-    fun getListComment(): ArrayList<Comment> {
-        val mListComment = ArrayList<Comment>()
-        for (i in 1..5) {
-            val mComment = Comment(
-                "Trần dần",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQG1oykVGaj4HQ_U-uCEFbfX_hFQ7QqaNyMWs_pUmGYf5IByGta&s",
-                4.5F,
-                "Kem rất ngon"
-            )
-            mListComment.add(mComment)
-        }
-        return mListComment
-    }
+//    fun getListComment(): ArrayList<Comment> {
+//        val mListComment = ArrayList<Comment>()
+//        for (i in 1..5) {
+//            val mComment = Comment(
+//                "Trần dần",
+//                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQG1oykVGaj4HQ_U-uCEFbfX_hFQ7QqaNyMWs_pUmGYf5IByGta&s",
+//                4.5F,
+//                "Kem rất ngon"
+//            )
+//            mListComment.add(mComment)
+//        }
+//        return mListComment
+//    }
 
     fun getListImageIceCream(): ArrayList<String> {
         val mListImage = ArrayList<String>()
