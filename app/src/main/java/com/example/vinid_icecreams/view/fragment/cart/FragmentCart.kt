@@ -120,7 +120,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         mTxtTotalPayment?.text = total.toString()
     }
 
-    //handle reuqest permission
+    //handle request permission
     private fun handleRequestPermission() {
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
         requestPermissions(permissions, CommonUtils.instace.REQUEST_CODE_PEMISSION)

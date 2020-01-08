@@ -36,9 +36,9 @@ class Repository {
         RetrofitIceCream.createRetrofit()?.getListStore()?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
             ?.subscribe({ result ->
-                when (result.code()) {
+                when (result.meta?.code) {
                     CODE_200 -> {
-                        result.body()?.mData?.let { callback.onSuccess(it) }
+                        result.data?.let { callback.onSuccess(it) }
                     }
                 }
             }) { error ->
@@ -51,10 +51,9 @@ class Repository {
         RetrofitIceCream.createRetrofit()?.getListIceCream(storeID)?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
             ?.subscribe({ result ->
-                when (result.code()) {
+                when (result.meta?.code) {
                     CODE_200 -> {
-                        Log.d(TAG,result.body()?.mData.toString())
-                        result.body()?.mData?.let { callback.onSuccess(it) }
+                        result.data?.let { callback.onSuccess(it) }
                     }
                 }
             }) { error ->

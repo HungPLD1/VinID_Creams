@@ -2,11 +2,13 @@ package com.example.vinid_icecreams.view.fragment.shopping
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,6 +25,8 @@ import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.example.vinid_icecreams.view.fragment.details.FragmentDetails
 import com.example.vinid_icecreams.view.fragment.store.FragmentStore
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import org.angmarch.views.NiceSpinner
+import kotlin.collections.ArrayList
 
 
 class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener , View.OnClickListener ,
@@ -31,9 +35,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     private var rcvIceCream : RecyclerView? = null
     private var mListIceCream : ArrayList<IceCream> = ArrayList()
-    private var spnFilterByType : Spinner?= null
-    private var spnFilterByPrice : Spinner?= null
-    private var spnFilterByDiscount : Spinner?= null
+    private var spnFilterByType : NiceSpinner?= null
+    private var spnFilterByPrice : NiceSpinner?= null
+    private var spnFilterByDiscount : NiceSpinner?= null
     private var imgBack : ImageView? = null
     private var btnCart : ImageView? = null
     private var mSvIceCream : SearchView? = null
@@ -98,17 +102,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
 
     private fun setupSpinerDiscount() {
-        val mListType = arrayOf("Discount","10%","20%","50%")
-        val mAdapterDiscount = context?.let {
-            ArrayAdapter(
-                it, // Context
-                android.R.layout.simple_spinner_item, // Layout
-                mListType // Array
-            )
-        }
-        spnFilterByDiscount?.adapter = mAdapterDiscount
-        spnFilterByDiscount?.setSelection(0)
-        spnFilterByDiscount?.onItemSelectedListener = this
+        val mListType = listOf("Discount","10%","20%","50%")
+        spnFilterByDiscount?.attachDataSource(mListType)
+        spnFilterByDiscount?.setOnClickListener(this)
     }
 
     /*click item on list fragment */
@@ -122,31 +118,15 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
 
     private fun setupSpinerPrice() {
-        val mListType = arrayOf("Price","0 - 100K","100K - 200K","200K - 300K","300 - 400K","400K - 500K","> 500K")
-        val mAdapterPrice = context?.let {
-            ArrayAdapter(
-                it, // Context
-                android.R.layout.simple_spinner_item, // Layout
-                mListType // Array
-            )
-        }
-        spnFilterByPrice?.adapter = mAdapterPrice
-        spnFilterByPrice?.setSelection(0)
-        spnFilterByPrice?.onItemSelectedListener = this
+        val mListType = listOf("Price","0 - 100K","100K - 200K","200K - 300K","300 - 400K","400K - 500K","> 500K")
+        spnFilterByPrice?.attachDataSource(mListType)
+        spnFilterByPrice?.setOnClickListener(this)
     }
 
     private fun setupSpinerType() {
-        val mListType = arrayOf("Type","Chocolate","Matcha","Strawberry","Cacao","Vani","Other","Mix")
-        val mAdapterType = context?.let {
-            ArrayAdapter(
-                it, // Context
-                android.R.layout.simple_spinner_dropdown_item, // Layout
-                mListType // Array
-            )
-        }
-        spnFilterByType?.adapter = mAdapterType
-        spnFilterByType?.setSelection(0)
-        spnFilterByType?.onItemSelectedListener = this
+        val mListType = listOf("Type","Chocolate","Matcha","Strawberry","Cacao","Vani","Other","Mix")
+        spnFilterByType?.attachDataSource(mListType)
+        spnFilterByType?.setOnClickListener(this)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

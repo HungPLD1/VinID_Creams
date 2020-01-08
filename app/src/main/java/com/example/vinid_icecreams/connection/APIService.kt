@@ -25,10 +25,10 @@ interface APIService {
     ): Observable<Response<User>>
 
     @GET("/stores")
-    fun getListStore(): Single<Response<ResponeBody<ArrayList<Store>>>>
+    fun getListStore(): Single<MyResponse<ArrayList<Store>>>
 
     @GET("/stores/{id}/items")
-    fun getListIceCream(@Path("id")storeID : Int): Observable<Response<ResponeBody<ArrayList<IceCream>>>>
+    fun getListIceCream(@Path("id")storeID : Int): Observable<MyResponse<ArrayList<IceCream>>>
 
     @POST("")
     fun payOrderUser(

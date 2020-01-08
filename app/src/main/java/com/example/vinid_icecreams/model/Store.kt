@@ -17,6 +17,5 @@ data class Store(
     var longitude: Double,
     @SerializedName("created_at")
     var createdAt: String,
-    var mListIceCream: ArrayList<IceCream>,
     var range : Double
 )

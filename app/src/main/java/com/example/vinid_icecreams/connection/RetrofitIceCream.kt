@@ -19,7 +19,7 @@ object RetrofitIceCream {
         val httpClient = OkHttpClient.Builder().connectTimeout(TIME_OUT, TimeUnit.SECONDS)
         httpClient.addInterceptor { chain ->
             val request: Request =
-                chain.request().newBuilder().addHeader(TOKEN, "value").build()
+                chain.request().newBuilder().build()
             chain.proceed(request)
         }
 

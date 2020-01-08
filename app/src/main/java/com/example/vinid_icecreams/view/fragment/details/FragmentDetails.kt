@@ -25,27 +25,27 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_details.*
 
 
-class FragmentDetails : Fragment(),View.OnClickListener {
-    private var mIceCream : IceCream? = null
-    private var mListComment : ArrayList<Comment>? = ArrayList()
+class FragmentDetails : Fragment(), View.OnClickListener {
+    private var mIceCream: IceCream? = null
+    private var mListComment: ArrayList<Comment>? = ArrayList()
 
-    private var mRatiing : RatingBar? = null
-    private var mBtnBack : ImageView? = null
+    private var mRatiing: RatingBar? = null
+    private var mBtnBack: ImageView? = null
     private var mPager: ViewPager? = null
-    private var mDotsIndicator : DotsIndicator? = null
-    private var mTxtNameDetails : TextView? = null
-    private var mTxtPriceDetails : TextView? = null
-    private var rcvListComment : RecyclerView? = null
-    private var mImgAddToCart : CircleImageView? = null
-    private var mAdapterComment : AdapterComment? = null
-    private var mBtnCart : ImageView? = null
+    private var mDotsIndicator: DotsIndicator? = null
+    private var mTxtNameDetails: TextView? = null
+    private var mTxtPriceDetails: TextView? = null
+    private var rcvListComment: RecyclerView? = null
+    private var mImgAddToCart: CircleImageView? = null
+    private var mAdapterComment: AdapterComment? = null
+    private var mBtnCart: ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_details,container,false)
+        val view = inflater.inflate(R.layout.fragment_details, container, false)
         initView(view)
         getData()
         setupView()
@@ -74,20 +74,22 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     private fun setupRattingBar() {
         mListComment = mIceCream?.listComment
         val mListRatingBar = ArrayList<Int>()
-        for (i in 0 until mListComment!!.size -1 ) {
+        for (i in 0 until mListComment!!.size) {
             mListComment?.get(i)?.rating_star?.let { mListRatingBar.add(it) }
         }
-        if (mListRatingBar.size > 1){
-            mRatiing?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
-        }else{
-            mRatiing?.rating = mListRatingBar[0].toFloat()
+        when (mListRatingBar.size) {
+            0 -> mRatiing?.rating = 0F
+            1 -> mRatiing?.rating = mListRatingBar[0].toFloat()
+            else -> {
+                mRatiing?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
+            }
         }
     }
 
     private fun setupImagePager() {
         val mListImage = ArrayList<String>()
         mIceCream?.image_paths?.let { mListImage.addAll(it) }
-        val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndiCatorDetails(context!!,mListImage)
+        val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndiCatorDetails(context!!, mListImage)
         mPager!!.adapter = mAdapterViewPagerIndicatorAd
         mDotsIndicator?.setViewPager(mPager!!)
 
@@ -115,22 +117,25 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if (v != null){
-            when(v.id){
-                R.id.imgBack ->{
+        if (v != null) {
+            when (v.id) {
+                R.id.imgBack -> {
                     activity?.onBackPressed()
                 }
-                R.id.imgAddToCart ->{
-                    Toast.makeText(context,"Thêm vào giỏ hàng thành công",Toast.LENGTH_SHORT).show()
+                R.id.imgAddToCart -> {
+                    Toast.makeText(context, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT)
+                        .show()
                     sendOrderToCart()
                 }
-                R.id.btnCart ->{
-                    if (CommonUtils.instace.getOrderList()!!.size > 0){
+                R.id.btnCart -> {
+                    if (CommonUtils.instace.getOrderList()!!.size > 0) {
                         val mFragmentCart = FragmentCart()
                         val tag = mFragmentCart.javaClass.name
                         ProgressLoading.show(context)
-                        fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentCart)?.addToBackStack(tag)?.commit()
-                    }else{
+                        fragmentManager?.beginTransaction()
+                            ?.replace(R.id.containerHome, mFragmentCart)?.addToBackStack(tag)
+                            ?.commit()
+                    } else {
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
                         pDialog.titleText = "Giỏ hàng trống"
                         pDialog.setCancelable(true)
@@ -142,7 +147,7 @@ class FragmentDetails : Fragment(),View.OnClickListener {
     }
 
     private fun sendOrderToCart() {
-        val order = Order(mIceCream!!,1,0)
+        val order = Order(mIceCream!!, 1, 0)
         CommonUtils.instace.setOrderToList(order)
     }
 

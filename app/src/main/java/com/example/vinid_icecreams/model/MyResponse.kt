@@ -2,17 +2,17 @@ package com.example.vinid_icecreams.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponeBody <T> (
+data class MyResponse <T> (
     @SerializedName("data")
-    var mData : T,
+    var data : T?,
     @SerializedName("meta")
-    var mMeta : Meta
+    var meta : Meta?
 )
 
 
 data class Meta(
     @SerializedName("code")
-    var mCode : Int,
+    var code : Int?,
     @SerializedName("message")
-    var mMesssage: String
+    var message: String?
 )

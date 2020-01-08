@@ -52,7 +52,6 @@
             android:text="@string/click_location"
             android:textStyle="bold" />
     </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp">

@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,9 +28,9 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicatorAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
-import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import java.io.IOException
 import java.util.*
@@ -73,7 +73,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mTxtLocation = view?.findViewById(R.id.txt_Store_Location)
         mPagerAd = view?.findViewById(R.id.mViewPagerAd)
         mDotsIndicator = view?.findViewById(R.id.mDotsIndicatorAd)
-
 
         /*click event*/
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
