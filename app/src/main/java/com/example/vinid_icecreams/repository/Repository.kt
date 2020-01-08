@@ -19,20 +19,39 @@ class Repository {
     }
 
     @SuppressLint("CheckResult")
-    fun callAuthenticateAccount(mPhoneNumber: Int, mPassword: String): User? {
-        val mUser: User? = null
+    fun callLoginAccount(mPhoneNumber: Int, mPassword: String) {
         RetrofitIceCream.createRetrofit()?.authenticateAccount(mPhoneNumber, mPassword)
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribeOn(Schedulers.io())
             ?.subscribe({ result ->
-                when (result.code()) {
+                when (result.meta?.code) {
+                    CODE_200 ->{
+
+                    }
                 }
             }) { error ->
             }
-        return mUser
     }
 
     @SuppressLint("CheckResult")
-    fun callRequestListStore(callback : OnRespone<ArrayList<Store>,String>) {
+    fun callRegisterAccount(mPhoneNumber: Int, mPassword: String, callback: OnRespone<User, String>) {
+        RetrofitIceCream.createRetrofit()?.authenticateAccount(mPhoneNumber, mPassword)
+            ?.observeOn(AndroidSchedulers.mainThread())?.subscribeOn(Schedulers.io())
+            ?.subscribe({ result ->
+                when (result.meta?.code) {
+                    CODE_200 ->{
+                        result?.data?.user?.let { callback.onSuccess(it) }
+                        val token = result.data?.token
+                        Log.d(TAG,token.toString())
+                    }
+                }
+            }) { error ->
+
+            }
+    }
+
+
+    @SuppressLint("CheckResult")
+    fun callRequestListStore(callback: OnRespone<ArrayList<Store>, String>) {
         RetrofitIceCream.createRetrofit()?.getListStore()?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
             ?.subscribe({ result ->
@@ -42,13 +61,14 @@ class Repository {
                     }
                 }
             }) { error ->
-                    callback.onFailse(error.toString())
+                callback.onFailse(error.toString())
             }
     }
 
     @SuppressLint("CheckResult")
-    fun callRequestListIceCream(storeID: Int,callback : OnRespone<ArrayList<IceCream>,String>) {
-        RetrofitIceCream.createRetrofit()?.getListIceCream(storeID)?.observeOn(AndroidSchedulers.mainThread())
+    fun callRequestListIceCream(storeID: Int, callback: OnRespone<ArrayList<IceCream>, String>) {
+        RetrofitIceCream.createRetrofit()?.getListIceCream(storeID)
+            ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
             ?.subscribe({ result ->
                 when (result.meta?.code) {
@@ -57,7 +77,7 @@ class Repository {
                     }
                 }
             }) { error ->
-                Log.d(TAG,error.toString())
+                Log.d(TAG, error.toString())
                 callback.onFailse(error.toString())
             }
     }

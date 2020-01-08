@@ -12,17 +12,17 @@ import retrofit2.http.Query
 
 interface APIService {
 
-    @POST("")
+    @POST("/register")
     fun registerAccount(
         @Query("phoneNumber") phoneNumber: Int
         , @Query("password") password: String
-    ): Observable<Response<Boolean>>
+    ): Observable<MyResponse<DataUserResponse>>
 
-    @POST("")
+    @POST("/login")
     fun authenticateAccount(
-        @Query("phoneNumber") phoneNumber: Int
+        @Query("phone_Number") phoneNumber: Int
         , @Query("password") password: String
-    ): Observable<Response<User>>
+    ): Observable<MyResponse<DataUserResponse>>
 
     @GET("/stores")
     fun getListStore(): Single<MyResponse<ArrayList<Store>>>

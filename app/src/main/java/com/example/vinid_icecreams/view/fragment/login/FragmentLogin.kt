@@ -74,10 +74,27 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     }
 
     private fun handleLogin() {
-        mViewModel.handleLogicLogin(edtPhoneNumber?.text.toString(), edtPassword?.text.toString())
+        if (checkPhoneNumber() && checkPassWord()){
+
+        }else{
+            loginFailse()
+        }
     }
 
+    private fun checkPhoneNumber(): Boolean{
+        if (edtPhoneNumber?.text.isNullOrEmpty()){
+            return false
+        }
+        return !(edtPhoneNumber?.text?.length != 9 || edtPhoneNumber?.text?.length != 11)
+    }
 
+    private fun checkPassWord():Boolean{
+        if (edtPassword?.text.isNullOrEmpty()){
+            return false
+        }
+
+        return edtPassword?.text?.length!! >= 8
+    }
 
     private fun loginSuccess() {
         Handler().postDelayed({

@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import android.util.Log
 import android.view.WindowManager
 import com.developer.kalert.KAlertDialog
+import com.example.vinid_icecreams.IceCreamApplication
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
 import java.text.DecimalFormat
@@ -23,7 +24,7 @@ import kotlin.math.sqrt
 class CommonUtils {
     val TAG = "Hungpld"
     val REQUEST_CODE_PEMISSION = 0
-
+    val PREF_SAVE_NAME = "IceCream data"
 
     companion object {
         var instace = CommonUtils()
@@ -162,5 +163,19 @@ class CommonUtils {
 
     fun getStoreSelected() : Store?{
         return mSelectedStore
+    }
+
+
+    fun savePrefContent(context :Context,key : String ,value :String){
+        val editor = context.getSharedPreferences(PREF_SAVE_NAME,
+            Context.MODE_PRIVATE
+        ).edit()
+        editor.putString(key, value)
+        editor.apply()
+    }
+
+    fun getPrefContent(key : String): String{
+        var result =  ""
+        return result
     }
 }
