@@ -8,7 +8,6 @@
     android:innerRadius="0dp"
     android:shape="ring"
     android:thicknessRatio="1.9"
-    android:background="@color/transparent"
     android:orientation="vertical">
 
     <LinearLayout
@@ -149,7 +148,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
@@ -173,8 +174,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
@@ -186,10 +189,10 @@
                     android:text="@string/type_payment"
                     android:textColor="@android:color/black" />
 
-                <Spinner
+                <org.angmarch.views.NiceSpinner
                     android:id="@+id/spn_payments"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="50dp"
                     android:layout_weight="5"
                     android:gravity="center"
                     android:lines="1" />

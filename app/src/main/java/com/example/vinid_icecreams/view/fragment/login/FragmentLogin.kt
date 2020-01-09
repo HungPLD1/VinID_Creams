@@ -21,13 +21,17 @@ import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
 
 class FragmentLogin : Fragment() ,View.OnClickListener {
-    private var TAG = "FragmentLogin"
+
     private var edtPhoneNumber : EditText? = null
     private var edtPassword : EditText? = null
 
     private var btnLogin : Button? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
+    }
+
+    companion object{
+        var TAG = FragmentLogin::class.java.name
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,6 +44,7 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
         observeData()
     }
 
+    /*observe data*/
     private fun observeData() {
         mViewModel.mIsRequestLogin.observe(this, Observer {
             if (it){
@@ -69,7 +74,7 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     }
 
 
-
+    /*login success*/
     private fun loginSuccess() {
         ProgressLoading.dismiss()
         var message = ""
@@ -90,6 +95,7 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
         },1000)
     }
 
+    /*login failse*/
     private fun loginFailse(){
         ProgressLoading.dismiss()
         var message = ""

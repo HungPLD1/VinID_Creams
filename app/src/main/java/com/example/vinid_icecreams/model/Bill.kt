@@ -3,24 +3,24 @@ package com.example.vinid_icecreams.model
 import com.google.gson.annotations.SerializedName
 
 data class Bill(
-    var address: Address,
-    var shipFee: Double,
-    var totalFree: Double,
-    var listItem : ArrayList<Item>
-
+    var status : Int?,
+    var address: Address?,
+    var shipFee: Double?,
+    var totalFree: Int?,
+    var listItem : ArrayList<Item>?
 )
 
 data class Address(
     @SerializedName("latitude")
-    var latitude: Double,
+    var latitude: Double?,
     @SerializedName("longitude")
-    var longitude: Double
+    var longitude: Double?
 )
 
 data class Item(
     @SerializedName("item_id")
-    var itemID: Int,
+    var itemID: Int?,
     @SerializedName("quantity")
-    var quantity: Int
+    var quantity: Int?
 )
 

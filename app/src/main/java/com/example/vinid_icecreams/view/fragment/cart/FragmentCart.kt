@@ -34,6 +34,10 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     private var mTxtTotalPayment: TextView? = null
     private var mStoreSelected = CommonUtils.instace.getStoreSelected()
 
+    companion object{
+        var TAG = FragmentCart::class.java.name
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -119,9 +123,10 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         activity?.onBackPressed()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun showTotal(total: Int) {
         CommonUtils.instace.setTotalPayment(total)
-        mTxtTotalPayment?.text = total.toString()
+        mTxtTotalPayment?.text = "$total $"
     }
 
     //handle request permission

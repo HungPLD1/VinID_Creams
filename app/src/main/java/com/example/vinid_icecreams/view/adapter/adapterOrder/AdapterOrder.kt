@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.view.adapter.adapterOrder
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -32,13 +33,14 @@ class AdapterOrder(
         return mListOrder.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         var mCount = mListOrder[position].mAmount
 
         holder.txtNameOrder?.text = mListOrder[position].mIceCream.name
-        holder.txtPriceOrder?.text = mListOrder[position].mIceCream.price.toString()
+        holder.txtPriceOrder?.text = mListOrder[position].mIceCream.price.toString()+ " $"
         mListOrder[position].mTotal = mListOrder[position].mIceCream.price!! * mCount
-        holder.txtTotal?.text = mListOrder[position].mTotal.toString()
+        holder.txtTotal?.text = mListOrder[position].mTotal.toString() + " $"
         holder.txtCount?.text = (mListOrder[position].mAmount).toString()
 
         insertTotal()

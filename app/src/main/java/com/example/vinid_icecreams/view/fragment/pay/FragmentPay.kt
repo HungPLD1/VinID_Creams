@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.CommonUtils
 import kotlinx.android.synthetic.main.dialog_pay.*
+import org.angmarch.views.NiceSpinner
 import java.text.DecimalFormat
 
 class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -25,7 +26,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     private var txtChargeOrder: TextView? = null
     private var txtChargeShip: TextView? = null
     private var txtChargeTotal: TextView? = null
-    private var spnPayment: Spinner? = null
+    private var spnPayment: NiceSpinner? = null
     private var btnPayment: Button? = null
     private var btnClose: ImageView? = null
 
@@ -50,7 +51,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     private fun showData() {
         val newFormat = DecimalFormat("###.#")
         txtChargeShip?.text = String.format(newFormat.format(mShip)) + " $"
-        txtChargeOrder?.text = CommonUtils.instace.getTotalPayment().toString()
+        txtChargeOrder?.text = CommonUtils.instace.getTotalPayment().toString() + " $"
         txtChargeTotal?.text =  String.format(newFormat.format(CommonUtils.instace.getTotalPayment() + mShip).toString())+ " $"
         txt_Store_Location?.text = mStoreSelected?.name
     }
@@ -71,17 +72,9 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     }
 
     private fun prepareSpinner() {
-        val mListType = arrayOf("Giao hàng nhận tiền", "Point")
-        val mAdapterType = context?.let {
-            ArrayAdapter(
-                it, // Context
-                android.R.layout.simple_spinner_dropdown_item, // Layout
-                mListType // Array
-            )
-        }
-        spnPayment?.adapter = mAdapterType
-        spnPayment?.setSelection(0)
-        spnPayment?.onItemSelectedListener = this
+        val mListType = listOf("Giao hàng nhận tiền", "Point")
+        spnPayment?.attachDataSource(mListType)
+        spnPayment?.setOnClickListener(this)
     }
 
 
