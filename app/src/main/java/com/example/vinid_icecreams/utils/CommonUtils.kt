@@ -8,7 +8,6 @@ import android.net.ConnectivityManager
 import android.util.Log
 import android.view.WindowManager
 import com.developer.kalert.KAlertDialog
-import com.example.vinid_icecreams.IceCreamApplication
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
 import java.text.DecimalFormat

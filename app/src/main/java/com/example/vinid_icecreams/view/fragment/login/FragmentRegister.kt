@@ -69,10 +69,13 @@ class FragmentRegister : Fragment(),View.OnClickListener {
         if (edtPassword?.text?.length!! < 8 || edtPasswordRepeat?.text?.length!! < 8 ){
             return false
         }
-        return edtPassword?.text?.equals(edtPasswordRepeat?.text)!!
+        return edtPassword?.text?.toString()?.equals(edtPasswordRepeat?.text.toString())!!
     }
 
     private fun handleVerifyPhoneNumber ():Boolean{
+        if(edtPhoneNumber?.text.isNullOrEmpty()){
+            return false
+        }
         return !(edtPhoneNumber?.text?.length != 9 && edtPhoneNumber?.text?.length != 10)
     }
 

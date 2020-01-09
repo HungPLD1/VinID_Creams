@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -74,9 +73,9 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     /*Set up and add data spinner filter*/
     private fun setUpSpinnerFilter() {
-        setupSpinerType()
-        setupSpinerPrice()
-        setupSpinerDiscount()
+        setupSpinnerType()
+        setupSpinnerPrice()
+        setupSpinnerDiscount()
         setupListIceCream()
     }
 
@@ -89,8 +88,10 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
             CommonUtils.instace.showSomeThingWentWrong(activity)
             return
         }
+        ProgressLoading.show(context)
         if (CommonUtils.instace.isConnectToNetwork(context)) {
             mViewModel.mListIceCream.observe(this, Observer { data ->
+                ProgressLoading.dismiss()
                 mListIceCream.addAll(data)
                 mAdapter = AdapterIceCream(context, mListIceCream, this)
                 rcvIceCream?.layoutManager = GridLayoutManager(context, 2)
@@ -101,7 +102,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     }
 
 
-    private fun setupSpinerDiscount() {
+    private fun setupSpinnerDiscount() {
         val mListType = listOf("Discount","10%","20%","50%")
         spnFilterByDiscount?.attachDataSource(mListType)
         spnFilterByDiscount?.setOnClickListener(this)
@@ -117,13 +118,13 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     }
 
 
-    private fun setupSpinerPrice() {
+    private fun setupSpinnerPrice() {
         val mListType = listOf("Price","0 - 100K","100K - 200K","200K - 300K","300 - 400K","400K - 500K","> 500K")
         spnFilterByPrice?.attachDataSource(mListType)
         spnFilterByPrice?.setOnClickListener(this)
     }
 
-    private fun setupSpinerType() {
+    private fun setupSpinnerType() {
         val mListType = listOf("Type","Chocolate","Matcha","Strawberry","Cacao","Vani","Other","Mix")
         spnFilterByType?.attachDataSource(mListType)
         spnFilterByType?.setOnClickListener(this)

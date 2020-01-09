@@ -92,6 +92,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
             ProgressLoading.show(context)
             mViewModel.getListStore()
             mViewModel.mListStore.observe(this, Observer { data ->
+                ProgressLoading.dismiss()
                 mListStore.addAll(data)
                 setupListStore(mListStore)
             })
