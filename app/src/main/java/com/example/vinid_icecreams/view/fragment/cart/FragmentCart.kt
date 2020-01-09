@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
@@ -116,6 +117,10 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
             ProgressLoading.dismiss()
         }else{
             ProgressLoading.dismiss()
+            KAlertDialog(activity, KAlertDialog.WARNING_TYPE)
+                .setTitleText("Location error")
+                .setContentText("Không xác nhận được địa chỉ của bạn")
+                .show()
         }
     }
 

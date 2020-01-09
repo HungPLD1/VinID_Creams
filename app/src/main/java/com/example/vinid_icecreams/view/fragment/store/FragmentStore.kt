@@ -12,12 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
@@ -25,13 +23,12 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
 import com.example.vinid_icecreams.utils.NoConnectionListener
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicatorAd
+import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import com.smarteist.autoimageslider.SliderView
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,8 +41,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     private var mLocationManager: LocationManager? = null
     private var mImgLocation: ImageView? = null
     private var mTxtLocation: TextView? = null
-    private var mPagerAd: ViewPager? = null
-    private var mDotsIndicator : DotsIndicator? = null
+    private var mSliderAd: SliderView? = null
     private var mBtnGoToCart : ImageView? = null
     private var mAdapterStore : AdapterStore? = null
     private val mViewModel: ViewModelIceCream by lazy {
@@ -71,8 +67,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mRcvStore = view?.findViewById(R.id.rcvStore)
         mImgLocation = view?.findViewById(R.id.imgLocation)
         mTxtLocation = view?.findViewById(R.id.txt_Store_Location)
-        mPagerAd = view?.findViewById(R.id.mViewPagerAd)
-        mDotsIndicator = view?.findViewById(R.id.mDotsIndicatorAd)
+        mSliderAd = view?.findViewById(R.id.slider_ad)
 
         /*click event*/
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
@@ -230,16 +225,14 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         }
     }
 
-    /*set up view indicator ad*/
+    /*set up slider ad*/
     private fun setupViewIndicatorAd() {
         val mListAd: ArrayList<Int> = ArrayList()
         mListAd.add(R.drawable.green_ice)
         mListAd.add(R.drawable.ad_3)
         mListAd.add(R.drawable.green_2)
-        val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndicatorAd(context!!,mListAd)
-        mPagerAd!!.adapter = mAdapterViewPagerIndicatorAd
-        mDotsIndicator?.setViewPager(mPagerAd!!)
-
+        val mSlideAdapter = AdapterSliderAd(context!!,mListAd)
+        mSliderAd?.sliderAdapter = mSlideAdapter
     }
 
     override fun onClickButtonOk(it: KAlertDialog) {

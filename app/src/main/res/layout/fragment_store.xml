@@ -43,37 +43,46 @@
             tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:typeface="serif"
             android:id="@+id/txt_Store_Location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="6"
             android:text="@string/click_location"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:typeface="serif" />
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="250dp">
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/mViewPagerAd"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:background="@drawable/custum_background" />
 
-        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-            android:id="@+id/mDotsIndicatorAd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="20dp"
-            app:dotsColor="@android:color/white"
-            app:dotsSpacing="7dp"
-            app:selectedDotColor="#0C70C2"
-            tools:ignore="MissingConstraints" />
-    </RelativeLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:elevation="1dp"
+        app:cardCornerRadius="5dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        android:layout_margin="10dp">
+
+        <com.smarteist.autoimageslider.SliderView
+            android:background="@drawable/custom_background"
+            android:id="@+id/slider_ad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderCircularHandlerEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="2dp"
+            app:sliderIndicatorSelectedColor="#0036B8"
+            app:sliderIndicatorUnselectedColor="#FFF"
+            app:sliderScrollTimeInSec="3"
+            app:sliderStartAutoCycle="true" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvStore"
