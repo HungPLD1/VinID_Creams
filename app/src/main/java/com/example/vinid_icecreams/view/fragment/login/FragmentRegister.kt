@@ -1,16 +1,20 @@
 package com.example.vinid_icecreams.view.fragment.login
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.utils.CommonUtils
+import com.example.vinid_icecreams.utils.ProgressLoading
+import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
 class FragmentRegister : Fragment(),View.OnClickListener {
@@ -31,7 +35,18 @@ class FragmentRegister : Fragment(),View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeData()
         initView(view)
+    }
+
+    private fun observeData() {
+        mViewModel.mIsRequestRegister.observe(this, Observer {
+            if (it){
+                registerSuccess()
+            }else{
+                registerFailse()
+            }
+        } )
     }
 
     private fun initView(view: View) {
@@ -47,44 +62,34 @@ class FragmentRegister : Fragment(),View.OnClickListener {
         if (v!= null){
             when(v.id){
                 R.id.btn_register -> {
-                    handleRegister()
+                    ProgressLoading.show(context)
+                    mViewModel.handleRegister(edtPhoneNumber?.text.toString(),edtPassword?.text.toString(),edtPasswordRepeat?.text.toString())
                 }
             }
         }
     }
 
-    private fun handleRegister() {
-        if (handleVerifyPhoneNumber() && handleComparedPassword()){
-            val phoneNumber = Integer.parseInt(edtPhoneNumber?.text.toString())
-            mViewModel.handleRegister(phoneNumber, edtPassword?.text.toString())
-        }else{
-            registerFailse()
-        }
-    }
+    private fun registerSuccess() {
+        ProgressLoading.dismiss()
+        Handler().postDelayed({
+            mViewModel.mMessageSuccess.observe(this, Observer {
+                KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Login success")
+                    .setContentText(it)
+                    .show()
+            })
+            startActivity(Intent(activity, HomeActivity::class.java))
+            activity?.finish()
+        },1000)
 
-    private fun handleComparedPassword(): Boolean{
-        if (edtPassword?.text.isNullOrEmpty() || edtPasswordRepeat?.text.isNullOrEmpty()){
-            return false
-        }
-        if (edtPassword?.text?.length!! < 8 || edtPasswordRepeat?.text?.length!! < 8 ){
-            return false
-        }
-        return edtPassword?.text?.toString()?.equals(edtPasswordRepeat?.text.toString())!!
     }
-
-    private fun handleVerifyPhoneNumber ():Boolean{
-        if(edtPhoneNumber?.text.isNullOrEmpty()){
-            return false
-        }
-        return !(edtPhoneNumber?.text?.length != 9 && edtPhoneNumber?.text?.length != 10)
-    }
-
 
     private fun registerFailse(){
-        CommonUtils.instace.showSomeThingWentWrong(activity)
-    }
-
-    private fun registerSuccess(){
-
+        mViewModel.mMessageFailse.observe(this, Observer {
+            KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+                .setTitleText("Login error")
+                .setContentText(it)
+                .show()
+        })
     }
 }

@@ -3,24 +3,16 @@ package com.example.vinid_icecreams.view.fragment.login
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
@@ -68,37 +60,24 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     override fun onClick(view: View?) {
         if(view != null){
             when(view.id){
-                R.id.btn_go -> handleLogin()
+                R.id.btn_go -> {
+                    ProgressLoading.show(context)
+                    mViewModel.handleLogin(edtPhoneNumber?.text.toString(),edtPassword?.text.toString())}
             }
         }
     }
 
-    private fun handleLogin() {
-        if (checkPhoneNumber() && checkPassWord()){
 
-        }else{
-            loginFailse()
-        }
-    }
-
-    private fun checkPhoneNumber(): Boolean{
-        if (edtPhoneNumber?.text.isNullOrEmpty()){
-            return false
-        }
-        return !(edtPhoneNumber?.text?.length != 9 || edtPhoneNumber?.text?.length != 11)
-    }
-
-    private fun checkPassWord():Boolean{
-        if (edtPassword?.text.isNullOrEmpty()){
-            return false
-        }
-
-        return edtPassword?.text?.length!! >= 8
-    }
 
     private fun loginSuccess() {
+        ProgressLoading.dismiss()
         Handler().postDelayed({
-            ProgressLoading.show(context)
+            mViewModel.mMessageSuccess.observe(this, Observer {
+                KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("Login success")
+                    .setContentText(it)
+                    .show()
+            })
             startActivity(Intent(activity,HomeActivity::class.java))
             activity?.finish()
         },1000)
@@ -106,10 +85,12 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     }
 
     private fun loginFailse(){
-        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-            .setTitleText("Login error")
-            .setContentText(getString(R.string.remid_user))
-            .show()
+        mViewModel.mMessageFailse.observe(this, Observer {
+            KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+                .setTitleText("Login error")
+                .setContentText(it)
+                .show()
+        })
     }
 
 

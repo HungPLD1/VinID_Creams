@@ -1,9 +1,8 @@
 package com.example.vinid_icecreams.repository
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.example.vinid_icecreams.connection.RetrofitIceCream
-import com.example.vinid_icecreams.connection.body.RegisterBody
+import com.example.vinid_icecreams.connection.body.AuthenBody
 import com.example.vinid_icecreams.model.*
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,19 +17,19 @@ class Repository {
 
     @SuppressLint("CheckResult")
     fun callLoginAccount(
-        mPhoneNumber: Int,
+        mPhoneNumber: String,
         mPassword: String
     ): Single<MyResponse<DataUserResponse>>? {
-        return RetrofitIceCream.createRetrofit()?.authenticateAccount(mPhoneNumber, mPassword)
+        return RetrofitIceCream.createRetrofit()?.authenticateAccount(AuthenBody(mPhoneNumber,mPassword))
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribeOn(Schedulers.io())
     }
 
     @SuppressLint("CheckResult")
     fun callRegisterAccount(
-        mPhoneNumber: Int,
+        mPhoneNumber: String,
         mPassword: String
     ): Single<MyResponse<DataUserResponse>>? {
-        val body = RegisterBody(mPhoneNumber.toString(), mPassword)
+        val body = AuthenBody(mPhoneNumber, mPassword)
         return RetrofitIceCream.createRetrofit()?.registerAccount(body)
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribeOn(Schedulers.io())
     }
