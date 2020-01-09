@@ -24,7 +24,7 @@ import kotlin.math.sqrt
 class CommonUtils {
     val TAG = "Hungpld"
     val REQUEST_CODE_PEMISSION = 0
-    val PREF_SAVE_NAME = "IceCream data"
+
 
     companion object {
         var instace = CommonUtils()
@@ -32,6 +32,7 @@ class CommonUtils {
         var mTotalPayment = 0
         var mSelectedStore: Store? = null
         const val TOKEN = "token"
+        val PREF_SAVE_NAME = "IceCream data"
     }
 
 

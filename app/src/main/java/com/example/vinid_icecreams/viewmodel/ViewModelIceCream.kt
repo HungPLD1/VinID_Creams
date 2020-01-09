@@ -89,6 +89,7 @@ class ViewModelIceCream : ViewModel() {
             }) { error ->
                 run {
                     Log.d(TAG, error.toString())
+                    mIsRequestLogin.postValue(false)
                 }
             }
         }else{
@@ -121,6 +122,7 @@ class ViewModelIceCream : ViewModel() {
                 }
             }) { error ->
                 run {
+                    mIsRequestLogin.postValue(false)
                     Log.d(TAG, error.toString())
                 }
             }

@@ -98,17 +98,21 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
 
     @SuppressLint("MissingPermission")
     private fun handleGetLocation() {
-        val location = mLocationManager?.getLastKnownLocation( LocationManager.NETWORK_PROVIDER)!!
-        val mRange = CommonUtils.instace.calculationByDistance(
-            location.latitude,
-            location.longitude,
-            mStoreSelected!!.latitude,
-            mStoreSelected!!.longitude
-        )
-        mStoreSelected?.range = mRange
-        CommonUtils.instace.saveStoreSelected(mStoreSelected!!)
-        showDiaLogPay()
-        ProgressLoading.dismiss()
+        val location = mLocationManager?.getLastKnownLocation( LocationManager.NETWORK_PROVIDER)
+        if (location != null){
+            val mRange = CommonUtils.instace.calculationByDistance(
+                location.latitude,
+                location.longitude,
+                mStoreSelected!!.latitude,
+                mStoreSelected!!.longitude
+            )
+            mStoreSelected?.range = mRange
+            CommonUtils.instace.saveStoreSelected(mStoreSelected!!)
+            showDiaLogPay()
+            ProgressLoading.dismiss()
+        }else{
+            ProgressLoading.dismiss()
+        }
     }
 
     override fun onReturn() {

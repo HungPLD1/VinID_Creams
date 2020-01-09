@@ -77,13 +77,13 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
             CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
             Log.d(TAG,it.toString())
         })
+        mViewModel.mMessageSuccess.observe(this, Observer {
+            KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Login success")
+                .setContentText(it)
+                .show()
+        })
         Handler().postDelayed({
-            mViewModel.mMessageSuccess.observe(this, Observer {
-                KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
-                    .setTitleText("Login success")
-                    .setContentText(it)
-                    .show()
-            })
             startActivity(Intent(activity,HomeActivity::class.java))
             activity?.finish()
         },1000)

@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.view.adapter.adapterStore
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class AdapterStore(
         return mListStore.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.txtNameStore?.text = mListStore[position].name
         holder.txtAddressStore?.text = mListStore[position].address
@@ -38,7 +40,7 @@ class AdapterStore(
         if (mListStore[position].range != 0.0){
             val newFormat = DecimalFormat("###.#")
             val rangeInDec: String = String.format(newFormat.format(mListStore[position].range))
-            holder.txtRangeStore?.text = "$rangeInDec km"
+            holder.txtRangeStore?.text = "Cách $rangeInDec km"
         }
 
         /*handle click on item Store*/
