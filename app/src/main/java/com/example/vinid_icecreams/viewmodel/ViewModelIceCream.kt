@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Event
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Store
@@ -16,6 +15,7 @@ class ViewModelIceCream : ViewModel() {
     var mListEvent = MutableLiveData<ArrayList<Event>>()
     var mIsRequestLogin = MutableLiveData<Boolean>()
     var mIsRequestRegister = MutableLiveData<Boolean>()
+    var mToken = MutableLiveData<String>()
 
     var mMessageSuccess = MutableLiveData<String>()
     var mMessageFailse = MutableLiveData<String>()
@@ -23,7 +23,7 @@ class ViewModelIceCream : ViewModel() {
     companion object {
         val TAG = ViewModelIceCream::class.java.name
         const val CODE_200 = 200
-        const val VERYFY_FAILSE = "Vui lòng kiểm tra lại thông tin"
+        const val VERIFY_FAILSE = "Vui lòng kiểm tra lại thông tin"
     }
 
     @SuppressLint("CheckResult")
@@ -54,7 +54,6 @@ class ViewModelIceCream : ViewModel() {
                 when (result.meta?.code) {
                     CODE_200 -> {
                         mListIceCream.postValue(result.data)
-                        mMessageSuccess.postValue(result?.meta?.message)
                     }
                     else -> {
                         mMessageFailse.postValue(result?.meta?.message)
@@ -70,8 +69,6 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun handleRegister(phoneNumber: String, password: String, passwordRepeat : String) {
-        Log.d(TAG,checkPhoneNumber(phoneNumber).toString() )
-        Log.d(TAG,handleComparedPassword(password,passwordRepeat).toString() )
         if (checkPhoneNumber(phoneNumber) && handleComparedPassword(password,passwordRepeat)){
             Repository.mInstance.callRegisterAccount(phoneNumber, password)?.subscribe({ result ->
                 run {
@@ -80,6 +77,8 @@ class ViewModelIceCream : ViewModel() {
                         CODE_200 -> {
                             mIsRequestRegister.postValue(true)
                             mMessageSuccess.postValue(result?.meta?.message)
+                            /*post token*/
+                            mToken.postValue(result.data?.token)
                         }
                         else -> {
                             mIsRequestRegister.postValue(false)
@@ -94,7 +93,7 @@ class ViewModelIceCream : ViewModel() {
             }
         }else{
             mIsRequestRegister.postValue(false)
-            mMessageFailse.postValue(VERYFY_FAILSE)
+            mMessageFailse.postValue(VERIFY_FAILSE)
         }
     }
 
@@ -106,8 +105,12 @@ class ViewModelIceCream : ViewModel() {
                 run {
                     when (result.meta?.code) {
                         CODE_200 -> {
+                            /*post data to view */
                             mIsRequestLogin.postValue(true)
-                            Log.d(TAG, result.meta?.code.toString())
+                            mMessageSuccess.postValue(result?.meta?.message)
+                            /*post token*/
+                            mToken.postValue(result.data?.token)
+                            Log.d(TAG,result.data?.token.toString())
                         }
                         else -> {
                             /*handle login failse*/
@@ -123,7 +126,7 @@ class ViewModelIceCream : ViewModel() {
             }
         }else{
             mIsRequestLogin.postValue(false)
-            mMessageFailse.postValue(VERYFY_FAILSE)
+            mMessageFailse.postValue(VERIFY_FAILSE)
         }
 
 

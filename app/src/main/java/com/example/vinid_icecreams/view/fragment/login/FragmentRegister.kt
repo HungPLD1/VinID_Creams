@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
@@ -71,6 +72,9 @@ class FragmentRegister : Fragment(),View.OnClickListener {
 
     private fun registerSuccess() {
         ProgressLoading.dismiss()
+        mViewModel.mToken.observe(this, Observer {
+            CommonUtils.instace.savePrefContent(context, CommonUtils.TOKEN,it)
+        })
         Handler().postDelayed({
             mViewModel.mMessageSuccess.observe(this, Observer {
                 KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
@@ -85,6 +89,7 @@ class FragmentRegister : Fragment(),View.OnClickListener {
     }
 
     private fun registerFailse(){
+        ProgressLoading.dismiss()
         mViewModel.mMessageFailse.observe(this, Observer {
             KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
                 .setTitleText("Login error")

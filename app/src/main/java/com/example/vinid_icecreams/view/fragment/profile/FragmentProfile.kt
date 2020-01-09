@@ -51,7 +51,13 @@ class FragmentProfile : Fragment(),View.OnClickListener {
 
 
     override fun onClick(v: View?) {
+        if(view != null){
+            when(view?.id){
+                R.id.lnLogout ->{
 
+                }
+            }
+        }
     }
 
     override fun onResume() {

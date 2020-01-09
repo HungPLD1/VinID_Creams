@@ -98,9 +98,9 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
 
     @SuppressLint("MissingPermission")
     private fun handleGetLocation() {
-        val location = mLocationManager?.getLastKnownLocation( LocationManager.NETWORK_PROVIDER)
+        val location = mLocationManager?.getLastKnownLocation( LocationManager.NETWORK_PROVIDER)!!
         val mRange = CommonUtils.instace.calculationByDistance(
-            location!!.latitude,
+            location.latitude,
             location.longitude,
             mStoreSelected!!.latitude,
             mStoreSelected!!.longitude

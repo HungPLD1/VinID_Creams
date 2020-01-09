@@ -12,11 +12,18 @@ object RetrofitIceCream {
     private const val TOKEN = "token"
     private const val BASE_URL = "http://35.198.221.214:8080"
     private var retrofit: Retrofit? = null
-    private const val TIME_OUT = 60L
+    private const val CONNECT_TIME_OUT = 20L
+    private const val READ_TIME_OUT = 20L
+    private const val WRITE_TIME_OUT = 20L
+
 
 
     fun createRetrofit(): APIService? {
-        val httpClient = OkHttpClient.Builder().connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+        val httpClient = OkHttpClient.Builder()
+        httpClient.readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
+        httpClient.connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
+        httpClient.writeTimeout(WRITE_TIME_OUT,TimeUnit.SECONDS)
+
         httpClient.addInterceptor { chain ->
             val request: Request =
                 chain.request().newBuilder().build()

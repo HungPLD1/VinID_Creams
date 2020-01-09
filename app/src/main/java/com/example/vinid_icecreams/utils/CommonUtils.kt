@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import android.util.Log
 import android.view.WindowManager
 import com.developer.kalert.KAlertDialog
+import com.example.vinid_icecreams.IceCreamApplication
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
 import java.text.DecimalFormat
@@ -29,7 +30,8 @@ class CommonUtils {
         var instace = CommonUtils()
         var mListOrder: ArrayList<Order>? = ArrayList()
         var mTotalPayment = 0
-        var mSelectedStore : Store? = null
+        var mSelectedStore: Store? = null
+        const val TOKEN = "token"
     }
 
 
@@ -80,7 +82,7 @@ class CommonUtils {
 
     fun setOrderToList(order: Order) {
         if (mListOrder?.size!! > 0) {
-            val i = mListOrder!!.size -1
+            val i = mListOrder!!.size - 1
             if (order.mIceCream.id == mListOrder!![i].mIceCream.id) {
                 mListOrder!![i].mAmount += 1
             } else {
@@ -136,19 +138,20 @@ class CommonUtils {
         return valueResult
     }
 
-    fun sortList(mListData : ArrayList<Store>) : ArrayList<Store> {
-        return ArrayList(mListData.sortedWith(compareBy {it.range}))
+    fun sortList(mListData: ArrayList<Store>): ArrayList<Store> {
+        return ArrayList(mListData.sortedWith(compareBy { it.range }))
     }
 
-    fun showSomeThingWentWrong(activity: Activity?){
+    fun showSomeThingWentWrong(activity: Activity?) {
         KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Some thing went wrong")
             .show()
     }
 
-    fun showNoConnection (activity: Activity?, callback : NoConnectionListener){
+    fun showNoConnection(activity: Activity?, callback: NoConnectionListener) {
         KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-            .setTitleText("No internet").setContentText("Check your internet").setConfirmClickListener {
+            .setTitleText("No internet").setContentText("Check your internet")
+            .setConfirmClickListener {
                 it.cancel()
                 callback.onClickButtonOk(it)
             }
@@ -156,25 +159,30 @@ class CommonUtils {
     }
 
 
-    fun saveStoreSelected (store: Store){
+    fun saveStoreSelected(store: Store) {
         mSelectedStore = store
     }
 
-    fun getStoreSelected() : Store?{
+    fun getStoreSelected(): Store? {
         return mSelectedStore
     }
 
 
-    fun savePrefContent(context :Context,key : String ,value :String){
-        val editor = context.getSharedPreferences(PREF_SAVE_NAME,
+    fun savePrefContent(context: Context?, key: String, value: String?) {
+        val editor = context?.getSharedPreferences(
+            PREF_SAVE_NAME,
             Context.MODE_PRIVATE
-        ).edit()
-        editor.putString(key, value)
-        editor.apply()
+        )?.edit()
+        editor?.putString(key, value)
+        editor?.apply()
     }
 
-    fun getPrefContent(key : String): String{
-        var result =  ""
+    fun getPrefContent(context: Context?, key: String): String? {
+        var result = ""
+        val sharedPreferences = context?.getSharedPreferences(PREF_SAVE_NAME, Context.MODE_PRIVATE)
+        if (sharedPreferences != null) {
+            result = sharedPreferences.getString(key, "")!!
+        }
         return result
     }
 }
