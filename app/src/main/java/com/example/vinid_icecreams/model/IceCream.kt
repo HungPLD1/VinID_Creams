@@ -21,3 +21,14 @@ data class IceCream (
     @SerializedName("ratings")
     var listComment:ArrayList<Comment>?
 ):Serializable
+
+data class Comment(
+    @SerializedName("user_name")
+    var user_name: String,
+    @SerializedName("user_avatar")
+    var user_avatar: String,
+    @SerializedName("rating_star")
+    var rating_star : Int,
+    @SerializedName("comment")
+    var comment :String
+)

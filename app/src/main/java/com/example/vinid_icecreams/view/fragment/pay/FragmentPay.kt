@@ -1,22 +1,14 @@
 package com.example.vinid_icecreams.view.fragment.pay
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.CommonUtils
-import com.example.vinid_icecreams.utils.ProgressLoading
 import kotlinx.android.synthetic.main.dialog_pay.*
 import java.text.DecimalFormat
 
@@ -67,7 +59,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
         txtChargeOrder = view.findViewById(R.id.txt_charge_order)
         txtChargeShip = view.findViewById(R.id.txt_charge_ship)
         txtChargeTotal = view.findViewById(R.id.txt_total_charge)
-        spnPayment = view.findViewById(R.id.spnPayments)
+        spnPayment = view.findViewById(R.id.spn_payments)
         btnPayment = view.findViewById(R.id.btn_payment)
         btnClose = view.findViewById(R.id.imgClose)
 

@@ -24,6 +24,7 @@ class ViewModelIceCream : ViewModel() {
         val TAG = ViewModelIceCream::class.java.name
         const val CODE_200 = 200
         const val VERIFY_FAILSE = "Vui lòng kiểm tra lại thông tin"
+        const val REGISTER_FAILSE = "Đăng ký không thành công"
     }
 
     @SuppressLint("CheckResult")
@@ -75,26 +76,27 @@ class ViewModelIceCream : ViewModel() {
                     Log.d(TAG, result.meta?.code.toString())
                     when (result.meta?.code) {
                         CODE_200 -> {
-                            mIsRequestRegister.postValue(true)
-                            mMessageSuccess.postValue(result?.meta?.message)
+                            mIsRequestRegister.value = true
+                            mMessageSuccess.value = result?.meta?.message
                             /*post token*/
-                            mToken.postValue(result.data?.token)
+                            mToken.value = result.data?.token
                         }
                         else -> {
-                            mIsRequestRegister.postValue(false)
-                            mMessageFailse.postValue(result?.meta?.message)
+                            mIsRequestRegister.value = false
+                            mMessageFailse.value = result?.meta?.message
                         }
                     }
                 }
             }) { error ->
                 run {
                     Log.d(TAG, error.toString())
-                    mIsRequestLogin.postValue(false)
+                    mIsRequestRegister.value =false
+                    mMessageFailse.value = error.toString()
                 }
             }
         }else{
-            mIsRequestRegister.postValue(false)
-            mMessageFailse.postValue(VERIFY_FAILSE)
+            mIsRequestRegister.value = false
+            mMessageFailse.value = REGISTER_FAILSE
         }
     }
 
@@ -107,28 +109,29 @@ class ViewModelIceCream : ViewModel() {
                     when (result.meta?.code) {
                         CODE_200 -> {
                             /*post data to view */
-                            mIsRequestLogin.postValue(true)
-                            mMessageSuccess.postValue(result?.meta?.message)
+                            mIsRequestLogin.value = true
+                            mMessageSuccess.value = result?.meta?.message
                             /*post token*/
-                            mToken.postValue(result.data?.token)
+                            mToken.value = result.data?.token
                             Log.d(TAG,result.data?.token.toString())
                         }
                         else -> {
                             /*handle login failse*/
-                            mIsRequestLogin.postValue(false)
-                            mMessageFailse.postValue(result?.meta?.message)
+                            mIsRequestLogin.value = false
+                            mMessageFailse.value = result?.meta?.message
                         }
                     }
                 }
             }) { error ->
                 run {
-                    mIsRequestLogin.postValue(false)
+                    mMessageFailse.value = error.toString()
+                    mIsRequestLogin.value = false
                     Log.d(TAG, error.toString())
                 }
             }
         }else{
-            mIsRequestLogin.postValue(false)
-            mMessageFailse.postValue(VERIFY_FAILSE)
+            mIsRequestLogin.value = false
+            mMessageFailse.value = VERIFY_FAILSE
         }
 
 

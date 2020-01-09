@@ -92,7 +92,7 @@ class FragmentRegister : Fragment(),View.OnClickListener {
         ProgressLoading.dismiss()
         mViewModel.mMessageFailse.observe(this, Observer {
             KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-                .setTitleText("Login error")
+                .setTitleText("Register failse")
                 .setContentText(it)
                 .show()
         })
