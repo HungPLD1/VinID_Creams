@@ -72,15 +72,17 @@ class FragmentRegister : Fragment(),View.OnClickListener {
 
     private fun registerSuccess() {
         ProgressLoading.dismiss()
+        var message = ""
         mViewModel.mToken.observe(this, Observer {
             CommonUtils.instace.savePrefContent(context, CommonUtils.TOKEN,it)
         })
         mViewModel.mMessageSuccess.observe(this, Observer {
-            KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Login success")
-                .setContentText(it)
-                .show()
+           message = it
         })
+        KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Login success")
+            .setContentText(message)
+            .show()
         Handler().postDelayed({
             startActivity(Intent(activity, HomeActivity::class.java))
             activity?.finish()
@@ -90,11 +92,13 @@ class FragmentRegister : Fragment(),View.OnClickListener {
 
     private fun registerFailse(){
         ProgressLoading.dismiss()
+        var message = ""
         mViewModel.mMessageFailse.observe(this, Observer {
-            KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-                .setTitleText("Register failse")
-                .setContentText(it)
-                .show()
+            message = it
         })
+        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Register failse")
+            .setContentText(message)
+            .show()
     }
 }

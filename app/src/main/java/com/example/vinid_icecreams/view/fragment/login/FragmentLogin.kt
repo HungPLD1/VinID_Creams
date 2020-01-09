@@ -30,7 +30,6 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login,container,false)
     }
@@ -73,31 +72,34 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
 
     private fun loginSuccess() {
         ProgressLoading.dismiss()
+        var message = ""
         mViewModel.mToken.observe(this, Observer {
             CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
             Log.d(TAG,it.toString())
         })
         mViewModel.mMessageSuccess.observe(this, Observer {
-            KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Login success")
-                .setContentText(it)
-                .show()
+           message = it
         })
+        KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Login success")
+            .setContentText(message)
+            .show()
         Handler().postDelayed({
             startActivity(Intent(activity,HomeActivity::class.java))
             activity?.finish()
         },1000)
-
     }
 
     private fun loginFailse(){
         ProgressLoading.dismiss()
+        var message = ""
         mViewModel.mMessageFailse.observe(this, Observer {
-            KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-                .setTitleText("Login error")
-                .setContentText(it)
-                .show()
+            message = it
         })
+        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Login error")
+            .setContentText(message)
+            .show()
     }
 
 
