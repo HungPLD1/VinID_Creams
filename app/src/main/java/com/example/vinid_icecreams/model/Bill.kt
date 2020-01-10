@@ -2,15 +2,11 @@ package com.example.vinid_icecreams.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Bill(var status: Int?) {
-    constructor(
-        status: Int?,
-        address: Address?,
-        shipFee: Double?,
-        totalFree: Int?,
-        listItem: ArrayList<Item>?
-    ) : this(status)
-}
+data class Bill( var status: Int?,
+                 var  address: Address?,
+                 var shipFee: Double?,
+                 var totalFree: Int?,
+                 var listItem: ArrayList<Item>?)
 
 data class Address(
     @SerializedName("latitude")

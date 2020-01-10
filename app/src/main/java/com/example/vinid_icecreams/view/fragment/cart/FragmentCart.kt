@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.model.Address
 import com.example.vinid_icecreams.model.Bill
+import com.example.vinid_icecreams.model.Item
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
@@ -35,6 +37,12 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     private var mBtnPayment: Button? = null
     private var mTxtTotalPayment: TextView? = null
     private var mStoreSelected = CommonUtils.instace.getStoreSelected()
+
+    private var addressBill  : Address? = null
+    private var totalBill : Int? = null
+    private var shipfreeBill : Double? = null
+    private var listItemBill = ArrayList<Item>()
+    private var bill : Bill? = null
 
     companion object{
         var TAG = FragmentCart::class.java.name
@@ -106,6 +114,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     private fun handleGetLocation() {
         val location = mLocationManager?.getLastKnownLocation( LocationManager.NETWORK_PROVIDER)
         if (location != null){
+            addressBill = Address(location.latitude,location.longitude)
             val mRange = CommonUtils.instace.calculationByDistance(
                 location.latitude,
                 location.longitude,
@@ -131,6 +140,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
 
     @SuppressLint("SetTextI18n")
     override fun showTotal(total: Int) {
+        totalBill = total
         CommonUtils.instace.setTotalPayment(total)
         mTxtTotalPayment?.text = "$total $"
     }
@@ -162,9 +172,18 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     }
 
     private fun showDiaLogPay() {
+        addDataToBill()
         val fragmentPay = FragmentPay()
         fragmentPay.isCancelable = false
         fragmentManager?.let { fragmentPay.show(it, null) }
     }
 
+
+    private fun addDataToBill(){
+        for(i in 0 until mListOrder!!.size){
+            listItemBill.add(Item(mListOrder!![i].mIceCream.id, mListOrder!![i].mAmount))
+        }
+        bill = Bill(0,addressBill,0.0,totalBill,listItemBill)
+        
+    }
 }
