@@ -114,7 +114,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         val fragmentDetails = FragmentDetails()
         bundle.putSerializable("DETAILS", mListIceCream[positon])
         fragmentDetails.arguments = bundle
-        fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentDetails)?.addToBackStack("Hungpld")?.commit()
+        fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentDetails)?.addToBackStack("Hungpld")?.commit()
     }
 
 
@@ -157,7 +157,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
             when(v.id){
                 R.id.imgBack ->{
                     val fragmentStore = FragmentStore()
-                    fragmentManager?.beginTransaction()?.replace(R.id.containerHome,fragmentStore)?.addToBackStack(null)?.commit()
+                    fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentStore)?.addToBackStack(null)?.commit()
                     ProgressLoading.show(context)
                 }
                 R.id.imgShoppingToCart->{
@@ -165,7 +165,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
                         val mFragmentCart = FragmentCart()
                         val tag = mFragmentCart.javaClass.name
                         ProgressLoading.show(context)
-                        fragmentManager?.beginTransaction()?.replace(R.id.containerHome,mFragmentCart)?.addToBackStack(tag)?.commit()
+                        fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,mFragmentCart)?.addToBackStack(tag)?.commit()
                     }else{
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
                         pDialog.titleText = "Giỏ hàng trống"

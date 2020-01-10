@@ -112,7 +112,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         CommonUtils.instace.saveStoreSelected(mListStore[positon])
         CommonUtils.mListOrder = ArrayList()
         mFragmentShopping.arguments = bundle
-        fragmentManager?.beginTransaction()?.addToBackStack("Store")?.replace(R.id.containerHome, mFragmentShopping)
+        fragmentManager?.beginTransaction()?.addToBackStack("Store")?.replace(R.id.nav_host_fragment, mFragmentShopping)
             ?.commit()
     }
 

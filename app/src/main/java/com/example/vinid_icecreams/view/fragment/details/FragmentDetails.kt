@@ -22,7 +22,6 @@ import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPage
 import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_details.*
 
 
 class FragmentDetails : Fragment(), View.OnClickListener {
@@ -133,7 +132,7 @@ class FragmentDetails : Fragment(), View.OnClickListener {
                         val tag = mFragmentCart.javaClass.name
                         ProgressLoading.show(context)
                         fragmentManager?.beginTransaction()
-                            ?.replace(R.id.containerHome, mFragmentCart)?.addToBackStack(tag)
+                            ?.replace(R.id.nav_host_fragment, mFragmentCart)?.addToBackStack(tag)
                             ?.commit()
                     } else {
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
