@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
+import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.CommonUtils
 import kotlinx.android.synthetic.main.dialog_pay.*
@@ -85,10 +86,18 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
                     dismiss()
                 }
                 R.id.btn_payment -> {
-
+                    if (CommonUtils.instace.isConnectToNetwork(context)){
+                        addDataToBill()
+                    }else{
+                        showNoConnection()
+                    }
                 }
             }
         }
+    }
+
+    private fun addDataToBill() {
+
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -110,4 +119,15 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     }
 
 
+    private fun showNoConnection(){
+        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Missing connection ")
+            .setContentText("Check your connection")
+            .setConfirmClickListener{
+                it.dismiss()
+
+            }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+    }
 }

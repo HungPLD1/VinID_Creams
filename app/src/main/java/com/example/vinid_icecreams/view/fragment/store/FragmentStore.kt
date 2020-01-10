@@ -16,12 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
-import com.example.vinid_icecreams.utils.NoConnectionListener
+import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
@@ -34,7 +33,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener ,NoConnectionListener {
+
+
+class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
     var TAG = FragmentStore::class.java.name
 
     private var mListStore: ArrayList<Store> = ArrayList()
@@ -92,7 +93,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
                 setupListStore(mListStore)
             })
         }else{
-            CommonUtils.instace.showNoConnection(activity,this)
+            showNoConnection()
         }
     }
 
@@ -235,8 +236,16 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mSliderAd?.sliderAdapter = mSlideAdapter
     }
 
-    override fun onClickButtonOk(it: KAlertDialog) {
-        observeData()
-        it.cancel()
+    private fun showNoConnection(){
+        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Missing connection ")
+            .setContentText("Check your connection")
+            .setConfirmClickListener{
+                it.dismiss()
+                observeData()
+            }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
     }
+
 }

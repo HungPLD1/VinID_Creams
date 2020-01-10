@@ -98,6 +98,8 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
                 rcvIceCream?.adapter = mAdapter
                 mAdapter!!.notifyDataSetChanged()
             })
+        }else{
+            showNoConnection()
         }
     }
 
@@ -188,14 +190,24 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        if (newText == null || newText.isEmpty()){
-            setupListIceCream()
-        }else {
-            setupListIceCream()
-            mAdapter?.filter(newText.toLowerCase())
-        }
+//        if (newText == null || newText.isEmpty()){
+//            setupListIceCream()
+//        }else {
+//            setupListIceCream()
+//            mAdapter?.filter(newText.toLowerCase())
+//        }
         return false
     }
 
-
+    private fun showNoConnection(){
+        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Missing connection ")
+            .setContentText("Check your connection")
+            .setConfirmClickListener{
+                it.dismiss()
+                setupListIceCream()
+            }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+    }
 }

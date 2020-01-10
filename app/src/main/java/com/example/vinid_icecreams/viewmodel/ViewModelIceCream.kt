@@ -13,6 +13,7 @@ class ViewModelIceCream : ViewModel() {
     var mListStore = MutableLiveData<ArrayList<Store>>()
     var mListIceCream = MutableLiveData<ArrayList<IceCream>>()
     var mListEvent = MutableLiveData<ArrayList<Event>>()
+
     var mIsRequestLogin = MutableLiveData<Boolean>()
     var mIsRequestRegister = MutableLiveData<Boolean>()
     var mToken = MutableLiveData<String>()

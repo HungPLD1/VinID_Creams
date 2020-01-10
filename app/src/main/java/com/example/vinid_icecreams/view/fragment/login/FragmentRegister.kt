@@ -80,7 +80,7 @@ class FragmentRegister : Fragment(),View.OnClickListener {
            message = it
         })
         KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Login success")
+            .setTitleText("Register success")
             .setContentText(message)
             .show()
         Handler().postDelayed({

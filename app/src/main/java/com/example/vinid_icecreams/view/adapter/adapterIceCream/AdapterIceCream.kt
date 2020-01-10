@@ -72,11 +72,11 @@ class AdapterIceCream(
         var rbIceCream: RatingBar? = null
 
         init {
-            txtNameIceCream = itemView.findViewById(R.id.txtNameIceCream)
-            txtPriceIceCream = itemView.findViewById(R.id.txtPriceIceCream)
+            txtNameIceCream = itemView.findViewById(R.id.txt_name_iceCream)
+            txtPriceIceCream = itemView.findViewById(R.id.txt_price_iceCream)
             rawIceCream = itemView.findViewById(R.id.rawIceCream)
-            imgIceCream = itemView.findViewById(R.id.imgIceCream)
-            rbIceCream = itemView.findViewById(R.id.rbIceCream)
+            imgIceCream = itemView.findViewById(R.id.img_iceCream)
+            rbIceCream = itemView.findViewById(R.id.rb_iceCream)
         }
     }
 

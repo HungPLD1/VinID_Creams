@@ -22,7 +22,7 @@
         android:background="@drawable/custom_background">
 
     <ImageView
-        android:id="@+id/imgIceCream"
+        android:id="@+id/img_iceCream"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -30,7 +30,7 @@
         android:scaleType="centerCrop"
         android:layout_margin="5dp" />
     <androidx.appcompat.widget.AppCompatRatingBar
-        android:id="@+id/rbIceCream"
+        android:id="@+id/rb_iceCream"
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:padding="1dp"
@@ -41,7 +41,7 @@
         android:layout_height="0dp"/>
 
     <TextView
-        android:id="@+id/txtNameIceCream"
+        android:id="@+id/txt_name_iceCream"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -55,7 +55,7 @@
         android:lines="2" />
 
     <TextView
-        android:id="@+id/txtPriceIceCream"
+        android:id="@+id/txt_price_iceCream"
         android:textColor="@android:color/holo_red_dark"
         android:layout_gravity="center"
         android:layout_width="match_parent"
