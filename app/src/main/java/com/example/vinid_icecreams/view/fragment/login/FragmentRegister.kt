@@ -74,7 +74,8 @@ class FragmentRegister : Fragment(),View.OnClickListener {
         ProgressLoading.dismiss()
         var message = ""
         mViewModel.mToken.observe(this, Observer {
-            CommonUtils.instace.savePrefContent(context, CommonUtils.TOKEN,it)
+            CommonUtils.token = it
+            CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
         })
         mViewModel.mMessageSuccess.observe(this, Observer {
            message = it

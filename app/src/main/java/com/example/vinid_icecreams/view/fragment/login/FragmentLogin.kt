@@ -81,7 +81,6 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
         mViewModel.mToken.observe(this, Observer {
             CommonUtils.token = it
             CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
-            Log.d(TAG,it.toString())
         })
         mViewModel.mMessageSuccess.observe(this, Observer {
            message = it
@@ -98,6 +97,9 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
 
     /*login failse*/
     private fun loginFailse(){
+        var countFailse = 0
+        countFailse += 1
+        Log.d(TAG,countFailse.toString())
         ProgressLoading.dismiss()
         var message = ""
         mViewModel.mMessageFailse.observe(this, Observer {

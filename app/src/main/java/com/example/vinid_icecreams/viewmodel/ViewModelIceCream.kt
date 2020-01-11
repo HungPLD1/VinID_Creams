@@ -100,6 +100,7 @@ class ViewModelIceCream : ViewModel() {
         } else {
             mIsRequestRegister.value = false
             mMessageFailse.value = REGISTER_FAILSE
+            return
         }
     }
 
@@ -129,12 +130,12 @@ class ViewModelIceCream : ViewModel() {
                 run {
                     mMessageFailse.value = error.toString()
                     mIsRequestLogin.value = false
-                    Log.d(TAG, error.toString())
                 }
             }
         } else {
             mIsRequestLogin.value = false
             mMessageFailse.value = VERIFY_FAILSE
+            return
         }
     }
 
