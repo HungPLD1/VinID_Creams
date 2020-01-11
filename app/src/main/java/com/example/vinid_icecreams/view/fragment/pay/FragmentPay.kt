@@ -1,11 +1,14 @@
 package com.example.vinid_icecreams.view.fragment.pay
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -52,7 +55,9 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_pay, container, false)
+        val view = inflater.inflate(R.layout.dialog_pay, container, false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
