@@ -15,6 +15,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
+import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import kotlinx.android.synthetic.main.dialog_pay.*
 import org.angmarch.views.NiceSpinner
@@ -28,7 +29,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     */
     private var mStatus = 0
     private var mStoreSelected = CommonUtils.instace.getStoreSelected()
-    private var mBill : Bill? = null
+    private var mBill: Bill? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
@@ -41,7 +42,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     private var btnPayment: Button? = null
     private var btnClose: ImageView? = null
 
-    companion object{
+    companion object {
         val TAG = FragmentPay::class.java.name
     }
 
@@ -66,10 +67,10 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     private fun observeData() {
         ProgressLoading.show(context)
         mViewModel.mIsPayment.observe(this, Observer {
-            if (it){
+            if (it) {
                 paymentSuccess()
                 ProgressLoading.dismiss()
-            }else{
+            } else {
                 paymentFailse()
                 ProgressLoading.dismiss()
             }
@@ -77,11 +78,10 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     }
 
 
-
-    private fun getData(){
+    private fun getData() {
         val bundle = arguments
         val mData = bundle?.getSerializable("BILL")
-        if (mData != null){
+        if (mData != null) {
             mBill = mData as Bill
         }
     }
@@ -91,7 +91,8 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
         val newFormat = DecimalFormat("###.#")
         txtChargeShip?.text = String.format(newFormat.format(mShip)) + " $"
         txtChargeOrder?.text = CommonUtils.instace.getTotalPayment().toString() + " $"
-        txtChargeTotal?.text =  String.format(newFormat.format(CommonUtils.instace.getTotalPayment() + mShip).toString())+ " $"
+        txtChargeTotal?.text =
+            String.format(newFormat.format(CommonUtils.instace.getTotalPayment() + mShip).toString()) + " $"
         txt_Store_Location?.text = mStoreSelected?.name
     }
 
@@ -123,11 +124,11 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
                     dismiss()
                 }
                 R.id.btn_goto_payment -> {
-                    if (CommonUtils.instace.isConnectToNetwork(context)){
+                    if (CommonUtils.instace.isConnectToNetwork(context)) {
                         addDataToBill()
-                        Log.d(TAG,mBill.toString())
+                        Log.d(TAG, mBill.toString())
                         mViewModel.handlePayment(mBill!!)
-                    }else{
+                    } else {
                         showNoConnection()
                     }
                 }
@@ -159,11 +160,11 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     }
 
 
-    private fun showNoConnection(){
+    private fun showNoConnection() {
         val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Missing connection ")
             .setContentText("Check your connection")
-            .setConfirmClickListener{
+            .setConfirmClickListener {
                 it.dismiss()
 
             }
@@ -175,9 +176,12 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     private fun paymentFailse() {
         var message = ""
         mViewModel.mMessageFailse.observe(this, Observer {
-          message = it
+            message = it
         })
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+        KAlertDialog(context, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Payment Failse")
+            .setContentText(message)
+            .show()
     }
 
     private fun paymentSuccess() {
@@ -185,6 +189,14 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
         mViewModel.mMessageSuccess.observe(this, Observer {
             message = it
         })
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+        var dialog = KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Payment success")
+            .setContentText(message).setConfirmClickListener {
+                CommonUtils.mListOrder?.clear()
+                var fragmentShopping = FragmentShopping()
+                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentShopping)?.addToBackStack(null)?.commit()
+            }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
     }
 }

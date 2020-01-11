@@ -86,7 +86,7 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
         mViewModel.mMessageSuccess.observe(this, Observer {
            message = it
         })
-        KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
+        KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
             .setTitleText("Login success")
             .setContentText(message)
             .show()
@@ -103,7 +103,7 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
         mViewModel.mMessageFailse.observe(this, Observer {
             message = it
         })
-        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+        KAlertDialog(context, KAlertDialog.ERROR_TYPE)
             .setTitleText("Login error")
             .setContentText(message)
             .show()

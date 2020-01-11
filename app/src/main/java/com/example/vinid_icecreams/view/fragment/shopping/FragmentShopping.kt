@@ -121,7 +121,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         val fragmentDetails = FragmentDetails()
         bundle.putSerializable("DETAILS", mListIceCream[positon])
         fragmentDetails.arguments = bundle
-        fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentDetails)?.addToBackStack("Hungpld")?.commit()
+        fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentDetails)?.addToBackStack(null)?.commit()
     }
 
 
