@@ -51,15 +51,15 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         savedInstanceState: Bundle?
     ): View? {
         val mView = inflater.inflate(R.layout.fragment_shopping,container,false)
+        observeData()
         iniView(mView)
-        ProgressLoading.dismiss()
         setUpSpinnerFilter()
         return mView
     }
 
     private fun iniView(mView: View) {
         activity?.actionBar?.title = resources.getString(R.string.home)
-        rcvIceCream = mView.findViewById(R.id.rcvIceCream)
+        rcvIceCream = mView.findViewById(R.id.rcv_IceCreamShopping)
         spnFilterByType = mView.findViewById(R.id.spinerFilterByType)
         spnFilterByPrice = mView.findViewById(R.id.spinerFilterByPrice)
         spnFilterByDiscount = mView.findViewById(R.id.spinerFilterByDiscount)
@@ -76,11 +76,10 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         setupSpinnerType()
         setupSpinnerPrice()
         setupSpinnerDiscount()
-        setupListIceCream()
     }
 
     /*observe data*/
-    private fun setupListIceCream() {
+    private fun observeData() {
         val bundle = arguments
         val id = bundle?.getInt("ID")
         id?.let { mViewModel.getListIceCream(it) }
@@ -91,16 +90,22 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         ProgressLoading.show(context)
         if (CommonUtils.instace.isConnectToNetwork(context)) {
             mViewModel.mListIceCream.observe(this, Observer { data ->
-                ProgressLoading.dismiss()
                 mListIceCream.addAll(data)
-                mAdapter = AdapterIceCream(context, mListIceCream, this)
-                rcvIceCream?.layoutManager = GridLayoutManager(context, 2)
-                rcvIceCream?.adapter = mAdapter
-                mAdapter!!.notifyDataSetChanged()
+                setupListIceCream(mListIceCream)
+                ProgressLoading.dismiss()
             })
         }else{
+            ProgressLoading.dismiss()
             showNoConnection()
         }
+    }
+
+    private fun setupListIceCream(mListIceCream :ArrayList<IceCream>){
+        mListIceCream.addAll(mListIceCream)
+        mAdapter = AdapterIceCream(context, mListIceCream, this)
+        rcvIceCream?.layoutManager = GridLayoutManager(context, 2)
+        rcvIceCream?.adapter = mAdapter
+        mAdapter!!.notifyDataSetChanged()
     }
 
 
@@ -181,21 +186,18 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     override fun onQueryTextSubmit(query: String?): Boolean   {
         if (query == null || query.isEmpty()){
-            setupListIceCream()
+            observeData()
         }else {
-            setupListIceCream()
+            setupListIceCream(mListIceCream)
             mAdapter?.filter(query.toLowerCase())
         }
         return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-//        if (newText == null || newText.isEmpty()){
-//            setupListIceCream()
-//        }else {
-//            setupListIceCream()
-//            mAdapter?.filter(newText.toLowerCase())
-//        }
+        if (newText == null || newText.isEmpty()) {
+            observeData()
+        }
         return false
     }
 
@@ -205,7 +207,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
             .setContentText("Check your connection")
             .setConfirmClickListener{
                 it.dismiss()
-                setupListIceCream()
+                observeData()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()

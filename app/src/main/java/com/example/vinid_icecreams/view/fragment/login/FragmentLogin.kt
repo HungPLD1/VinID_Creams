@@ -79,6 +79,7 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
         ProgressLoading.dismiss()
         var message = ""
         mViewModel.mToken.observe(this, Observer {
+            CommonUtils.token = it
             CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
             Log.d(TAG,it.toString())
         })

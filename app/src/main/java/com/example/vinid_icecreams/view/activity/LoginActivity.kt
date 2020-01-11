@@ -2,6 +2,7 @@ package com.example.vinid_icecreams.view.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Base64
@@ -24,18 +25,30 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 class LoginActivity : AppCompatActivity() {
-    private var LOG = "HungPLD1"
-    private var REFERENCE = "com.example.vinid_icecreams"
     private var  mAdapterViewPagerIndicator : AdapterViewPagerIndicator? = null
+
+    companion object{
+        private var LOG = LoginActivity::class.java.name
+        private var REFERENCE = "com.example.vinid_icecreams"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        checkIsLogin()
         setFlagFullScreen()
         getHaskey()
         handleRequestPermission()
         //setupSDKFaceBook()
         setupViewIndicator()
+    }
+
+    private fun checkIsLogin() {
+        CommonUtils.token = CommonUtils.instace.getPrefContent(this,CommonUtils.TOKEN) as String
+        if (CommonUtils.token.isNotEmpty()){
+            startActivity(Intent(this,HomeActivity::class.java))
+            finish()
+        }
     }
 
     private fun handleRequestPermission() {

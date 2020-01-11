@@ -30,7 +30,7 @@
                     android:textColor="#2fa881"
                     android:textCursorDrawable="@drawable/bg_input_cursor"
                     android:paddingBottom="10dp"
-                    android:maxLength="11"
+                    android:maxLength="15"
                     android:textSize="13sp" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

@@ -32,7 +32,8 @@ class CommonUtils {
         var mTotalPayment = 0
         var mSelectedStore: Store? = null
         const val TOKEN = "token"
-        val PREF_SAVE_NAME = "IceCream data"
+        const val PREF_SAVE_NAME = "IceCream data"
+        var token = ""
     }
 
 

@@ -15,10 +15,10 @@ interface APIService {
     @POST("/login")
     fun authenticateAccount(@Body body: AuthenBody): Single<MyResponse<DataUserResponse>>
 
-    @GET("/stores")
+    @GET("/api/stores")
     fun getListStore(): Single<MyResponse<ArrayList<Store>>>
 
-    @GET("/stores/{id}/items")
+    @GET("/api/stores/{id}/items")
     fun getListIceCream(@Path("id") storeID: Int): Single<MyResponse<ArrayList<IceCream>>>
 
     @POST("")

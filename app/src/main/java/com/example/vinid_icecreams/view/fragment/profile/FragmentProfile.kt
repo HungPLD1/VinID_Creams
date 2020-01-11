@@ -74,7 +74,7 @@ class FragmentProfile : Fragment(), View.OnClickListener {
                             context?.getSharedPreferences(
                                 CommonUtils.PREF_SAVE_NAME,
                                 Context.MODE_PRIVATE
-                            )?.edit()?.clear()?.apply()
+                            )?.edit()?.remove(CommonUtils.TOKEN)?.apply()
                             startActivity(Intent(activity, LoginActivity::class.java))
                             activity?.finish()
                         }

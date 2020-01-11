@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.connection
 
+import com.example.vinid_icecreams.utils.CommonUtils
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -9,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitIceCream {
-    private const val TOKEN = "token"
+    private const val TOKEN = "Authorization"
     private const val BASE_URL = "http://35.198.221.214:8080"
     private var retrofit: Retrofit? = null
 
@@ -23,7 +24,7 @@ object RetrofitIceCream {
 
         httpClient.addInterceptor { chain ->
             val request: Request =
-                chain.request().newBuilder().build()
+                chain.request().newBuilder().addHeader(TOKEN,"Bearer "+CommonUtils.token).build()
             chain.proceed(request)
         }
 
