@@ -80,8 +80,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     /*observe data*/
     private fun observeData() {
-        val bundle = arguments
-        val id = bundle?.getInt("ID")
+        val id = CommonUtils.mSelectedStore?.id
         id?.let { mViewModel.getListIceCream(it) }
         if (id == null){
             CommonUtils.instace.showSomeThingWentWrong(activity)
@@ -90,7 +89,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         ProgressLoading.show(context)
         if (CommonUtils.instace.isConnectToNetwork(context)) {
             mViewModel.mListIceCream.observe(this, Observer { data ->
-                mListIceCream.addAll(data)
+                mListIceCream = data
                 setupListIceCream(mListIceCream)
                 ProgressLoading.dismiss()
             })
@@ -100,8 +99,8 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         }
     }
 
-    private fun setupListIceCream(mListIceCream :ArrayList<IceCream>){
-        mListIceCream.addAll(mListIceCream)
+    private fun setupListIceCream(mData :ArrayList<IceCream>){
+        mListIceCream = mData
         mAdapter = AdapterIceCream(context, mListIceCream, this)
         rcvIceCream?.layoutManager = GridLayoutManager(context, 2)
         rcvIceCream?.adapter = mAdapter

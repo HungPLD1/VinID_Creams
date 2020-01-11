@@ -7,7 +7,7 @@ data class Bill(
     @SerializedName("status")
     var status: Int?,
     @SerializedName("coordinates")
-    var  address: Address?,
+    var  coordinates: Coordinates?,
     @SerializedName("ship_fee")
     var shipFee: Int?,
     @SerializedName("total_fee")
@@ -16,7 +16,7 @@ data class Bill(
     var listItem: ArrayList<Item>?
 ) : Serializable
 
-data class Address(
+data class Coordinates(
     @SerializedName("latitude")
     var latitude: Double?,
     @SerializedName("longitude")

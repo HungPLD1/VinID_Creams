@@ -16,6 +16,7 @@ import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
+import com.example.vinid_icecreams.view.fragment.store.FragmentStore
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import kotlinx.android.synthetic.main.dialog_pay.*
 import org.angmarch.views.NiceSpinner
@@ -65,7 +66,6 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     }
 
     private fun observeData() {
-        ProgressLoading.show(context)
         mViewModel.mIsPayment.observe(this, Observer {
             if (it) {
                 paymentSuccess()
@@ -123,16 +123,19 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
                 R.id.imgClose -> {
                     dismiss()
                 }
-                R.id.btn_goto_payment -> {
-                    if (CommonUtils.instace.isConnectToNetwork(context)) {
-                        addDataToBill()
-                        Log.d(TAG, mBill.toString())
-                        mViewModel.handlePayment(mBill!!)
-                    } else {
-                        showNoConnection()
-                    }
-                }
+                R.id.btn_goto_payment -> handlePayment()
             }
+        }
+    }
+
+    private fun handlePayment(){
+        addDataToBill()
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            Log.d(TAG, mBill.toString())
+            mViewModel.handlePayment(mBill!!)
+        } else {
+            showNoConnection()
         }
     }
 
@@ -166,7 +169,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
             .setContentText("Check your connection")
             .setConfirmClickListener {
                 it.dismiss()
-
+                handlePayment()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
@@ -189,14 +192,17 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
         mViewModel.mMessageSuccess.observe(this, Observer {
             message = it
         })
-        var dialog = KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
+        var dialogPaySuccess = KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
             .setTitleText("Payment success")
             .setContentText(message).setConfirmClickListener {
+                dialog?.dismiss()
+                it.dismiss()
                 CommonUtils.mListOrder?.clear()
-                var fragmentShopping = FragmentShopping()
+                val fragmentShopping = FragmentShopping()
                 fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentShopping)?.addToBackStack(null)?.commit()
             }
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
+        dialogPaySuccess.setCanceledOnTouchOutside(false)
+        dialogPaySuccess.show()
+
     }
 }

@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.connection.body.Address
+import com.example.vinid_icecreams.connection.body.Coordinates
 import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.connection.body.Item
 import com.example.vinid_icecreams.model.Order
@@ -25,7 +25,6 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterOrder.AdapterOrder
 import com.example.vinid_icecreams.view.adapter.adapterOrder.OnItemOrderListener
-import com.example.vinid_icecreams.view.fragment.details.FragmentDetails
 import com.example.vinid_icecreams.view.fragment.pay.FragmentPay
 
 class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
@@ -39,7 +38,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     private var mTxtTotalPayment: TextView? = null
     private var mStoreSelected = CommonUtils.instace.getStoreSelected()
 
-    private var addressBill  : Address? = null
+    private var addressBill  : Coordinates? = null
     private var totalBill : Int? = null
     private var listItemBill = ArrayList<Item>()
     private var bill : Bill? = null
@@ -114,7 +113,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     private fun handleGetLocation() {
         val location = mLocationManager?.getLastKnownLocation( LocationManager.NETWORK_PROVIDER)
         if (location != null){
-            addressBill = Address(
+            addressBill = Coordinates(
                 location.latitude,
                 location.longitude
             )

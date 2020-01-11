@@ -89,7 +89,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
             mViewModel.getListStore()
             mViewModel.mListStore.observe(this, Observer { data ->
                 ProgressLoading.dismiss()
-                mListStore.addAll(data)
+                mListStore = data
                 setupListStore(mListStore)
             })
         }else{
@@ -107,14 +107,10 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
     /*click on list store*/
     override fun onItemClick(positon: Int) {
-        val bundle = Bundle()
         val mFragmentShopping = FragmentShopping()
-        bundle.putSerializable("ID", mListStore[positon].id)
         CommonUtils.instace.saveStoreSelected(mListStore[positon])
         CommonUtils.mListOrder = ArrayList()
-        mFragmentShopping.arguments = bundle
-        fragmentManager?.beginTransaction()?.addToBackStack("Store")?.replace(R.id.nav_host_fragment, mFragmentShopping)
-            ?.commit()
+        fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.nav_host_fragment, mFragmentShopping)?.commit()
     }
 
     override fun onClick(view: View?) {

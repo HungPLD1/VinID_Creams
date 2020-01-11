@@ -21,6 +21,6 @@ interface APIService {
     @GET("/api/stores/{id}/items")
     fun getListIceCream(@Path("id") storeID: Int): Single<MyResponse<ArrayList<IceCream>>>
 
-    @POST("/order")
+    @POST("api/orders")
     fun payOrderUser(@Body body: Bill): Single<MyResponse<BillResponse>>
 }
