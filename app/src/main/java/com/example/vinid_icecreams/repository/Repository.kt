@@ -3,6 +3,7 @@ package com.example.vinid_icecreams.repository
 import android.annotation.SuppressLint
 import com.example.vinid_icecreams.connection.RetrofitIceCream
 import com.example.vinid_icecreams.connection.body.AuthenBody
+import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.model.*
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,7 +21,8 @@ class Repository {
         mPhoneNumber: String,
         mPassword: String
     ): Single<MyResponse<DataUserResponse>>? {
-        return RetrofitIceCream.createRetrofit()?.authenticateAccount(AuthenBody(mPhoneNumber,mPassword))
+        return RetrofitIceCream.createRetrofit()
+            ?.authenticateAccount(AuthenBody(mPhoneNumber, mPassword))
             ?.observeOn(AndroidSchedulers.mainThread())?.subscribeOn(Schedulers.io())
     }
 
@@ -49,4 +51,10 @@ class Repository {
             ?.subscribeOn(Schedulers.io())
     }
 
+    @SuppressLint("CheckResult")
+    fun callPayIceCream(bill: Bill): Single<MyResponse<BillResponse>>? {
+        return RetrofitIceCream.createRetrofit()?.payOrderUser(bill)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+    }
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.model.Event
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Store
@@ -16,6 +17,7 @@ class ViewModelIceCream : ViewModel() {
 
     var mIsRequestLogin = MutableLiveData<Boolean>()
     var mIsRequestRegister = MutableLiveData<Boolean>()
+    var mIsPayment = MutableLiveData<Boolean>()
     var mToken = MutableLiveData<String>()
 
     var mMessageSuccess = MutableLiveData<String>()
@@ -70,8 +72,8 @@ class ViewModelIceCream : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun handleRegister(phoneNumber: String, password: String, passwordRepeat : String) {
-        if (checkPhoneNumber(phoneNumber) && handleComparedPassword(password,passwordRepeat)){
+    fun handleRegister(phoneNumber: String, password: String, passwordRepeat: String) {
+        if (checkPhoneNumber(phoneNumber) && handleComparedPassword(password, passwordRepeat)) {
             Repository.mInstance.callRegisterAccount(phoneNumber, password)?.subscribe({ result ->
                 run {
                     Log.d(TAG, result.meta?.code.toString())
@@ -91,11 +93,11 @@ class ViewModelIceCream : ViewModel() {
             }) { error ->
                 run {
                     Log.d(TAG, error.toString())
-                    mIsRequestRegister.value =false
+                    mIsRequestRegister.value = false
                     mMessageFailse.value = error.toString()
                 }
             }
-        }else{
+        } else {
             mIsRequestRegister.value = false
             mMessageFailse.value = REGISTER_FAILSE
         }
@@ -104,7 +106,7 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun handleLogin(phoneNumber: String, password: String) {
-        if (checkPhoneNumber(phoneNumber) && checkPassWord(password)){
+        if (checkPhoneNumber(phoneNumber) && checkPassWord(password)) {
             Repository.mInstance.callLoginAccount(phoneNumber, password)?.subscribe({ result ->
                 run {
                     when (result.meta?.code) {
@@ -114,7 +116,7 @@ class ViewModelIceCream : ViewModel() {
                             mMessageSuccess.value = result?.meta?.message
                             /*post token*/
                             mToken.value = result.data?.token
-                            Log.d(TAG,result.data?.token.toString())
+                            Log.d(TAG, result.data?.token.toString())
                         }
                         else -> {
                             /*handle login failse*/
@@ -130,35 +132,56 @@ class ViewModelIceCream : ViewModel() {
                     Log.d(TAG, error.toString())
                 }
             }
-        }else{
+        } else {
             mIsRequestLogin.value = false
             mMessageFailse.value = VERIFY_FAILSE
         }
+    }
 
-
+    @SuppressLint("CheckResult")
+    fun handlePayment(bill: Bill) {
+        Repository.mInstance.callPayIceCream(bill)?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mIsPayment.value = true
+                        mMessageSuccess.value = result?.meta?.message
+                    }
+                    else -> {
+                        mIsPayment.value = false
+                        mMessageFailse.value = result?.meta?.message
+                    }
+                }
+            }
+        }) { error ->
+            run {
+                mIsPayment.value = false
+                mMessageFailse.value = error.toString()
+            }
+        }
     }
 
 
-    private fun checkPhoneNumber(phoneNumber: String): Boolean{
-        if (phoneNumber.isEmpty()){
+    private fun checkPhoneNumber(phoneNumber: String): Boolean {
+        if (phoneNumber.isEmpty()) {
             return false
         }
         return phoneNumber.length != 10 || phoneNumber.length != 11
     }
 
-    private fun checkPassWord(password: String):Boolean{
-        if (password.isEmpty()){
+    private fun checkPassWord(password: String): Boolean {
+        if (password.isEmpty()) {
             return false
         }
 
         return password.length >= 8
     }
 
-    private fun handleComparedPassword(password: String, passwordRepeat: String): Boolean{
-        if (password.isEmpty() || passwordRepeat.isEmpty()){
+    private fun handleComparedPassword(password: String, passwordRepeat: String): Boolean {
+        if (password.isEmpty() || passwordRepeat.isEmpty()) {
             return false
         }
-        if (password.length < 8 || passwordRepeat.length < 8 ){
+        if (password.length < 8 || passwordRepeat.length < 8) {
             return false
         }
         return password == passwordRepeat

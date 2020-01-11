@@ -2,14 +2,20 @@ package com.example.vinid_icecreams.view.fragment.pay
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.utils.CommonUtils
+import com.example.vinid_icecreams.utils.ProgressLoading
+import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import kotlinx.android.synthetic.main.dialog_pay.*
 import org.angmarch.views.NiceSpinner
 import java.text.DecimalFormat
@@ -20,8 +26,12 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     0 : Giao hàng nhận tiền
     1 : Point
     */
-    private var payment = 0
+    private var mStatus = 0
     private var mStoreSelected = CommonUtils.instace.getStoreSelected()
+    private var mBill : Bill? = null
+    private val mViewModel: ViewModelIceCream by lazy {
+        ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
+    }
 
 
     private var txtChargeOrder: TextView? = null
@@ -31,6 +41,9 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     private var btnPayment: Button? = null
     private var btnClose: ImageView? = null
 
+    companion object{
+        val TAG = FragmentPay::class.java.name
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,8 +57,33 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
         super.onViewCreated(view, savedInstanceState)
 
         initView(view)
+        getData()
         setChareShip()
         showData()
+        observeData()
+    }
+
+    private fun observeData() {
+        ProgressLoading.show(context)
+        mViewModel.mIsPayment.observe(this, Observer {
+            if (it){
+                paymentSuccess()
+                ProgressLoading.dismiss()
+            }else{
+                paymentFailse()
+                ProgressLoading.dismiss()
+            }
+        })
+    }
+
+
+
+    private fun getData(){
+        val bundle = arguments
+        val mData = bundle?.getSerializable("BILL")
+        if (mData != null){
+            mBill = mData as Bill
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -62,10 +100,9 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
         txtChargeShip = view.findViewById(R.id.txt_charge_ship)
         txtChargeTotal = view.findViewById(R.id.txt_total_charge)
         spnPayment = view.findViewById(R.id.spn_payments)
-        btnPayment = view.findViewById(R.id.btn_payment)
+        btnPayment = view.findViewById(R.id.btn_goto_payment)
         btnClose = view.findViewById(R.id.imgClose)
 
-        setChareShip()
         prepareSpinner()
         /*even click*/
         btnClose?.setOnClickListener(this)
@@ -85,9 +122,11 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
                 R.id.imgClose -> {
                     dismiss()
                 }
-                R.id.btn_payment -> {
+                R.id.btn_goto_payment -> {
                     if (CommonUtils.instace.isConnectToNetwork(context)){
                         addDataToBill()
+                        Log.d(TAG,mBill.toString())
+                        mViewModel.handlePayment(mBill!!)
                     }else{
                         showNoConnection()
                     }
@@ -97,17 +136,18 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     }
 
     private fun addDataToBill() {
-
+        mBill?.status = mStatus
+        mBill?.shipFee = mShip.toInt()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        payment = 0
+        mStatus = 0
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
         when (position) {
-            0 -> payment = 0
-            1 -> payment = 1
+            0 -> mStatus = 0
+            1 -> mStatus = 1
         }
     }
 
@@ -129,5 +169,22 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
+    }
+
+
+    private fun paymentFailse() {
+        var message = ""
+        mViewModel.mMessageFailse.observe(this, Observer {
+          message = it
+        })
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+    }
+
+    private fun paymentSuccess() {
+        var message = ""
+        mViewModel.mMessageSuccess.observe(this, Observer {
+            message = it
+        })
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
     }
 }
