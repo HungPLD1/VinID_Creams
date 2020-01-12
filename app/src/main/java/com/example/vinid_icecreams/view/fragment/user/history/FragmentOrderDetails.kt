@@ -1,26 +1,28 @@
-package com.example.vinid_icecreams.view.fragment.user
+package com.example.vinid_icecreams.view.fragment.user.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.ImageView
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.model.OrderInfor
+import com.example.vinid_icecreams.model.ItemOrder
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.adapter.adapterHistoryOrder.AdapterOrderHistory
-import com.example.vinid_icecreams.view.adapter.adapterHistoryOrder.OnClickItemOrderHistory
+import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.AdapterOrderDetails
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
-class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory {
-    private var rcvOrderHistory : RecyclerView? = null
-    private var mListOrderInfor : ArrayList<OrderInfor>? = null
+class FragmentOrderDetails : DialogFragment(),View.OnClickListener {
+    private var orderID : Int = 0
+
+    private var mRcvIteminfo : RecyclerView? = null
+    private var mBtnClose : ImageView? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
@@ -30,26 +32,27 @@ class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_order_history,container,false)
+        return inflater.inflate(R.layout.dialog_order_history_details,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
+        getOrderID()
         observeData()
     }
 
-    private fun initView(view: View) {
-        rcvOrderHistory = view.findViewById(R.id.rcv_order)
-
+    private fun getOrderID() {
+        orderID = arguments?.getInt("ID")!!
     }
 
-    private fun observeData(){
-        ProgressLoading.show(context)
+    /*observe data*/
+    private fun observeData() {
         if (CommonUtils.instace.isConnectToNetwork(context)) {
-            mViewModel.getOrderUser()
-            mViewModel.mListOrderInfor.observe(this, Observer { data ->
-                setupListOrder(data)
+            ProgressLoading.show(context)
+            mViewModel.getListItemInfo(orderID)
+            mViewModel.mListItemOrder.observe(this, Observer { data ->
+                setUpListOrderInfo(data)
                 ProgressLoading.dismiss()
             })
         }else{
@@ -58,13 +61,25 @@ class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory {
         }
     }
 
-    private fun setupListOrder(mListOrderInfor: ArrayList<OrderInfor>) {
-        val mAdapter =  AdapterOrderHistory(context,mListOrderInfor,this)
-        rcvOrderHistory?.layoutManager = LinearLayoutManager(context)
-        rcvOrderHistory?.adapter = mAdapter
+    private fun initView(view: View) {
+        mRcvIteminfo = view.findViewById(R.id.rcv_details_order_history)
+        mBtnClose = view.findViewById(R.id.img_close_details)
+
+        mBtnClose?.setOnClickListener(this)
     }
 
-    override fun onItemClick(positon: Int) {
+    private fun setUpListOrderInfo(mData : ArrayList<ItemOrder>? ){
+        val mAdapter = mData?.let { AdapterOrderDetails(context, it) }
+        mRcvIteminfo?.adapter = mAdapter
+        mRcvIteminfo?.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun onClick(v: View?) {
+        if (v != null){
+            when(v.id){
+                R.id.img_close_details -> dismiss()
+            }
+        }
     }
 
     private fun showNoConnection(){

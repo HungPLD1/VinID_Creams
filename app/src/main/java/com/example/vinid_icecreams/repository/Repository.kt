@@ -77,4 +77,10 @@ class Repository {
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
     }
+
+    fun callDetailseOrder(orderID : Int) :  Single<MyResponse<BillResponse>>?{
+        return RetrofitIceCream.createRetrofit()?.getDetailsOrder(orderID)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+    }
 }

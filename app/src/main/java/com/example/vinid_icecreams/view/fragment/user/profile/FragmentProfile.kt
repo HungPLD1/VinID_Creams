@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.view.fragment.user
+package com.example.vinid_icecreams.view.fragment.user.profile
 
 import android.content.Context
 import android.content.Intent
@@ -17,7 +17,7 @@ import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.view.activity.LoginActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import com.developer.kalert.KAlertDialog
-import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShopping
+import com.example.vinid_icecreams.view.fragment.user.history.FragmentOrderHistory
 
 
 class FragmentProfile : Fragment(), View.OnClickListener {
@@ -84,7 +84,8 @@ class FragmentProfile : Fragment(), View.OnClickListener {
                     dialog.show()
                 }
                 R.id.profile_history ->{
-                    val mFragmentOrderHistory = FragmentOrderHistory()
+                    val mFragmentOrderHistory =
+                        FragmentOrderHistory()
                     fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.nav_host_fragment, mFragmentOrderHistory)?.commit()
                 }
             }

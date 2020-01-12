@@ -32,4 +32,7 @@ interface APIService {
 
     @GET("/api/users/orders")
     fun getOrderUser(): Single<MyResponse<ArrayList<OrderInfor>>>
+
+    @GET("/api/orders/{id}")
+    fun getDetailsOrder(@Path ("id") orderID:Int): Single<MyResponse<BillResponse>>
 }

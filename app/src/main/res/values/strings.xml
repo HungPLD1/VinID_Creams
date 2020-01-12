@@ -58,4 +58,5 @@
     <string name="fee_order">Phí đơn hàng</string>
     <string name="fee_ship">Phí vận chuyển</string>
     <string name="payment_order">Hình thức thanh toán</string>
+    <string name="profile_order_details">Chi tiết sản phẩm</string>
 </resources>

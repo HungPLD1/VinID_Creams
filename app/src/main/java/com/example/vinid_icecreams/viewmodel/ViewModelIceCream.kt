@@ -14,6 +14,7 @@ class ViewModelIceCream : ViewModel() {
     var mListEvent = MutableLiveData<ArrayList<Event>>()
     var mIceCream = MutableLiveData<IceCream>()
     var mListOrderInfor = MutableLiveData<ArrayList<OrderInfor>>()
+    var mListItemOrder = MutableLiveData<ArrayList<ItemOrder>>()
 
     var mIsRequestLogin = MutableLiveData<Boolean>()
     var mIsRequestRegister = MutableLiveData<Boolean>()
@@ -208,7 +209,27 @@ class ViewModelIceCream : ViewModel() {
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
-                        mListOrderInfor.value = result.data
+                        mListOrderInfor.value = result?.data
+                    }
+                    else -> {
+                        mMessageFailse.postValue(result?.meta?.message)
+                    }
+                }
+            }
+        }) { error ->
+            run {
+
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun getListItemInfo(orderID : Int) {
+        Repository.mInstance.callDetailseOrder(orderID)?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mListItemOrder.postValue(result.data?.mListItems)
                     }
                     else -> {
                         mMessageFailse.postValue(result?.meta?.message)
