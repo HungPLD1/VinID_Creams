@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.view.fragment.cart
+package com.example.vinid_icecreams.view.fragment.home.cart
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -25,7 +25,7 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterOrder.AdapterOrder
 import com.example.vinid_icecreams.view.adapter.adapterOrder.OnItemOrderListener
-import com.example.vinid_icecreams.view.fragment.pay.FragmentPay
+import com.example.vinid_icecreams.view.fragment.home.pay.FragmentPay
 
 class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     private var mLocationManager: LocationManager? = null

@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.view.fragment.profile
+package com.example.vinid_icecreams.view.fragment.user
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
@@ -18,6 +17,7 @@ import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.view.activity.LoginActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import com.developer.kalert.KAlertDialog
+import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShopping
 
 
 class FragmentProfile : Fragment(), View.OnClickListener {
@@ -25,6 +25,7 @@ class FragmentProfile : Fragment(), View.OnClickListener {
     private var mTxrName: TextView? = null
     private var mImgBackGround: ImageView? = null
     private var mBtnLogout: CardView? = null
+    private var mBtnHistory : CardView?= null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +41,7 @@ class FragmentProfile : Fragment(), View.OnClickListener {
         mTxrName = view.findViewById(R.id.txtNameUser)
         mImgBackGround = view.findViewById(R.id.backgroundUser)
         mBtnLogout = view.findViewById(R.id.profile_logout)
+        mBtnHistory = view.findViewById(R.id.profile_history)
 
 
         /*setup view*/
@@ -49,7 +51,7 @@ class FragmentProfile : Fragment(), View.OnClickListener {
         mImgBackGround?.setOnClickListener(this)
 
         mBtnLogout?.setOnClickListener(this)
-
+        mBtnHistory?.setOnClickListener(this)
     }
 
     private fun setupView() {
@@ -80,6 +82,10 @@ class FragmentProfile : Fragment(), View.OnClickListener {
                         }
                     dialog.setCanceledOnTouchOutside(true)
                     dialog.show()
+                }
+                R.id.profile_history ->{
+                    val mFragmentOrderHistory = FragmentOrderHistory()
+                    fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.nav_host_fragment, mFragmentOrderHistory)?.commit()
                 }
             }
         }

@@ -1,13 +1,12 @@
 package com.example.vinid_icecreams.model
 
-import com.example.vinid_icecreams.connection.body.Item
 import com.google.gson.annotations.SerializedName
 
 data class BillResponse (
         @SerializedName("order_info")
         var orderInfo : OrderInfor,
         @SerializedName("items")
-        var mListItems: ArrayList<Item>
+        var mListItems: ArrayList<ItemOrder>
     )
 
 data class OrderInfor(
@@ -25,4 +24,30 @@ data class OrderInfor(
     var totalFee : Double,
     @SerializedName("created_at")
     var createAt : String
+)
+
+data class ItemOrder(
+    @SerializedName("item_info")
+    var iceCreamInfo: ItemInfo,
+    @SerializedName("quantity")
+    var quantity : Int
+)
+
+data class ItemInfo(
+    @SerializedName("id")
+    var id : Int,
+    @SerializedName("name")
+    var name : String,
+    @SerializedName("type")
+    var type : String,
+    @SerializedName("image_paths")
+    var imagePath : String,
+    @SerializedName("price")
+    var price : Int,
+    @SerializedName("created_at")
+    var createAt: String,
+    @SerializedName("stores")
+    var stores : Int,
+    @SerializedName("ratings")
+    var ratting : Int
 )

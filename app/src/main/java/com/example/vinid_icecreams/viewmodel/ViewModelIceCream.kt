@@ -5,15 +5,15 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vinid_icecreams.connection.body.Bill
-import com.example.vinid_icecreams.model.Event
-import com.example.vinid_icecreams.model.IceCream
-import com.example.vinid_icecreams.model.Store
+import com.example.vinid_icecreams.model.*
 import com.example.vinid_icecreams.repository.Repository
 
 class ViewModelIceCream : ViewModel() {
     var mListStore = MutableLiveData<ArrayList<Store>>()
     var mListIceCream = MutableLiveData<ArrayList<IceCream>>()
     var mListEvent = MutableLiveData<ArrayList<Event>>()
+    var mIceCream = MutableLiveData<IceCream>()
+    var mListOrderInfor = MutableLiveData<ArrayList<OrderInfor>>()
 
     var mIsRequestLogin = MutableLiveData<Boolean>()
     var mIsRequestRegister = MutableLiveData<Boolean>()
@@ -58,6 +58,26 @@ class ViewModelIceCream : ViewModel() {
                 when (result.meta?.code) {
                     CODE_200 -> {
                         mListIceCream.postValue(result.data)
+                    }
+                    else -> {
+                        mMessageFailse.postValue(result?.meta?.message)
+                    }
+                }
+            }
+        }) { error ->
+            run {
+
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun getDetailsIceCream(iceCreamID: Int) {
+        Repository.mInstance.callRequestDetailsIceCream(iceCreamID)?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mIceCream.postValue(result.data)
                     }
                     else -> {
                         mMessageFailse.postValue(result?.meta?.message)
@@ -140,6 +160,26 @@ class ViewModelIceCream : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
+    fun getNotification() {
+        Repository.mInstance.callRequestNotification()?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mListEvent.postValue(result.data)
+                    }
+                    else -> {
+                        mMessageFailse.postValue(result?.meta?.message)
+                    }
+                }
+            }
+        }) { error ->
+            run {
+
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
     fun handlePayment(bill: Bill) {
         Repository.mInstance.callPayIceCream(bill)?.subscribe({ result ->
             run {
@@ -158,6 +198,26 @@ class ViewModelIceCream : ViewModel() {
             run {
                 mIsPayment.value = false
                 mMessageFailse.value = error.toString()
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun getOrderUser() {
+        Repository.mInstance.callRequestOrderUser()?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mListOrderInfor.value = result.data
+                    }
+                    else -> {
+                        mMessageFailse.postValue(result?.meta?.message)
+                    }
+                }
+            }
+        }) { error ->
+            run {
+
             }
         }
     }

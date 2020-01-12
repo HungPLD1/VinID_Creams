@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.view.fragment.pay
+package com.example.vinid_icecreams.view.fragment.home.pay
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -18,8 +17,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.fragment.shopping.FragmentShopping
-import com.example.vinid_icecreams.view.fragment.store.FragmentStore
+import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import kotlinx.android.synthetic.main.dialog_pay.*
 import org.angmarch.views.NiceSpinner

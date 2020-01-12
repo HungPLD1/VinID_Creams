@@ -51,9 +51,29 @@ class Repository {
             ?.subscribeOn(Schedulers.io())
     }
 
+
+    @SuppressLint("CheckResult")
+    fun callRequestDetailsIceCream(iceCreamID: Int): Single<MyResponse<IceCream>>? {
+        return RetrofitIceCream.createRetrofit()?.getDetailsIceCream(iceCreamID)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+    }
+
     @SuppressLint("CheckResult")
     fun callPayIceCream(bill: Bill): Single<MyResponse<BillResponse>>? {
         return RetrofitIceCream.createRetrofit()?.payOrderUser(bill)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+    }
+
+    fun callRequestNotification(): Single<MyResponse<ArrayList<Event>>>?{
+        return RetrofitIceCream.createRetrofit()?.getNotification()
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+    }
+
+    fun callRequestOrderUser() : Single<MyResponse<ArrayList<OrderInfor>>>?{
+        return RetrofitIceCream.createRetrofit()?.getOrderUser()
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
     }

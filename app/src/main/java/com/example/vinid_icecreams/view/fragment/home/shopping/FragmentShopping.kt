@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.view.fragment.shopping
+package com.example.vinid_icecreams.view.fragment.home.shopping
 
 
 import android.os.Bundle
@@ -20,9 +20,9 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.AdapterIceCream
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.OnItemIceCreamClicklistener
-import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
-import com.example.vinid_icecreams.view.fragment.details.FragmentDetails
-import com.example.vinid_icecreams.view.fragment.store.FragmentStore
+import com.example.vinid_icecreams.view.fragment.home.cart.FragmentCart
+import com.example.vinid_icecreams.view.fragment.home.details.FragmentDetails
+import com.example.vinid_icecreams.view.fragment.home.store.FragmentStore
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import org.angmarch.views.NiceSpinner
 import kotlin.collections.ArrayList
@@ -118,7 +118,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     override fun onItemClick(positon: Int) {
         val bundle = Bundle()
         val fragmentDetails = FragmentDetails()
-        bundle.putSerializable("DETAILS", mListIceCream[positon])
+        bundle.putInt("DETAILS_ID", mListIceCream[positon].id!!)
         fragmentDetails.arguments = bundle
         fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentDetails)?.addToBackStack(null)?.commit()
     }

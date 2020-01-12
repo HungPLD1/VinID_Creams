@@ -9,7 +9,7 @@
         android:label="FragmentChat" />
     <keep_state_fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.vinid_icecreams.view.fragment.profile.FragmentProfile"
+        android:name="com.example.vinid_icecreams.view.fragment.user.FragmentProfile"
         android:label="FragmentProfile" />
     <keep_state_fragment
         android:id="@+id/navigation_event"
@@ -17,7 +17,7 @@
         android:label="FragmentEvent" />
     <keep_state_fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.vinid_icecreams.view.fragment.store.HomeContainerFragment"
+        android:name="com.example.vinid_icecreams.view.fragment.home.store.HomeContainerFragment"
         android:label="HomeContainerFragment" />
 </navigation>
 

@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.view.fragment.listFragmentViewIndicator
+package com.example.vinid_icecreams.view.fragment.login.listFragmentViewIndicator
 
 import android.os.Bundle
 import android.view.LayoutInflater

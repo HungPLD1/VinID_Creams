@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.view.fragment.details
+package com.example.vinid_icecreams.view.fragment.home.details
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -19,7 +21,8 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterComment.AdapterComment
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
-import com.example.vinid_icecreams.view.fragment.cart.FragmentCart
+import com.example.vinid_icecreams.view.fragment.home.cart.FragmentCart
+import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -27,8 +30,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 class FragmentDetails : Fragment(), View.OnClickListener {
     private var mIceCream: IceCream? = null
     private var mListComment: ArrayList<Comment>? = ArrayList()
+    private var mIdIceCream : Int? = null
 
-    private var mRatiing: RatingBar? = null
+    private var mRatting: RatingBar? = null
     private var mBtnBack: ImageView? = null
     private var mPager: ViewPager? = null
     private var mDotsIndicator: DotsIndicator? = null
@@ -38,6 +42,9 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     private var mImgAddToCart: CircleImageView? = null
     private var mAdapterComment: AdapterComment? = null
     private var mBtnCart: ImageView? = null
+    private val mViewModel: ViewModelIceCream by lazy {
+        ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,15 +53,31 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         initView(view)
-        getData()
-        setupView()
+        getIDIceCream()
+        observeData()
         return view
     }
 
-    private fun getData() {
+    /*get Id ice cream*/
+    private fun getIDIceCream() {
         val bundle = arguments
-        val mData = bundle?.getSerializable("DETAILS")
-        mIceCream = mData as IceCream
+        mIdIceCream = bundle?.getInt("DETAILS_ID")
+    }
+
+    /*observe data*/
+    private fun observeData() {
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            mViewModel.getDetailsIceCream(mIdIceCream!!)
+            mViewModel.mIceCream.observe(this, Observer { data ->
+                mIceCream = data
+                setupView()
+                ProgressLoading.dismiss()
+            })
+        }else{
+            ProgressLoading.dismiss()
+            showNoConnection()
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -77,10 +100,10 @@ class FragmentDetails : Fragment(), View.OnClickListener {
             mListComment?.get(i)?.rating_star?.let { mListRatingBar.add(it) }
         }
         when (mListRatingBar.size) {
-            0 -> mRatiing?.rating = 0F
-            1 -> mRatiing?.rating = mListRatingBar[0].toFloat()
+            0 -> mRatting?.rating = 0F
+            1 -> mRatting?.rating = mListRatingBar[0].toFloat()
             else -> {
-                mRatiing?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
+                mRatting?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
             }
         }
     }
@@ -111,7 +134,7 @@ class FragmentDetails : Fragment(), View.OnClickListener {
         rcvListComment = view.findViewById(R.id.rcvListComment)
         mImgAddToCart = view.findViewById(R.id.imgAddToCart)
         mBtnCart = view.findViewById(R.id.btnCart)
-        mRatiing = view.findViewById(R.id.ratting_details)
+        mRatting = view.findViewById(R.id.ratting_details)
 
     }
 
@@ -150,8 +173,15 @@ class FragmentDetails : Fragment(), View.OnClickListener {
         CommonUtils.instace.setOrderToList(order)
     }
 
-    override fun onResume() {
-        super.onResume()
-        activity?.actionBar?.title = resources.getString(R.string.home)
+    private fun showNoConnection(){
+        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Missing connection ")
+            .setContentText("Check your connection")
+            .setConfirmClickListener{
+                it.dismiss()
+                observeData()
+            }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
     }
 }

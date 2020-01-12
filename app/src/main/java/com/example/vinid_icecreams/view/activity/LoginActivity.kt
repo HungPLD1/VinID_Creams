@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndicator
-import com.example.vinid_icecreams.view.fragment.listFragmentViewIndicator.FragmentFirstIndicator
-import com.example.vinid_icecreams.view.fragment.listFragmentViewIndicator.FragmentLastIndicator
-import com.example.vinid_icecreams.view.fragment.listFragmentViewIndicator.FragmentSecondIndicator
+import com.example.vinid_icecreams.view.fragment.login.listFragmentViewIndicator.FragmentFirstIndicator
+import com.example.vinid_icecreams.view.fragment.login.listFragmentViewIndicator.FragmentLastIndicator
+import com.example.vinid_icecreams.view.fragment.login.listFragmentViewIndicator.FragmentSecondIndicator
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import kotlinx.android.synthetic.main.activity_login.*

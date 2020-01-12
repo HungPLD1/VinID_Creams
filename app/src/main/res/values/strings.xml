@@ -53,4 +53,9 @@
     <string name="my_wallet">Ví của tôi</string>
     <string name="log_out">Đăng xuất</string>
     <string name="remid_user"> Kiểm tra lại số điện thoại hoặc mật khẩu </string>
+    <string name="order_history">Lịch sử mua hàng</string>
+    <string name="time_order">Thời gian mua hàng</string>
+    <string name="fee_order">Phí đơn hàng</string>
+    <string name="fee_ship">Phí vận chuyển</string>
+    <string name="payment_order">Hình thức thanh toán</string>
 </resources>

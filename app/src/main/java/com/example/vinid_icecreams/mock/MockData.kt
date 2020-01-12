@@ -75,22 +75,22 @@ object MockData {
         return mListImage
     }
 
-    fun getListEvent(): ArrayList<Event> {
-        val mListEvent = ArrayList<Event>()
-        for (i in 1..10) {
-            var mEvent = Event(
-                "https://cdn7.allevents.in/banners/bd285330-055f-11ea-94d7-2faf897ffe8d-rimg-w526-h526-gmir.jpg?v=1573571935"
-                , "CHƯƠNG TRÌNH ƯU ĐÃI MUA VÉ THÁNG 12/2019"
-            ,"Dành cho khách hàng chưa từng phát sinh thành công giao dịch qua Ví điện tử VinID Pay và mua vé trên ứng dụng VinID, nhận được bộ ưu đãi:\n" +
-                        "\n" +
-                        "01 mã ưu đãi mua vé CGV với giá 49,000đ – HSD 6 tháng\n" +
-                        "02 mã ưu đãi Giảm 50% cho tính năng “Thanh toán” trên ứng dụng VinID khi mua hàng tại hệ thống VinMart+ với giá trị giảm tối đa 25,000đ – HSD 10 ngày\n" +
-                        "02 mã ưu đãi Giảm ngay 50,000đ cho hóa đơn điện, nước từ 200,000đ – HSD 10 ngày\n" +
-                        "02 mã ưu đãi Giảm 25,000đ cho tính năng “Nạp tiền điện thoại” với hóa đơn từ 100,000đ – HSD 10 ngày"
-            )
-            mListEvent.add(mEvent)
-        }
-        return mListEvent
-    }
+//    fun getListEvent(): ArrayList<Event> {
+//        val mListEvent = ArrayList<Event>()
+//        for (i in 1..10) {
+//            var mEvent = Event(
+//                "https://cdn7.allevents.in/banners/bd285330-055f-11ea-94d7-2faf897ffe8d-rimg-w526-h526-gmir.jpg?v=1573571935"
+//                , "CHƯƠNG TRÌNH ƯU ĐÃI MUA VÉ THÁNG 12/2019"
+//            ,"Dành cho khách hàng chưa từng phát sinh thành công giao dịch qua Ví điện tử VinID Pay và mua vé trên ứng dụng VinID, nhận được bộ ưu đãi:\n" +
+//                        "\n" +
+//                        "01 mã ưu đãi mua vé CGV với giá 49,000đ – HSD 6 tháng\n" +
+//                        "02 mã ưu đãi Giảm 50% cho tính năng “Thanh toán” trên ứng dụng VinID khi mua hàng tại hệ thống VinMart+ với giá trị giảm tối đa 25,000đ – HSD 10 ngày\n" +
+//                        "02 mã ưu đãi Giảm ngay 50,000đ cho hóa đơn điện, nước từ 200,000đ – HSD 10 ngày\n" +
+//                        "02 mã ưu đãi Giảm 25,000đ cho tính năng “Nạp tiền điện thoại” với hóa đơn từ 100,000đ – HSD 10 ngày"
+//            )
+//            mListEvent.add(mEvent)
+//        }
+//        return mListEvent
+//    }
 
 }
