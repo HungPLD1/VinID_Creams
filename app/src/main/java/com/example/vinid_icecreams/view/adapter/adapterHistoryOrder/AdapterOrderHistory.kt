@@ -37,7 +37,7 @@ class AdapterOrderHistory(
             holder.txtPayment?.text = "Point"
         }
 
-        holder.itemView.setOnClickListener{
+        holder.txtDetails?.setOnClickListener{
             callback.onItemClick(position)
         }
 
@@ -48,13 +48,14 @@ class AdapterOrderHistory(
         var txtFeeTotal : TextView? = null
         var txtFeeShip : TextView? = null
         var txtPayment : TextView? = null
-
+        var txtDetails  :TextView? = null
 
         init {
           txtTimeOrder = itemView.findViewById(R.id.txt_order_history_time)
             txtFeeTotal = itemView.findViewById(R.id.txt_order_history_total)
             txtFeeShip = itemView.findViewById(R.id.txt_order_history_ship)
             txtPayment = itemView.findViewById(R.id.txt_order_history_payment)
+            txtDetails = itemView.findViewById(R.id.txt_order_history_details)
         }
     }
 }

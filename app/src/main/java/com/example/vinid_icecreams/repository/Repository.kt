@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.example.vinid_icecreams.connection.RetrofitIceCream
 import com.example.vinid_icecreams.connection.body.AuthenBody
 import com.example.vinid_icecreams.connection.body.Bill
+import com.example.vinid_icecreams.connection.body.Rating
 import com.example.vinid_icecreams.model.*
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -78,8 +79,14 @@ class Repository {
             ?.subscribeOn(Schedulers.io())
     }
 
-    fun callDetailseOrder(orderID : Int) :  Single<MyResponse<BillResponse>>?{
+    fun callRequestDetailsOrder(orderID : Int) :  Single<MyResponse<BillResponse>>?{
         return RetrofitIceCream.createRetrofit()?.getDetailsOrder(orderID)
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+    }
+
+    fun callRequestSetRating(ratingBody : Rating) : Single<MyResponse<RatingResponse>>?{
+        return RetrofitIceCream.createRetrofit()?.setRatingForItem(ratingBody)
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
     }

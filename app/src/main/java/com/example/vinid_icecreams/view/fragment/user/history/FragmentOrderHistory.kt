@@ -16,7 +16,6 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterHistoryOrder.AdapterOrderHistory
 import com.example.vinid_icecreams.view.adapter.adapterHistoryOrder.OnClickItemOrderHistory
-import com.example.vinid_icecreams.view.fragment.home.pay.FragmentPay
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
 class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory {
@@ -51,7 +50,7 @@ class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory {
             mViewModel.getOrderUser()
             mViewModel.mListOrderInfor.observe(this, Observer { data ->
                 mListOrderInfor = data
-                setupListOrder(mListOrderInfor)
+                setupListOrder(data)
                 ProgressLoading.dismiss()
             })
         }else{

@@ -97,9 +97,6 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
 
     /*login failse*/
     private fun loginFailse(){
-        var countFailse = 0
-        countFailse += 1
-        Log.d(TAG,countFailse.toString())
         ProgressLoading.dismiss()
         var message = ""
         mViewModel.mMessageFailse.observe(this, Observer {

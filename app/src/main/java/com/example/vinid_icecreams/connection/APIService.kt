@@ -2,6 +2,7 @@ package com.example.vinid_icecreams.connection
 
 import com.example.vinid_icecreams.connection.body.AuthenBody
 import com.example.vinid_icecreams.connection.body.Bill
+import com.example.vinid_icecreams.connection.body.Rating
 import com.example.vinid_icecreams.model.*
 import io.reactivex.Single
 import retrofit2.http.*
@@ -35,4 +36,7 @@ interface APIService {
 
     @GET("/api/orders/{id}")
     fun getDetailsOrder(@Path ("id") orderID:Int): Single<MyResponse<BillResponse>>
+
+    @POST("/api/ratings")
+    fun setRatingForItem(@Body body: Rating): Single<MyResponse<RatingResponse>>
 }

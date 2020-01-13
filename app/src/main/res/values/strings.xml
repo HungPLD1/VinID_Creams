@@ -59,4 +59,7 @@
     <string name="fee_ship">Phí vận chuyển</string>
     <string name="payment_order">Hình thức thanh toán</string>
     <string name="profile_order_details">Chi tiết sản phẩm</string>
+    <string name="ratting_product">Đánh giá sản phẩm này</string>
+    <string name="text_hint_comment">Comment here !!!</string>
+    <string name="submit">Submit</string>
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vinid_icecreams.connection.body.Bill
+import com.example.vinid_icecreams.connection.body.Rating
 import com.example.vinid_icecreams.model.*
 import com.example.vinid_icecreams.repository.Repository
 
@@ -20,6 +21,7 @@ class ViewModelIceCream : ViewModel() {
     var mIsRequestRegister = MutableLiveData<Boolean>()
     var mIsPayment = MutableLiveData<Boolean>()
     var mToken = MutableLiveData<String>()
+    var mIsRating = MutableLiveData<Boolean>()
 
     var mMessageSuccess = MutableLiveData<String>()
     var mMessageFailse = MutableLiveData<String>()
@@ -225,7 +227,7 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getListItemInfo(orderID : Int) {
-        Repository.mInstance.callDetailseOrder(orderID)?.subscribe({ result ->
+        Repository.mInstance.callRequestDetailsOrder(orderID)?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -239,6 +241,28 @@ class ViewModelIceCream : ViewModel() {
         }) { error ->
             run {
 
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun setRatingItem(itemID : Int? , ratingStar: Int? ,comment :String?) {
+        val bodyRating = Rating(itemID,ratingStar,comment)
+        Repository.mInstance.callRequestSetRating(bodyRating)?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mIsRating.postValue(true)
+                    }
+                    else -> {
+                        mIsRating.postValue(false)
+                        mMessageFailse.postValue(result?.meta?.message)
+                    }
+                }
+            }
+        }) { error ->
+            run {
+                mIsRating.postValue(false)
             }
         }
     }

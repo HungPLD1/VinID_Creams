@@ -1,10 +1,13 @@
 package com.example.vinid_icecreams.view.fragment.user.history
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,9 +19,10 @@ import com.example.vinid_icecreams.model.ItemOrder
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.AdapterOrderDetails
+import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.OnItemDetailsHistoryClicklistener
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
-class FragmentOrderDetails : DialogFragment(),View.OnClickListener {
+class FragmentOrderDetails : DialogFragment(),View.OnClickListener,OnItemDetailsHistoryClicklistener {
     private var orderID : Int = 0
 
     private var mRcvIteminfo : RecyclerView? = null
@@ -32,6 +36,7 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return inflater.inflate(R.layout.dialog_order_history_details,container,false)
     }
 
@@ -69,7 +74,7 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener {
     }
 
     private fun setUpListOrderInfo(mData : ArrayList<ItemOrder>? ){
-        val mAdapter = mData?.let { AdapterOrderDetails(context, it) }
+        val mAdapter =  AdapterOrderDetails(context, mData ,this)
         mRcvIteminfo?.adapter = mAdapter
         mRcvIteminfo?.layoutManager = LinearLayoutManager(context)
     }
@@ -92,5 +97,38 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener {
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
+    }
+
+    override fun onItemSubmit(id: Int?, rating: Int?, comment: String?) {
+        Toast.makeText(context,id.toString() +"-" + rating.toString() +"-" + comment.toString(), Toast.LENGTH_SHORT).show()
+        ProgressLoading.show(context)
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            mViewModel.setRatingItem(id,rating ,comment)
+            mViewModel.mIsRating.observe(this, Observer { isRating ->
+                if (isRating){
+                    ProgressLoading.dismiss()
+                    dismiss()
+                }else{
+                    showRatingFailse()
+                }
+        })
+        }else{
+            ProgressLoading.dismiss()
+            showNoConnection()
+        }
+
+
+    }
+
+    private fun showRatingFailse() {
+        ProgressLoading.dismiss()
+        var message = ""
+        mViewModel.mMessageFailse.observe(this, Observer {
+            message = it
+        })
+        KAlertDialog(context, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Rating Error")
+            .setContentText(message)
+            .show()
     }
 }
