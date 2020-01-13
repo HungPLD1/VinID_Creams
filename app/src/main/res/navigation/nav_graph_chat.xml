@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_chat"
+    app:startDestination="@id/fragmentChat">
+
+    <fragment
+        android:id="@+id/fragmentChat"
+        android:name="com.example.vinid_icecreams.view.fragment.chat.FragmentChat"
+        android:label="FragmentChat" />
+</navigation>

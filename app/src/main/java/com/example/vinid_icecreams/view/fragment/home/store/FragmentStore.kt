@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,12 +21,14 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
 import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShopping
+import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShoppingArgs
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import com.smarteist.autoimageslider.SliderView
 import java.io.IOException
@@ -87,7 +90,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         if(CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
             mViewModel.getListStore()
-            mViewModel.mListStore.observe(this, Observer { data ->
+            mViewModel.mListStore.observe(viewLifecycleOwner, Observer { data ->
                 ProgressLoading.dismiss()
                 mListStore = data
                 setupListStore(mListStore)
@@ -107,10 +110,12 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
     /*click on list store*/
     override fun onItemClick(positon: Int) {
-        val mFragmentShopping = FragmentShopping()
         CommonUtils.instace.saveStoreSelected(mListStore[positon])
         CommonUtils.mListOrder = ArrayList()
-        fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.nav_host_fragment, mFragmentShopping)?.commit()
+        val idStore = mListStore[positon].id
+        val bundle = Bundle()
+        bundle.putInt("idStore",idStore)
+        this.findNavController().navigate(R.id.fragmentShopping,bundle)
     }
 
     override fun onClick(view: View?) {

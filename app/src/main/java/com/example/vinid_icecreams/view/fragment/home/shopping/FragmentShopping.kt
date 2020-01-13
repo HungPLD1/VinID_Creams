@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
@@ -46,6 +47,8 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
+
+    private val args: FragmentShoppingArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
