@@ -16,6 +16,7 @@ class ViewModelIceCream : ViewModel() {
     var mIceCream = MutableLiveData<IceCream>()
     var mListOrderInfor = MutableLiveData<ArrayList<OrderInfor>>()
     var mListItemOrder = MutableLiveData<ArrayList<ItemOrder>>()
+    var mUser = MutableLiveData<User>()
 
     var mIsRequestLogin = MutableLiveData<Boolean>()
     var mIsRequestRegister = MutableLiveData<Boolean>()
@@ -221,6 +222,26 @@ class ViewModelIceCream : ViewModel() {
         }) { error ->
             run {
 
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun getUserProfile() {
+        Repository.mInstance.callRequestUserProfile()?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mUser.value = result?.data
+                    }
+                    else -> {
+                        mMessageFailse.postValue(result?.meta?.message)
+                    }
+                }
+            }
+        }) { error ->
+            run {
+                Log.d(TAG,error.toString())
             }
         }
     }

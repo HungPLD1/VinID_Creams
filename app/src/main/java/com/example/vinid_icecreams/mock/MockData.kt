@@ -41,17 +41,17 @@ object MockData {
 //        return mListCream
 //    }
 
-    fun getUser(): User {
-        return User(
-            0,
-            "phạm lê duy hùng",
-            981438710,
-            "hung0894",
-            "Hà Nội",
-            2000,
-            3123124124214
-        )
-    }
+//    fun getUser(): User {
+//        return User(
+//            0,
+//            "phạm lê duy hùng",
+//            981438710,
+//            "hung0894",
+//            "Hà Nội",
+//            2000,
+//            3123124124214
+//        )
+//    }
 
 //    fun getListComment(): ArrayList<Comment> {
 //        val mListComment = ArrayList<Comment>()

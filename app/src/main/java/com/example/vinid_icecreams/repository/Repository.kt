@@ -90,4 +90,10 @@ class Repository {
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
     }
+
+    fun callRequestUserProfile() : Single<MyResponse<User>>?{
+        return RetrofitIceCream.createRetrofit()?.getUserProfile()
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+    }
 }

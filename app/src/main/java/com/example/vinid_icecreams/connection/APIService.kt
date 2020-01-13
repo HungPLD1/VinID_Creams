@@ -39,4 +39,7 @@ interface APIService {
 
     @POST("/api/ratings")
     fun setRatingForItem(@Body body: Rating): Single<MyResponse<RatingResponse>>
+
+    @GET("/api/users/detail")
+    fun getUserProfile() : Single<MyResponse<User>>
 }

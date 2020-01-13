@@ -9,7 +9,7 @@
         android:label="FragmentChat" />
     <keep_state_fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.vinid_icecreams.view.fragment.user.profile.FragmentProfile"
+        android:name="com.example.vinid_icecreams.view.fragment.user.HomeUser"
         android:label="FragmentProfile" />
     <keep_state_fragment
         android:id="@+id/navigation_event"
