@@ -50,9 +50,9 @@ class AdapterNotification(
         var lnContainer : LinearLayout? = null
 
         init {
-            txtTitle = itemView.findViewById(R.id.txt_title_noti)
-            imgNotify = itemView.findViewById(R.id.img_noti)
-            txtContentNotify = itemView.findViewById(R.id.txt_content_noti)
+            txtTitle = itemView.findViewById(R.id.txt_raw_notifile_title)
+            imgNotify = itemView.findViewById(R.id.img_raw_notifile)
+            txtContentNotify = itemView.findViewById(R.id.txt_raw_notifile_content)
             lnContainer = itemView.findViewById(R.id.notification_container)
         }
     }

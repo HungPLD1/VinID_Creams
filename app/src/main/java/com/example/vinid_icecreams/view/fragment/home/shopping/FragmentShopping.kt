@@ -68,13 +68,13 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     private fun iniView(mView: View) {
         activity?.actionBar?.title = resources.getString(R.string.home)
-        rcvIceCream = mView.findViewById(R.id.rcv_IceCreamShopping)
-        spnFilterByType = mView.findViewById(R.id.spinerFilterByType)
-        spnFilterByPrice = mView.findViewById(R.id.spinerFilterByPrice)
-        spnFilterByDiscount = mView.findViewById(R.id.spinerFilterByDiscount)
-        imgBack = mView.findViewById(R.id.imgBack)
+        rcvIceCream = mView.findViewById(R.id.rcv_shopping_iceCream)
+        spnFilterByType = mView.findViewById(R.id.spiner_filter_by_type)
+        spnFilterByPrice = mView.findViewById(R.id.spiner_filter_by_price)
+        spnFilterByDiscount = mView.findViewById(R.id.spiner_filter_by_discount)
+        imgBack = mView.findViewById(R.id.img_details_back)
         btnCart = mView.findViewById(R.id.imgShoppingToCart)
-        mSvIceCream = mView.findViewById(R.id.svIcecream)
+        mSvIceCream = mView.findViewById(R.id.sv_shopping_icecream)
         imgBack?.setOnClickListener(this)
         btnCart?.setOnClickListener(this)
         mSvIceCream?.setOnQueryTextListener(this)
@@ -170,7 +170,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     override fun onClick(v: View?) {
         if(v != null){
             when(v.id){
-                R.id.imgBack ->{
+                R.id.img_details_back ->{
                     val fragmentStore = FragmentStore()
                     fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentStore)?.addToBackStack(null)?.commit()
                     ProgressLoading.show(context)

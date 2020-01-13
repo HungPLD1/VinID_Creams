@@ -293,7 +293,7 @@ class ViewModelIceCream : ViewModel() {
         if (phoneNumber.isEmpty()) {
             return false
         }
-        return phoneNumber.length != 10 || phoneNumber.length != 11
+        return !(phoneNumber.length != 10 && phoneNumber.length != 11)
     }
 
     private fun checkPassWord(password: String): Boolean {

@@ -36,7 +36,7 @@ class HomeActivity : AppCompatActivity() {
 
 
     private fun initView() {
-        mBottomNavigationView = findViewById(R.id.navHomeScreen)
+        mBottomNavigationView = findViewById(R.id.nav_home_screen)
     }
 
     private fun setFlagFullScreen() {

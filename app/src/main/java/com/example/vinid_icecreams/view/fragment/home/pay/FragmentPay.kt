@@ -100,12 +100,12 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     }
 
     private fun initView(view: View) {
-        txtChargeOrder = view.findViewById(R.id.txt_charge_order)
-        txtChargeShip = view.findViewById(R.id.txt_charge_ship)
-        txtChargeTotal = view.findViewById(R.id.txt_total_charge)
-        spnPayment = view.findViewById(R.id.spn_payments)
-        btnPayment = view.findViewById(R.id.btn_goto_payment)
-        btnClose = view.findViewById(R.id.imgClose)
+        txtChargeOrder = view.findViewById(R.id.txt_payment_charge_order)
+        txtChargeShip = view.findViewById(R.id.txt_payment_charge_ship)
+        txtChargeTotal = view.findViewById(R.id.txt_payment_total_charge)
+        spnPayment = view.findViewById(R.id.spn_payment_payments)
+        btnPayment = view.findViewById(R.id.btn_cart_payment)
+        btnClose = view.findViewById(R.id.img_payment_close)
 
         prepareSpinner()
         /*even click*/
@@ -123,10 +123,10 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.imgClose -> {
+                R.id.img_payment_close -> {
                     dismiss()
                 }
-                R.id.btn_goto_payment -> handlePayment()
+                R.id.btn_cart_payment -> handlePayment()
             }
         }
     }

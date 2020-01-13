@@ -35,7 +35,6 @@
                     android:theme="@style/TextLabel">
 
                     <EditText
-                        android:text="0981438710"
                         android:id="@+id/edt_register_phone_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -65,7 +64,6 @@
                     android:theme="@style/TextLabel">
 
                     <EditText
-                        android:text="hung0894"
                         android:id="@+id/edt_register_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -94,7 +92,6 @@
                     android:theme="@style/TextLabel">
 
                     <EditText
-                        android:text="hung0894"
                         android:id="@+id/edt_register_repeat_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

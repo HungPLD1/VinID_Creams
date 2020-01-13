@@ -98,13 +98,13 @@ class AdapterOrder(
         var imgOrder: ImageView? = null
 
         init {
-            txtNameOrder = itemView.findViewById(R.id.txt_nameCart)
-            txtPriceOrder = itemView.findViewById(R.id.txtPriceCart)
+            txtNameOrder = itemView.findViewById(R.id.txt__raw_cart_nameCart)
+            txtPriceOrder = itemView.findViewById(R.id.txt_raw_cart_price_cart)
             btnPlus = itemView.findViewById(R.id.btnPlus)
             btnMinus = itemView.findViewById(R.id.btnMinus)
             txtCount = itemView.findViewById(R.id.count)
-            txtTotal = itemView.findViewById(R.id.txtTotalCart)
-            imgOrder = itemView.findViewById(R.id.imgOrder)
+            txtTotal = itemView.findViewById(R.id.txt_raw_cart_total_cart)
+            imgOrder = itemView.findViewById(R.id.img_raw_cart_order)
         }
     }
 

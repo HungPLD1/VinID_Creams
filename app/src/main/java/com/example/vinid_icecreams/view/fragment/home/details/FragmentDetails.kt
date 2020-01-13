@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -122,13 +121,13 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     }
 
     private fun initView(view: View) {
-        mBtnBack = view.findViewById(R.id.imgBack)
-        mPager = view.findViewById(R.id.mViewPagerDetails)
+        mBtnBack = view.findViewById(R.id.img_details_back)
+        mPager = view.findViewById(R.id.viewPager_details)
         mDotsIndicator = view.findViewById(R.id.mDotsIndicatorDetails)
         mTxtNameDetails = view.findViewById(R.id.txt_NameDetails)
         mTxtPriceDetails = view.findViewById(R.id.txt_PriceDetails)
-        rcvListComment = view.findViewById(R.id.rcvListComment)
-        mImgAddToCart = view.findViewById(R.id.imgAddToCart)
+        rcvListComment = view.findViewById(R.id.rcv_details_list_comment)
+        mImgAddToCart = view.findViewById(R.id.img_details_add_to_cart)
         mBtnCart = view.findViewById(R.id.btnCart)
         mRatting = view.findViewById(R.id.ratting_details)
 
@@ -140,10 +139,10 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
-                R.id.imgBack -> {
+                R.id.img_details_back -> {
                     activity?.onBackPressed()
                 }
-                R.id.imgAddToCart -> {
+                R.id.img_details_add_to_cart -> {
                     Toast.makeText(context, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT)
                         .show()
                     sendOrderToCart()

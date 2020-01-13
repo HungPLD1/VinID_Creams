@@ -59,8 +59,8 @@ class LoginActivity : AppCompatActivity() {
     private fun setupViewIndicator() {
         if (mAdapterViewPagerIndicator == null){
             mAdapterViewPagerIndicator = AdapterViewPagerIndicator(supportFragmentManager,getListFragmentIndicator())
-            mViewPager.adapter = mAdapterViewPagerIndicator
-            mDotsIndicator.setViewPager(mViewPager)
+            login_view_pager.adapter = mAdapterViewPagerIndicator
+            login_dots_indicator.setViewPager(login_view_pager)
         }
     }
 

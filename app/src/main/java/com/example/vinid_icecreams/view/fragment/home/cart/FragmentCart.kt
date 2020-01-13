@@ -70,9 +70,9 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
 
     @SuppressLint("MissingPermission")
     private fun initView(view: View?) {
-        mRcvOrder = view?.findViewById(R.id.rcvOrder)
-        mBtnBack = view?.findViewById(R.id.imgBack)
-        mBtnPayment = view?.findViewById(R.id.btn_goto_payment)
+        mRcvOrder = view?.findViewById(R.id.rcv_cart_order)
+        mBtnBack = view?.findViewById(R.id.img_details_back)
+        mBtnPayment = view?.findViewById(R.id.btn_cart_payment)
         mTxtTotalPayment = view?.findViewById(R.id.txt_total_payment)
 
         mLocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
@@ -85,10 +85,10 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.imgBack -> {
+                R.id.img_details_back -> {
                     activity?.onBackPressed()
                 }
-                R.id.btn_goto_payment -> {
+                R.id.btn_cart_payment -> {
                     if (mStoreSelected?.range != 0.0) {
                         showDiaLogPay()
                     } else {

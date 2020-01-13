@@ -28,7 +28,7 @@ class FragmentLastIndicator : Fragment(), View.OnClickListener {
     /*func hanle setup view*/
     private fun initView(view: View) {
         mPager = view.findViewById(R.id.viewPagerLogin)
-        mTabLayout = view.findViewById(R.id.viewTabLayout)
+        mTabLayout = view.findViewById(R.id.view_tablayout)
         setUpFormLoginAndRegister()
     }
 

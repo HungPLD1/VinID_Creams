@@ -20,7 +20,7 @@ class AdapterViewPagerIndiCatorDetails (var mContext: Context, var arrDetails: A
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val mView = LayoutInflater.from(mContext).inflate(R.layout.raw_layout_pager_details,container,false)
 
-        val imageView: ImageView = mView.findViewById(R.id.imgDetails)
+        val imageView: ImageView = mView.findViewById(R.id.img_details)
         Picasso.with(mContext).load(arrDetails[position])
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)

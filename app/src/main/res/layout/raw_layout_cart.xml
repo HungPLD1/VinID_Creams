@@ -16,7 +16,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imgOrder"
+            android:id="@+id/img_raw_cart_order"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp" />
@@ -35,7 +35,7 @@
                 android:layout_weight="1">
                 <TextView
                     android:typeface="serif"
-                    android:id="@+id/txt_nameCart"
+                    android:id="@+id/txt__raw_cart_nameCart"
                     android:layout_weight="5"
                     android:lines="1"
                     android:layout_gravity="center"
@@ -72,18 +72,17 @@
                 android:orientation="horizontal"
                 android:layout_weight="1">
                 <TextView
-                    android:id="@+id/txtPriceCart"
+                    android:id="@+id/txt_raw_cart_price_cart"
                     android:layout_gravity="center_vertical"
                     android:lines="1"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:id="@+id/txtTotalCart"
+                    android:id="@+id/txt_raw_cart_total_cart"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="total"
                     android:textColor="@android:color/holo_red_dark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

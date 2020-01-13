@@ -67,7 +67,7 @@ class FragmentRegister : Fragment(),View.OnClickListener {
                     mViewModel.handleRegister(edtPhoneNumber?.text.toString(),edtPassword?.text.toString(),edtPasswordRepeat?.text.toString())
                 }
             }
-        }
+        } 
     }
 
     private fun registerSuccess() {

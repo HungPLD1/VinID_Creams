@@ -58,10 +58,10 @@ class AdapterStore(
         var txtRangeStore : TextView? = null
 
         init {
-          imgStore = itemView.findViewById(R.id.img_ImageStore)
-            txtNameStore = itemView.findViewById(R.id.tx_tNameStore)
-            txtAddressStore = itemView.findViewById(R.id.txtAddress)
-            txtRangeStore = itemView.findViewById(R.id.txt_RangeStore)
+          imgStore = itemView.findViewById(R.id.img_raw_store)
+            txtNameStore = itemView.findViewById(R.id.txt_raw_name_store)
+            txtAddressStore = itemView.findViewById(R.id.txt_raw_store_address)
+            txtRangeStore = itemView.findViewById(R.id.txt_raw_store_range)
         }
     }
 }

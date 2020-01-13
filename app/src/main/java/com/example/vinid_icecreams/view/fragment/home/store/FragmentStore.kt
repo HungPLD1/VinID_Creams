@@ -65,8 +65,8 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
     private fun initView(view: View?) {
         activity?.actionBar?.title = resources.getString(R.string.home)
-        mRcvStore = view?.findViewById(R.id.rcvStore)
-        mImgLocation = view?.findViewById(R.id.imgLocation)
+        mRcvStore = view?.findViewById(R.id.rcv_store)
+        mImgLocation = view?.findViewById(R.id.img_store_location)
         mTxtLocation = view?.findViewById(R.id.txt_Store_Location)
         mSliderAd = view?.findViewById(R.id.slider_ad)
 
@@ -116,7 +116,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.imgLocation -> {
+                R.id.img_store_location -> {
                     if (CommonUtils.instace.checkPermission(
                             context!!,
                             Manifest.permission.ACCESS_FINE_LOCATION

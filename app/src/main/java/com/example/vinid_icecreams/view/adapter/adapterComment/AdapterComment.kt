@@ -44,9 +44,9 @@ class AdapterComment(
 
         init {
             txtName = itemView.findViewById(R.id.txt_NameUserComment)
-            imgComment = itemView.findViewById(R.id.img_Comment)
-            rattingComment = itemView.findViewById(R.id.ratting_Comment)
-            txtContentComment = itemView.findViewById(R.id.txt_ContentComment)
+            imgComment = itemView.findViewById(R.id.img_raw_comment)
+            rattingComment = itemView.findViewById(R.id.ratting_raw_comment)
+            txtContentComment = itemView.findViewById(R.id.txt_raw_comment_content)
         }
     }
 }
