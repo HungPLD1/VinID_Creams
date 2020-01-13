@@ -2,6 +2,7 @@ package com.example.vinid_icecreams.view.adapter.adapterOrderDetails
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,11 +45,12 @@ class AdapterOrderDetails(
             .error(R.drawable.default_image)
             .into(holder.imgOrder)
 
-//        if (mListItemOrder?.get(position)?.iceCreamInfo?.ratting == null){
-//            holder.btnShowRating?.visibility = View.VISIBLE
-//        }else{
-//            holder.btnShowRating?.visibility = View.GONE
-//        }
+        if (mListItemOrder?.get(position)?.iceCreamInfo?.ratting == 0){
+            holder.btnShowRating?.visibility = View.VISIBLE
+        }else{
+            Log.d("AdapterOrderDetails", mListItemOrder?.get(position)?.iceCreamInfo?.ratting.toString())
+            holder.btnShowRating?.visibility = View.GONE
+        }
 
         /*handle click*/
         holder.btnShowRating?.setOnClickListener {
