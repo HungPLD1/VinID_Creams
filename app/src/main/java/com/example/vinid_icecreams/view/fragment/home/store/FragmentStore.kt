@@ -112,10 +112,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     override fun onItemClick(positon: Int) {
         CommonUtils.instace.saveStoreSelected(mListStore[positon])
         CommonUtils.mListOrder = ArrayList()
-        val idStore = mListStore[positon].id
-        val bundle = Bundle()
-        bundle.putInt("idStore",idStore)
-        this.findNavController().navigate(R.id.fragmentShopping,bundle)
+        this.findNavController().navigate(R.id.fragmentShopping)
     }
 
     override fun onClick(view: View?) {

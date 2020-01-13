@@ -48,8 +48,6 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
 
-    private val args: FragmentShoppingArgs by navArgs()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -100,7 +98,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         }
         ProgressLoading.show(context)
         if (CommonUtils.instace.isConnectToNetwork(context)) {
-            mViewModel.mListIceCream.observe(this, Observer { data ->
+            mViewModel.mListIceCream.observe(viewLifecycleOwner, Observer { data ->
                 mListIceCream = data
                 setupListIceCream(mListIceCream)
                 ProgressLoading.dismiss()
