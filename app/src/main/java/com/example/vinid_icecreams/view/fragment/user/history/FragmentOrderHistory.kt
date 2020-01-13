@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Button
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +20,14 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterHistoryOrder.AdapterOrderHistory
 import com.example.vinid_icecreams.view.adapter.adapterHistoryOrder.OnClickItemOrderHistory
+import com.example.vinid_icecreams.view.fragment.user.profile.FragmentProfile
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
-class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory {
+class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory, View.OnClickListener {
+
+
+
+    private var mBtnBackToUser : ImageView? = null
     private var rcvOrderHistory : RecyclerView? = null
     private var mListOrderInfor : ArrayList<OrderInfor>? = null
     private val mViewModel: ViewModelIceCream by lazy {
@@ -41,7 +50,9 @@ class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory {
 
     private fun initView(view: View) {
         rcvOrderHistory = view.findViewById(R.id.rcv_order)
+        mBtnBackToUser = view.findViewById(R.id.img_back_to_user)
 
+        mBtnBackToUser?.setOnClickListener(this)
     }
 
     private fun observeData(){
@@ -72,6 +83,17 @@ class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory {
         fragmentDetailsHistory.arguments = bundle
         fragmentDetailsHistory.isCancelable = false
         fragmentManager?.let { fragmentDetailsHistory.show(it, null) }
+    }
+
+    override fun onClick(p0: View?) {
+      if (p0 != null){
+          when(p0.id){
+              R.id.img_back_to_user ->{
+                  val fragmentProfile = FragmentProfile()
+                  fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentProfile)?.addToBackStack(null)?.commit()
+              }
+          }
+      }
     }
 
     private fun showNoConnection(){

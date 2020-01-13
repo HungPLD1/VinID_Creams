@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.SearchView
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
@@ -52,9 +54,16 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     ): View? {
         val mView = inflater.inflate(R.layout.fragment_shopping,container,false)
         observeData()
+        setupBackDevice()
         iniView(mView)
         setUpSpinnerFilter()
         return mView
+    }
+
+    private fun setupBackDevice() {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(R.id.fragmentStore)
+        }
     }
 
     private fun iniView(mView: View) {
@@ -118,7 +127,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     override fun onItemClick(positon: Int) {
         val bundle = Bundle()
         val fragmentDetails = FragmentDetails()
-        bundle.putInt("DETAILS_ID", mListIceCream[positon].id!!)
+        bundle.putSerializable("DETAILS", mListIceCream[positon])
         fragmentDetails.arguments = bundle
         fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentDetails)?.addToBackStack(null)?.commit()
     }

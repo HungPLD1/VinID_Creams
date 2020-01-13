@@ -53,32 +53,32 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         initView(view)
-        getIDIceCream()
-        observeData()
+        getIceCream()
+        setupView()
         return view
     }
 
     /*get Id ice cream*/
-    private fun getIDIceCream() {
+    private fun getIceCream() {
         val bundle = arguments
-        mIdIceCream = bundle?.getInt("DETAILS_ID")
+        mIceCream = bundle?.getSerializable("DETAILS") as IceCream?
     }
 
     /*observe data*/
-    private fun observeData() {
-        if (CommonUtils.instace.isConnectToNetwork(context)) {
-            ProgressLoading.show(context)
-            mViewModel.getDetailsIceCream(mIdIceCream!!)
-            mViewModel.mIceCream.observe(this, Observer { data ->
-                mIceCream = data
-                setupView()
-                ProgressLoading.dismiss()
-            })
-        }else{
-            ProgressLoading.dismiss()
-            showNoConnection()
-        }
-    }
+//    private fun observeData() {
+//        if (CommonUtils.instace.isConnectToNetwork(context)) {
+//            ProgressLoading.show(context)
+//            mViewModel.getDetailsIceCream(mIdIceCream!!)
+//            mViewModel.mIceCream.observe(this, Observer { data ->
+//                mIceCream = data
+//                setupView()
+//                ProgressLoading.dismiss()
+//            })
+//        }else{
+//            ProgressLoading.dismiss()
+//            showNoConnection()
+//        }
+//    }
 
     @SuppressLint("SetTextI18n")
     private fun setupView() {
@@ -87,10 +87,6 @@ class FragmentDetails : Fragment(), View.OnClickListener {
         setupListComment()
         setupImagePager()
         setupRattingBar()
-
-        mBtnBack?.setOnClickListener(this)
-        mImgAddToCart?.setOnClickListener(this)
-        mBtnCart?.setOnClickListener(this)
     }
 
     private fun setupRattingBar() {
@@ -136,6 +132,9 @@ class FragmentDetails : Fragment(), View.OnClickListener {
         mBtnCart = view.findViewById(R.id.btnCart)
         mRatting = view.findViewById(R.id.ratting_details)
 
+        mBtnBack?.setOnClickListener(this)
+        mImgAddToCart?.setOnClickListener(this)
+        mBtnCart?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -179,7 +178,6 @@ class FragmentDetails : Fragment(), View.OnClickListener {
             .setContentText("Check your connection")
             .setConfirmClickListener{
                 it.dismiss()
-                observeData()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()

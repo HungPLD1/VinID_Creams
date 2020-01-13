@@ -30,7 +30,6 @@ class HomeActivity : AppCompatActivity() {
         val navigator = KeepStateNavigator(this,navHostFragment.childFragmentManager,R.id.nav_host_fragment)
         navController.navigatorProvider += navigator
         // set navigation graph
-
         navController.setGraph(R.navigation.nav_graph)
         mBottomNavigationView?.setupWithNavController(navController)
     }
