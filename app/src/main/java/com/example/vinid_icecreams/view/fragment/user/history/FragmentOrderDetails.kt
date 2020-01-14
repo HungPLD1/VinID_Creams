@@ -22,11 +22,13 @@ import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.AdapterOrder
 import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.OnItemDetailsHistoryClicklistener
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
-class FragmentOrderDetails : DialogFragment(),View.OnClickListener,OnItemDetailsHistoryClicklistener {
-    private var orderID : Int = 0
+class FragmentOrderDetails : DialogFragment(), View.OnClickListener,
+    OnItemDetailsHistoryClicklistener {
+    private var orderID: Int = 0
+    private var mMessageFailse : String? = null
 
-    private var mRcvIteminfo : RecyclerView? = null
-    private var mBtnClose : ImageView? = null
+    private var mRcvIteminfo: RecyclerView? = null
+    private var mBtnClose: ImageView? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
@@ -36,8 +38,9 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener,OnItemDetails
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        isCancelable = false
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        return inflater.inflate(R.layout.dialog_order_history_details,container,false)
+        return inflater.inflate(R.layout.dialog_order_history_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,6 +48,7 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener,OnItemDetails
         initView(view)
         getOrderID()
         observeData()
+        handleGetListItemInfo()
     }
 
     private fun getOrderID() {
@@ -53,15 +57,28 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener,OnItemDetails
 
     /*observe data*/
     private fun observeData() {
+        mViewModel.mListItemOrder.observe(viewLifecycleOwner, Observer { data ->
+            setUpListOrderInfo(data)
+            ProgressLoading.dismiss()
+        })
+        mViewModel.mIsRating.observe(this, Observer { isRating ->
+            if (isRating) {
+                ProgressLoading.dismiss()
+                dismiss()
+            } else {
+                showRatingFailse()
+            }
+        })
+        mViewModel.mMessageFailse.observe(this, Observer {
+            mMessageFailse = it
+        })
+    }
+
+    private fun handleGetListItemInfo() {
         if (CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
             mViewModel.getListItemInfo(orderID)
-            mViewModel.mListItemOrder.observe(viewLifecycleOwner, Observer { data ->
-                setUpListOrderInfo(data)
-                ProgressLoading.dismiss()
-            })
-        }else{
-            ProgressLoading.dismiss()
+        } else {
             showNoConnection()
         }
     }
@@ -73,47 +90,42 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener,OnItemDetails
         mBtnClose?.setOnClickListener(this)
     }
 
-    private fun setUpListOrderInfo(mData : ArrayList<ItemOrder>? ){
-        val mAdapter =  AdapterOrderDetails(context, mData ,this)
+    private fun setUpListOrderInfo(mData: ArrayList<ItemOrder>?) {
+        val mAdapter = AdapterOrderDetails(context, mData, this)
         mRcvIteminfo?.adapter = mAdapter
         mRcvIteminfo?.layoutManager = LinearLayoutManager(context)
     }
 
     override fun onClick(v: View?) {
-        if (v != null){
-            when(v.id){
+        if (v != null) {
+            when (v.id) {
                 R.id.img_close_details -> dismiss()
             }
         }
     }
 
-    private fun showNoConnection(){
+    private fun showNoConnection() {
         val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Missing connection ")
             .setContentText("Check your connection")
-            .setConfirmClickListener{
+            .setConfirmClickListener {
                 it.dismiss()
-                observeData()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
     }
 
     override fun onItemSubmit(id: Int?, rating: Int?, comment: String?) {
-        Toast.makeText(context,id.toString() +"-" + rating.toString() +"-" + comment.toString(), Toast.LENGTH_SHORT).show()
-        ProgressLoading.show(context)
+        Toast.makeText(
+            context,
+            id.toString() + "-" + rating.toString() + "-" + comment.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+
         if (CommonUtils.instace.isConnectToNetwork(context)) {
-            mViewModel.setRatingItem(id,rating ,comment)
-            mViewModel.mIsRating.observe(this, Observer { isRating ->
-                if (isRating){
-                    ProgressLoading.dismiss()
-                    dismiss()
-                }else{
-                    showRatingFailse()
-                }
-        })
-        }else{
-            ProgressLoading.dismiss()
+            ProgressLoading.show(context)
+            mViewModel.setRatingItem(id, rating, comment)
+        } else {
             showNoConnection()
         }
 
@@ -122,13 +134,9 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener,OnItemDetails
 
     private fun showRatingFailse() {
         ProgressLoading.dismiss()
-        var message = ""
-        mViewModel.mMessageFailse.observe(this, Observer {
-            message = it
-        })
         KAlertDialog(context, KAlertDialog.ERROR_TYPE)
             .setTitleText("Rating Error")
-            .setContentText(message)
+            .setContentText(mMessageFailse)
             .show()
     }
 }
