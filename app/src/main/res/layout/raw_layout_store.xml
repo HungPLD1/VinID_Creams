@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="1dp"
     app:cardCornerRadius="10dp"
-    android:innerRadius="0dp"
+    app:cardElevation="2dp"
+    android:innerRadius="2dp"
+    app:cardPreventCornerOverlap="false"
     android:shape="ring"
     android:thicknessRatio="1.9"
     android:layout_margin="5dp">
@@ -22,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_weight="3"
         android:scaleType="centerCrop" />
 
