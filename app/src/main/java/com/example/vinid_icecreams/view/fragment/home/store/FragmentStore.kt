@@ -32,11 +32,8 @@ import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
-
-
-
 class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
-    var TAG = FragmentStore::class.java.name
+
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
@@ -45,26 +42,29 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     private var mSliderAd: SliderView? = null
     private var mBtnGoToCart : ImageView? = null
     private var mAdapterStore : AdapterStore? = null
+    private var mRcvStore: RecyclerView? = null
+
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
 
-
-    private var mRcvStore: RecyclerView? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_store, container, false)
+        return inflater.inflate(R.layout.fragment_store, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView(view)
         setupViewIndicatorAd()
-        setupView()
-        return view
+        observeData()
+        handleGetListStore()
     }
 
     private fun initView(view: View?) {
-        activity?.actionBar?.title = resources.getString(R.string.home)
         mRcvStore = view?.findViewById(R.id.rcv_store)
         mImgLocation = view?.findViewById(R.id.img_store_location)
         mTxtLocation = view?.findViewById(R.id.txt_Store_Location)
@@ -78,23 +78,24 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mTxtLocation?.setOnClickListener(this)
     }
 
-    private fun setupView() {
-        observeData()
-    }
 
-    /*observe data*/
-    private fun observeData() {
+
+    private fun handleGetListStore() {
         if(CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
             mViewModel.getListStore()
-            mViewModel.mListStore.observe(viewLifecycleOwner, Observer { data ->
-                ProgressLoading.dismiss()
-                mListStore = data
-                setupListStore(mListStore)
-            })
         }else{
             showNoConnection()
         }
+    }
+
+    /*observe data*/
+    private fun observeData(){
+        mViewModel.mListStore.observe(viewLifecycleOwner, Observer { data ->
+            ProgressLoading.dismiss()
+            mListStore = data
+            setupListStore(mListStore)
+        })
     }
 
     /*set up list store */
@@ -237,7 +238,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
             .setContentText("Check your connection")
             .setConfirmClickListener{
                 it.dismiss()
-                observeData()
+                handleGetListStore()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
