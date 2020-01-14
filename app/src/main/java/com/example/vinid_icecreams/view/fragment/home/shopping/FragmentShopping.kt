@@ -23,7 +23,6 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.AdapterIceCream
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.OnItemIceCreamClicklistener
-import com.example.vinid_icecreams.view.fragment.home.details.FragmentDetails
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import org.angmarch.views.NiceSpinner
 import kotlin.collections.ArrayList
@@ -51,12 +50,16 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val mView = inflater.inflate(R.layout.fragment_shopping,container,false)
-        observeData()
+        return inflater.inflate(R.layout.fragment_shopping,container,false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupBackDevice()
-        iniView(mView)
+        iniView(view)
         setUpSpinnerFilter()
-        return mView
+        observeData()
+        handleGetListIceCream()
     }
 
     private fun setupBackDevice() {
@@ -86,25 +89,29 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         setupSpinnerDiscount()
     }
 
-    /*observe data*/
-    private fun observeData() {
+    /*handle get list ice cream*/
+    private fun handleGetListIceCream() {
         val id = CommonUtils.mSelectedStore?.id
-        id?.let { mViewModel.getListIceCream(it) }
         if (id == null){
             CommonUtils.instace.showSomeThingWentWrong(activity)
             return
         }
         ProgressLoading.show(context)
         if (CommonUtils.instace.isConnectToNetwork(context)) {
-            mViewModel.mListIceCream.observe(viewLifecycleOwner, Observer { data ->
-                mListIceCream = data
-                setupListIceCream(mListIceCream)
-                ProgressLoading.dismiss()
-            })
+            mViewModel.getListIceCream(id)
         }else{
             ProgressLoading.dismiss()
             showNoConnection()
         }
+    }
+
+    /*observe data*/
+    private fun observeData(){
+        mViewModel.mListIceCream.observe(viewLifecycleOwner, Observer { data ->
+            mListIceCream = data
+            setupListIceCream(mListIceCream)
+            ProgressLoading.dismiss()
+        })
     }
 
     private fun setupListIceCream(mData :ArrayList<IceCream>){
@@ -187,7 +194,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     override fun onQueryTextSubmit(query: String?): Boolean   {
         if (query == null || query.isEmpty()){
-            observeData()
+            handleGetListIceCream()
         }else {
             setupListIceCream(mListIceCream)
             mAdapter?.filter(query.toLowerCase())
@@ -197,7 +204,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText == null || newText.isEmpty()) {
-            observeData()
+            handleGetListIceCream()
         }
         return false
     }
@@ -208,7 +215,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
             .setContentText("Check your connection")
             .setConfirmClickListener{
                 it.dismiss()
-                observeData()
+                handleGetListIceCream()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
