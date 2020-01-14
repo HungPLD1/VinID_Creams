@@ -26,11 +26,10 @@ import org.angmarch.views.OnSpinnerItemSelectedListener
 import java.text.DecimalFormat
 
 class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelectedListener {
+    private var mMessageFailse : String? = null
+    private var mMessageSuccess : String? = null
+
     private var mShip = 0.0
-    /*
-    0 : Giao hàng nhận tiền
-    1 : Point
-    */
     private var mStatus = 0
     private var mStoreSelected = CommonUtils.instace.getStoreSelected()
     private var mBill: Bill? = null
@@ -70,6 +69,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
         observeData()
     }
 
+
     private fun observeData() {
         mViewModel.mIsPayment.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -80,7 +80,16 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
                 ProgressLoading.dismiss()
             }
         })
+
+        mViewModel.mMessageSuccess.observe(viewLifecycleOwner, Observer {
+            mMessageSuccess = it
+        })
+
+        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
+            mMessageFailse = it
+        })
     }
+
 
 
     private fun getData() {
@@ -118,7 +127,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
     private fun prepareSpinner() {
         val mListType = listOf("Giao hàng nhận tiền", "Point")
         spnPayment?.attachDataSource(mListType)
-        spnPayment?.setOnSpinnerItemSelectedListener(this)
+        spnPayment?.onSpinnerItemSelectedListener = this
     }
 
 
@@ -137,7 +146,6 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
         addDataToBill()
         if (CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
-            Log.d(TAG, mBill.toString())
             mViewModel.handlePayment(mBill!!)
         } else {
             showNoConnection()
@@ -178,24 +186,16 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
 
 
     private fun paymentFailse() {
-        var message = ""
-        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
-            message = it
-        })
         KAlertDialog(context, KAlertDialog.ERROR_TYPE)
             .setTitleText("Payment Failse")
-            .setContentText(message)
+            .setContentText(mMessageFailse)
             .show()
     }
 
     private fun paymentSuccess() {
-        var message = ""
-        mViewModel.mMessageSuccess.observe(viewLifecycleOwner, Observer {
-            message = it
-        })
-        var dialogPaySuccess = KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
+        val dialogPaySuccess = KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
             .setTitleText("Payment success")
-            .setContentText(message).setConfirmClickListener {
+            .setContentText(mMessageSuccess).setConfirmClickListener {
                 dialog?.dismiss()
                 it.dismiss()
                 CommonUtils.mListOrder?.clear()
