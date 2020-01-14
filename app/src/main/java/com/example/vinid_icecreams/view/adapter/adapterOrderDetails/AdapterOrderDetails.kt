@@ -40,7 +40,7 @@ class AdapterOrderDetails(
         holder.txtTotalOrder?.text = "= " +
             (mListItemOrder?.get(position)?.iceCreamInfo?.price?.times(mListItemOrder?.get(position)?.quantity!!)).toString() + " $"
 
-        Picasso.with(mContext).load(mListItemOrder?.get(position)?.iceCreamInfo?.imagePath)
+        Picasso.with(mContext).load(mListItemOrder?.get(position)?.iceCreamInfo?.imagePath?.get(0))
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
             .into(holder.imgOrder)

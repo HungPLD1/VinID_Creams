@@ -56,7 +56,7 @@ class FragmentOrderDetails : DialogFragment(),View.OnClickListener,OnItemDetails
         if (CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
             mViewModel.getListItemInfo(orderID)
-            mViewModel.mListItemOrder.observe(this, Observer { data ->
+            mViewModel.mListItemOrder.observe(viewLifecycleOwner, Observer { data ->
                 setUpListOrderInfo(data)
                 ProgressLoading.dismiss()
             })

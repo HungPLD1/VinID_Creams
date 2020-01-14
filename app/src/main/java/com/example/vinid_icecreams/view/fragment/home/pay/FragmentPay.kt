@@ -21,9 +21,10 @@ import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import kotlinx.android.synthetic.main.dialog_pay.*
 import org.angmarch.views.NiceSpinner
+import org.angmarch.views.OnSpinnerItemSelectedListener
 import java.text.DecimalFormat
 
-class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSelectedListener {
+class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelectedListener {
     private var mShip = 0.0
     /*
     0 : Giao hàng nhận tiền
@@ -69,7 +70,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     }
 
     private fun observeData() {
-        mViewModel.mIsPayment.observe(this, Observer {
+        mViewModel.mIsPayment.observe(viewLifecycleOwner, Observer {
             if (it) {
                 paymentSuccess()
                 ProgressLoading.dismiss()
@@ -116,7 +117,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
     private fun prepareSpinner() {
         val mListType = listOf("Giao hàng nhận tiền", "Point")
         spnPayment?.attachDataSource(mListType)
-        spnPayment?.setOnClickListener(this)
+        spnPayment?.setOnSpinnerItemSelectedListener(this)
     }
 
 
@@ -147,12 +148,8 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
         mBill?.shipFee = mShip.toInt()
     }
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        mStatus = 0
-    }
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-        when (position) {
+    override fun onItemSelected(parent: NiceSpinner?, view: View?, position: Int, id: Long) {
+        when(position){
             0 -> mStatus = 0
             1 -> mStatus = 1
         }
@@ -181,7 +178,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
 
     private fun paymentFailse() {
         var message = ""
-        mViewModel.mMessageFailse.observe(this, Observer {
+        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
             message = it
         })
         KAlertDialog(context, KAlertDialog.ERROR_TYPE)
@@ -192,7 +189,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, AdapterView.OnItemSe
 
     private fun paymentSuccess() {
         var message = ""
-        mViewModel.mMessageSuccess.observe(this, Observer {
+        mViewModel.mMessageSuccess.observe(viewLifecycleOwner, Observer {
             message = it
         })
         var dialogPaySuccess = KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)

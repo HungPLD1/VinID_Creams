@@ -41,7 +41,7 @@ data class ItemInfo(
     @SerializedName("type")
     var type : String,
     @SerializedName("image_paths")
-    var imagePath : String,
+    var imagePath : ArrayList<String>,
     @SerializedName("price")
     var price : Int,
     @SerializedName("created_at")
