@@ -58,6 +58,7 @@ class HomeUser : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
         observeData()
+        handleGetUserInfo()
     }
 
     private fun initView(view: View) {
@@ -81,15 +82,18 @@ class HomeUser : Fragment(), View.OnClickListener {
 
     /*observe data*/
     private fun observeData() {
-        if(CommonUtils.instace.isConnectToNetwork(context)) {
-            ProgressLoading.show(context)
-            mViewModel.getUserProfile()
             mViewModel.mUser.observe(viewLifecycleOwner, Observer { data ->
                 ProgressLoading.dismiss()
                 mUser = data
                 CommonUtils.mAmount = mUser?.vinIdPoint!!
                 setupView()
             })
+    }
+
+    private fun handleGetUserInfo(){
+        if(CommonUtils.instace.isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            mViewModel.getUserProfile()
         }else{
             ProgressLoading.dismiss()
             showNoConnection()
@@ -144,7 +148,7 @@ class HomeUser : Fragment(), View.OnClickListener {
             .setContentText("Check your connection")
             .setConfirmClickListener{
                 it.dismiss()
-                observeData()
+                handleGetUserInfo()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
