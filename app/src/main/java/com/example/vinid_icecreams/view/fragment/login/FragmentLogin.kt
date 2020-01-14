@@ -24,6 +24,8 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
 
     private var edtPhoneNumber : EditText? = null
     private var edtPassword : EditText? = null
+    private var mMessageSuccess : String? = null
+    private var mMessageFailse : String? = null
 
     private var btnLogin : Button? = null
     private val mViewModel: ViewModelIceCream by lazy {
@@ -53,6 +55,16 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
                 loginFailse()
             }
         } )
+        mViewModel.mToken.observe(this, Observer {
+            CommonUtils.token = it
+            CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
+        })
+        mViewModel.mMessageSuccess.observe(this, Observer {
+            mMessageSuccess = it
+        })
+        mViewModel.mMessageFailse.observe(this, Observer {
+            mMessageFailse = it
+        })
     }
 
     private fun initView(view: View?) {
@@ -77,17 +89,9 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     /*login success*/
     private fun loginSuccess() {
         ProgressLoading.dismiss()
-        var message = ""
-        mViewModel.mToken.observe(this, Observer {
-            CommonUtils.token = it
-            CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
-        })
-        mViewModel.mMessageSuccess.observe(this, Observer {
-           message = it
-        })
         KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
             .setTitleText("Login success")
-            .setContentText(message)
+            .setContentText(mMessageSuccess)
             .show()
         Handler().postDelayed({
             startActivity(Intent(activity,HomeActivity::class.java))
@@ -98,13 +102,9 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     /*login failse*/
     private fun loginFailse(){
         ProgressLoading.dismiss()
-        var message = ""
-        mViewModel.mMessageFailse.observe(this, Observer {
-            message = it
-        })
         KAlertDialog(context, KAlertDialog.ERROR_TYPE)
             .setTitleText("Login error")
-            .setContentText(message)
+            .setContentText(mMessageFailse)
             .show()
     }
 

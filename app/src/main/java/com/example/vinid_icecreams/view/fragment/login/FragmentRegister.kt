@@ -21,6 +21,8 @@ import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 class FragmentRegister : Fragment(),View.OnClickListener {
     var TAG = FragmentRegister::class.java.name
 
+    private var mMessageSuccess : String? = null
+    private var mMessageFailse : String? = null
     private var edtPhoneNumber : EditText? = null
     private var edtPassword : EditText? = null
     private var edtPasswordRepeat : EditText? = null
@@ -48,6 +50,16 @@ class FragmentRegister : Fragment(),View.OnClickListener {
                 registerFailse()
             }
         } )
+        mViewModel.mToken.observe(this, Observer {
+            CommonUtils.token = it
+            CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
+        })
+        mViewModel.mMessageSuccess.observe(this, Observer {
+            mMessageSuccess = it
+        })
+        mViewModel.mMessageFailse.observe(this, Observer {
+            mMessageFailse = it
+        })
     }
 
     private fun initView(view: View) {
@@ -72,17 +84,9 @@ class FragmentRegister : Fragment(),View.OnClickListener {
 
     private fun registerSuccess() {
         ProgressLoading.dismiss()
-        var message = ""
-        mViewModel.mToken.observe(this, Observer {
-            CommonUtils.token = it
-            CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
-        })
-        mViewModel.mMessageSuccess.observe(this, Observer {
-           message = it
-        })
         KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
             .setTitleText("Register success")
-            .setContentText(message)
+            .setContentText(mMessageSuccess)
             .show()
         Handler().postDelayed({
             startActivity(Intent(activity, HomeActivity::class.java))
@@ -93,13 +97,9 @@ class FragmentRegister : Fragment(),View.OnClickListener {
 
     private fun registerFailse(){
         ProgressLoading.dismiss()
-        var message = ""
-        mViewModel.mMessageFailse.observe(this, Observer {
-            message = it
-        })
         KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Register failse")
-            .setContentText(message)
+            .setContentText(mMessageFailse)
             .show()
     }
 }
