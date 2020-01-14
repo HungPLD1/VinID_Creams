@@ -2,6 +2,7 @@ package com.example.vinid_icecreams.connection
 
 import com.example.vinid_icecreams.connection.body.AuthenBody
 import com.example.vinid_icecreams.connection.body.Bill
+import com.example.vinid_icecreams.connection.body.Point
 import com.example.vinid_icecreams.connection.body.Rating
 import com.example.vinid_icecreams.model.*
 import io.reactivex.Single
@@ -42,4 +43,7 @@ interface APIService {
 
     @GET("/api/users/detail")
     fun getUserProfile() : Single<MyResponse<User>>
+
+    @PUT("/api/users/deposit")
+    fun chargePointUser(@Body body:Point) : Single<MyResponse<User>>
 }

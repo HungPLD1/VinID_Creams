@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -33,8 +34,10 @@ class HomeUser : Fragment(), View.OnClickListener {
     private var mImgAvatar: CircleImageView? = null
     private var mTxrName: TextView? = null
     private var mImgBackGround: ImageView? = null
+    private var mTxtWallet :TextView? = null
     private var mBtnLogout: CardView? = null
     private var mBtnHistory : CardView?= null
+    private var mBtnWallet : CardView? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
@@ -63,6 +66,8 @@ class HomeUser : Fragment(), View.OnClickListener {
         mImgBackGround = view.findViewById(R.id.backgroundUser)
         mBtnLogout = view.findViewById(R.id.profile_logout)
         mBtnHistory = view.findViewById(R.id.profile_history)
+        mTxtWallet = view.findViewById(R.id.txt_profile_wallet)
+        mBtnWallet = view.findViewById(R.id.profile_wallet)
         /*setup view*/
         mImgAvatar?.setOnClickListener(this)
         mTxrName?.setOnClickListener(this)
@@ -70,6 +75,7 @@ class HomeUser : Fragment(), View.OnClickListener {
 
         mBtnLogout?.setOnClickListener(this)
         mBtnHistory?.setOnClickListener(this)
+        mBtnWallet?.setOnClickListener(this)
     }
 
 
@@ -81,6 +87,7 @@ class HomeUser : Fragment(), View.OnClickListener {
             mViewModel.mUser.observe(viewLifecycleOwner, Observer { data ->
                 ProgressLoading.dismiss()
                 mUser = data
+                CommonUtils.mAmount = mUser?.vinIdPoint!!
                 setupView()
             })
         }else{
@@ -97,6 +104,7 @@ class HomeUser : Fragment(), View.OnClickListener {
             mTxrName?.text = mUser?.fullName
         }
         mImgAvatar?.setImageResource(R.drawable.meo)
+        mTxtWallet?.text = mUser?.vinIdPoint.toString() + " $"
     }
 
 
@@ -122,6 +130,9 @@ class HomeUser : Fragment(), View.OnClickListener {
                 }
                 R.id.profile_history ->{
                     findNavController().navigate(R.id.fragmentOrderHistory)
+                }
+                R.id.profile_wallet ->{
+                    findNavController().navigate(R.id.fragmentWallet)
                 }
             }
         }

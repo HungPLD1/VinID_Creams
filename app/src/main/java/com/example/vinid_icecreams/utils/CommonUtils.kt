@@ -30,6 +30,7 @@ class CommonUtils {
         var mListOrder: ArrayList<Order>? = ArrayList()
         var mTotalPayment = 0
         var mSelectedStore: Store? = null
+        var mAmount = 0
         const val TOKEN = "token"
         const val PREF_SAVE_NAME = "IceCream data"
         var token = ""

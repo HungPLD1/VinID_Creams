@@ -10,6 +10,9 @@
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentOrderHistory"
             app:destination="@id/fragmentOrderHistory" />
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentWallet"
+            app:destination="@id/fragmentWallet" />
     </fragment>
     <fragment
         android:id="@+id/fragmentOrderHistory"
@@ -23,4 +26,9 @@
         android:id="@+id/fragmentOrderDetails"
         android:name="com.example.vinid_icecreams.view.fragment.user.history.FragmentOrderDetails"
         android:label="FragmentOrderDetails" />
+    <fragment
+        android:id="@+id/fragmentWallet"
+        android:name="com.example.vinid_icecreams.view.fragment.user.wallet.FragmentWallet"
+        android:label="FragmentWallet" >
+    </fragment>
 </navigation>

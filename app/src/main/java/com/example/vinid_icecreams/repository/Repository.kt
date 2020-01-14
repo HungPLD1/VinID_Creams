@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.example.vinid_icecreams.connection.RetrofitIceCream
 import com.example.vinid_icecreams.connection.body.AuthenBody
 import com.example.vinid_icecreams.connection.body.Bill
+import com.example.vinid_icecreams.connection.body.Point
 import com.example.vinid_icecreams.connection.body.Rating
 import com.example.vinid_icecreams.model.*
 import io.reactivex.Single
@@ -93,6 +94,12 @@ class Repository {
 
     fun callRequestUserProfile() : Single<MyResponse<User>>?{
         return RetrofitIceCream.createRetrofit()?.getUserProfile()
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+    }
+
+    fun callRequestChargePoint(point :Point) : Single<MyResponse<User>>?{
+        return RetrofitIceCream.createRetrofit()?.chargePointUser(point)
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribeOn(Schedulers.io())
     }

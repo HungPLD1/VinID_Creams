@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vinid_icecreams.connection.body.Bill
+import com.example.vinid_icecreams.connection.body.Point
 import com.example.vinid_icecreams.connection.body.Rating
 import com.example.vinid_icecreams.model.*
 import com.example.vinid_icecreams.repository.Repository
@@ -23,6 +24,8 @@ class ViewModelIceCream : ViewModel() {
     var mIsPayment = MutableLiveData<Boolean>()
     var mToken = MutableLiveData<String>()
     var mIsRating = MutableLiveData<Boolean>()
+    var mIsChargePoint = MutableLiveData<Boolean>()
+
 
     var mMessageSuccess = MutableLiveData<String>()
     var mMessageFailse = MutableLiveData<String>()
@@ -284,6 +287,27 @@ class ViewModelIceCream : ViewModel() {
         }) { error ->
             run {
                 mIsRating.postValue(false)
+            }
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun setPointUser(amount :Int) {
+        Repository.mInstance.callRequestChargePoint(Point(amount))?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mIsChargePoint.postValue(true)
+                        mUser.postValue(result.data)
+                    }
+                    else -> {
+                        mIsChargePoint.postValue(false)
+                    }
+                }
+            }
+        }) { error ->
+            run {
+
             }
         }
     }
