@@ -22,6 +22,8 @@ import com.example.vinid_icecreams.view.adapter.adapterHistoryOrder.AdapterOrder
 import com.example.vinid_icecreams.view.adapter.adapterHistoryOrder.OnClickItemOrderHistory
 import com.example.vinid_icecreams.view.fragment.user.HomeUser
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import java.util.*
+import kotlin.collections.ArrayList
 
 class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory, View.OnClickListener {
 
@@ -56,6 +58,7 @@ class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory, View.OnClickLi
 
     private fun observeData() {
         mViewModel.mListOrderInfor.observe(viewLifecycleOwner, Observer { data ->
+            data.reverse()
             mListOrderInfor = data
             setupListOrder(data)
             ProgressLoading.dismiss()
