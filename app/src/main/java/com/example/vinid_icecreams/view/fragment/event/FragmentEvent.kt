@@ -32,23 +32,29 @@ class FragmentEvent : Fragment(),OnItemNotificationClicklistener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view  = layoutInflater.inflate(R.layout.fragment_event,container,false)
+        return layoutInflater.inflate(R.layout.fragment_event,container,false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView(view)
         observeData()
-        return view
+        handleGetListEvent()
     }
 
     private fun observeData(){
-        ProgressLoading.show(context)
-        if (CommonUtils.instace.isConnectToNetwork(context)) {
-            mViewModel.getNotification()
             mViewModel.mListEvent.observe(this, Observer { data ->
                 mListEvent = data
                 setupListEvent(mListEvent)
                 ProgressLoading.dismiss()
             })
+    }
+
+    private fun handleGetListEvent(){
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            mViewModel.getNotification()
         }else{
-            ProgressLoading.dismiss()
             showNoConnection()
         }
     }
@@ -74,7 +80,7 @@ class FragmentEvent : Fragment(),OnItemNotificationClicklistener {
             .setContentText("Check your connection")
             .setConfirmClickListener{
                 it.dismiss()
-                observeData()
+                handleGetListEvent()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
