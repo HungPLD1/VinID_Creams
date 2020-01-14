@@ -76,12 +76,19 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if(view != null){
-            when(view.id){
-                R.id.btn_go -> {
-                    ProgressLoading.show(context)
-                    mViewModel.handleLogin(edtPhoneNumber?.text.toString(),edtPassword?.text.toString())}
+        if (view != null) {
+            when (view.id) {
+                R.id.btn_go -> handleLogin()
             }
+        }
+    }
+
+    private fun handleLogin(){
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            mViewModel.handleLogin(edtPhoneNumber?.text.toString(), edtPassword?.text.toString())
+        }else{
+            showNoConnection()
         }
     }
 
@@ -108,6 +115,15 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
             .show()
     }
 
-
-
+    private fun showNoConnection(){
+        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Missing connection ")
+            .setContentText("Check your connection")
+            .setConfirmClickListener{
+                it.dismiss()
+                handleLogin()
+            }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+    }
 }

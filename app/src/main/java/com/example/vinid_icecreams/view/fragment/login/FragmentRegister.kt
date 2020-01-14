@@ -74,12 +74,22 @@ class FragmentRegister : Fragment(),View.OnClickListener {
     override fun onClick(v: View?) {
         if (v!= null){
             when(v.id){
-                R.id.btn_register -> {
-                    ProgressLoading.show(context)
-                    mViewModel.handleRegister(edtPhoneNumber?.text.toString(),edtPassword?.text.toString(),edtPasswordRepeat?.text.toString())
-                }
+                R.id.btn_register -> handleRegister()
             }
         } 
+    }
+
+    private fun handleRegister() {
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            mViewModel.handleRegister(
+                edtPhoneNumber?.text.toString(),
+                edtPassword?.text.toString(),
+                edtPasswordRepeat?.text.toString()
+            )
+        }else{
+            showNoConnection()
+        }
     }
 
     private fun registerSuccess() {
@@ -101,5 +111,17 @@ class FragmentRegister : Fragment(),View.OnClickListener {
             .setTitleText("Register failse")
             .setContentText(mMessageFailse)
             .show()
+    }
+
+    private fun showNoConnection(){
+        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Missing connection ")
+            .setContentText("Check your connection")
+            .setConfirmClickListener{
+                it.dismiss()
+                handleRegister()
+            }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
     }
 }
