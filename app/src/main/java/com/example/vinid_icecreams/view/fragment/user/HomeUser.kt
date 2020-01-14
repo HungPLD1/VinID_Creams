@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.mock.MockData
 import com.example.vinid_icecreams.utils.CommonUtils
@@ -77,7 +78,7 @@ class HomeUser : Fragment(), View.OnClickListener {
         if(CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
             mViewModel.getUserProfile()
-            mViewModel.mUser.observe(this, Observer { data ->
+            mViewModel.mUser.observe(viewLifecycleOwner, Observer { data ->
                 ProgressLoading.dismiss()
                 mUser = data
                 setupView()
@@ -103,7 +104,7 @@ class HomeUser : Fragment(), View.OnClickListener {
         if (v != null) {
             when (v.id) {
                 R.id.profile_logout -> {
-                    var dialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
+                    val dialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
                         .setTitleText("Logout")
                         .setContentText("Bạn có muốn đăng xuất ?")
                         .setConfirmText("Đúng rồi ")
@@ -120,9 +121,7 @@ class HomeUser : Fragment(), View.OnClickListener {
                     dialog.show()
                 }
                 R.id.profile_history ->{
-                    val mFragmentOrderHistory =
-                        FragmentOrderHistory()
-                    fragmentManager?.beginTransaction()?.addToBackStack(null)?.replace(R.id.nav_host_fragment, mFragmentOrderHistory)?.commit()
+                    findNavController().navigate(R.id.fragmentOrderHistory)
                 }
             }
         }

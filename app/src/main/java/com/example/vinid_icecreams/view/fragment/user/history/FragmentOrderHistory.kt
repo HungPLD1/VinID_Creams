@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
@@ -56,7 +57,7 @@ class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory, View.OnClickLi
         ProgressLoading.show(context)
         if (CommonUtils.instace.isConnectToNetwork(context)) {
             mViewModel.getOrderUser()
-            mViewModel.mListOrderInfor.observe(this, Observer { data ->
+            mViewModel.mListOrderInfor.observe(viewLifecycleOwner, Observer { data ->
                 mListOrderInfor = data
                 setupListOrder(data)
                 ProgressLoading.dismiss()
@@ -86,8 +87,7 @@ class FragmentOrderHistory : Fragment(), OnClickItemOrderHistory, View.OnClickLi
       if (p0 != null){
           when(p0.id){
               R.id.img_back_to_user ->{
-                  val fragmentProfile = HomeUser()
-                  fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentProfile)?.addToBackStack(null)?.commit()
+                 findNavController().navigate(R.id.fragmentProfile)
               }
           }
       }

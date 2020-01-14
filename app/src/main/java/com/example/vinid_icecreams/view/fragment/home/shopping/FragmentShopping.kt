@@ -9,11 +9,11 @@ import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.SearchView
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
@@ -23,9 +23,7 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.AdapterIceCream
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.OnItemIceCreamClicklistener
-import com.example.vinid_icecreams.view.fragment.home.cart.FragmentCart
 import com.example.vinid_icecreams.view.fragment.home.details.FragmentDetails
-import com.example.vinid_icecreams.view.fragment.home.store.FragmentStore
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import org.angmarch.views.NiceSpinner
 import kotlin.collections.ArrayList
@@ -73,7 +71,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         spnFilterByType = mView.findViewById(R.id.spiner_filter_by_type)
         spnFilterByPrice = mView.findViewById(R.id.spiner_filter_by_price)
         spnFilterByDiscount = mView.findViewById(R.id.spiner_filter_by_discount)
-        imgBack = mView.findViewById(R.id.img_details_back)
+        imgBack = mView.findViewById(R.id.img_shopping_back)
         btnCart = mView.findViewById(R.id.imgShoppingToCart)
         mSvIceCream = mView.findViewById(R.id.sv_shopping_icecream)
         imgBack?.setOnClickListener(this)
@@ -126,11 +124,8 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     /*click item on list fragment */
     override fun onItemClick(positon: Int) {
-        val bundle = Bundle()
-        val fragmentDetails = FragmentDetails()
-        bundle.putSerializable("DETAILS", mListIceCream[positon])
-        fragmentDetails.arguments = bundle
-        fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentDetails)?.addToBackStack(null)?.commit()
+        val bundle = bundleOf("DETAILS" to mListIceCream[positon])
+        findNavController().navigate(R.id.fragmentDetails,bundle)
     }
 
 
@@ -171,17 +166,14 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     override fun onClick(v: View?) {
         if(v != null){
             when(v.id){
-                R.id.img_details_back ->{
-                    val fragmentStore = FragmentStore()
-                    fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentStore)?.addToBackStack(null)?.commit()
+                R.id.img_shopping_back ->{
+                    this.findNavController().navigate(R.id.fragmentStore)
                     ProgressLoading.show(context)
                 }
                 R.id.imgShoppingToCart->{
                     if (CommonUtils.instace.getOrderList()!!.size > 0){
-                        val mFragmentCart = FragmentCart()
-                        val tag = mFragmentCart.javaClass.name
                         ProgressLoading.show(context)
-                        fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,mFragmentCart)?.addToBackStack(tag)?.commit()
+                        this.findNavController().navigate(R.id.fragmentCart)
                     }else{
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
                         pDialog.titleText = "Giỏ hàng trống"

@@ -27,8 +27,6 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
-import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShopping
-import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShoppingArgs
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import com.smarteist.autoimageslider.SliderView
 import java.io.IOException

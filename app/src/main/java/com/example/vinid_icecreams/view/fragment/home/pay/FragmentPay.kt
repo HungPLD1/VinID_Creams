@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.connection.body.Bill
@@ -199,7 +200,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
                 it.dismiss()
                 CommonUtils.mListOrder?.clear()
                 val fragmentShopping = FragmentShopping()
-                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment,fragmentShopping)?.addToBackStack(null)?.commit()
+                findNavController().navigate(R.id.fragmentShopping)
             }
         dialogPaySuccess.setCanceledOnTouchOutside(false)
         dialogPaySuccess.show()

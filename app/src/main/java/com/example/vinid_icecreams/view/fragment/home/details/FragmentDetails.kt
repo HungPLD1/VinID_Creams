@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -52,15 +54,21 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         initView(view)
+        setupBackDevice()
         getIceCream()
         setupView()
         return view
     }
 
+    private fun setupBackDevice() {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(R.id.fragmentShopping)
+        }
+    }
+
     /*get Id ice cream*/
     private fun getIceCream() {
-        val bundle = arguments
-        mIceCream = bundle?.getSerializable("DETAILS") as IceCream?
+        mIceCream = arguments?.getSerializable("DETAILS") as IceCream?
     }
 
     /*observe data*/
@@ -140,7 +148,7 @@ class FragmentDetails : Fragment(), View.OnClickListener {
         if (v != null) {
             when (v.id) {
                 R.id.img_details_back -> {
-                    activity?.onBackPressed()
+                    this.findNavController().navigate(R.id.fragmentShopping)
                 }
                 R.id.img_details_add_to_cart -> {
                     Toast.makeText(context, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT)
@@ -149,12 +157,8 @@ class FragmentDetails : Fragment(), View.OnClickListener {
                 }
                 R.id.btnCart -> {
                     if (CommonUtils.instace.getOrderList()!!.size > 0) {
-                        val mFragmentCart = FragmentCart()
-                        val tag = mFragmentCart.javaClass.name
                         ProgressLoading.show(context)
-                        fragmentManager?.beginTransaction()
-                            ?.replace(R.id.nav_host_fragment, mFragmentCart)?.addToBackStack(tag)
-                            ?.commit()
+                        findNavController().navigate(R.id.fragmentCart)
                     } else {
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
                         pDialog.titleText = "Giỏ hàng trống"

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:id="@+id/img_details_back"
+            android:id="@+id/img_shopping_back"
             android:src="@drawable/back"
             android:layout_gravity="center"
             android:layout_margin="10dp"

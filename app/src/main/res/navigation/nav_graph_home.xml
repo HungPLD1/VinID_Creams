@@ -23,10 +23,6 @@
         <action
             android:id="@+id/action_fragmentShopping_to_fragmentCart"
             app:destination="@id/fragmentCart" />
-        <argument
-            android:name="idStore"
-            app:argType= "integer"
-            />
     </fragment>
     <fragment
         android:id="@+id/fragmentDetails"
@@ -35,6 +31,9 @@
         <action
             android:id="@+id/action_fragmentDetails_to_fragmentCart"
             app:destination="@id/fragmentCart" />
+        <argument
+            android:name="DETAILS"
+            app:argType="com.example.vinid_icecreams.model.IceCream" />
     </fragment>
     <fragment
         android:id="@+id/fragmentCart"

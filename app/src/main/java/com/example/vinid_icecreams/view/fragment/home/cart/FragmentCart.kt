@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
@@ -55,8 +57,15 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         val view = inflater.inflate(R.layout.fragment_cart, container, false)
         ProgressLoading.dismiss()
         initView(view)
+        setupBackDevice()
         setupListOrder()
         return view
+    }
+
+    private fun setupBackDevice() {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(R.id.fragmentShopping)
+        }
     }
 
     private fun setupListOrder() {
@@ -71,7 +80,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     @SuppressLint("MissingPermission")
     private fun initView(view: View?) {
         mRcvOrder = view?.findViewById(R.id.rcv_cart_order)
-        mBtnBack = view?.findViewById(R.id.img_details_back)
+        mBtnBack = view?.findViewById(R.id.img_cart_back)
         mBtnPayment = view?.findViewById(R.id.btn_cart_payment)
         mTxtTotalPayment = view?.findViewById(R.id.txt_total_payment)
 
@@ -85,8 +94,8 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.img_details_back -> {
-                    activity?.onBackPressed()
+                R.id.img_cart_back -> {
+                    findNavController().navigate(R.id.fragmentShopping)
                 }
                 R.id.btn_cart_payment -> {
                     if (mStoreSelected?.range != 0.0) {
