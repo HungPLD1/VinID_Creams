@@ -106,27 +106,27 @@ class ViewModelIceCream : ViewModel() {
                     Log.d(TAG, result.meta?.code.toString())
                     when (result.meta?.code) {
                         CODE_200 -> {
-                            mIsRequestRegister.value = true
-                            mMessageSuccess.value = result?.meta?.message
+                            mIsRequestRegister.postValue(true)
+                            mMessageSuccess.postValue(result?.meta?.message)
                             /*post token*/
-                            mToken.value = result.data?.token
+                            mToken.postValue(result.data?.token)
                         }
                         else -> {
-                            mIsRequestRegister.value = false
-                            mMessageFailse.value = result?.meta?.message
+                            mIsRequestRegister.postValue(false)
+                            mMessageFailse.postValue(result?.meta?.message)
                         }
                     }
                 }
             }) { error ->
                 run {
                     Log.d(TAG, error.toString())
-                    mIsRequestRegister.value = false
-                    mMessageFailse.value = error.toString()
+                    mIsRequestRegister.postValue(false)
+                    mMessageFailse.postValue(error.toString())
                 }
             }
         } else {
-            mIsRequestRegister.value = false
-            mMessageFailse.value = REGISTER_FAILSE
+            mIsRequestRegister.postValue(false)
+            mMessageFailse.postValue(REGISTER_FAILSE)
             return
         }
     }
@@ -140,28 +140,28 @@ class ViewModelIceCream : ViewModel() {
                     when (result.meta?.code) {
                         CODE_200 -> {
                             /*post data to view */
-                            mIsRequestLogin.value = true
-                            mMessageSuccess.value = result?.meta?.message
+                            mIsRequestLogin.postValue(true)
+                            mMessageSuccess.postValue(result?.meta?.message)
                             /*post token*/
-                            mToken.value = result.data?.token
+                            mToken.postValue(result.data?.token)
                             Log.d(TAG, result.data?.token.toString())
                         }
                         else -> {
                             /*handle login failse*/
-                            mIsRequestLogin.value = false
-                            mMessageFailse.value = result?.meta?.message
+                            mIsRequestLogin.postValue(false)
+                            mMessageFailse.postValue(result?.meta?.message)
                         }
                     }
                 }
             }) { error ->
                 run {
-                    mMessageFailse.value = error.toString()
-                    mIsRequestLogin.value = false
+                    mMessageFailse.postValue(error.toString())
+                    mIsRequestLogin.postValue(false)
                 }
             }
         } else {
-            mIsRequestLogin.value = false
-            mMessageFailse.value = VERIFY_FAILSE
+            mIsRequestLogin.postValue(false)
+            mMessageFailse.postValue(VERIFY_FAILSE)
             return
         }
     }
@@ -192,19 +192,19 @@ class ViewModelIceCream : ViewModel() {
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
-                        mIsPayment.value = true
-                        mMessageSuccess.value = result?.meta?.message
+                        mIsPayment.postValue(true)
+                        mMessageSuccess.postValue(result?.meta?.message)
                     }
                     else -> {
-                        mIsPayment.value = false
-                        mMessageFailse.value = result?.meta?.message
+                        mIsPayment.postValue(false)
+                        mMessageFailse.postValue(result?.meta?.message)
                     }
                 }
             }
         }) { error ->
             run {
-                mIsPayment.value = false
-                mMessageFailse.value = error.toString()
+                mIsPayment.postValue(false)
+                mMessageFailse.postValue(error.toString())
             }
         }
     }
@@ -215,7 +215,7 @@ class ViewModelIceCream : ViewModel() {
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
-                        mListOrderInfor.value = result?.data
+                        mListOrderInfor.postValue(result?.data)
                     }
                     else -> {
                         mMessageFailse.postValue(result?.meta?.message)
@@ -235,7 +235,7 @@ class ViewModelIceCream : ViewModel() {
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
-                        mUser.value = result?.data
+                        mUser.postValue(result?.data)
                     }
                     else -> {
                         mMessageFailse.postValue(result?.meta?.message)
@@ -293,23 +293,25 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun setPointUser(amount :Int) {
-        Repository.mInstance.callRequestChargePoint(Point(amount))?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    CODE_200 -> {
-                        mIsChargePoint.postValue(true)
-                        mUser.postValue(result.data)
-                    }
-                    else -> {
-                        mIsChargePoint.postValue(false)
+            Repository.mInstance.callRequestChargePoint(Point(amount))?.subscribe({ result ->
+                run {
+                    when (result.meta?.code) {
+                        CODE_200 -> {
+                            mIsChargePoint.postValue(true)
+                            mUser.postValue(result.data)
+                        }
+                        else -> {
+                            mIsChargePoint.postValue(false)
+                            mMessageFailse.postValue(result.meta?.message)
+                        }
                     }
                 }
+            }) { error ->
+                run {
+                    mIsChargePoint.postValue(false)
+                    mMessageFailse.postValue(error.toString())
+                }
             }
-        }) { error ->
-            run {
-
-            }
-        }
     }
 
 
@@ -317,7 +319,7 @@ class ViewModelIceCream : ViewModel() {
         if (phoneNumber.isEmpty()) {
             return false
         }
-        return !(phoneNumber.length != 10 && phoneNumber.length != 11)
+        return android.util.Patterns.PHONE.matcher(phoneNumber).matches()
     }
 
     private fun checkPassWord(password: String): Boolean {
