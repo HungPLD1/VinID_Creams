@@ -1,7 +1,9 @@
 package com.example.vinid_icecreams.view.fragment.user.wallet
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,9 +35,6 @@ class FragmentWallet : Fragment(),View.OnClickListener {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
 
-    companion object{
-        var count = 0
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +49,7 @@ class FragmentWallet : Fragment(),View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
         txtMoney?.text = CommonUtils.mAmount.toString()  + " $"
+        observeData()
     }
 
     private fun initView(view: View) {
@@ -77,25 +77,29 @@ class FragmentWallet : Fragment(),View.OnClickListener {
                         formSubmit?.visibility = View.VISIBLE
                     }
                 }
-                R.id.btn_wallet_submit -> observeData()
+                R.id.btn_wallet_submit -> handlePayment()
                 R.id.img_wallet_back -> findNavController().navigate(R.id.fragmentProfile)
             }
         }
     }
 
-
     /*observe data*/
-    private fun observeData() {
+    private fun observeData(){
+        mViewModel.mUser.observe(viewLifecycleOwner, Observer { data ->
+            ProgressLoading.dismiss()
+            mUser = data
+            setupView()
+            chargeSuccess()
+        })
+    }
+
+
+    private fun handlePayment() {
         if(CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
             val amount  = edtInputMoney?.text?.toString()
             if (!amount.isNullOrEmpty()){
                 mViewModel.setPointUser(Integer.parseInt(amount))
-                mViewModel.mUser.observe(viewLifecycleOwner, Observer { data ->
-                    ProgressLoading.dismiss()
-                    mUser = data
-                    setupView()
-                })
             }else{
                 chargeFailse()
             }
@@ -106,8 +110,6 @@ class FragmentWallet : Fragment(),View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun setupView(){
-        count += 1
-        Log.d("Hungpld",count.toString())
         txtMoney?.text = mUser?.vinIdPoint.toString()+ " $"
         edtInputMoney?.text?.clear()
         formSubmit?.visibility = View.GONE
@@ -119,7 +121,7 @@ class FragmentWallet : Fragment(),View.OnClickListener {
             .setContentText("Check your connection")
             .setConfirmClickListener{
                 it.dismiss()
-                observeData()
+                handlePayment()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
@@ -131,6 +133,14 @@ class FragmentWallet : Fragment(),View.OnClickListener {
         KAlertDialog(context, KAlertDialog.ERROR_TYPE)
             .setTitleText("chagre failse")
             .setContentText("Số tiền không được để trống")
+            .show()
+    }
+
+    /*charge success*/
+    private fun chargeSuccess() {
+        ProgressLoading.dismiss()
+        KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Charge success")
             .show()
     }
 
