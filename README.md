@@ -5,6 +5,7 @@ Project mô phỏng app bán kem
 - [Giới thiệu](#Giới-thiệu)
 - [Thành viên](#Thành-viên)
 - [Tính năng](#Tính-năng)
+- [Công nghệ](#Công-nghệ)
 - [Giao diện](#Giao-diện)
 
 
@@ -29,8 +30,14 @@ Các công việc khác như làm documentation, tạo mockup data, viết test,
 - Hiển thị phí giao hàng theo khoảng cách và thanh toán
 - Lịch sử mua hàng của user
 - Nạp tiền cho user
-
+## Công nghệ
+- Partten : MVVM
+- Desgin partten : Observer , Singleton, Repository
+- Android Jetpack Components : View model, Livedata, Navigation
+- 3rd Library : picaso, nice spiner, slider ,indicator,circle image
+- Another : Retrofit 2, Rx android 
 ## Giao diện
+
 
 
 
