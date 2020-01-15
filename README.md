@@ -19,24 +19,18 @@ Thành viên của project bao gồm:
 Các công việc khác như làm documentation, tạo mockup data, viết test, làm presentation sẽ được thực hiện đồng thời từ cả hai phía.
 
 ## Tính Năng
-User story của người dùng.
-<img align="right" src="https://i.imgur.com/hjFGNEF.png">
-<img align="right" src="https://i.imgur.com/tkSTjlV.png">
-
+- Đăng nhập , đăng kí
+- Quét các cửa hàng kem ở gần hiền thị rõ khoảng cách theo km 
+- Hiển thị danh sách kem của cửa hàng đó 
+- Tìm kiếm kem theo tên
+- Bình luận và đánh giá sản phẩm
+- Thêm vào giỏ hàng
+- Hiển thị phí giao hàng theo khoảng cách và thanh toán
+- Lịch sử mua hàng của user
+- Nạp tiền cho user
 
 ## Giao diện
-Cấu trúc và các công cụ được sử dụng của project:
-- Virtualization: docker
-- Version control: git
-- Database: mysql, phpmyadmin
-- BackEnd: Golang
-  - Gin-gonic : https://github.com/gin-gonic
-  - Gorm : https://github.com/jinzhu/gorm
-  - IDE : Visual Studio Code
-- Testing: Postman: https://www.getpostman.com/
-- FrontEnd:
-- Api documentation: GoSwagger: https://github.com/go-swagger/go-swagger
-- Proxy: Localxpose: https://localxpose.io/
+
 
 
 
