@@ -4,8 +4,9 @@ Project mô phỏng app bán kem
 ## Contents
 - [Giới thiệu](#Giới-thiệu)
 - [Thành viên](#Thành-viên)
+- [Tính năng](#Tính-năng)
 - [Giao diện](#Giao-diện)
-- [Công cụ](#Công-cụ)
+
 
 ## Giới thiệu
 Project mô phỏng app bán kem online. Mục tiêu của app nhằm tạo ra môi trường giao dịch cho người dùng mua các sản phẩm kem
