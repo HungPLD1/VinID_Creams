@@ -43,8 +43,8 @@ class ViewModelIceCream : ViewModel() {
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
-                        mListStore.postValue(result.data)
                         mMessageSuccess.postValue(result?.meta?.message)
+                        mListStore.postValue(result.data)
                     }
                     else -> {
                         mMessageFailse.postValue(result?.meta?.message)
@@ -106,27 +106,27 @@ class ViewModelIceCream : ViewModel() {
                     Log.d(TAG, result.meta?.code.toString())
                     when (result.meta?.code) {
                         CODE_200 -> {
-                            mIsRequestRegister.postValue(true)
                             mMessageSuccess.postValue(result?.meta?.message)
+                            mIsRequestRegister.postValue(true)
                             /*post token*/
                             mToken.postValue(result.data?.token)
                         }
                         else -> {
-                            mIsRequestRegister.postValue(false)
                             mMessageFailse.postValue(result?.meta?.message)
+                            mIsRequestRegister.postValue(false)
                         }
                     }
                 }
             }) { error ->
                 run {
                     Log.d(TAG, error.toString())
-                    mIsRequestRegister.postValue(false)
                     mMessageFailse.postValue(error.toString())
+                    mIsRequestRegister.postValue(false)
                 }
             }
         } else {
-            mIsRequestRegister.postValue(false)
             mMessageFailse.postValue(REGISTER_FAILSE)
+            mIsRequestRegister.postValue(false)
             return
         }
     }
@@ -140,16 +140,16 @@ class ViewModelIceCream : ViewModel() {
                     when (result.meta?.code) {
                         CODE_200 -> {
                             /*post data to view */
-                            mIsRequestLogin.postValue(true)
                             mMessageSuccess.postValue(result?.meta?.message)
+                            mIsRequestLogin.postValue(true)
                             /*post token*/
                             mToken.postValue(result.data?.token)
                             Log.d(TAG, result.data?.token.toString())
                         }
                         else -> {
                             /*handle login failse*/
-                            mIsRequestLogin.postValue(false)
                             mMessageFailse.postValue(result?.meta?.message)
+                            mIsRequestLogin.postValue(false)
                         }
                     }
                 }
@@ -160,8 +160,8 @@ class ViewModelIceCream : ViewModel() {
                 }
             }
         } else {
-            mIsRequestLogin.postValue(false)
             mMessageFailse.postValue(VERIFY_FAILSE)
+            mIsRequestLogin.postValue(false)
             return
         }
     }
@@ -192,19 +192,19 @@ class ViewModelIceCream : ViewModel() {
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
-                        mIsPayment.postValue(true)
                         mMessageSuccess.postValue(result?.meta?.message)
+                        mIsPayment.postValue(true)
                     }
                     else -> {
-                        mIsPayment.postValue(false)
                         mMessageFailse.postValue(result?.meta?.message)
+                        mIsPayment.postValue(false)
                     }
                 }
             }
         }) { error ->
             run {
-                mIsPayment.postValue(false)
                 mMessageFailse.postValue(error.toString())
+                mIsPayment.postValue(false)
             }
         }
     }

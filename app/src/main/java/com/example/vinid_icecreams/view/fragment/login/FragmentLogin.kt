@@ -48,21 +48,21 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
 
     /*observe data*/
     private fun observeData() {
-        mViewModel.mIsRequestLogin.observe(this, Observer {
+        mViewModel.mIsRequestLogin.observe(viewLifecycleOwner, Observer {
             if (it){
                 loginSuccess()
             }else{
                 loginFailse()
             }
         } )
-        mViewModel.mToken.observe(this, Observer {
+        mViewModel.mToken.observe(viewLifecycleOwner, Observer {
             CommonUtils.token = it
             CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
         })
-        mViewModel.mMessageSuccess.observe(this, Observer {
+        mViewModel.mMessageSuccess.observe(viewLifecycleOwner, Observer {
             mMessageSuccess = it
         })
-        mViewModel.mMessageFailse.observe(this, Observer {
+        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
             mMessageFailse = it
         })
     }

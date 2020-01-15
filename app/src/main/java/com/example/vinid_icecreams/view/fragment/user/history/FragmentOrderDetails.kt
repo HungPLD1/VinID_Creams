@@ -1,8 +1,10 @@
 package com.example.vinid_icecreams.view.fragment.user.history
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +20,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.ItemOrder
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
+import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.AdapterOrderDetails
 import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.OnItemDetailsHistoryClicklistener
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
@@ -61,15 +64,16 @@ class FragmentOrderDetails : DialogFragment(), View.OnClickListener,
             setUpListOrderInfo(data)
             ProgressLoading.dismiss()
         })
-        mViewModel.mIsRating.observe(this, Observer { isRating ->
+        mViewModel.mIsRating.observe(viewLifecycleOwner, Observer { isRating ->
             if (isRating) {
                 ProgressLoading.dismiss()
                 dismiss()
+                rattingSuccess()
             } else {
                 showRatingFailse()
             }
         })
-        mViewModel.mMessageFailse.observe(this, Observer {
+        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
             mMessageFailse = it
         })
     }
@@ -128,8 +132,14 @@ class FragmentOrderDetails : DialogFragment(), View.OnClickListener,
         } else {
             showNoConnection()
         }
+    }
 
-
+    /*login success*/
+    private fun rattingSuccess() {
+        ProgressLoading.dismiss()
+        KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Ratting success")
+            .show()
     }
 
     private fun showRatingFailse() {
