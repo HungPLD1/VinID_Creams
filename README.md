@@ -1,4 +1,4 @@
-# AuctionSiteProject
+# IceCreamProject
 Project mô phỏng app bán kem
 
 ## Contents
