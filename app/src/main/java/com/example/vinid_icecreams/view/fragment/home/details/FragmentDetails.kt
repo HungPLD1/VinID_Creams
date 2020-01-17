@@ -8,56 +8,38 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
-import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterComment.AdapterComment
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
-import com.example.vinid_icecreams.view.fragment.home.cart.FragmentCart
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_details.*
 
 
 class FragmentDetails : Fragment(), View.OnClickListener {
     private var mIceCream: IceCream? = null
     private var mListComment: ArrayList<Comment>? = ArrayList()
-    private var mIdIceCream : Int? = null
-
-    private var mRatting: RatingBar? = null
-    private var mBtnBack: ImageView? = null
-    private var mPager: ViewPager? = null
-    private var mDotsIndicator: DotsIndicator? = null
-    private var mTxtNameDetails: TextView? = null
-    private var mTxtPriceDetails: TextView? = null
-    private var rcvListComment: RecyclerView? = null
-    private var mImgAddToCart: CircleImageView? = null
     private var mAdapterComment: AdapterComment? = null
-    private var mBtnCart: ImageView? = null
-    private val mViewModel: ViewModelIceCream by lazy {
-        ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_details, container, false)
-        initView(view)
+        return inflater.inflate(R.layout.fragment_details, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
         setupBackDevice()
         getIceCream()
         setupView()
-        return view
     }
 
     private fun setupBackDevice() {
@@ -89,8 +71,8 @@ class FragmentDetails : Fragment(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun setupView() {
-        mTxtNameDetails?.text = mIceCream?.name
-        mTxtPriceDetails?.text = mIceCream?.price.toString() + " $"
+        txtDetailsNameOrder?.text = mIceCream?.name
+        txtDetailsPrice?.text = mIceCream?.price.toString() + " $"
         setupListComment()
         setupImagePager()
         setupRattingBar()
@@ -103,10 +85,10 @@ class FragmentDetails : Fragment(), View.OnClickListener {
             mListComment?.get(i)?.rating_star?.let { mListRatingBar.add(it) }
         }
         when (mListRatingBar.size) {
-            0 -> mRatting?.rating = 0F
-            1 -> mRatting?.rating = mListRatingBar[0].toFloat()
+            0 -> rattingDetails?.rating = 0F
+            1 -> rattingDetails?.rating = mListRatingBar[0].toFloat()
             else -> {
-                mRatting?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
+                rattingDetails?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)
             }
         }
     }
@@ -115,49 +97,38 @@ class FragmentDetails : Fragment(), View.OnClickListener {
         val mListImage = ArrayList<String>()
         mIceCream?.image_paths?.let { mListImage.addAll(it) }
         val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndiCatorDetails(context!!, mListImage)
-        mPager!!.adapter = mAdapterViewPagerIndicatorAd
-        mDotsIndicator?.setViewPager(mPager!!)
+        viewPagerDetails!!.adapter = mAdapterViewPagerIndicatorAd
+        dotsIndicatorDetails?.setViewPager(viewPagerDetails!!)
 
     }
 
     private fun setupListComment() {
         mListComment = mIceCream?.listComment
         mAdapterComment = mListComment?.let { AdapterComment(context, it) }
-        rcvListComment?.layoutManager = LinearLayoutManager(context)
-        rcvListComment?.adapter = mAdapterComment
+        rcvDetailsListComment?.layoutManager = LinearLayoutManager(context)
+        rcvDetailsListComment?.adapter = mAdapterComment
 
     }
 
-    private fun initView(view: View) {
-        mBtnBack = view.findViewById(R.id.img_details_back)
-        mPager = view.findViewById(R.id.viewPager_details)
-        mDotsIndicator = view.findViewById(R.id.mDotsIndicatorDetails)
-        mTxtNameDetails = view.findViewById(R.id.txt_NameDetails)
-        mTxtPriceDetails = view.findViewById(R.id.txt_PriceDetails)
-        rcvListComment = view.findViewById(R.id.rcv_details_list_comment)
-        mImgAddToCart = view.findViewById(R.id.img_details_add_to_cart)
-        mBtnCart = view.findViewById(R.id.btnCart)
-        mRatting = view.findViewById(R.id.ratting_details)
-
-        mBtnBack?.setOnClickListener(this)
-        mImgAddToCart?.setOnClickListener(this)
-        mBtnCart?.setOnClickListener(this)
+    private fun initView() {
+        imgDetailsBack?.setOnClickListener(this)
+        imgDetailsAddToCart?.setOnClickListener(this)
+        btnDetailsCart?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
-                R.id.img_details_back -> {
+                R.id.imgDetailsBack -> {
                     this.findNavController().navigate(R.id.fragmentShopping)
                 }
-                R.id.img_details_add_to_cart -> {
+                R.id.imgDetailsAddToCart -> {
                     Toast.makeText(context, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT)
                         .show()
                     sendOrderToCart()
                 }
-                R.id.btnCart -> {
+                R.id.btnDetailsCart -> {
                     if (CommonUtils.instace.getOrderList()!!.size > 0) {
-                        ProgressLoading.show(context)
                         findNavController().navigate(R.id.fragmentCart)
                     } else {
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)

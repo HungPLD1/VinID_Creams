@@ -18,9 +18,9 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterNotification.AdapterNotification
 import com.example.vinid_icecreams.view.adapter.adapterNotification.OnItemNotificationClicklistener
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import kotlinx.android.synthetic.main.fragment_event.*
 
 class FragmentEvent : Fragment(),OnItemNotificationClicklistener {
-    private var rcvEvent : RecyclerView? = null
     private var mListEvent : ArrayList<Event>? = null
     private var mAdapter : AdapterNotification? = null
     private val mViewModel: ViewModelIceCream by lazy {
@@ -37,13 +37,13 @@ class FragmentEvent : Fragment(),OnItemNotificationClicklistener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(view)
+        initView()
         observeData()
         handleGetListEvent()
     }
 
     private fun observeData(){
-            mViewModel.mListEvent.observe(this, Observer { data ->
+            mViewModel.mListEvent.observe(viewLifecycleOwner, Observer { data ->
                 mListEvent = data
                 setupListEvent(mListEvent)
                 ProgressLoading.dismiss()
@@ -65,8 +65,7 @@ class FragmentEvent : Fragment(),OnItemNotificationClicklistener {
         rcvEvent?.adapter = mAdapter
     }
 
-    private fun initView(view: View?) {
-        rcvEvent = view?.findViewById(R.id.rcv_event)
+    private fun initView() {
         mListEvent = ArrayList()
     }
 

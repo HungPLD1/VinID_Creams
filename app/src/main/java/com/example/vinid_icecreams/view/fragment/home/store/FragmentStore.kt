@@ -28,6 +28,7 @@ import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
 import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import com.smarteist.autoimageslider.SliderView
+import kotlinx.android.synthetic.main.fragment_store.*
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -37,12 +38,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
-    private var mImgLocation: ImageView? = null
-    private var mTxtLocation: TextView? = null
-    private var mSliderAd: SliderView? = null
-    private var mBtnGoToCart : ImageView? = null
     private var mAdapterStore : AdapterStore? = null
-    private var mRcvStore: RecyclerView? = null
 
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
@@ -58,24 +54,17 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(view)
+        initView()
         setupViewIndicatorAd()
         observeData()
         handleGetListStore()
     }
 
-    private fun initView(view: View?) {
-        mRcvStore = view?.findViewById(R.id.rcv_store)
-        mImgLocation = view?.findViewById(R.id.img_store_location)
-        mTxtLocation = view?.findViewById(R.id.txt_Store_Location)
-        mSliderAd = view?.findViewById(R.id.slider_ad)
+    private fun initView() {
 
         /*click event*/
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
-        mImgLocation?.setOnClickListener(this)
-        mBtnGoToCart?.setOnClickListener(this)
-
-        mTxtLocation?.setOnClickListener(this)
+        imgStoreLocation?.setOnClickListener(this)
     }
 
 
@@ -101,8 +90,8 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     /*set up list store */
     private fun setupListStore (mListStore: ArrayList<Store>){
         mAdapterStore  = AdapterStore(context, mListStore, this)
-        mRcvStore?.layoutManager = LinearLayoutManager(context)
-        mRcvStore?.adapter = mAdapterStore
+        rcvStore?.layoutManager = LinearLayoutManager(context)
+        rcvStore?.adapter = mAdapterStore
         mAdapterStore?.notifyDataSetChanged()
     }
 
@@ -116,7 +105,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.img_store_location -> {
+                R.id.imgStoreLocation -> {
                     if (CommonUtils.instace.checkPermission(
                             context!!,
                             Manifest.permission.ACCESS_FINE_LOCATION
@@ -136,8 +125,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
                     } else {
                         handleRequestPermission()
                     }
-                }
-                R.id.txt_Store_Location ->{
                 }
             }
         }
@@ -185,9 +172,9 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
             val address = builder.toString() //This is the complete address.
 
             if (address == ""){
-                mTxtLocation?.text = resources.getString(R.string.default_city)
+                txtStoreLocation?.text = resources.getString(R.string.default_city)
             }else{
-                mTxtLocation?.text = address
+                txtStoreLocation?.text = address
             }
             ProgressLoading.dismiss()
         } catch (e: IOException) {
@@ -229,7 +216,7 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
         mListAd.add(R.drawable.ad_3)
         mListAd.add(R.drawable.green_2)
         val mSlideAdapter = AdapterSliderAd(context!!,mListAd)
-        mSliderAd?.sliderAdapter = mSlideAdapter
+        sliderStoreAd?.sliderAdapter = mSlideAdapter
     }
 
     private fun showNoConnection(){

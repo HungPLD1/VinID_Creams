@@ -339,4 +339,8 @@ class ViewModelIceCream : ViewModel() {
         }
         return password == passwordRepeat
     }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
 }

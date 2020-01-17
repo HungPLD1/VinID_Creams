@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ImageView
 import android.widget.SearchView
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
@@ -15,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.IceCream
@@ -24,7 +22,7 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.AdapterIceCream
 import com.example.vinid_icecreams.view.adapter.adapterIceCream.OnItemIceCreamClicklistener
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import org.angmarch.views.NiceSpinner
+import kotlinx.android.synthetic.main.fragment_shopping.*
 import kotlin.collections.ArrayList
 
 
@@ -32,14 +30,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     SearchView.OnQueryTextListener {
     var TAG = FragmentShopping::class.java.name
 
-    private var rcvIceCream : RecyclerView? = null
     private var mListIceCream : ArrayList<IceCream> = ArrayList()
-    private var spnFilterByType : NiceSpinner?= null
-    private var spnFilterByPrice : NiceSpinner?= null
-    private var spnFilterByDiscount : NiceSpinner?= null
-    private var imgBack : ImageView? = null
-    private var btnCart : ImageView? = null
-    private var mSvIceCream : SearchView? = null
     private var mAdapter : AdapterIceCream? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
@@ -55,11 +46,17 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         setupBackDevice()
-        iniView(view)
         setUpSpinnerFilter()
         observeData()
         handleGetListIceCream()
+    }
+
+    private fun initView() {
+        /*handle onclick*/
+        imgShoppingBack.setOnClickListener(this)
+        imgShoppingToCart.setOnClickListener(this)
     }
 
     private fun setupBackDevice() {
@@ -68,19 +65,6 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         }
     }
 
-    private fun iniView(mView: View) {
-        activity?.actionBar?.title = resources.getString(R.string.home)
-        rcvIceCream = mView.findViewById(R.id.rcv_shopping_iceCream)
-        spnFilterByType = mView.findViewById(R.id.spiner_filter_by_type)
-        spnFilterByPrice = mView.findViewById(R.id.spiner_filter_by_price)
-        spnFilterByDiscount = mView.findViewById(R.id.spiner_filter_by_discount)
-        imgBack = mView.findViewById(R.id.img_shopping_back)
-        btnCart = mView.findViewById(R.id.imgShoppingToCart)
-        mSvIceCream = mView.findViewById(R.id.sv_shopping_icecream)
-        imgBack?.setOnClickListener(this)
-        btnCart?.setOnClickListener(this)
-        mSvIceCream?.setOnQueryTextListener(this)
-    }
 
     /*Set up and add data spinner filter*/
     private fun setUpSpinnerFilter() {
@@ -117,16 +101,16 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     private fun setupListIceCream(mData :ArrayList<IceCream>){
         mListIceCream = mData
         mAdapter = AdapterIceCream(context, mListIceCream, this)
-        rcvIceCream?.layoutManager = GridLayoutManager(context, 2)
-        rcvIceCream?.adapter = mAdapter
+        rcvShoppingIceCream?.layoutManager = GridLayoutManager(context, 2)
+        rcvShoppingIceCream?.adapter = mAdapter
         mAdapter!!.notifyDataSetChanged()
     }
 
 
     private fun setupSpinnerDiscount() {
         val mListType = listOf("Discount","10%","20%","50%")
-        spnFilterByDiscount?.attachDataSource(mListType)
-        spnFilterByDiscount?.setOnClickListener(this)
+        spnShoppingFilterByDiscount?.attachDataSource(mListType)
+        spnShoppingFilterByDiscount?.setOnClickListener(this)
     }
 
     /*click item on list fragment */
@@ -138,22 +122,22 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     private fun setupSpinnerPrice() {
         val mListType = listOf("Price","0 - 100K","100K - 200K","200K - 300K","300 - 400K","400K - 500K","> 500K")
-        spnFilterByPrice?.attachDataSource(mListType)
-        spnFilterByPrice?.setOnClickListener(this)
+        spnShoppingFilterByPrice?.attachDataSource(mListType)
+        spnShoppingFilterByPrice?.setOnClickListener(this)
     }
 
     private fun setupSpinnerType() {
         val mListType = listOf("Type","Chocolate","Matcha","Strawberry","Cacao","Vani","Other","Mix")
-        spnFilterByType?.attachDataSource(mListType)
-        spnFilterByType?.setOnClickListener(this)
+        spnShoppingFilterByType?.attachDataSource(mListType)
+        spnShoppingFilterByType?.setOnClickListener(this)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (parent != null) {
             when(parent){
-                spnFilterByType -> handleLogicFileterByType()
-                spnFilterByPrice ->handleLogicFileterByPrice()
-                spnFilterByDiscount ->handleLogicFileterByDiscount()
+                spnShoppingFilterByType -> handleLogicFileterByType()
+                spnShoppingFilterByPrice ->handleLogicFileterByPrice()
+                spnShoppingFilterByDiscount ->handleLogicFileterByDiscount()
             }
         }
     }
@@ -173,13 +157,11 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
     override fun onClick(v: View?) {
         if(v != null){
             when(v.id){
-                R.id.img_shopping_back ->{
+                R.id.imgShoppingBack ->{
                     this.findNavController().navigate(R.id.fragmentStore)
-                    ProgressLoading.show(context)
                 }
                 R.id.imgShoppingToCart->{
                     if (CommonUtils.instace.getOrderList()!!.size > 0){
-                        ProgressLoading.show(context)
                         this.findNavController().navigate(R.id.fragmentCart)
                     }else{
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)

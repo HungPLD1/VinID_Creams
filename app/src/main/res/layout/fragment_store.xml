@@ -34,7 +34,7 @@
         android:weightSum="10">
 
         <ImageView
-            android:id="@+id/img_store_location"
+            android:id="@+id/imgStoreLocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -43,7 +43,7 @@
             tools:ignore="RtlSymmetry" />
 
         <TextView
-            android:id="@+id/txt_Store_Location"
+            android:id="@+id/txtStoreLocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -68,7 +68,7 @@
         >
 
         <com.smarteist.autoimageslider.SliderView
-            android:id="@+id/slider_ad"
+            android:id="@+id/sliderStoreAd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:sliderAnimationDuration="600"
@@ -88,7 +88,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_store"
+        android:id="@+id/rcvStore"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp" />

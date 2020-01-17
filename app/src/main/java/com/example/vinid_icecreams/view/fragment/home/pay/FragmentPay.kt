@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,7 +16,6 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShopping
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import kotlinx.android.synthetic.main.dialog_pay.*
 import org.angmarch.views.NiceSpinner
@@ -26,7 +23,7 @@ import org.angmarch.views.OnSpinnerItemSelectedListener
 import java.text.DecimalFormat
 
 class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelectedListener {
-    private var mMessageFailse : String? = null
+    private var mMessageFail : String? = null
     private var mMessageSuccess : String? = null
 
     private var mShip = 0.0
@@ -37,14 +34,6 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
 
-
-    private var txtChargeOrder: TextView? = null
-    private var txtChargeShip: TextView? = null
-    private var txtChargeTotal: TextView? = null
-    private var spnPayment: NiceSpinner? = null
-    private var btnPayment: Button? = null
-    private var btnClose: ImageView? = null
-
     companion object {
         val TAG = FragmentPay::class.java.name
     }
@@ -54,15 +43,13 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.dialog_pay, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        return view
+        return inflater.inflate(R.layout.dialog_pay, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        initView(view)
+        initView()
         getData()
         setChareShip()
         showData()
@@ -86,7 +73,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
         })
 
         mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
-            mMessageFailse = it
+            mMessageFail = it
         })
     }
 
@@ -103,25 +90,18 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
     @SuppressLint("SetTextI18n")
     private fun showData() {
         val newFormat = DecimalFormat("###.#")
-        txtChargeShip?.text = String.format(newFormat.format(mShip)) + " $"
-        txtChargeOrder?.text = CommonUtils.instace.getTotalPayment().toString() + " $"
-        txtChargeTotal?.text =
+        txtPaymentChargeShip?.text = String.format(newFormat.format(mShip)) + " $"
+        txtPaymentChargeOrder?.text = CommonUtils.instace.getTotalPayment().toString() + " $"
+        txtPaymentTotalCharge?.text =
             String.format(newFormat.format(CommonUtils.instace.getTotalPayment() + mShip).toString()) + " $"
-        txt_Store_Location?.text = mStoreSelected?.name
+        txtPaymentStoreName?.text = mStoreSelected?.name
     }
 
-    private fun initView(view: View) {
-        txtChargeOrder = view.findViewById(R.id.txt_payment_charge_order)
-        txtChargeShip = view.findViewById(R.id.txt_payment_charge_ship)
-        txtChargeTotal = view.findViewById(R.id.txt_payment_total_charge)
-        spnPayment = view.findViewById(R.id.spn_payment_payments)
-        btnPayment = view.findViewById(R.id.btn_cart_payment)
-        btnClose = view.findViewById(R.id.img_payment_close)
-
+    private fun initView() {
         prepareSpinner()
         /*even click*/
-        btnClose?.setOnClickListener(this)
-        btnPayment?.setOnClickListener(this)
+        imgPaymentClose?.setOnClickListener(this)
+        btnPaymentAccept?.setOnClickListener(this)
     }
 
     private fun prepareSpinner() {
@@ -134,10 +114,10 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.img_payment_close -> {
+                R.id.imgPaymentClose -> {
                     dismiss()
                 }
-                R.id.btn_cart_payment -> handlePayment()
+                R.id.btnCartPayment -> handlePayment()
             }
         }
     }
@@ -188,7 +168,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
     private fun paymentFailse() {
         KAlertDialog(context, KAlertDialog.ERROR_TYPE)
             .setTitleText("Payment Failse")
-            .setContentText(mMessageFailse)
+            .setContentText(mMessageFail)
             .show()
     }
 
@@ -199,7 +179,6 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
                 dialog?.dismiss()
                 it.dismiss()
                 CommonUtils.mListOrder?.clear()
-                val fragmentShopping = FragmentShopping()
                 findNavController().navigate(R.id.fragmentShopping)
             }
         dialogPaySuccess.setCanceledOnTouchOutside(false)

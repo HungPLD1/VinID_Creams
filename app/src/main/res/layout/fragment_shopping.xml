@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:id="@+id/img_shopping_back"
+            android:id="@+id/imgShoppingBack"
             android:src="@drawable/back"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -38,7 +38,7 @@
         android:layout_margin="10dp"
         android:layout_height="30dp">
         <SearchView
-            android:id="@+id/sv_shopping_icecream"
+            android:id="@+id/svShoppingIcecream"
             android:layout_weight="8"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
@@ -55,19 +55,19 @@
         android:orientation="horizontal"
         android:layout_height="60dp">
         <org.angmarch.views.NiceSpinner
-            android:id="@+id/spiner_filter_by_type"
+            android:id="@+id/spnShoppingFilterByType"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_margin="10dp"
             android:layout_height="match_parent"/>
         <org.angmarch.views.NiceSpinner
-            android:id="@+id/spiner_filter_by_price"
+            android:id="@+id/spnShoppingFilterByPrice"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_margin="10dp"
             android:layout_height="match_parent"/>
         <org.angmarch.views.NiceSpinner
-            android:id="@+id/spiner_filter_by_discount"
+            android:id="@+id/spnShoppingFilterByDiscount"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_margin="10dp"
@@ -75,7 +75,7 @@
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_margin="10dp"
-        android:id="@+id/rcv_shopping_iceCream"
+        android:id="@+id/rcvShoppingIceCream"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

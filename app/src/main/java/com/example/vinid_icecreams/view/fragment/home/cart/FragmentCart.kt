@@ -9,14 +9,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.connection.body.Coordinates
@@ -28,16 +24,14 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterOrder.AdapterOrder
 import com.example.vinid_icecreams.view.adapter.adapterOrder.OnItemOrderListener
 import com.example.vinid_icecreams.view.fragment.home.pay.FragmentPay
+import kotlinx.android.synthetic.main.fragment_cart.*
+import kotlinx.android.synthetic.main.fragment_cart.btnCartPayment
 
 class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     private var mLocationManager: LocationManager? = null
 
-    private var mRcvOrder: RecyclerView? = null
     private var mAdapterOrder: AdapterOrder? = null
     private var mListOrder: ArrayList<Order>? = null
-    private var mBtnBack: ImageView? = null
-    private var mBtnPayment: Button? = null
-    private var mTxtTotalPayment: TextView? = null
     private var mStoreSelected = CommonUtils.instace.getStoreSelected()
 
     private var addressBill  : Coordinates? = null
@@ -54,12 +48,14 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_cart, container, false)
-        ProgressLoading.dismiss()
-        initView(view)
+        return inflater.inflate(R.layout.fragment_cart, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
         setupBackDevice()
         setupListOrder()
-        return view
     }
 
     private fun setupBackDevice() {
@@ -72,32 +68,27 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         mListOrder = CommonUtils.instace.getOrderList()
         if (mListOrder != null) {
             mAdapterOrder = AdapterOrder(context, mListOrder!!, this)
-            mRcvOrder?.layoutManager = LinearLayoutManager(context)
-            mRcvOrder?.adapter = mAdapterOrder
+            rcvCartOrder?.layoutManager = LinearLayoutManager(context)
+            rcvCartOrder?.adapter = mAdapterOrder
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun initView(view: View?) {
-        mRcvOrder = view?.findViewById(R.id.rcv_cart_order)
-        mBtnBack = view?.findViewById(R.id.img_cart_back)
-        mBtnPayment = view?.findViewById(R.id.btn_cart_payment)
-        mTxtTotalPayment = view?.findViewById(R.id.txt_total_payment)
-
+    private fun initView() {
         mLocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
 
 
-        mBtnBack?.setOnClickListener(this)
-        mBtnPayment?.setOnClickListener(this)
+        imgCartBack?.setOnClickListener(this)
+        btnCartPayment?.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.img_cart_back -> {
+                R.id.imgCartBack -> {
                     findNavController().navigate(R.id.fragmentShopping)
                 }
-                R.id.btn_cart_payment -> {
+                R.id.btnCartPayment -> {
                     if (mStoreSelected?.range != 0.0) {
                         showDiaLogPay()
                     } else {
@@ -153,7 +144,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     override fun showTotal(total: Int) {
         totalBill = total
         CommonUtils.instace.setTotalPayment(total)
-        mTxtTotalPayment?.text = "$total $"
+        txtCartTotalPayment?.text = "$total $"
     }
 
     //handle request permission

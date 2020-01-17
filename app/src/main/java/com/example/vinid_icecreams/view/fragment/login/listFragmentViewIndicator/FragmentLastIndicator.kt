@@ -9,37 +9,33 @@ import androidx.viewpager.widget.ViewPager
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.view.adapter.adapterViewpagerLogin.AdapterViewPagerLogin
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_indicator_3.*
 
-class FragmentLastIndicator : Fragment(), View.OnClickListener {
-    private  var mPager : ViewPager? = null
-    private  var mTabLayout : TabLayout? = null
+class FragmentLastIndicator : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view = inflater.inflate(R.layout.fragment_indicator_3, container, false)
-
-        initView(view)
-        return view
+        return inflater.inflate(R.layout.fragment_indicator_3, container, false)
     }
 
-    /*func hanle setup view*/
-    private fun initView(view: View) {
-        mPager = view.findViewById(R.id.viewPagerLogin)
-        mTabLayout = view.findViewById(R.id.view_tablayout)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
+    /*func handle setup view*/
+    private fun initView() {
         setUpFormLoginAndRegister()
     }
 
     private fun setUpFormLoginAndRegister() {
         val mAdapterViewPagerLogin = AdapterViewPagerLogin(childFragmentManager)
-        mPager!!.adapter = mAdapterViewPagerLogin
+        viewPagerLogin!!.adapter = mAdapterViewPagerLogin
         mAdapterViewPagerLogin.notifyDataSetChanged()
-        mTabLayout!!.setupWithViewPager(mPager)
+        tabLayoutLogin!!.setupWithViewPager(viewPagerLogin)
     }
 
-    override fun onClick(v: View?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

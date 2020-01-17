@@ -67,7 +67,7 @@
                     android:layout_height="match_parent">
 
                     <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/view_tablayout"
+                        android:id="@+id/tabLayoutLogin"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1" />

@@ -6,8 +6,6 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,16 +15,13 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import kotlinx.android.synthetic.main.fragment_register.*
 
 class FragmentRegister : Fragment(),View.OnClickListener {
     var TAG = FragmentRegister::class.java.name
 
     private var mMessageSuccess : String? = null
-    private var mMessageFailse : String? = null
-    private var edtPhoneNumber : EditText? = null
-    private var edtPassword : EditText? = null
-    private var edtPasswordRepeat : EditText? = null
-    private var btnRegister :Button? = null
+    private var mMessageFail : String? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
     }
@@ -43,38 +38,33 @@ class FragmentRegister : Fragment(),View.OnClickListener {
     }
 
     private fun observeData() {
-        mViewModel.mIsRequestRegister.observe(this, Observer {
+        mViewModel.mIsRequestRegister.observe(viewLifecycleOwner, Observer {
             if (it){
                 registerSuccess()
             }else{
-                registerFailse()
+                registerFail()
             }
         } )
-        mViewModel.mToken.observe(this, Observer {
+        mViewModel.mToken.observe(viewLifecycleOwner, Observer {
             CommonUtils.token = it
             CommonUtils.instace.savePrefContent(context,CommonUtils.TOKEN,it)
         })
-        mViewModel.mMessageSuccess.observe(this, Observer {
+        mViewModel.mMessageSuccess.observe(viewLifecycleOwner, Observer {
             mMessageSuccess = it
         })
-        mViewModel.mMessageFailse.observe(this, Observer {
-            mMessageFailse = it
+        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
+            mMessageFail = it
         })
     }
 
     private fun initView(view: View) {
-        edtPhoneNumber = view.findViewById(R.id.edt_register_phone_number)
-        edtPassword = view.findViewById(R.id.edt_register_password)
-        edtPasswordRepeat = view.findViewById(R.id.edt_register_repeat_password)
-        btnRegister = view.findViewById(R.id.btn_register)
-
         btnRegister?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         if (v!= null){
             when(v.id){
-                R.id.btn_register -> handleRegister()
+                R.id.btnRegister -> handleRegister()
             }
         } 
     }
@@ -83,9 +73,9 @@ class FragmentRegister : Fragment(),View.OnClickListener {
         if (CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
             mViewModel.handleRegister(
-                edtPhoneNumber?.text.toString(),
-                edtPassword?.text.toString(),
-                edtPasswordRepeat?.text.toString()
+                edtRegisterPhoneNumber?.text.toString(),
+                edtRegisterPassword?.text.toString(),
+                edtRegisterRepeatPassword?.text.toString()
             )
         }else{
             showNoConnection()
@@ -105,11 +95,11 @@ class FragmentRegister : Fragment(),View.OnClickListener {
 
     }
 
-    private fun registerFailse(){
+    private fun registerFail(){
         ProgressLoading.dismiss()
         KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Register failse")
-            .setContentText(mMessageFailse)
+            .setContentText(mMessageFail)
             .show()
     }
 

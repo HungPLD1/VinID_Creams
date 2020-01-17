@@ -41,7 +41,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/img_payment_close"
+                    android:id="@+id/imgPaymentClose"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -77,14 +77,14 @@
                         android:weightSum="10">
 
                         <ImageView
-                            android:id="@+id/img_store_location"
+                            android:id="@+id/imgStoreLocation"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:src="@drawable/ic_store" />
 
                         <TextView
-                            android:id="@+id/txt_Store_Location"
+                            android:id="@+id/txtPaymentStoreName"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
@@ -111,7 +111,7 @@
                             android:textColor="@android:color/black" />
 
                         <TextView
-                            android:id="@+id/txt_payment_charge_order"
+                            android:id="@+id/txtPaymentChargeOrder"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_weight="5"
@@ -136,7 +136,7 @@
                             android:textColor="@android:color/black" />
 
                         <TextView
-                            android:id="@+id/txt_payment_charge_ship"
+                            android:id="@+id/txtPaymentChargeShip"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
@@ -169,7 +169,7 @@
                             android:textColor="@android:color/black" />
 
                         <TextView
-                            android:id="@+id/txt_payment_total_charge"
+                            android:id="@+id/txtPaymentTotalCharge"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
@@ -196,7 +196,7 @@
                             android:textColor="@android:color/black" />
 
                         <org.angmarch.views.NiceSpinner
-                            android:id="@+id/spn_payment_payments"
+                            android:id="@+id/spnPayment"
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="5"
@@ -205,7 +205,7 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btn_cart_payment"
+                        android:id="@+id/btnPaymentAccept"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"

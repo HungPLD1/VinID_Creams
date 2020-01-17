@@ -1,10 +1,8 @@
 package com.example.vinid_icecreams.view.fragment.user.history
 
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +18,6 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.ItemOrder
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.view.activity.HomeActivity
 import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.AdapterOrderDetails
 import com.example.vinid_icecreams.view.adapter.adapterOrderDetails.OnItemDetailsHistoryClicklistener
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
@@ -28,7 +25,7 @@ import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 class FragmentOrderDetails : DialogFragment(), View.OnClickListener,
     OnItemDetailsHistoryClicklistener {
     private var orderID: Int = 0
-    private var mMessageFailse : String? = null
+    private var mMessageFail : String? = null
 
     private var mRcvIteminfo: RecyclerView? = null
     private var mBtnClose: ImageView? = null
@@ -70,11 +67,11 @@ class FragmentOrderDetails : DialogFragment(), View.OnClickListener,
                 dismiss()
                 rattingSuccess()
             } else {
-                showRatingFailse()
+                showRatingFail()
             }
         })
         mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
-            mMessageFailse = it
+            mMessageFail = it
         })
     }
 
@@ -142,11 +139,11 @@ class FragmentOrderDetails : DialogFragment(), View.OnClickListener,
             .show()
     }
 
-    private fun showRatingFailse() {
+    private fun showRatingFail() {
         ProgressLoading.dismiss()
         KAlertDialog(context, KAlertDialog.ERROR_TYPE)
             .setTitleText("Rating Error")
-            .setContentText(mMessageFailse)
+            .setContentText(mMessageFail)
             .show()
     }
 }

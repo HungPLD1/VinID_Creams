@@ -21,7 +21,7 @@
                 android:textColorHint="#c5c5c5">
 
                 <EditText
-                    android:id="@+id/edt_phone_number"
+                    android:id="@+id/edtLoginPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_bg_edit"
@@ -48,7 +48,7 @@
                 android:textColorHint="#c5c5c5">
 
                 <EditText
-                    android:id="@+id/edt_password"
+                    android:id="@+id/edtLoginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/selector_bg_edit"
@@ -68,7 +68,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/btn_go"
+                android:id="@+id/btnLoginGo"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:background="@drawable/custum_button_enable"

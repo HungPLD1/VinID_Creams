@@ -3,7 +3,6 @@ package com.example.vinid_icecreams.view.fragment.login
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,9 +67,9 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     }
 
     private fun initView(view: View?) {
-        btnLogin = view?.findViewById(R.id.btn_go)
-        edtPhoneNumber = view?.findViewById(R.id.edt_phone_number)
-        edtPassword = view?.findViewById(R.id.edt_password)
+        btnLogin = view?.findViewById(R.id.btnLoginGo)
+        edtPhoneNumber = view?.findViewById(R.id.edtLoginPhoneNumber)
+        edtPassword = view?.findViewById(R.id.edtLoginPassword)
 
         btnLogin?.setOnClickListener(this)
     }
@@ -78,7 +77,7 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
-                R.id.btn_go -> handleLogin()
+                R.id.btnLoginGo -> handleLogin()
             }
         }
     }
