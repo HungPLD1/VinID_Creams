@@ -52,7 +52,7 @@ class FragmentRegister : Fragment(),View.OnClickListener {
         mViewModel.mMessageSuccess.observe(viewLifecycleOwner, Observer {
             mMessageSuccess = it
         })
-        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
+        mViewModel.mMessageFail.observe(viewLifecycleOwner, Observer {
             mMessageFail = it
         })
     }

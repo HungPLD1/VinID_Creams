@@ -70,7 +70,7 @@ class FragmentOrderDetails : DialogFragment(), View.OnClickListener,
                 showRatingFail()
             }
         })
-        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
+        mViewModel.mMessageFail.observe(viewLifecycleOwner, Observer {
             mMessageFail = it
         })
     }

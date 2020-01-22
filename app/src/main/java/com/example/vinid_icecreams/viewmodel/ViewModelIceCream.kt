@@ -4,13 +4,18 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.vinid_icecreams.MyApplication
 import com.example.vinid_icecreams.connection.body.Bill
 import com.example.vinid_icecreams.connection.body.Point
 import com.example.vinid_icecreams.connection.body.Rating
 import com.example.vinid_icecreams.model.*
 import com.example.vinid_icecreams.repository.Repository
+import javax.inject.Inject
 
 class ViewModelIceCream : ViewModel() {
+    @Inject
+    lateinit var repository: Repository
+
     var mListStore = MutableLiveData<ArrayList<Store>>()
     var mListIceCream = MutableLiveData<ArrayList<IceCream>>()
     var mListEvent = MutableLiveData<ArrayList<Event>>()
@@ -28,18 +33,22 @@ class ViewModelIceCream : ViewModel() {
 
 
     var mMessageSuccess = MutableLiveData<String>()
-    var mMessageFailse = MutableLiveData<String>()
+    var mMessageFail = MutableLiveData<String>()
 
     companion object {
         val TAG = ViewModelIceCream::class.java.name
         const val CODE_200 = 200
-        const val VERIFY_FAILSE = "Vui lòng kiểm tra lại thông tin"
-        const val REGISTER_FAILSE = "Đăng ký không thành công"
+        const val VERIFY_FAIL = "Vui lòng kiểm tra lại thông tin"
+        const val REGISTER_FAIL = "Đăng ký không thành công"
+    }
+
+    init {
+        MyApplication.component.inject(this)
     }
 
     @SuppressLint("CheckResult")
     fun getListStore() {
-        Repository.mInstance.callRequestListStore()?.subscribe({ result ->
+       repository.callRequestListStore()?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -47,11 +56,11 @@ class ViewModelIceCream : ViewModel() {
                         mListStore.postValue(result.data)
                     }
                     else -> {
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                     }
                 }
             }
-        }) { error ->
+            }) { error ->
             run {
 
             }
@@ -60,14 +69,14 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getListIceCream(storeID: Int) {
-        Repository.mInstance.callRequestListIceCream(storeID)?.subscribe({ result ->
+        repository.callRequestListIceCream(storeID)?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
                         mListIceCream.postValue(result.data)
                     }
                     else -> {
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                     }
                 }
             }
@@ -80,14 +89,14 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getDetailsIceCream(iceCreamID: Int) {
-        Repository.mInstance.callRequestDetailsIceCream(iceCreamID)?.subscribe({ result ->
+        repository.callRequestDetailsIceCream(iceCreamID)?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
                         mIceCream.postValue(result.data)
                     }
                     else -> {
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                     }
                 }
             }
@@ -101,7 +110,7 @@ class ViewModelIceCream : ViewModel() {
     @SuppressLint("CheckResult")
     fun handleRegister(phoneNumber: String, password: String, passwordRepeat: String) {
         if (checkPhoneNumber(phoneNumber) && handleComparedPassword(password, passwordRepeat)) {
-            Repository.mInstance.callRegisterAccount(phoneNumber, password)?.subscribe({ result ->
+            repository.callRegisterAccount(phoneNumber, password)?.subscribe({ result ->
                 run {
                     Log.d(TAG, result.meta?.code.toString())
                     when (result.meta?.code) {
@@ -112,7 +121,7 @@ class ViewModelIceCream : ViewModel() {
                             mToken.postValue(result.data?.token)
                         }
                         else -> {
-                            mMessageFailse.postValue(result?.meta?.message)
+                            mMessageFail.postValue(result?.meta?.message)
                             mIsRequestRegister.postValue(false)
                         }
                     }
@@ -120,12 +129,12 @@ class ViewModelIceCream : ViewModel() {
             }) { error ->
                 run {
                     Log.d(TAG, error.toString())
-                    mMessageFailse.postValue(error.toString())
+                    mMessageFail.postValue(error.toString())
                     mIsRequestRegister.postValue(false)
                 }
             }
         } else {
-            mMessageFailse.postValue(REGISTER_FAILSE)
+            mMessageFail.postValue(REGISTER_FAIL)
             mIsRequestRegister.postValue(false)
             return
         }
@@ -135,7 +144,7 @@ class ViewModelIceCream : ViewModel() {
     @SuppressLint("CheckResult")
     fun handleLogin(phoneNumber: String, password: String) {
         if (checkPhoneNumber(phoneNumber) && checkPassWord(password)) {
-            Repository.mInstance.callLoginAccount(phoneNumber, password)?.subscribe({ result ->
+            repository.callLoginAccount(phoneNumber, password)?.subscribe({ result ->
                 run {
                     when (result.meta?.code) {
                         CODE_200 -> {
@@ -148,19 +157,19 @@ class ViewModelIceCream : ViewModel() {
                         }
                         else -> {
                             /*handle login failse*/
-                            mMessageFailse.postValue(result?.meta?.message)
+                            mMessageFail.postValue(result?.meta?.message)
                             mIsRequestLogin.postValue(false)
                         }
                     }
                 }
             }) { error ->
                 run {
-                    mMessageFailse.postValue(error.toString())
+                    mMessageFail.postValue(error.toString())
                     mIsRequestLogin.postValue(false)
                 }
             }
         } else {
-            mMessageFailse.postValue(VERIFY_FAILSE)
+            mMessageFail.postValue(VERIFY_FAIL)
             mIsRequestLogin.postValue(false)
             return
         }
@@ -168,14 +177,14 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getNotification() {
-        Repository.mInstance.callRequestNotification()?.subscribe({ result ->
+        repository.callRequestNotification()?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
                         mListEvent.postValue(result.data)
                     }
                     else -> {
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                     }
                 }
             }
@@ -188,7 +197,7 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun handlePayment(bill: Bill) {
-        Repository.mInstance.callPayIceCream(bill)?.subscribe({ result ->
+        repository.callPayIceCream(bill)?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -196,14 +205,14 @@ class ViewModelIceCream : ViewModel() {
                         mIsPayment.postValue(true)
                     }
                     else -> {
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                         mIsPayment.postValue(false)
                     }
                 }
             }
         }) { error ->
             run {
-                mMessageFailse.postValue(error.toString())
+                mMessageFail.postValue(error.toString())
                 mIsPayment.postValue(false)
             }
         }
@@ -211,14 +220,14 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getOrderUser() {
-        Repository.mInstance.callRequestOrderUser()?.subscribe({ result ->
+        repository.callRequestOrderUser()?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
                         mListOrderInfor.postValue(result?.data)
                     }
                     else -> {
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                     }
                 }
             }
@@ -231,14 +240,14 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getUserProfile() {
-        Repository.mInstance.callRequestUserProfile()?.subscribe({ result ->
+        repository.callRequestUserProfile()?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
                         mUser.postValue(result?.data)
                     }
                     else -> {
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                     }
                 }
             }
@@ -251,14 +260,14 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun getListItemInfo(orderID : Int) {
-        Repository.mInstance.callRequestDetailsOrder(orderID)?.subscribe({ result ->
+        repository.callRequestDetailsOrder(orderID)?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
                         mListItemOrder.postValue(result.data?.mListItems)
                     }
                     else -> {
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                     }
                 }
             }
@@ -272,7 +281,7 @@ class ViewModelIceCream : ViewModel() {
     @SuppressLint("CheckResult")
     fun setRatingItem(itemID : Int? , ratingStar: Int? ,comment :String?) {
         val bodyRating = Rating(itemID,ratingStar,comment)
-        Repository.mInstance.callRequestSetRating(bodyRating)?.subscribe({ result ->
+        repository.callRequestSetRating(bodyRating)?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -280,7 +289,7 @@ class ViewModelIceCream : ViewModel() {
                     }
                     else -> {
                         mIsRating.postValue(false)
-                        mMessageFailse.postValue(result?.meta?.message)
+                        mMessageFail.postValue(result?.meta?.message)
                     }
                 }
             }
@@ -293,7 +302,7 @@ class ViewModelIceCream : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun setPointUser(amount :Int) {
-            Repository.mInstance.callRequestChargePoint(Point(amount))?.subscribe({ result ->
+        repository.callRequestChargePoint(Point(amount))?.subscribe({ result ->
                 run {
                     when (result.meta?.code) {
                         CODE_200 -> {
@@ -302,14 +311,14 @@ class ViewModelIceCream : ViewModel() {
                         }
                         else -> {
                             mIsChargePoint.postValue(false)
-                            mMessageFailse.postValue(result.meta?.message)
+                            mMessageFail.postValue(result.meta?.message)
                         }
                     }
                 }
             }) { error ->
                 run {
                     mIsChargePoint.postValue(false)
-                    mMessageFailse.postValue(error.toString())
+                    mMessageFail.postValue(error.toString())
                 }
             }
     }

@@ -72,7 +72,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
             mMessageSuccess = it
         })
 
-        mViewModel.mMessageFailse.observe(viewLifecycleOwner, Observer {
+        mViewModel.mMessageFail.observe(viewLifecycleOwner, Observer {
             mMessageFail = it
         })
     }

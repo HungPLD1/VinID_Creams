@@ -20,8 +20,10 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
+import com.example.vinid_icecreams.MyApplication
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
@@ -31,10 +33,10 @@ import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.fragment_store.*
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
-
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
