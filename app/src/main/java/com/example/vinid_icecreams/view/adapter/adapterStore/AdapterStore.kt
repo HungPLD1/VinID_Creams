@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.epoxy.EpoxyModelClass
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
-class AdapterStore(
+@EpoxyModelClass(layout = R.layout.raw_layout_store)
+class AdapterStore (
     var mContext: Context?,
     var mListStore: ArrayList<Store>,
     private var callback: OnItemStoreClicklistener

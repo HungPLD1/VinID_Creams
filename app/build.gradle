@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -107,4 +110,9 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //epoxy
+    implementation 'com.airbnb.android:epoxy:3.7.0'
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    annotationProcessor 'com.airbnb.android:epoxy-processor:3.7.0'
 }

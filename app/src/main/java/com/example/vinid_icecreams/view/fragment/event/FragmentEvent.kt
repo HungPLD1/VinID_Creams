@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Event
