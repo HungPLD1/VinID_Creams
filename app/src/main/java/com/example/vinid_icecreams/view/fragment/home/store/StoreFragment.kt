@@ -10,40 +10,35 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
-import com.example.vinid_icecreams.MyApplication
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
-import com.example.vinid_icecreams.view.adapter.adapterStore.AdapterStore
-import com.example.vinid_icecreams.view.adapter.adapterStore.OnItemStoreClicklistener
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.fragment_store.*
 import java.io.IOException
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener {
+class StoreFragment : Fragment(), View.OnClickListener {
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
-    private var mAdapterStore : AdapterStore? = null
 
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
+    }
+
+    private val storeController : StoreController by lazy {
+        StoreController(
+            ::toShopping
+        )
     }
 
     override fun onCreateView(
@@ -63,7 +58,6 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
     }
 
     private fun initView() {
-
         /*click event*/
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         imgStoreLocation?.setOnClickListener(this)
@@ -91,17 +85,12 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
 
     /*set up list store */
     private fun setupListStore (mListStore: ArrayList<Store>){
-        mAdapterStore  = AdapterStore(context, mListStore, this)
-        rcvStore?.layoutManager = LinearLayoutManager(context)
-        rcvStore?.adapter = mAdapterStore
-        mAdapterStore?.notifyDataSetChanged()
-    }
-
-    /*click on list store*/
-    override fun onItemClick(positon: Int) {
-        CommonUtils.instace.saveStoreSelected(mListStore[positon])
-        CommonUtils.mListOrder = ArrayList()
-        this.findNavController().navigate(R.id.fragmentShopping)
+        storeController.listStore = mListStore
+        rcvStore.run {
+            setItemSpacingDp(4)
+            setController(storeController)
+            storeController.requestModelBuild()
+        }
     }
 
     override fun onClick(view: View?) {
@@ -231,6 +220,12 @@ class FragmentStore : Fragment(), View.OnClickListener, OnItemStoreClicklistener
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
+    }
+
+    private fun toShopping(position: Int){
+        CommonUtils.instace.saveStoreSelected(mListStore[position])
+        CommonUtils.mListOrder = ArrayList()
+        this.findNavController().navigate(R.id.fragmentShopping)
     }
 
 }

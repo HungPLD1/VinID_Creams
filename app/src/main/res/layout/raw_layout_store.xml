@@ -19,7 +19,7 @@
         android:weightSum="10">
 
     <ImageView
-        android:id="@+id/img_raw_store"
+        android:id="@+id/imgStore"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:id="@+id/txt_raw_name_store"
+                android:id="@+id/txtNameStore"
                 android:layout_width="0dp"
                 android:layout_weight="5"
                 android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/txt_raw_store_range"
+                android:id="@+id/txtStoreRange"
                 android:layout_width="0dp"
                 android:layout_weight="5"
                 android:typeface="serif"
@@ -66,7 +66,7 @@
             android:background="@android:color/black" />
 
         <TextView
-            android:id="@+id/txt_raw_store_address"
+            android:id="@+id/txtStoreAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

@@ -87,7 +87,7 @@
             app:sliderStartAutoCycle="true" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/rcvStore"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

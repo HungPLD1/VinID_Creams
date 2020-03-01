@@ -8,6 +8,9 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'androidx.navigation.safeargs'
 
+kapt {
+    correctErrorTypes = true
+}
 
 android {
     compileSdkVersion 29
@@ -112,7 +115,8 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     //epoxy
-    implementation 'com.airbnb.android:epoxy:3.7.0'
+    implementation 'com.airbnb.android:epoxy:3.8.0'
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
-    annotationProcessor 'com.airbnb.android:epoxy-processor:3.7.0'
+    annotationProcessor 'com.airbnb.android:epoxy-processor:3.8.0'
+    kapt "com.airbnb.android:epoxy-processor:3.8.0"
 }

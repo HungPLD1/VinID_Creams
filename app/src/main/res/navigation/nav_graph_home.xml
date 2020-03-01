@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragmentStore"
-        android:name="com.example.vinid_icecreams.view.fragment.home.store.FragmentStore"
+        android:name="com.example.vinid_icecreams.view.fragment.home.store.StoreFragment"
         android:label="FragmentStore" >
         <action
             android:id="@+id/action_fragmentStore2_to_fragmentShopping"
