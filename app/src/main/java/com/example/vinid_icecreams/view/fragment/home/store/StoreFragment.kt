@@ -10,35 +10,28 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.developer.kalert.KAlertDialog
-import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
+import com.example.vinid_icecreams.base.BaseFragment
+import com.example.vinid_icecreams.base.ConnectionListener
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_store.*
 import java.io.IOException
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class StoreFragment : DaggerFragment(), View.OnClickListener {
-
-    @Inject
-    lateinit var viewmodelFactory : ViewModelFactory
+class StoreFragment : BaseFragment(), View.OnClickListener {
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
 
-    private val mViewModel: ViewModelIceCream by lazy {
-        ViewModelProvider(this,viewmodelFactory).get(ViewModelIceCream::class.java)
+    private val mViewModel: StoreViewmodel by lazy {
+        ViewModelProvider(this,viewmodelFactory).get(StoreViewmodel::class.java)
     }
 
     private val storeController : StoreController by lazy {
@@ -69,20 +62,23 @@ class StoreFragment : DaggerFragment(), View.OnClickListener {
         imgStoreLocation?.setOnClickListener(this)
     }
 
-
-
     private fun handleGetListStore() {
         if(CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
             mViewModel.getListStore()
         }else{
-            showNoConnection()
+            showNoConnection( object  : ConnectionListener{
+                override fun onButtonClick() {
+                    mViewModel.getListStore()
+                }
+            })
         }
     }
 
     /*observe data*/
     private fun observeData(){
-        mViewModel.mListStore.observe(viewLifecycleOwner, Observer { data ->
+        observeMessage()
+        mViewModel.listStore.observe(viewLifecycleOwner, Observer { data ->
             ProgressLoading.dismiss()
             mListStore = data
             setupListStore(mListStore)
@@ -216,17 +212,7 @@ class StoreFragment : DaggerFragment(), View.OnClickListener {
         sliderStoreAd?.sliderAdapter = mSlideAdapter
     }
 
-    private fun showNoConnection(){
-        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-            .setTitleText("Missing connection ")
-            .setContentText("Check your connection")
-            .setConfirmClickListener{
-                it.dismiss()
-                handleGetListStore()
-            }
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
-    }
+
 
     private fun toShopping(position: Int){
         CommonUtils.instace.saveStoreSelected(mListStore[position])
