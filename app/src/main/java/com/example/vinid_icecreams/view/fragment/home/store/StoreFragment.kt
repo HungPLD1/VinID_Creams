@@ -15,6 +15,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
@@ -37,7 +38,7 @@ class StoreFragment : DaggerFragment(), View.OnClickListener {
     private var mLocationManager: LocationManager? = null
 
     private val mViewModel: ViewModelIceCream by lazy {
-        ViewModelProviders.of(this,viewmodelFactory).get(ViewModelIceCream::class.java)
+        ViewModelProvider(this,viewmodelFactory).get(ViewModelIceCream::class.java)
     }
 
     private val storeController : StoreController by lazy {
