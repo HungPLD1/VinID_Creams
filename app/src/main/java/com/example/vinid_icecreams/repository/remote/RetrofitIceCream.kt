@@ -16,7 +16,7 @@ object RetrofitIceCream {
 
 
 
-    fun createRetrofit(): APIService? {
+    fun createRetrofit(): APIService {
         val httpClient = OkHttpClient.Builder()
         httpClient.readTimeout(10, TimeUnit.SECONDS)
         httpClient.connectTimeout(10, TimeUnit.SECONDS)
@@ -40,7 +40,7 @@ object RetrofitIceCream {
                     RxJava2CallAdapterFactory.create()
                 ).addConverterFactory(GsonConverterFactory.create(gSon)).build()
         }
-        return retrofit?.create(
+        return retrofit!!.create(
             APIService::class.java)
     }
 

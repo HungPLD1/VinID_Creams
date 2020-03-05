@@ -23,13 +23,13 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providerApiService(): APIService? {
+    fun providerApiService(): APIService {
         return RetrofitIceCream.createRetrofit()
     }
 
     @Singleton
     @Provides
-    fun providerLocalDataSource(localDataSource: LocalDataSource) : ILocalDataSource? {
+    fun providerLocalDataSource(localDataSource: LocalDataSource) : ILocalDataSource {
         return localDataSource
     }
 
