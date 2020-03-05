@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.connection
+package com.example.vinid_icecreams.repository.remote
 
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.google.gson.GsonBuilder
@@ -33,12 +33,15 @@ object RetrofitIceCream {
             .create()
 
         if (retrofit == null) {
-            retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(httpClient.build())
+            retrofit = Retrofit.Builder().baseUrl(
+                BASE_URL
+            ).client(httpClient.build())
                 .addCallAdapterFactory(
                     RxJava2CallAdapterFactory.create()
                 ).addConverterFactory(GsonConverterFactory.create(gSon)).build()
         }
-        return retrofit?.create(APIService::class.java)
+        return retrofit?.create(
+            APIService::class.java)
     }
 
 }

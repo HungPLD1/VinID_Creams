@@ -4,17 +4,19 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.vinid_icecreams.MyApplication
-import com.example.vinid_icecreams.connection.body.Bill
-import com.example.vinid_icecreams.connection.body.Point
-import com.example.vinid_icecreams.connection.body.Rating
+import com.example.vinid_icecreams.repository.remote.requestBody.Bill
+import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
+import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
 import com.example.vinid_icecreams.model.*
 import com.example.vinid_icecreams.repository.Repository
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class ViewModelIceCream : ViewModel() {
-    @Inject
-    lateinit var repository: Repository
+class ViewModelIceCream @Inject constructor(
+    private val repository: Repository
+) :ViewModel() {
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     var mListStore = MutableLiveData<ArrayList<Store>>()
     var mListIceCream = MutableLiveData<ArrayList<IceCream>>()
@@ -42,13 +44,9 @@ class ViewModelIceCream : ViewModel() {
         const val REGISTER_FAIL = "Đăng ký không thành công"
     }
 
-    init {
-        MyApplication.component.inject(this)
-    }
-
     @SuppressLint("CheckResult")
     fun getListStore() {
-       repository.callRequestListStore()?.subscribe({ result ->
+        repository.callRequestListStore()?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -60,7 +58,7 @@ class ViewModelIceCream : ViewModel() {
                     }
                 }
             }
-            }) { error ->
+        }) { error ->
             run {
 
             }
@@ -253,13 +251,13 @@ class ViewModelIceCream : ViewModel() {
             }
         }) { error ->
             run {
-                Log.d(TAG,error.toString())
+                Log.d(TAG, error.toString())
             }
         }
     }
 
     @SuppressLint("CheckResult")
-    fun getListItemInfo(orderID : Int) {
+    fun getListItemInfo(orderID: Int) {
         repository.callRequestDetailsOrder(orderID)?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
@@ -279,8 +277,8 @@ class ViewModelIceCream : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun setRatingItem(itemID : Int? , ratingStar: Int? ,comment :String?) {
-        val bodyRating = Rating(itemID,ratingStar,comment)
+    fun setRatingItem(itemID: Int?, ratingStar: Int?, comment: String?) {
+        val bodyRating = RatingRequest(itemID, ratingStar, comment)
         repository.callRequestSetRating(bodyRating)?.subscribe({ result ->
             run {
                 when (result.meta?.code) {
@@ -301,26 +299,26 @@ class ViewModelIceCream : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun setPointUser(amount :Int) {
-        repository.callRequestChargePoint(Point(amount))?.subscribe({ result ->
-                run {
-                    when (result.meta?.code) {
-                        CODE_200 -> {
-                            mIsChargePoint.postValue(true)
-                            mUser.postValue(result.data)
-                        }
-                        else -> {
-                            mIsChargePoint.postValue(false)
-                            mMessageFail.postValue(result.meta?.message)
-                        }
+    fun setPointUser(amount: Int) {
+        repository.callRequestChargePoint(PointRequest(amount))?.subscribe({ result ->
+            run {
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        mIsChargePoint.postValue(true)
+                        mUser.postValue(result.data)
+                    }
+                    else -> {
+                        mIsChargePoint.postValue(false)
+                        mMessageFail.postValue(result.meta?.message)
                     }
                 }
-            }) { error ->
-                run {
-                    mIsChargePoint.postValue(false)
-                    mMessageFail.postValue(error.toString())
-                }
             }
+        }) { error ->
+            run {
+                mIsChargePoint.postValue(false)
+                mMessageFail.postValue(error.toString())
+            }
+        }
     }
 
 
@@ -350,6 +348,7 @@ class ViewModelIceCream : ViewModel() {
     }
 
     override fun onCleared() {
+        compositeDisposable.clear()
         super.onCleared()
     }
 }

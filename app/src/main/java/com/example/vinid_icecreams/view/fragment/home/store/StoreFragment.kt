@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
@@ -18,21 +17,27 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
+import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_store.*
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class StoreFragment : Fragment(), View.OnClickListener {
+class StoreFragment : DaggerFragment(), View.OnClickListener {
+
+    @Inject
+    lateinit var viewmodelFactory : ViewModelFactory
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
 
     private val mViewModel: ViewModelIceCream by lazy {
-        ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
+        ViewModelProviders.of(this,viewmodelFactory).get(ViewModelIceCream::class.java)
     }
 
     private val storeController : StoreController by lazy {

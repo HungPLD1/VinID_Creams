@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.connection.body
+package com.example.vinid_icecreams.repository.remote.requestBody
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

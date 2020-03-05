@@ -1,9 +1,9 @@
-package com.example.vinid_icecreams.connection
+package com.example.vinid_icecreams.repository.remote
 
-import com.example.vinid_icecreams.connection.body.AuthenBody
-import com.example.vinid_icecreams.connection.body.Bill
-import com.example.vinid_icecreams.connection.body.Point
-import com.example.vinid_icecreams.connection.body.Rating
+import com.example.vinid_icecreams.repository.remote.requestBody.AuthenRequest
+import com.example.vinid_icecreams.repository.remote.requestBody.Bill
+import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
+import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
 import com.example.vinid_icecreams.model.*
 import io.reactivex.Single
 import retrofit2.http.*
@@ -12,10 +12,10 @@ import retrofit2.http.*
 interface APIService {
 
     @POST("/register")
-    fun registerAccount(@Body body: AuthenBody): Single<MyResponse<DataUserResponse>>
+    fun registerAccount(@Body body: AuthenRequest): Single<MyResponse<DataUserResponse>>
 
     @POST("/login")
-    fun authenticateAccount(@Body body: AuthenBody): Single<MyResponse<DataUserResponse>>
+    fun authenticateAccount(@Body body: AuthenRequest): Single<MyResponse<DataUserResponse>>
 
     @GET("/api/stores")
     fun getListStore(): Single<MyResponse<ArrayList<Store>>>
@@ -39,11 +39,11 @@ interface APIService {
     fun getDetailsOrder(@Path ("id") orderID:Int): Single<MyResponse<BillResponse>>
 
     @POST("/api/ratings")
-    fun setRatingForItem(@Body body: Rating): Single<MyResponse<RatingResponse>>
+    fun setRatingForItem(@Body body: RatingRequest): Single<MyResponse<RatingResponse>>
 
     @GET("/api/users/detail")
     fun getUserProfile() : Single<MyResponse<User>>
 
     @PUT("/api/users/deposit")
-    fun chargePointUser(@Body body:Point) : Single<MyResponse<User>>
+    fun chargePointUser(@Body body:PointRequest) : Single<MyResponse<User>>
 }

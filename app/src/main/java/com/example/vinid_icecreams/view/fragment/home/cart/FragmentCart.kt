@@ -15,9 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.connection.body.Coordinates
-import com.example.vinid_icecreams.connection.body.Bill
-import com.example.vinid_icecreams.connection.body.Item
+import com.example.vinid_icecreams.repository.remote.requestBody.Coordinates
+import com.example.vinid_icecreams.repository.remote.requestBody.Bill
+import com.example.vinid_icecreams.repository.remote.requestBody.Item
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
