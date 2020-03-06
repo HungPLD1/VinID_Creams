@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.vinid_icecreams.repository.remote.requestBody.Bill
 import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
-import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
 import com.example.vinid_icecreams.model.*
 import com.example.vinid_icecreams.repository.Repository
+import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 

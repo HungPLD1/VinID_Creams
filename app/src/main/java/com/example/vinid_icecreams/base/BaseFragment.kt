@@ -8,13 +8,13 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-abstract class BaseFragment @Inject constructor(
+abstract class BaseFragment< T : BaseViewModel> @Inject constructor(
 ) : DaggerFragment() {
     @Inject
     lateinit var viewmodelFactory : ViewModelFactory
 
-    private val viewModel: BaseViewModel by lazy {
-        ViewModelProvider(this,viewmodelFactory).get(BaseViewModel::class.java)
+    private val viewModel: T by lazy {
+        ViewModelProvider(this,viewmodelFactory).get(T::class.java)
     }
 
     lateinit var messgaeSuccess : String

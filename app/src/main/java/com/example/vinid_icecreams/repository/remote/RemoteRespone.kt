@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.model
+package com.example.vinid_icecreams.repository.remote
 
 import com.google.gson.annotations.SerializedName
 

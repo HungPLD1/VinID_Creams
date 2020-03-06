@@ -7,6 +7,7 @@ import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
 import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
 import com.example.vinid_icecreams.model.*
 import com.example.vinid_icecreams.repository.local.ILocalDataSource
+import com.example.vinid_icecreams.repository.remote.MyResponse
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

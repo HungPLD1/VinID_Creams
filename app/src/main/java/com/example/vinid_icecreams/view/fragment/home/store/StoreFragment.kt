@@ -14,7 +14,6 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.vinid_icecreams.base.BaseFragment
 import com.example.vinid_icecreams.base.ConnectionListener
@@ -25,14 +24,10 @@ import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
-class StoreFragment : BaseFragment(), View.OnClickListener {
+class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
-
-    private val mViewModel: StoreViewmodel by lazy {
-        ViewModelProvider(this,viewmodelFactory).get(StoreViewmodel::class.java)
-    }
 
     private val storeController : StoreController by lazy {
         StoreController(
@@ -65,11 +60,11 @@ class StoreFragment : BaseFragment(), View.OnClickListener {
     private fun handleGetListStore() {
         if(CommonUtils.instace.isConnectToNetwork(context)) {
             ProgressLoading.show(context)
-            mViewModel.getListStore()
+            viewmodel.getListStore()
         }else{
             showNoConnection( object  : ConnectionListener{
                 override fun onButtonClick() {
-                    mViewModel.getListStore()
+                    viewmodel.getListStore()
                 }
             })
         }

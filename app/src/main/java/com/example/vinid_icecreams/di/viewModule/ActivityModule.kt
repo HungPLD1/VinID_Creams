@@ -1,4 +1,4 @@
-package net.vinid.demodaggerandroid.di.activitymodule
+package com.example.vinid_icecreams.di.viewModule
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
