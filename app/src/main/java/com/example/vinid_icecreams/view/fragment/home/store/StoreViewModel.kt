@@ -7,9 +7,10 @@ import com.example.vinid_icecreams.base.BaseViewModel
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import java.net.ConnectException
 import javax.inject.Inject
 
-class StoreViewmodel @Inject constructor(
+class StoreViewModel @Inject constructor(
     private val repository: Repository
 ) : BaseViewModel() {
 
@@ -19,16 +20,24 @@ class StoreViewmodel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getListStore() {
         repository.callRequestListStore()?.subscribe({ result ->
-                when (result.meta?.code) {
-                    ViewModelIceCream.CODE_200 -> {
-                        messageSuccess.value = result?.meta?.message
-                        _listStore.value = result.data
-                    }
-                    else -> {
-                        messageFail.postValue(result?.meta?.message)
-                    }
+            when (result.meta?.code) {
+                ViewModelIceCream.CODE_200 -> {
+                    messageSuccess.value = result?.meta?.message
+                    _listStore.value = result.data
                 }
+                else -> {
+                    messageFail.postValue(result?.meta?.message)
+                }
+            }
         }) { error ->
+            when (error) {
+                is ConnectException -> {
+                    isConnection.value = false
+                }
+                else -> {
+                    messageFail.postValue(error.toString())
+                }
+            }
 
         }
     }

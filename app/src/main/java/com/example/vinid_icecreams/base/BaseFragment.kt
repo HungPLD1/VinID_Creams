@@ -1,35 +1,38 @@
 package com.example.vinid_icecreams.base
 
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.developer.kalert.KAlertDialog
-import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.utils.ProgressLoading
 import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 
-abstract class BaseFragment< T : BaseViewModel> @Inject constructor(
-) : DaggerFragment() {
-    @Inject
-    lateinit var viewmodelFactory : ViewModelFactory
+abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
 
-    private val viewModel: T by lazy {
-        ViewModelProvider(this,viewmodelFactory).get(T::class.java)
-    }
 
-    lateinit var messgaeSuccess : String
+    abstract fun provideViewModel(): T
+
+
+    lateinit var messageSuccess : String
     lateinit var messageFail : String
 
 
-
     fun observeMessage(){
+        val viewModel = provideViewModel()
         viewModel.messageSuccess.observe(viewLifecycleOwner, Observer {
-            messgaeSuccess = it
+            messageSuccess = it
         })
 
         viewModel.messageFail.observe(viewLifecycleOwner, Observer {
             messageFail = it
         })
+    }
+
+    fun isConnectToNetwork(context: Context?): Boolean {
+        val connectivityManager =
+            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
     fun showNoConnection(callback : ConnectionListener){
@@ -38,7 +41,7 @@ abstract class BaseFragment< T : BaseViewModel> @Inject constructor(
             .setContentText("Check your connection")
             .setConfirmClickListener{
                 it.dismiss()
-                callback.onButtonClick()
+                callback.onButtonOkConnectionClick()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
@@ -77,5 +80,5 @@ abstract class BaseFragment< T : BaseViewModel> @Inject constructor(
 }
 
 interface ConnectionListener {
-    fun onButtonClick()
+    fun onButtonOkConnectionClick()
 }

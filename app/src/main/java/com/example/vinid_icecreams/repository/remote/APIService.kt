@@ -6,6 +6,7 @@ import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
 import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
 import com.example.vinid_icecreams.model.*
 import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -42,7 +43,7 @@ interface APIService {
     fun setRatingForItem(@Body body: RatingRequest): Single<MyResponse<RatingResponse>>
 
     @GET("/api/users/detail")
-    fun getUserProfile() : Single<MyResponse<User>>
+    fun getUserProfile() : Single<Response<User>>
 
     @PUT("/api/users/deposit")
     fun chargePointUser(@Body body:PointRequest) : Single<MyResponse<User>>

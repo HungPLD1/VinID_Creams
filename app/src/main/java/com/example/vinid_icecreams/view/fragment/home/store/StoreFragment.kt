@@ -14,6 +14,8 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.vinid_icecreams.base.BaseFragment
 import com.example.vinid_icecreams.base.ConnectionListener
@@ -22,18 +24,28 @@ import com.example.vinid_icecreams.view.adapter.adapterIndicator.AdapterSliderAd
 import kotlinx.android.synthetic.main.fragment_store.*
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
+class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
 
-    private val storeController : StoreController by lazy {
+    private val storeViewModel: StoreViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(StoreViewModel::class.java)
+    }
+
+    private val storeController: StoreController by lazy {
         StoreController(
             ::toShopping
         )
     }
+
+    override fun provideViewModel(): StoreViewModel = storeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,22 +70,22 @@ class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
     }
 
     private fun handleGetListStore() {
-        if(CommonUtils.instace.isConnectToNetwork(context)) {
+        if (isConnectToNetwork(context)) {
             ProgressLoading.show(context)
-            viewmodel.getListStore()
-        }else{
-            showNoConnection( object  : ConnectionListener{
-                override fun onButtonClick() {
-                    viewmodel.getListStore()
+            storeViewModel.getListStore()
+        } else {
+            showNoConnection(object : ConnectionListener {
+                override fun onButtonOkConnectionClick() {
+                    storeViewModel.getListStore()
                 }
             })
         }
     }
 
     /*observe data*/
-    private fun observeData(){
+    private fun observeData() {
         observeMessage()
-        mViewModel.listStore.observe(viewLifecycleOwner, Observer { data ->
+        storeViewModel.listStore.observe(viewLifecycleOwner, Observer { data ->
             ProgressLoading.dismiss()
             mListStore = data
             setupListStore(mListStore)
@@ -81,7 +93,7 @@ class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
     }
 
     /*set up list store */
-    private fun setupListStore (mListStore: ArrayList<Store>){
+    private fun setupListStore(mListStore: ArrayList<Store>) {
         storeController.listStore = mListStore
         rcvStore.run {
             setItemSpacingDp(4)
@@ -118,7 +130,7 @@ class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
         }
     }
 
-    //handle reuqest permission
+    //handle request permission
     private fun handleRequestPermission() {
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
         requestPermissions(permissions, CommonUtils.instace.REQUEST_CODE_PEMISSION)
@@ -128,10 +140,15 @@ class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
     private val locationListener: LocationListener = object : LocationListener {
         @SuppressLint("SetTextI18n")
         override fun onLocationChanged(location: Location) {
-            Log.d("Location","" + location.longitude + ":" + location.latitude)
-            //setLocalName(location.longitude,location.latitude)
-            for (position in 0 until mListStore.size){
-                val range  = CommonUtils.instace.calculationByDistance(location.latitude,location.longitude,mListStore[position].latitude,mListStore[position].longitude)
+            Log.d("Location", "" + location.longitude + ":" + location.latitude)
+            for (position in 0 until mListStore.size) {
+                val range = CommonUtils.instace
+                    .calculationByDistance(
+                        location.latitude
+                        , location.longitude
+                        , mListStore[position].latitude
+                        , mListStore[position].longitude
+                    )
                 mListStore[position].range = range
             }
             mListStore = CommonUtils.instace.sortList(mListStore)
@@ -144,7 +161,7 @@ class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
         override fun onProviderDisabled(provider: String) {}
     }
 
-    private fun setLocalName(longitude: Double, latitude: Double){
+    private fun setLocalName(longitude: Double, latitude: Double) {
         val geoCoder = Geocoder(context, Locale.getDefault()) //it is Geocoder
 
         val builder = StringBuilder()
@@ -159,9 +176,9 @@ class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
             }
             val address = builder.toString() //This is the complete address.
 
-            if (address == ""){
+            if (address == "") {
                 txtStoreLocation?.text = resources.getString(R.string.default_city)
-            }else{
+            } else {
                 txtStoreLocation?.text = address
             }
             ProgressLoading.dismiss()
@@ -203,16 +220,14 @@ class StoreFragment : BaseFragment<StoreViewmodel>(), View.OnClickListener {
         mListAd.add(R.drawable.green_ice)
         mListAd.add(R.drawable.ad_3)
         mListAd.add(R.drawable.green_2)
-        val mSlideAdapter = AdapterSliderAd(context!!,mListAd)
+        val mSlideAdapter = AdapterSliderAd(context!!, mListAd)
         sliderStoreAd?.sliderAdapter = mSlideAdapter
     }
 
 
-
-    private fun toShopping(position: Int){
+    private fun toShopping(position: Int) {
         CommonUtils.instace.saveStoreSelected(mListStore[position])
         CommonUtils.mListOrder = ArrayList()
         this.findNavController().navigate(R.id.fragmentShopping)
     }
-
 }
