@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragmentStore"
-        android:name="com.example.vinid_icecreams.view.fragment.home.store.StoreFragment"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment"
         android:label="FragmentStore" >
         <action
             android:id="@+id/action_fragmentStore2_to_fragmentShopping"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentShopping"
-        android:name="com.example.vinid_icecreams.view.fragment.home.shopping.FragmentShopping"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.shopping.FragmentShopping"
         android:label="FragmentShopping" >
         <action
             android:id="@+id/action_fragmentShopping_to_fragmentDetails"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentDetails"
-        android:name="com.example.vinid_icecreams.view.fragment.home.details.FragmentDetails"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.details.FragmentDetails"
         android:label="FragmentDetails" >
         <action
             android:id="@+id/action_fragmentDetails_to_fragmentCart"
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentCart"
-        android:name="com.example.vinid_icecreams.view.fragment.home.cart.FragmentCart"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.cart.FragmentCart"
         android:label="FragmentCart" >
         <action
             android:id="@+id/action_fragmentCart_to_fragmentPay"
@@ -45,6 +45,6 @@
     </fragment>
     <dialog
         android:id="@+id/fragmentPay"
-        android:name="com.example.vinid_icecreams.view.fragment.home.pay.FragmentPay"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.pay.FragmentPay"
         android:label="FragmentPay" />
 </navigation>

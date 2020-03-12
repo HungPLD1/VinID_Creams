@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/fragmentChat"
-        android:name="com.example.vinid_icecreams.view.fragment.chat.FragmentChat"
+        android:name="com.example.vinid_icecreams.ui.fragment.chat.FragmentChat"
         android:label="FragmentChat" />
 </navigation>

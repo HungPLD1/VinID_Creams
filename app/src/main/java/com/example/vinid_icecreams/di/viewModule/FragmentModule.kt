@@ -3,8 +3,8 @@ package com.example.vinid_icecreams.di.viewModule
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelKey
-import com.example.vinid_icecreams.view.fragment.home.store.StoreFragment
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment
+import com.example.vinid_icecreams.ui.fragment.home.store.StoreViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -17,9 +17,9 @@ interface FragmentModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ViewModelIceCream::class)
+    @ViewModelKey(StoreViewModel::class)
     fun bindDataViewModel(
-        dataViewModel: ViewModelIceCream
+        dataViewModel: StoreViewModel
     ): ViewModel
 
 }

@@ -1,7 +1,7 @@
 package com.example.vinid_icecreams.di.viewModule
 
-import com.example.vinid_icecreams.view.activity.HomeActivity
-import com.example.vinid_icecreams.view.fragment.home.store.StoreFragment
+import com.example.vinid_icecreams.ui.activity.HomeActivity
+import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

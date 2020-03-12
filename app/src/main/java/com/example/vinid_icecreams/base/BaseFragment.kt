@@ -13,8 +13,8 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
     abstract fun provideViewModel(): T
 
 
-    lateinit var messageSuccess : String
-    lateinit var messageFail : String
+    private lateinit var messageSuccess : String
+    private lateinit var messageFail : String
 
 
     fun observeMessage(){

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/fragmentProfile"
-        android:name="com.example.vinid_icecreams.view.fragment.user.HomeUser"
+        android:name="com.example.vinid_icecreams.ui.fragment.user.HomeUser"
         android:label="FragmentProfile" >
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentOrderHistory"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentOrderHistory"
-        android:name="com.example.vinid_icecreams.view.fragment.user.history.FragmentOrderHistory"
+        android:name="com.example.vinid_icecreams.ui.fragment.user.history.FragmentOrderHistory"
         android:label="FragmentOrderHistory" >
         <action
             android:id="@+id/action_fragmentOrderHistory_to_fragmentOrderDetails"
@@ -24,11 +24,11 @@
     </fragment>
     <dialog
         android:id="@+id/fragmentOrderDetails"
-        android:name="com.example.vinid_icecreams.view.fragment.user.history.FragmentOrderDetails"
+        android:name="com.example.vinid_icecreams.ui.fragment.user.history.FragmentOrderDetails"
         android:label="FragmentOrderDetails" />
     <fragment
         android:id="@+id/fragmentWallet"
-        android:name="com.example.vinid_icecreams.view.fragment.user.wallet.FragmentWallet"
+        android:name="com.example.vinid_icecreams.ui.fragment.user.wallet.FragmentWallet"
         android:label="FragmentWallet" >
     </fragment>
 </navigation>
