@@ -7,24 +7,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.addCallback
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.base.BaseFragment
+import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
-import com.example.vinid_icecreams.ui.adapter.adapterComment.AdapterComment
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
+import com.example.vinid_icecreams.utils.ProgressLoading
 import kotlinx.android.synthetic.main.fragment_details.*
+import javax.inject.Inject
 
+class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
 
-class FragmentDetails : Fragment(), View.OnClickListener {
-    private var mIceCream: IceCream? = null
-    private var mListComment: ArrayList<Comment>? = ArrayList()
-    private var mAdapterComment: AdapterComment? = null
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val detailsViewModel: DetailsViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(DetailsViewModel::class.java)
+    }
+
+    private val detailController: DetailsController by lazy { DetailsController() }
+
+    private var iceCream: IceCream? = null
+
+    private var listComment: ArrayList<Comment>? = ArrayList()
+
+    override fun provideViewModel(): DetailsViewModel = detailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +51,8 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        observeData()
         setupBackDevice()
-        getIceCream()
         setupView()
     }
 
@@ -49,40 +63,37 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     }
 
     /*get Id ice cream*/
-    private fun getIceCream() {
-        mIceCream = arguments?.getSerializable("DETAILS") as IceCream?
-    }
+    private fun getIDIceCream() = arguments?.getSerializable("DETAILS") as Int
 
-    /*observe data*/
-//    private fun observeData() {
-//        if (CommonUtils.instace.isConnectToNetwork(context)) {
-//            ProgressLoading.show(context)
-//            mViewModel.getDetailsIceCream(mIdIceCream!!)
-//            mViewModel.mIceCream.observe(this, Observer { data ->
-//                mIceCream = data
-//                setupView()
-//                ProgressLoading.dismiss()
-//            })
-//        }else{
-//            ProgressLoading.dismiss()
-//            showNoConnection()
-//        }
-//    }
+
+    private fun observeData() {
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            detailsViewModel.getDetailsIceCream(getIDIceCream())
+            detailsViewModel.iceCream.observe(viewLifecycleOwner, Observer { data ->
+                iceCream = data
+                ProgressLoading.dismiss()
+            })
+        }else{
+            ProgressLoading.dismiss()
+            showNoConnection()
+        }
+    }
 
     @SuppressLint("SetTextI18n")
     private fun setupView() {
-        txtDetailsNameOrder?.text = mIceCream?.name
-        txtDetailsPrice?.text = mIceCream?.price.toString() + " $"
+        txtDetailsNameOrder?.text = iceCream?.name
+        txtDetailsPrice?.text = iceCream?.price.toString() + " $"
         setupListComment()
         setupImagePager()
         setupRattingBar()
     }
 
     private fun setupRattingBar() {
-        mListComment = mIceCream?.listComment
+        listComment = iceCream?.listComment
         val mListRatingBar = ArrayList<Int>()
-        for (i in 0 until mListComment!!.size) {
-            mListComment?.get(i)?.rating_star?.let { mListRatingBar.add(it) }
+        for (i in 0 until listComment?.size!!) {
+            listComment?.get(i)?.rating_star?.let { mListRatingBar.add(it) }
         }
         when (mListRatingBar.size) {
             0 -> rattingDetails?.rating = 0F
@@ -95,7 +106,7 @@ class FragmentDetails : Fragment(), View.OnClickListener {
 
     private fun setupImagePager() {
         val mListImage = ArrayList<String>()
-        mIceCream?.image_paths?.let { mListImage.addAll(it) }
+        iceCream?.image_paths?.let { mListImage.addAll(it) }
         val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndiCatorDetails(context!!, mListImage)
         viewPagerDetails!!.adapter = mAdapterViewPagerIndicatorAd
         dotsIndicatorDetails?.setViewPager(viewPagerDetails!!)
@@ -103,11 +114,8 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     }
 
     private fun setupListComment() {
-        mListComment = mIceCream?.listComment
-        mAdapterComment = mListComment?.let { AdapterComment(context, it) }
-        rcvDetailsListComment?.layoutManager = LinearLayoutManager(context)
-        rcvDetailsListComment?.adapter = mAdapterComment
-
+        detailController.listComment = iceCream?.listComment
+        rcvDetailsListComment.setController(detailController)
     }
 
     private fun initView() {
@@ -142,18 +150,7 @@ class FragmentDetails : Fragment(), View.OnClickListener {
     }
 
     private fun sendOrderToCart() {
-        val order = Order(mIceCream!!, 1, 0)
+        val order = Order(iceCream!!, 1, 0)
         CommonUtils.instace.setOrderToList(order)
-    }
-
-    private fun showNoConnection(){
-        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-            .setTitleText("Missing connection ")
-            .setContentText("Check your connection")
-            .setConfirmClickListener{
-                it.dismiss()
-            }
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
     }
 }

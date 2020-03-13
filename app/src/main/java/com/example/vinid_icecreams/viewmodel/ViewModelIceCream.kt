@@ -44,27 +44,6 @@ class ViewModelIceCream @Inject constructor(
         const val REGISTER_FAIL = "Đăng ký không thành công"
     }
 
-
-    @SuppressLint("CheckResult")
-    fun getDetailsIceCream(iceCreamID: Int) {
-        repository.callRequestDetailsIceCream(iceCreamID)?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    CODE_200 -> {
-                        mIceCream.postValue(result.data)
-                    }
-                    else -> {
-                        mMessageFail.postValue(result?.meta?.message)
-                    }
-                }
-            }
-        }) { error ->
-            run {
-
-            }
-        }
-    }
-
     @SuppressLint("CheckResult")
     fun handleRegister(phoneNumber: String, password: String, passwordRepeat: String) {
         if (checkPhoneNumber(phoneNumber) && handleComparedPassword(password, passwordRepeat)) {

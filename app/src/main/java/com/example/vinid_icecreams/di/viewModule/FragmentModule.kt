@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.vinid_icecreams.base.BaseFragment
 import com.example.vinid_icecreams.base.BaseViewModel
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelKey
+import com.example.vinid_icecreams.ui.fragment.home.details.DetailsViewModel
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingViewModel
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreViewModel
 import dagger.Binds
@@ -29,5 +30,12 @@ interface FragmentModule {
     @ViewModelKey(ShoppingViewModel::class)
     fun bindDataShoppingViewModel(
         dataViewModel: ShoppingViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    fun bindDataDetailsViewModel(
+        dataViewModel: DetailsViewModel
     ): ViewModel
 }

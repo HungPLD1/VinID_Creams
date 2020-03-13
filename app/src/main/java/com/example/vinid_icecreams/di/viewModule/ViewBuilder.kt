@@ -1,6 +1,7 @@
 package com.example.vinid_icecreams.di.viewModule
 
 import com.example.vinid_icecreams.ui.activity.HomeActivity
+import com.example.vinid_icecreams.ui.fragment.home.details.DetailsViewModel
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment
 import dagger.Module
@@ -16,4 +17,7 @@ interface ViewBuilder {
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
     fun contributeShoppingFragment(): ShoppingFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributeDetailsFragment(): DetailsViewModel
 }

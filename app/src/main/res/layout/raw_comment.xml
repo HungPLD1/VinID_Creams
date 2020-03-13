@@ -12,7 +12,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/img_raw_comment"
+            android:id="@+id/imgRawComment"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:padding="10dp"
@@ -25,7 +25,7 @@
             android:weightSum="5">
 
             <TextView
-                android:id="@+id/txt_NameUserComment"
+                android:id="@+id/txtNameUserComment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -36,7 +36,7 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatRatingBar
-                android:id="@+id/ratting_raw_comment"
+                android:id="@+id/rattingRawComment"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:numStars="5"
@@ -48,7 +48,7 @@
 
             <TextView
                 android:gravity="start"
-                android:id="@+id/txt_raw_comment_content"
+                android:id="@+id/txtRawCommentContent"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"

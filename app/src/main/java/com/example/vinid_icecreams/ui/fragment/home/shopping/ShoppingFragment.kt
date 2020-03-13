@@ -197,7 +197,7 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
     }
 
     private fun toDetailsIceCream(position :Int){
-        val bundle = bundleOf("DETAILS" to listIceCream[position])
+        val bundle = bundleOf("DETAILS" to listIceCream[position].id)
         findNavController().navigate(R.id.fragmentDetails,bundle)
     }
 

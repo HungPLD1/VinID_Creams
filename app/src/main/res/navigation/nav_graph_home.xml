@@ -26,14 +26,15 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentDetails"
-        android:name="com.example.vinid_icecreams.ui.fragment.home.details.FragmentDetails"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.details.DetailsFragment"
         android:label="FragmentDetails" >
         <action
             android:id="@+id/action_fragmentDetails_to_fragmentCart"
             app:destination="@id/fragmentCart" />
         <argument
             android:name="DETAILS"
-            app:argType="com.example.vinid_icecreams.model.IceCream" />
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/fragmentCart"
