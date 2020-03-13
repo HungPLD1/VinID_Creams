@@ -9,31 +9,43 @@ import android.widget.AdapterView
 import android.widget.SearchView
 import androidx.activity.addCallback
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.base.BaseFragment
+import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.IceCream
+import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingController.Companion.ITEM_PER_ROW
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.ui.adapter.adapterIceCream.AdapterIceCream
-import com.example.vinid_icecreams.ui.adapter.adapterIceCream.OnItemIceCreamClicklistener
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import kotlinx.android.synthetic.main.fragment_shopping.*
-import kotlin.collections.ArrayList
+import timber.log.Timber
+import javax.inject.Inject
 
+class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSelectedListener
+    , View.OnClickListener
+    , SearchView.OnQueryTextListener {
 
-class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIceCreamClicklistener , View.OnClickListener ,
-    SearchView.OnQueryTextListener {
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
-    private var mListIceCream : ArrayList<IceCream> = ArrayList()
-    private var mAdapter : AdapterIceCream? = null
-    private val mViewModel: ViewModelIceCream by lazy {
-        ViewModelProviders.of(this).get(ViewModelIceCream::class.java)
+    private val shoppingViewModel: ShoppingViewModel by lazy {
+        ViewModelProviders.of(this,viewModelFactory).get(ShoppingViewModel::class.java)
     }
+
+    private var listIceCream : ArrayList<IceCream> = ArrayList()
+
+    private val shoppingController: ShoppingController by lazy {
+        ShoppingController(
+            ::toDetailsIceCream
+        )
+    }
+
+    override fun provideViewModel(): ShoppingViewModel = shoppingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,7 +93,7 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         }
         ProgressLoading.show(context)
         if (CommonUtils.instace.isConnectToNetwork(context)) {
-            mViewModel.getListIceCream(id)
+            shoppingViewModel.getListIceCream(id)
         }else{
             ProgressLoading.dismiss()
             showNoConnection()
@@ -90,19 +102,19 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
 
     /*observe data*/
     private fun observeData(){
-        mViewModel.mListIceCream.observe(viewLifecycleOwner, Observer { data ->
-            mListIceCream = data
-            setupListIceCream(mListIceCream)
+        shoppingViewModel.listIceCream.observe(viewLifecycleOwner, Observer { data ->
+            listIceCream = data
+            setupListIceCream(listIceCream)
             ProgressLoading.dismiss()
         })
     }
 
-    private fun setupListIceCream(mData :ArrayList<IceCream>){
-        mListIceCream = mData
-        mAdapter = AdapterIceCream(context, mListIceCream, this)
-        rcvShoppingIceCream?.layoutManager = GridLayoutManager(context, 2)
-        rcvShoppingIceCream?.adapter = mAdapter
-        mAdapter!!.notifyDataSetChanged()
+    private fun setupListIceCream(data :ArrayList<IceCream>){
+        shoppingController.listIceCream = data
+        rcvShoppingIceCream.layoutManager =
+            GridLayoutManager(context, ITEM_PER_ROW, RecyclerView.VERTICAL, false)
+        rcvShoppingIceCream.setController(shoppingController)
+        shoppingController.requestModelBuild()
     }
 
 
@@ -110,12 +122,6 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         val mListType = listOf("Discount","10%","20%","50%")
         spnShoppingFilterByDiscount?.attachDataSource(mListType)
         spnShoppingFilterByDiscount?.setOnClickListener(this)
-    }
-
-    /*click item on list fragment */
-    override fun onItemClick(positon: Int) {
-        val bundle = bundleOf("DETAILS" to mListIceCream[positon])
-        findNavController().navigate(R.id.fragmentDetails,bundle)
     }
 
 
@@ -177,8 +183,8 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         if (query == null || query.isEmpty()){
             handleGetListIceCream()
         }else {
-            setupListIceCream(mListIceCream)
-            mAdapter?.filter(query.toLowerCase())
+            setupListIceCream(listIceCream)
+            shoppingController.filter(query.toLowerCase())
         }
         return false
     }
@@ -190,19 +196,14 @@ class FragmentShopping : Fragment(), AdapterView.OnItemSelectedListener,OnItemIc
         return false
     }
 
-    private fun showNoConnection(){
-        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-            .setTitleText("Missing connection ")
-            .setContentText("Check your connection")
-            .setConfirmClickListener{
-                it.dismiss()
-                handleGetListIceCream()
-            }
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
+    private fun toDetailsIceCream(position :Int){
+        val bundle = bundleOf("DETAILS" to listIceCream[position])
+        findNavController().navigate(R.id.fragmentDetails,bundle)
     }
 
     companion object{
-        var TAG = FragmentShopping::class.java.name
+        var TAG = ShoppingFragment::class.java.name
     }
+
+
 }

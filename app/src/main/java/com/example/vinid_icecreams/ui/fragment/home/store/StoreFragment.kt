@@ -14,11 +14,11 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.vinid_icecreams.base.BaseFragment
 import com.example.vinid_icecreams.base.ConnectionListener
+import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterSliderAd
 import kotlinx.android.synthetic.main.fragment_store.*
@@ -30,7 +30,7 @@ import kotlin.collections.ArrayList
 class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelFactory
 
     private var mListStore: ArrayList<Store> = ArrayList()
     private var mLocationManager: LocationManager? = null
@@ -208,9 +208,6 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
                         Log.d("myTag", "Security Exception, no location available")
                     }
                 }
-            }
-            else -> {
-
             }
         }
     }

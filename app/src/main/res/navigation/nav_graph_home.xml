@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentShopping"
-        android:name="com.example.vinid_icecreams.ui.fragment.home.shopping.FragmentShopping"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment"
         android:label="FragmentShopping" >
         <action
             android:id="@+id/action_fragmentShopping_to_fragmentDetails"

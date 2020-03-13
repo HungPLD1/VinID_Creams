@@ -50,23 +50,31 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
     //circle image_path 3rd library
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+
     //indicator 3rd library
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1'
+
     //google api
     //noinspection GradleCompatible
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
     //facebook api
     implementation 'com.facebook.android:facebook-login:5.5.1'
+
     //noinspection GradleCompatible
     implementation 'com.android.support:design:28.1.0'
     implementation 'com.yarolegovich:lovely-dialog:1.0.4'
+
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:28.0.0'
+
     //noinspection GradleCompatible
     implementation 'com.android.support:percent:28.0.0'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
     //rx android
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -75,36 +83,49 @@ dependencies {
 // (see https://github.com/ReactiveX/RxJava/releases for latest 2.x.x version)
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
     // RxJava adapter for retrofit
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
     //Viewmodel
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
     //lib dialog https://medium.com/@t_akshay_m/alert-dialog-android-library-23494864365?
     implementation 'com.github.TutorialsAndroid:KAlertDialog:v4.0.19'
+
     //Viewmodel
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
     //materiall desgin
     implementation 'com.google.android.material:material:1.0.0'
+
     //lib bottomsheet https://github.com/andrefrsousa/SuperBottomSheet
     implementation 'com.github.andrefrsousa:SuperBottomSheet:1.5.0'
+
     //custum spinner
     implementation 'com.github.arcadefire:nice-spinner:1.4.4'
+
     //slider
     implementation 'com.github.smarteist:autoimageslider:1.3.2'
+
     //navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
+
     // navigation architecture component
-    implementation "androidx.navigation:navigation-fragment:2.1.0"
-    implementation "androidx.navigation:navigation-ui:2.1.0"
-    implementation "androidx.navigation:navigation-fragment-ktx:2.1.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.1.0"
-    implementation 'androidx.fragment:fragment:1.2.0-rc05'
+    implementation "androidx.navigation:navigation-fragment:2.2.1"
+    implementation "androidx.navigation:navigation-ui:2.2.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.2.1"
+    implementation "androidx.navigation:navigation-ui-ktx:2.2.1"
+    implementation 'androidx.fragment:fragment:1.3.0-alpha01'
+
     //dagger2
     def dagger_version = "2.26"
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -119,4 +140,7 @@ dependencies {
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     annotationProcessor 'com.airbnb.android:epoxy-processor:3.8.0'
     kapt "com.airbnb.android:epoxy-processor:3.8.0"
+
+    //timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

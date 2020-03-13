@@ -44,46 +44,6 @@ class ViewModelIceCream @Inject constructor(
         const val REGISTER_FAIL = "Đăng ký không thành công"
     }
 
-    @SuppressLint("CheckResult")
-    fun getListStore() {
-        repository.callRequestListStore()?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    CODE_200 -> {
-                        mMessageSuccess.postValue(result?.meta?.message)
-                        mListStore.postValue(result.data)
-                    }
-                    else -> {
-                        mMessageFail.postValue(result?.meta?.message)
-                    }
-                }
-            }
-        }) { error ->
-            run {
-
-            }
-        }
-    }
-
-    @SuppressLint("CheckResult")
-    fun getListIceCream(storeID: Int) {
-        repository.callRequestListIceCream(storeID)?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    CODE_200 -> {
-                        mListIceCream.postValue(result.data)
-                    }
-                    else -> {
-                        mMessageFail.postValue(result?.meta?.message)
-                    }
-                }
-            }
-        }) { error ->
-            run {
-
-            }
-        }
-    }
 
     @SuppressLint("CheckResult")
     fun getDetailsIceCream(iceCreamID: Int) {

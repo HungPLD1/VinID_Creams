@@ -73,7 +73,7 @@
             android:layout_margin="10dp"
             android:layout_height="match_parent"/>
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
+    <com.airbnb.epoxy.EpoxyRecyclerView
         android:layout_margin="10dp"
         android:id="@+id/rcvShoppingIceCream"
         android:layout_width="match_parent"
