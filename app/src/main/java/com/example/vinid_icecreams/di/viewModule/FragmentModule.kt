@@ -18,24 +18,4 @@ interface FragmentModule {
     @Binds
     fun bindFragment(fragment: BaseFragment<BaseViewModel>): DaggerFragment
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(StoreViewModel::class)
-    fun bindDataStoreViewModel(
-        dataViewModel: StoreViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(ShoppingViewModel::class)
-    fun bindDataShoppingViewModel(
-        dataViewModel: ShoppingViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(DetailsViewModel::class)
-    fun bindDataDetailsViewModel(
-        dataViewModel: DetailsViewModel
-    ): ViewModel
 }

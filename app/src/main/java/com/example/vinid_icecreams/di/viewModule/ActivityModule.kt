@@ -15,11 +15,5 @@ interface ActivityModule {
     @Binds
     fun bindMainActivity(activity: HomeActivity): AppCompatActivity
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(ViewModelIceCream::class)
-    fun bindDataViewModel(
-        dataViewModel: ViewModelIceCream
-    ): ViewModel
 
 }

@@ -92,8 +92,9 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
     private fun setupRattingBar() {
         listComment = iceCream?.listComment
         val mListRatingBar = ArrayList<Int>()
-        for (i in 0 until listComment?.size!!) {
-            listComment?.get(i)?.rating_star?.let { mListRatingBar.add(it) }
+
+        listComment?.forEachIndexed { index, _ ->
+            listComment?.get(index)?.rating_star?.let { mListRatingBar.add(it) }
         }
         when (mListRatingBar.size) {
             0 -> rattingDetails?.rating = 0F

@@ -1,12 +1,9 @@
 package com.example.vinid_icecreams.di
 
 import android.content.Context
-import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.MyApplication
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelModule
-import com.example.vinid_icecreams.di.viewModule.FragmentModule
 import com.example.vinid_icecreams.di.viewModule.ViewBuilder
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
