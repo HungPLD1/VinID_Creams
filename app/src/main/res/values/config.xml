@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="BASE_URL">http://35.198.221.214:8080</string>
+    <string name="TOKEN">http://35.198.221.214:8080</string>
+    <string name="PREFIX">http://35.198.221.214:8080</string>
+</resources>

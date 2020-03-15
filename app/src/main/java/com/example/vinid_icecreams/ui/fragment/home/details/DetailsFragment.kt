@@ -141,9 +141,11 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
                         findNavController().navigate(R.id.fragmentCart)
                     } else {
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
-                        pDialog.titleText = "Giỏ hàng trống"
-                        pDialog.setCancelable(true)
-                        pDialog.show()
+                        pDialog.apply {
+                            titleText = "Giỏ hàng trống"
+                            setCancelable(true)
+                            show()
+                        }
                     }
                 }
             }

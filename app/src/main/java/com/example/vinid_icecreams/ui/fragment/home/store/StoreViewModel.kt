@@ -7,6 +7,7 @@ import com.example.vinid_icecreams.base.BaseViewModel
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import timber.log.Timber
 import java.net.ConnectException
 import javax.inject.Inject
 
@@ -20,13 +21,13 @@ class StoreViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getListStore() {
         repository.callRequestListStore()?.subscribe({ result ->
+            Timber.d(result.toString())
             when (result.meta?.code) {
                 ViewModelIceCream.CODE_200 -> {
-                    messageSuccess.value = result?.meta?.message
                     _listStore.value = result.data
                 }
                 else -> {
-                    messageFail.postValue(result?.meta?.message)
+                    messageFail.value = result?.meta?.message
                 }
             }
         }) { error ->
@@ -35,7 +36,7 @@ class StoreViewModel @Inject constructor(
                     isConnection.value = false
                 }
                 else -> {
-                    messageFail.postValue(error.toString())
+                    messageFail.value  = error.toString()
                 }
             }
 

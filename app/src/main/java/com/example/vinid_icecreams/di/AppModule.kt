@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.di
 
+import com.example.vinid_icecreams.di.serviceModule.IceCreamServiceModule
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.local.ILocalDataSource
 import com.example.vinid_icecreams.repository.local.LocalDataSource
@@ -9,7 +10,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [IceCreamServiceModule::class])
 class AppModule {
 
     @Singleton
@@ -17,14 +18,8 @@ class AppModule {
     fun providerRepository(
         apiService: APIService,
         iLocalDataSource: ILocalDataSource
-    ):Repository{
+    ): Repository {
         return Repository(apiService,iLocalDataSource)
-    }
-
-    @Singleton
-    @Provides
-    fun providerApiService(): APIService {
-        return RetrofitIceCream.createRetrofit()
     }
 
     @Singleton
@@ -32,6 +27,5 @@ class AppModule {
     fun providerLocalDataSource(localDataSource: LocalDataSource) : ILocalDataSource {
         return localDataSource
     }
-
 
 }
