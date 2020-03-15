@@ -22,6 +22,7 @@ import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterSliderAd
 import kotlinx.android.synthetic.main.fragment_store.*
+import timber.log.Timber
 import java.io.IOException
 import java.util.*
 import javax.inject.Inject
@@ -107,7 +108,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
             when (view.id) {
                 R.id.imgStoreLocation -> {
                     if (CommonUtils.instace.checkPermission(
-                            context!!,
+                            requireContext(),
                             Manifest.permission.ACCESS_FINE_LOCATION
                         )
                     ) {
@@ -218,7 +219,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         mListAd.add(R.drawable.green_ice)
         mListAd.add(R.drawable.ad_3)
         mListAd.add(R.drawable.green_2)
-        val mSlideAdapter = AdapterSliderAd(context!!, mListAd)
+        val mSlideAdapter = AdapterSliderAd(requireContext(), mListAd)
         sliderStoreAd?.sliderAdapter = mSlideAdapter
     }
 

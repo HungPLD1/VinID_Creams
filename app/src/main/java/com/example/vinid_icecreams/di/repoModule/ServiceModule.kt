@@ -1,0 +1,102 @@
+package com.example.vinid_icecreams.di.repoModule
+
+import android.content.Context
+import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.repository.remote.APIService
+import com.example.vinid_icecreams.utils.CommonUtils
+import com.google.gson.GsonBuilder
+import dagger.Module
+import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
+
+@Module
+class ServiceModule {
+
+    @Singleton
+    @Provides
+    fun providerRetrofit(
+        context: Context
+    ): APIService {
+        var retrofit : Retrofit? = null
+        val httpClient = OkHttpClient.Builder()
+        httpClient.readTimeout(10, TimeUnit.SECONDS)
+        httpClient.connectTimeout(10, TimeUnit.SECONDS)
+        httpClient.writeTimeout(10,TimeUnit.SECONDS)
+
+        httpClient.addInterceptor { chain ->
+            val request: Request =
+                chain.request().newBuilder().addHeader(
+                    context.getString(R.string.TOKEN)
+                    ,context.getString(R.string.PREFIX)
+                            +CommonUtils.token).build()
+            chain.proceed(request)
+        }
+
+        val gSon = GsonBuilder()
+            .setLenient()
+            .create()
+
+        if (retrofit == null) {
+            retrofit = Retrofit.Builder().baseUrl(context.getString(R.string.BASE_URL)
+            ).client(httpClient.build())
+                .addCallAdapterFactory(
+                    RxJava2CallAdapterFactory.create()
+                ).addConverterFactory(GsonConverterFactory.create(gSon)).build()
+        }
+        return retrofit!!.create(
+            APIService::class.java)
+    }
+
+
+    /*   @Provides
+       @Singleton
+       fun providerRetrofitBuilder(
+           gSon: Gson,
+           clientBuilder : OkHttpClient.Builder,
+           context: Context
+       ) : APIService {
+           val retrofit = Retrofit.Builder().baseUrl(
+               context.getString(R.string.BASE_URL)
+           ).client(clientBuilder.build())
+               .addCallAdapterFactory(
+                   RxJava2CallAdapterFactory.create()
+               ).addConverterFactory(GsonConverterFactory.create(gSon)).build()
+           return retrofit.create(APIService::class.java)
+       }
+
+       @Provides
+       @Singleton
+       fun providerGsonBuilder(): Gson {
+           return GsonBuilder()
+               .setLenient()
+               .create()
+       }
+
+
+       @Provides
+       @Singleton
+       fun providerHttpClientBuilder(
+           context: Context
+       ): OkHttpClient.Builder {
+           val httpClient = OkHttpClient.Builder()
+           httpClient.readTimeout(10, TimeUnit.SECONDS)
+           httpClient.connectTimeout(10, TimeUnit.SECONDS)
+           httpClient.writeTimeout(10, TimeUnit.SECONDS)
+
+           httpClient.addInterceptor { chain ->
+               val request: Request =
+                   chain.request().newBuilder()
+                       .addHeader(context.getString(R.string.TOKEN)
+                           ,context.getString(R.string.PREFIX)
+                                   + CommonUtils.token).build()
+               chain.proceed(request)
+           }
+           return httpClient
+       }*/
+}

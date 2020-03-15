@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.utils.ProgressLoading
 import dagger.android.support.DaggerFragment
+import timber.log.Timber
 
 abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
 
@@ -13,8 +14,8 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
     abstract fun provideViewModel(): T
 
 
-    private lateinit var messageSuccess : String
-    private lateinit var messageFail : String
+    lateinit var messageSuccess : String
+    lateinit var messageFail : String
 
 
     fun observeMessage(){
@@ -24,7 +25,9 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         })
 
         viewModel.messageFail.observe(viewLifecycleOwner, Observer {
+            Timber.d(it)
             messageFail = it
+            ProgressLoading.dismiss()
         })
     }
 

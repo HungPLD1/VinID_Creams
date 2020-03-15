@@ -13,7 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class Repository @Inject constructor(
+class  Repository @Inject constructor(
     private val apiService: APIService,
     private val iLocalDataSource: ILocalDataSource
 ) {
