@@ -10,10 +10,8 @@ import javax.inject.Singleton
 
 @Module(
     includes = [
-        ServiceModule::class,
-        RealmModule::class
-    ]
-)
+        ServiceModule::class
+        , RealmModule::class])
 class RepoModule {
 
     @Singleton

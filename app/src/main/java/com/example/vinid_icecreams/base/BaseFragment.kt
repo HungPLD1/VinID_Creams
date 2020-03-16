@@ -10,15 +10,13 @@ import timber.log.Timber
 
 abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
 
-
     abstract fun provideViewModel(): T
 
+    lateinit var messageSuccess: String
+    lateinit var messageFail: String
 
-    lateinit var messageSuccess : String
-    lateinit var messageFail : String
 
-
-    fun observeMessage(){
+    fun observeMessage() {
         val viewModel = provideViewModel()
         viewModel.messageSuccess.observe(viewLifecycleOwner, Observer {
             messageSuccess = it
@@ -27,7 +25,14 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         viewModel.messageFail.observe(viewLifecycleOwner, Observer {
             Timber.d(it)
             messageFail = it
-            ProgressLoading.dismiss()
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                ProgressLoading.show(requireContext())
+            } else {
+                ProgressLoading.dismiss()
+            }
         })
     }
 
@@ -38,11 +43,11 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         return networkInfo != null && networkInfo.isConnected
     }
 
-    fun showNoConnection(callback : ConnectionListener){
+    fun showNoConnection(callback: ConnectionListener) {
         val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Missing connection ")
             .setContentText("Check your connection")
-            .setConfirmClickListener{
+            .setConfirmClickListener {
                 it.dismiss()
                 callback.onButtonOkConnectionClick()
             }
@@ -50,11 +55,11 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         dialog.show()
     }
 
-    fun showNoConnection(){
+    fun showNoConnection() {
         val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Missing connection ")
             .setContentText("Check your connection")
-            .setConfirmClickListener{
+            .setConfirmClickListener {
                 it.dismiss()
             }
         dialog.setCanceledOnTouchOutside(false)
@@ -62,8 +67,9 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
     }
 
     fun showDialogSuccess(
-        title : String,
-        messageSuccess : String){
+        title: String,
+        messageSuccess: String
+    ) {
         ProgressLoading.dismiss()
         KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
             .setTitleText(title)
@@ -72,8 +78,9 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
     }
 
     fun showDiaLogFail(
-        title : String,
-        messageFail : String){
+        title: String,
+        messageFail: String
+    ) {
         ProgressLoading.dismiss()
         KAlertDialog(context, KAlertDialog.ERROR_TYPE)
             .setTitleText(title)

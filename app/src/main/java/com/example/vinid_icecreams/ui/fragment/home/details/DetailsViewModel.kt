@@ -13,25 +13,26 @@ class DetailsViewModel @Inject constructor(
     private val repository: Repository
 ) : BaseViewModel() {
 
-    private val _iceCream =MutableLiveData<IceCream>()
+    private val _iceCream = MutableLiveData<IceCream>()
     val iceCream: LiveData<IceCream> get() = _iceCream
 
 
     @SuppressLint("CheckResult")
     fun getDetailsIceCream(iceCreamID: Int) {
-        repository.callRequestDetailsIceCream(iceCreamID)?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    ViewModelIceCream.CODE_200 -> {
-                        _iceCream.value = result.data
-                    }
-                    else -> {
-                        messageFail.value = result?.meta?.message
+        repository.callRequestDetailsIceCream(iceCreamID)?.doOnSubscribe { isLoading.value = true }
+            ?.doFinally { isLoading.value = false }?.subscribe({ result ->
+                run {
+                    when (result.meta?.code) {
+                        ViewModelIceCream.CODE_200 -> {
+                            _iceCream.value = result.data
+                        }
+                        else -> {
+                            messageFail.value = result?.meta?.message
+                        }
                     }
                 }
+            }) { error ->
+                messageFail.value = error.toString()
             }
-        }) {
-                error -> messageFail.value = error.toString()
-        }
     }
 }

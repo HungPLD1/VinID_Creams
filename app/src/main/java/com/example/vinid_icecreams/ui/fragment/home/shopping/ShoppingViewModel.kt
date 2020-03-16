@@ -13,24 +13,25 @@ class ShoppingViewModel @Inject constructor(
     private val repository: Repository
 ) : BaseViewModel() {
 
-    private val _listIceCream =MutableLiveData<ArrayList<IceCream>>()
+    private val _listIceCream = MutableLiveData<ArrayList<IceCream>>()
     val listIceCream: LiveData<ArrayList<IceCream>> get() = _listIceCream
 
     @SuppressLint("CheckResult")
     fun getListIceCream(storeID: Int) {
-        repository.callRequestListIceCream(storeID)?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    ViewModelIceCream.CODE_200 -> {
-                        _listIceCream.value = result.data
-                    }
-                    else -> {
-                        messageFail.value = result?.meta?.message
+        repository.callRequestListIceCream(storeID)?.doOnSubscribe { isLoading.value = true }
+            ?.doFinally { isLoading.value = false }?.subscribe({ result ->
+                run {
+                    when (result.meta?.code) {
+                        ViewModelIceCream.CODE_200 -> {
+                            _listIceCream.value = result.data
+                        }
+                        else -> {
+                            messageFail.value = result?.meta?.message
+                        }
                     }
                 }
+            }) { error ->
+                messageFail.value = error.toString()
             }
-        }) { error ->
-            messageFail.value = error.toString()
-        }
     }
 }

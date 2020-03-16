@@ -20,7 +20,8 @@ class StoreViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun getListStore() {
-        repository.callRequestListStore()?.subscribe({ result ->
+        repository.callRequestListStore()?.doOnSubscribe { isLoading.value = true }
+            ?.doFinally { isLoading.value = false }?.subscribe({ result ->
             Timber.d(result.toString())
             when (result.meta?.code) {
                 ViewModelIceCream.CODE_200 -> {
@@ -36,7 +37,7 @@ class StoreViewModel @Inject constructor(
                     isConnection.value = false
                 }
                 else -> {
-                    messageFail.value  = error.toString()
+                    messageFail.value = error.toString()
                 }
             }
 
