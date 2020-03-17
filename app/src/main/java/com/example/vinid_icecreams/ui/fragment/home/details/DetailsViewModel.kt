@@ -20,7 +20,7 @@ class DetailsViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getDetailsIceCream(iceCreamID: Int) {
         repository.callRequestDetailsIceCream(iceCreamID)?.doOnSubscribe { isLoading.value = true }
-            ?.doFinally { isLoading.value = false }?.subscribe({ result ->
+            ?.doAfterTerminate { isLoading.value = false }?.subscribe({ result ->
                 run {
                     when (result.meta?.code) {
                         ViewModelIceCream.CODE_200 -> {

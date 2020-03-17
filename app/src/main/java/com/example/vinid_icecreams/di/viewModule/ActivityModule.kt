@@ -14,6 +14,4 @@ interface ActivityModule {
 
     @Binds
     fun bindMainActivity(activity: HomeActivity): AppCompatActivity
-
-
 }

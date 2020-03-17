@@ -12,8 +12,8 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
 
     abstract fun provideViewModel(): T
 
-    lateinit var messageSuccess: String
-    lateinit var messageFail: String
+    var messageSuccess = ""
+    var messageFail = ""
 
 
     fun observeMessage() {
@@ -23,8 +23,7 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         })
 
         viewModel.messageFail.observe(viewLifecycleOwner, Observer {
-            Timber.d(it)
-            messageFail = it
+            showDiaLogFail("Error !!!",it)
         })
 
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {

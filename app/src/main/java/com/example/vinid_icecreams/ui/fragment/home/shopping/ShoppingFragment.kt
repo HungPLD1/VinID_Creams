@@ -23,7 +23,6 @@ import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingController.
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import kotlinx.android.synthetic.main.fragment_shopping.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSelectedListener

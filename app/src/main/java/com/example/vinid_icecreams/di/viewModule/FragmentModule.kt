@@ -11,5 +11,4 @@ interface FragmentModule {
 
     @Binds
     fun bindFragment(fragment: BaseFragment<BaseViewModel>): DaggerFragment
-
 }
