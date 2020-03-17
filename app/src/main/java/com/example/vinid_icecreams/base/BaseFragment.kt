@@ -12,20 +12,8 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
 
     abstract fun provideViewModel(): T
 
-    var messageSuccess = ""
-    var messageFail = ""
-
-
-    fun observeMessage() {
+    fun observeLoading() {
         val viewModel = provideViewModel()
-        viewModel.messageSuccess.observe(viewLifecycleOwner, Observer {
-            messageSuccess = it
-        })
-
-        viewModel.messageFail.observe(viewLifecycleOwner, Observer {
-            showDiaLogFail("Error !!!",it)
-        })
-
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             if (it) {
                 ProgressLoading.show(requireContext())
@@ -42,20 +30,20 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         return networkInfo != null && networkInfo.isConnected
     }
 
-    fun showNoConnection(callback: ConnectionListener) {
-        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+    fun showNoConnection(callback: DialogClickListener) {
+        val dialog = KAlertDialog(requireContext(), KAlertDialog.ERROR_TYPE)
             .setTitleText("Missing connection ")
             .setContentText("Check your connection")
             .setConfirmClickListener {
                 it.dismiss()
-                callback.onButtonOkConnectionClick()
+                callback.onConfirmClickListener()
             }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
     }
 
     fun showNoConnection() {
-        val dialog = KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+        val dialog = KAlertDialog(requireContext(), KAlertDialog.ERROR_TYPE)
             .setTitleText("Missing connection ")
             .setContentText("Check your connection")
             .setConfirmClickListener {
@@ -86,8 +74,28 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
             .setContentText(messageFail)
             .show()
     }
+
+    fun showDiaLogFail(
+        title: String,
+        messageFail: String,
+        listener : DialogClickListener
+    ) {
+        ProgressLoading.dismiss()
+        KAlertDialog(requireContext(), KAlertDialog.ERROR_TYPE)
+            .setTitleText(title)
+            .setContentText(messageFail)
+            .setConfirmClickListener {
+                it.dismiss()
+                listener.onConfirmClickListener() }
+            .show()
+    }
+
+    companion object{
+        const val ERROR  = "ERROR !!!"
+    }
 }
 
-interface ConnectionListener {
-    fun onButtonOkConnectionClick()
+interface DialogClickListener{
+    fun onConfirmClickListener()
+    fun onCancelListener()
 }

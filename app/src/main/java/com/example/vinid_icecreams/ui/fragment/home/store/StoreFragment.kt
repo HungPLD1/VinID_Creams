@@ -17,12 +17,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.vinid_icecreams.base.BaseFragment
-import com.example.vinid_icecreams.base.ConnectionListener
+import com.example.vinid_icecreams.base.DialogClickListener
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterSliderAd
 import kotlinx.android.synthetic.main.fragment_store.*
-import timber.log.Timber
 import java.io.IOException
 import java.util.*
 import javax.inject.Inject
@@ -76,9 +75,11 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
             ProgressLoading.show(context)
             storeViewModel.getListStore()
         } else {
-            showNoConnection(object : ConnectionListener {
-                override fun onButtonOkConnectionClick() {
+            showNoConnection(object : DialogClickListener {
+                override fun onConfirmClickListener() {
                     storeViewModel.getListStore()
+                }
+                override fun onCancelListener() {
                 }
             })
         }
@@ -86,11 +87,22 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
     /*observe data*/
     private fun observeData() {
-        observeMessage()
+        observeLoading()
         storeViewModel.listStore.observe(viewLifecycleOwner, Observer { data ->
             ProgressLoading.dismiss()
             mListStore = data
             storeController.listStore = mListStore
+        })
+
+        storeViewModel.messageFail.observe(viewLifecycleOwner, Observer {
+            showDiaLogFail(ERROR, it, object : DialogClickListener{
+                override fun onConfirmClickListener() {
+                    storeViewModel.getListStore()
+                }
+                override fun onCancelListener() {
+                }
+
+            })
         })
     }
 
