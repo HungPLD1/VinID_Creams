@@ -16,7 +16,7 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.vinid_icecreams.base.BaseFragment
+import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.base.DialogClickListener
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.utils.ProgressLoading
@@ -45,7 +45,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         )
     }
 
-    override fun provideViewModel(): StoreViewModel = storeViewModel
+    override fun providerViewModel(): StoreViewModel = storeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,39 +55,16 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_store, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-        setupViewIndicatorAd()
-        observeData()
-        setupEpoxyRecycleView()
-        handleGetListStore()
-    }
-
-    private fun initView() {
-        /*click event*/
+    override fun setUpUI(){
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         imgStoreLocation?.setOnClickListener(this)
+        setupViewIndicatorAd()
+        setupEpoxyRecycleView()
     }
 
-    private fun handleGetListStore() {
-        if (isConnectToNetwork(context)) {
-            ProgressLoading.show(context)
-            storeViewModel.getListStore()
-        } else {
-            showNoConnection(object : DialogClickListener {
-                override fun onConfirmClickListener() {
-                    storeViewModel.getListStore()
-                }
-                override fun onCancelListener() {
-                }
-            })
-        }
-    }
-
-    /*observe data*/
-    private fun observeData() {
-        observeLoading()
+    override fun setupViewModel() {
+        super.setupViewModel()
+        handleGetListStore()
         storeViewModel.listStore.observe(viewLifecycleOwner, Observer { data ->
             ProgressLoading.dismiss()
             mListStore = data
@@ -140,6 +117,21 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
                     }
                 }
             }
+        }
+    }
+
+    private fun handleGetListStore() {
+        if (isConnectToNetwork(context)) {
+            ProgressLoading.show(context)
+            storeViewModel.getListStore()
+        } else {
+            showNoConnection(object : DialogClickListener {
+                override fun onConfirmClickListener() {
+                    storeViewModel.getListStore()
+                }
+                override fun onCancelListener() {
+                }
+            })
         }
     }
 

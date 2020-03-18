@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.CommonUtils
-import com.example.vinid_icecreams.ui.activity.LoginActivity
+import com.example.vinid_icecreams.ui.activity.login.LoginActivity
 import de.hdodenhof.circleimageview.CircleImageView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.model.User

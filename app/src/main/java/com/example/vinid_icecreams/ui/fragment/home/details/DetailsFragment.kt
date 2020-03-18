@@ -12,14 +12,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.base.BaseFragment
+import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
-import com.example.vinid_icecreams.utils.ProgressLoading
 import kotlinx.android.synthetic.main.fragment_details.*
 import javax.inject.Inject
 
@@ -38,7 +37,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
 
     private var listComment: ArrayList<Comment>? = ArrayList()
 
-    override fun provideViewModel(): DetailsViewModel = detailsViewModel
+    override fun providerViewModel(): DetailsViewModel = detailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,12 +47,33 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
         return inflater.inflate(R.layout.fragment_details, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-        observeData()
+    @SuppressLint("SetTextI18n")
+    override fun setUpUI() {
+        txtDetailsNameOrder?.text = iceCream?.name
+        txtDetailsPrice?.text = iceCream?.price.toString() + " $"
+        setupListComment()
+        setupImagePager()
+        setupRattingBar()
         setupBackDevice()
-        setupView()
+        imgDetailsBack?.setOnClickListener(this)
+        imgDetailsAddToCart?.setOnClickListener(this)
+        btnDetailsCart?.setOnClickListener(this)
+    }
+
+    override fun setupViewModel() {
+        super.setupViewModel()
+        detailsViewModel.iceCream.observe(viewLifecycleOwner, Observer { data ->
+            iceCream = data
+        })
+        getDetailsIceCream()
+    }
+
+    private fun getDetailsIceCream() {
+        if (CommonUtils.instace.isConnectToNetwork(context)) {
+            detailsViewModel.getDetailsIceCream(getIDIceCream())
+        } else {
+            showNoConnection()
+        }
     }
 
     private fun setupBackDevice() {
@@ -64,30 +84,6 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
 
     /*get Id ice cream*/
     private fun getIDIceCream() = arguments?.getSerializable("DETAILS") as Int
-
-
-    private fun observeData() {
-        if (CommonUtils.instace.isConnectToNetwork(context)) {
-            ProgressLoading.show(context)
-            detailsViewModel.getDetailsIceCream(getIDIceCream())
-            detailsViewModel.iceCream.observe(viewLifecycleOwner, Observer { data ->
-                iceCream = data
-                ProgressLoading.dismiss()
-            })
-        }else{
-            ProgressLoading.dismiss()
-            showNoConnection()
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setupView() {
-        txtDetailsNameOrder?.text = iceCream?.name
-        txtDetailsPrice?.text = iceCream?.price.toString() + " $"
-        setupListComment()
-        setupImagePager()
-        setupRattingBar()
-    }
 
     private fun setupRattingBar() {
         listComment = iceCream?.listComment
@@ -108,7 +104,8 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
     private fun setupImagePager() {
         val mListImage = ArrayList<String>()
         iceCream?.image_paths?.let { mListImage.addAll(it) }
-        val mAdapterViewPagerIndicatorAd = AdapterViewPagerIndiCatorDetails(context!!, mListImage)
+        val mAdapterViewPagerIndicatorAd =
+            AdapterViewPagerIndiCatorDetails(requireContext(), mListImage)
         viewPagerDetails!!.adapter = mAdapterViewPagerIndicatorAd
         dotsIndicatorDetails?.setViewPager(viewPagerDetails!!)
 
@@ -117,12 +114,6 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
     private fun setupListComment() {
         detailController.listComment = iceCream?.listComment
         rcvDetailsListComment.setController(detailController)
-    }
-
-    private fun initView() {
-        imgDetailsBack?.setOnClickListener(this)
-        imgDetailsAddToCart?.setOnClickListener(this)
-        btnDetailsCart?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {

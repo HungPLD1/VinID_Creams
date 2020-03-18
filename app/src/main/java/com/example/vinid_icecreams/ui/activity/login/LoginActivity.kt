@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.ui.activity
+package com.example.vinid_icecreams.ui.activity.login
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.ui.activity.home.HomeActivity
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterViewPagerIndicator
 import com.example.vinid_icecreams.ui.fragment.login.listFragmentViewIndicator.FragmentFirstIndicator
@@ -46,7 +47,8 @@ class LoginActivity : AppCompatActivity() {
     private fun checkIsLogin() {
         CommonUtils.token = CommonUtils.instace.getPrefContent(this,CommonUtils.TOKEN) as String
         if (CommonUtils.token.isNotEmpty()){
-            startActivity(Intent(this,HomeActivity::class.java))
+            startActivity(Intent(this,
+                HomeActivity::class.java))
             finish()
         }
     }

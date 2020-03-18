@@ -15,7 +15,7 @@ import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.ui.activity.HomeActivity
+import com.example.vinid_icecreams.ui.activity.home.HomeActivity
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 
 
@@ -100,7 +100,8 @@ class FragmentLogin : Fragment() ,View.OnClickListener {
             .setContentText(mMessageSuccess)
             .show()
         Handler().postDelayed({
-            startActivity(Intent(activity,HomeActivity::class.java))
+            startActivity(Intent(activity,
+                HomeActivity::class.java))
             activity?.finish()
         },1000)
     }

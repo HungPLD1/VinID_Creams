@@ -14,23 +14,36 @@
  * limitations under the License.
  */
 
-package com.example.vinid_icecreams.ui.activity
+package com.example.vinid_icecreams.ui.activity.home
 
 import android.os.Bundle
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.base.activity.BaseActivity
+import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.navigation.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_home.*
+import javax.inject.Inject
 
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
  */
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity<HomeViewModel>() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private var currentNavController: LiveData<NavController>? = null
+
+    private val homeViewModel: HomeViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
+    }
+
+    override fun providerViewModel(): HomeViewModel = homeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,25 +56,33 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
-        // Now that BottomNavigationBar has restored its instance state
-        // and its selectedItemId, we can proceed with setting up the
-        // BottomNavigationBar with Navigation
         setupBottomNavigationBar()
+    }
+
+    override fun setUpUI() {
+    }
+
+    override fun setupViewModel() {
+        super.setupViewModel()
+
     }
 
     /**
      * Called on first creation and when restoring state.
      */
     private fun setupBottomNavigationBar() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_home_screen)
-
-        val navGraphIds = listOf(R.navigation.nav_graph_home, R.navigation.nav_graph_event, R.navigation.nav_graph_chat,R.navigation.nav_graph_user)
+        val navGraphIds = listOf(
+            R.navigation.nav_graph_home
+            , R.navigation.nav_graph_event
+            , R.navigation.nav_graph_chat
+            , R.navigation.nav_graph_user
+        )
 
         // Setup the bottom navigation view with a list of navigation graphs
-        val controller = bottomNavigationView.setupWithNavController(
+        val controller = navHomeScreen.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
-            containerId = R.id.nav_host_fragment,
+            containerId = R.id.navHostFragment,
             intent = intent
         )
 

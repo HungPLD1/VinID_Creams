@@ -18,10 +18,7 @@ class ViewModelIceCream @Inject constructor(
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    var mListStore = MutableLiveData<ArrayList<Store>>()
-    var mListIceCream = MutableLiveData<ArrayList<IceCream>>()
     var mListEvent = MutableLiveData<ArrayList<Event>>()
-    var mIceCream = MutableLiveData<IceCream>()
     var mListOrderInfor = MutableLiveData<ArrayList<OrderInfor>>()
     var mListItemOrder = MutableLiveData<ArrayList<ItemOrder>>()
     var mUser = MutableLiveData<User>()

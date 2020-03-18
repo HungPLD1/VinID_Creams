@@ -1,6 +1,6 @@
 package com.example.vinid_icecreams.di.viewModule
 
-import com.example.vinid_icecreams.ui.activity.HomeActivity
+import com.example.vinid_icecreams.ui.activity.home.HomeActivity
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsFragment
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment

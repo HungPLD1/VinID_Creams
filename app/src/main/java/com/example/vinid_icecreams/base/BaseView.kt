@@ -1,27 +1,17 @@
 package com.example.vinid_icecreams.base
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.lifecycle.Observer
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.utils.ProgressLoading
-import dagger.android.support.DaggerFragment
-import timber.log.Timber
 
-abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
+interface BaseView {
+    fun providerContext() : Context?
 
-    abstract fun provideViewModel(): T
+    fun setUpUI()
 
-    fun observeLoading() {
-        val viewModel = provideViewModel()
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                ProgressLoading.show(requireContext())
-            } else {
-                ProgressLoading.dismiss()
-            }
-        })
-    }
+    fun setupViewModel()
 
     fun isConnectToNetwork(context: Context?): Boolean {
         val connectivityManager =
@@ -31,7 +21,7 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
     }
 
     fun showNoConnection(callback: DialogClickListener) {
-        val dialog = KAlertDialog(requireContext(), KAlertDialog.ERROR_TYPE)
+        val dialog = KAlertDialog(providerContext(), KAlertDialog.ERROR_TYPE)
             .setTitleText("Missing connection ")
             .setContentText("Check your connection")
             .setConfirmClickListener {
@@ -43,7 +33,7 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
     }
 
     fun showNoConnection() {
-        val dialog = KAlertDialog(requireContext(), KAlertDialog.ERROR_TYPE)
+        val dialog = KAlertDialog(providerContext(), KAlertDialog.ERROR_TYPE)
             .setTitleText("Missing connection ")
             .setContentText("Check your connection")
             .setConfirmClickListener {
@@ -58,7 +48,7 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         messageSuccess: String
     ) {
         ProgressLoading.dismiss()
-        KAlertDialog(context, KAlertDialog.SUCCESS_TYPE)
+        KAlertDialog(providerContext(), KAlertDialog.SUCCESS_TYPE)
             .setTitleText(title)
             .setContentText(messageSuccess)
             .show()
@@ -69,7 +59,7 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         messageFail: String
     ) {
         ProgressLoading.dismiss()
-        KAlertDialog(context, KAlertDialog.ERROR_TYPE)
+        KAlertDialog(providerContext(), KAlertDialog.ERROR_TYPE)
             .setTitleText(title)
             .setContentText(messageFail)
             .show()
@@ -81,7 +71,7 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         listener : DialogClickListener
     ) {
         ProgressLoading.dismiss()
-        KAlertDialog(requireContext(), KAlertDialog.ERROR_TYPE)
+        KAlertDialog(providerContext(), KAlertDialog.ERROR_TYPE)
             .setTitleText(title)
             .setContentText(messageFail)
             .setConfirmClickListener {
@@ -90,8 +80,10 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
             .show()
     }
 
-    companion object{
-        const val ERROR  = "ERROR !!!"
+    fun showSomeThingWentWrong(activity: Activity?) {
+        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Some thing went wrong")
+            .show()
     }
 }
 

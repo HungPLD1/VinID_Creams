@@ -1,13 +1,9 @@
 package com.example.vinid_icecreams.di.viewModule
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import com.example.vinid_icecreams.di.viewModelModule.ViewModelKey
-import com.example.vinid_icecreams.ui.activity.HomeActivity
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.example.vinid_icecreams.ui.activity.home.HomeActivity
 import dagger.Binds
 import dagger.Module
-import dagger.multibindings.IntoMap
 
 @Module
 interface ActivityModule {
