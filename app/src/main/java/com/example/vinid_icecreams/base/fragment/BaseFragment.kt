@@ -1,14 +1,17 @@
-package com.example.vinid_icecreams.base
+package com.example.vinid_icecreams.base.fragment
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.example.vinid_icecreams.base.BaseView
+import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.android.support.DaggerFragment
 
-abstract class BaseBottomSheetDiaFragment<T : BaseViewModel> : BottomSheetDialogFragment()
-    , BaseView {
+abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),
+    BaseView {
+
     abstract fun providerViewModel(): T
 
     override fun providerContext(): Context?  = context

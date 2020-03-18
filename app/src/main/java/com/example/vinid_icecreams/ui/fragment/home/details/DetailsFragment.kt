@@ -12,14 +12,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.base.BaseFragment
+import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
-import com.example.vinid_icecreams.utils.ProgressLoading
 import kotlinx.android.synthetic.main.fragment_details.*
 import javax.inject.Inject
 

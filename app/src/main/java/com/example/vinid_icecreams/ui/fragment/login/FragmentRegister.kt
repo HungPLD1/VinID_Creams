@@ -13,7 +13,7 @@ import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.ui.activity.HomeActivity
+import com.example.vinid_icecreams.ui.activity.home.HomeActivity
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import kotlinx.android.synthetic.main.fragment_register.*
 

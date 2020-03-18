@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.base
+package com.example.vinid_icecreams.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

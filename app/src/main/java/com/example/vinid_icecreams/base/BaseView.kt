@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.base
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import com.developer.kalert.KAlertDialog
@@ -76,6 +77,12 @@ interface BaseView {
             .setConfirmClickListener {
                 it.dismiss()
                 listener.onConfirmClickListener() }
+            .show()
+    }
+
+    fun showSomeThingWentWrong(activity: Activity?) {
+        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
+            .setTitleText("Some thing went wrong")
             .show()
     }
 }

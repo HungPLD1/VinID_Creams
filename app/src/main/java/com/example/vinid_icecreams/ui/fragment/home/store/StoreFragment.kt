@@ -16,7 +16,7 @@ import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.vinid_icecreams.base.BaseFragment
+import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.base.DialogClickListener
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.utils.ProgressLoading

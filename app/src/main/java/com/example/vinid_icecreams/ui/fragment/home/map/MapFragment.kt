@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProviders
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.base.BaseBottomSheetDiaFragment
+import com.example.vinid_icecreams.base.fragment.BaseBottomSheetDiaFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject

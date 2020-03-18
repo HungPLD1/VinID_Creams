@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.base.BaseFragment
+import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingController.Companion.ITEM_PER_ROW
@@ -44,7 +44,7 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
         )
     }
 
-    override fun provideViewModel(): ShoppingViewModel = shoppingViewModel
+    override fun providerViewModel(): ShoppingViewModel = shoppingViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,12 +54,18 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
         return inflater.inflate(R.layout.fragment_shopping,container,false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setUpUI() {
         initView()
         setupBackDevice()
         setUpSpinnerFilter()
-        observeData()
+    }
+
+    override fun setupViewModel() {
+        super.setupViewModel()
+        shoppingViewModel.listIceCream.observe(viewLifecycleOwner, Observer { data ->
+            listIceCream = data
+            setupListIceCream(listIceCream)
+        })
         handleGetListIceCream()
     }
 
@@ -97,15 +103,6 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
             ProgressLoading.dismiss()
             showNoConnection()
         }
-    }
-
-    /*observe data*/
-    private fun observeData(){
-        shoppingViewModel.listIceCream.observe(viewLifecycleOwner, Observer { data ->
-            listIceCream = data
-            setupListIceCream(listIceCream)
-            ProgressLoading.dismiss()
-        })
     }
 
     private fun setupListIceCream(data :ArrayList<IceCream>){
