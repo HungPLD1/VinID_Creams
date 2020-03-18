@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimaryDark">#330066</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorIndivateTab">#020202</color>
     <color name="transparent">#00000000</color>
@@ -14,7 +14,9 @@
     <color name="backgroundBottom">#2196F3</color>
     <color name="bottomchat">#D5FF7906</color>
     <color name="colorBackground">#FFFFFF</color>
-    <color name="colorTopLayout">#363739</color>
+    <color name="colorTopLayout">#57F612</color>
     <color name="backGroundIceCream">#B760B0FF</color>
     <color name="notChecked">#B0DADDFD</color>
+    <color name="Checked">#EEEEEE</color>
+    <color name="textTopFragment">#330066</color>
 </resources>

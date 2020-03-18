@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.navigation.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_home.*
 
 /**
  * An activity that inflates a layout that has a [BottomNavigationView].
@@ -53,15 +54,13 @@ class HomeActivity : AppCompatActivity() {
      * Called on first creation and when restoring state.
      */
     private fun setupBottomNavigationBar() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.nav_home_screen)
-
         val navGraphIds = listOf(R.navigation.nav_graph_home, R.navigation.nav_graph_event, R.navigation.nav_graph_chat,R.navigation.nav_graph_user)
 
         // Setup the bottom navigation view with a list of navigation graphs
-        val controller = bottomNavigationView.setupWithNavController(
+        val controller = navHomeScreen.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
-            containerId = R.id.nav_host_fragment,
+            containerId = R.id.navHostFragment,
             intent = intent
         )
 

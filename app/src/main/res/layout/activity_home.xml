@@ -16,7 +16,7 @@
         tools:context=".MainActivity">
 
         <fragment
-            android:id="@+id/nav_host_fragment"
+            android:id="@+id/navHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,11 +25,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_home_screen"
+        android:id="@+id/navHomeScreen"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorTopLayout"
+        android:background="@color/colorPrimaryDark"
         app:itemIconTint="@color/selector_bottom_navi"
         app:itemTextColor="@color/selector_bottom_navi"
         app:labelVisibilityMode="labeled"
