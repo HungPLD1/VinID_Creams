@@ -31,10 +31,12 @@ class MapFragment : BaseBottomSheetDiaFragment<MapViewModel>() {
         return inflater.inflate(R.layout.fragment_map,container,false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        observeLoading()
+    override fun setUpUI() {
         setupBottomSheetDiaLog()
+    }
+
+    override fun setupViewModel() {
+        super.setupViewModel()
     }
 
     private fun setupBottomSheetDiaLog() {
@@ -52,4 +54,6 @@ class MapFragment : BaseBottomSheetDiaFragment<MapViewModel>() {
             }
         }
     }
+
+
 }

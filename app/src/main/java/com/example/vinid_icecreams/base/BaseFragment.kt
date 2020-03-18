@@ -9,7 +9,7 @@ import dagger.android.support.DaggerFragment
 
 abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),BaseView {
 
-    abstract fun provideViewModel(): T
+    abstract fun providerViewModel(): T
 
     override fun providerContext(): Context?  = context
 
@@ -20,7 +20,7 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),BaseView {
     }
 
     override fun setupViewModel() {
-        val viewModel = provideViewModel()
+        val viewModel = providerViewModel()
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
             if (it) {
                 ProgressLoading.show(requireContext())
@@ -33,5 +33,4 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),BaseView {
     companion object{
         const val ERROR  = "ERROR !!!"
     }
-
 }

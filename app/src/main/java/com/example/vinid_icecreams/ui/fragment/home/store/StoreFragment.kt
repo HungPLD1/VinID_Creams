@@ -45,7 +45,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         )
     }
 
-    override fun provideViewModel(): StoreViewModel = storeViewModel
+    override fun providerViewModel(): StoreViewModel = storeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
