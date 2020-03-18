@@ -2,7 +2,7 @@ package com.example.vinid_icecreams.di.viewModelModule
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
+import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsViewModel
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingViewModel
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreViewModel
@@ -44,5 +44,12 @@ interface ViewModelModule {
     @ViewModelKey(DetailsViewModel::class)
     fun bindDataDetailsViewModel(
         dataViewModel: DetailsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeViewModel::class)
+    fun binDataHomeViewModel(
+        dataViewModel: HomeViewModel
     ): ViewModel
 }

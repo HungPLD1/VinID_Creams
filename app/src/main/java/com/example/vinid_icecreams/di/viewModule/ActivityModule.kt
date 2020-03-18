@@ -1,13 +1,14 @@
 package com.example.vinid_icecreams.di.viewModule
 
-import androidx.appcompat.app.AppCompatActivity
-import com.example.vinid_icecreams.ui.activity.home.HomeActivity
+import com.example.vinid_icecreams.base.activity.BaseActivity
+import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.android.support.DaggerAppCompatActivity
 
 @Module
 interface ActivityModule {
 
     @Binds
-    fun bindMainActivity(activity: HomeActivity): AppCompatActivity
+    fun bindMainActivity(homeActivity: BaseActivity<BaseViewModel>): DaggerAppCompatActivity
 }
