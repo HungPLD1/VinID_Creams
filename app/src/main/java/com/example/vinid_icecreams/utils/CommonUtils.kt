@@ -3,8 +3,11 @@ package com.example.vinid_icecreams.utils
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
+import android.net.Uri
+import android.provider.Settings
 import android.util.Log
 import android.view.WindowManager
 import com.developer.kalert.KAlertDialog
@@ -177,4 +180,13 @@ class CommonUtils {
         }
         return result
     }
+
+    fun Context.openPermissionSettings() {
+        val intent = Intent()
+        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivity(intent)
+    }
+
 }

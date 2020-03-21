@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_home"
-    app:startDestination="@id/fragmentStore">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_home"
+    app:startDestination="@id/requestLocationFragment">
 
-
+    <fragment
+        android:id="@+id/requestLocationFragment"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment"
+        android:label="RequestLocationFragment">
+        <action
+            android:id="@+id/toStore"
+            app:destination="@id/fragmentStore" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentStore"
         android:name="com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment"
-        android:label="FragmentStore" >
+        android:label="FragmentStore">
         <action
             android:id="@+id/action_fragmentStore2_to_fragmentShopping"
             app:destination="@id/fragmentShopping" />
@@ -16,7 +24,7 @@
     <fragment
         android:id="@+id/fragmentShopping"
         android:name="com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment"
-        android:label="FragmentShopping" >
+        android:label="FragmentShopping">
         <action
             android:id="@+id/action_fragmentShopping_to_fragmentDetails"
             app:destination="@id/fragmentDetails" />
@@ -27,19 +35,19 @@
     <fragment
         android:id="@+id/fragmentDetails"
         android:name="com.example.vinid_icecreams.ui.fragment.home.details.DetailsFragment"
-        android:label="FragmentDetails" >
+        android:label="FragmentDetails">
         <action
             android:id="@+id/action_fragmentDetails_to_fragmentCart"
             app:destination="@id/fragmentCart" />
         <argument
             android:name="DETAILS"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/fragmentCart"
         android:name="com.example.vinid_icecreams.ui.fragment.home.cart.FragmentCart"
-        android:label="FragmentCart" >
+        android:label="FragmentCart">
         <action
             android:id="@+id/action_fragmentCart_to_fragmentPay"
             app:destination="@id/fragmentPay" />

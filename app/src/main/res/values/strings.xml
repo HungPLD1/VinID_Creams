@@ -63,4 +63,10 @@
     <string name="text_hint_comment">Comment here !!!</string>
     <string name="submit">Submit</string>
     <string name="goto_payment">Tiến hành đặt hàng</string>
+    <string name="request_location">Quyền truy cập vị trí</string>
+    <string name="request_location_content">Vui lòng cho phép app truy cập vị trí của bạn.</string>
+    <string name="allow_to_access">Cho phép truy cập</string>
+    <string name="request_location_explain_forever_desc">Để tiếp tục, bạn cần cho phép app truy cập vị trí của bạn. Vào Cài đặt > Quyền và cho phép truy cập vị trí</string>
+    <string name="scan_qr_code_permission_forever_action">Mở cài đặt</string>
+    <string name="request_location_explain">Vui lòng cho phép app truy cập vị trí của bạn.</string>
 </resources>
