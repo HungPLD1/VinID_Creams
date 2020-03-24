@@ -28,6 +28,7 @@ class MapFragment : BaseBottomSheetFragment<MapViewModel>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
         return inflater.inflate(R.layout.fragment_map,container,false)
     }
 
@@ -45,9 +46,11 @@ class MapFragment : BaseBottomSheetFragment<MapViewModel>() {
                 val bottomSheetBehavior = BottomSheetBehavior.from(frameLayout)
                 val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
                     override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
-
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        bottomSheetBehavior.skipCollapsed = false
+                        bottomSheetBehavior.skipCollapsed = true
+                        when(newState){
+                            BottomSheetBehavior.STATE_HIDDEN -> dismiss()
+                        }
                     }
                 }
                 bottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback)

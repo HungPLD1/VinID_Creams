@@ -17,6 +17,7 @@ import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterSliderAd
+import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
 import kotlinx.android.synthetic.main.fragment_store.*
 import java.io.IOException
 import java.util.*
@@ -92,7 +93,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         if (view != null) {
             when (view) {
                 imgStoreLocation -> {
-                    toMap()
+                    showBottomSheetDiaLogMap()
                 }
             }
         }
@@ -149,8 +150,10 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         sliderStoreAd?.sliderAdapter = mSlideAdapter
     }
 
-    private fun toMap(){
-        this.findNavController().navigate(R.id.fragmentMap)
+    private fun showBottomSheetDiaLogMap(){
+        val bottomSheetDialogFragment = MapFragment()
+        bottomSheetDialogFragment
+            .show(requireActivity().supportFragmentManager,bottomSheetDialogFragment.tag)
     }
 
 

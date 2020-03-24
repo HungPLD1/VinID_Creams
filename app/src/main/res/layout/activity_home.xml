@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context=".ui.activity.login.LoginActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,8 +21,8 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        
+    </FrameLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navHomeScreen"
         android:layout_width="match_parent"
