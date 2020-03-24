@@ -2,6 +2,7 @@ package com.example.vinid_icecreams.di.viewModule
 
 import com.example.vinid_icecreams.ui.activity.home.HomeActivity
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsFragment
+import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment
@@ -24,4 +25,7 @@ interface ViewBuilder {
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
     fun contributeRequestPermissionFragment(): RequestLocationFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributeMapFragment(): MapFragment
 }

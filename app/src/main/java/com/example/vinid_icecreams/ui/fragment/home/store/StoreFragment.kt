@@ -90,9 +90,9 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         if (view != null) {
-            when (view.id) {
-                R.id.imgStoreLocation -> {
-
+            when (view) {
+                imgStoreLocation -> {
+                    toMap()
                 }
             }
         }
@@ -147,6 +147,10 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         mListAd.add(R.drawable.green_2)
         val mSlideAdapter = AdapterSliderAd(requireContext(), mListAd)
         sliderStoreAd?.sliderAdapter = mSlideAdapter
+    }
+
+    private fun toMap(){
+        this.findNavController().navigate(R.id.fragmentMap)
     }
 
 

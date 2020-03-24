@@ -9,7 +9,7 @@ import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class BaseBottomSheetDiaFragment<T : BaseViewModel> : BottomSheetDialogFragment()
+abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFragment()
     , BaseView {
     abstract fun providerViewModel(): T
 

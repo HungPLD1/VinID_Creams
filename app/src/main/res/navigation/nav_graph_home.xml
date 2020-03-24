@@ -19,8 +19,15 @@
         <action
             android:id="@+id/action_fragmentStore2_to_fragmentShopping"
             app:destination="@id/fragmentShopping" />
+        <action
+            android:id="@+id/action_fragmentStore_to_fragmentMap"
+            app:destination="@id/fragmentMap" />
 
     </fragment>
+    <fragment
+        android:id="@+id/fragmentMap"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.map.MapFragment"
+        android:label="FragmentMap"></fragment>
     <fragment
         android:id="@+id/fragmentShopping"
         android:name="com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment"

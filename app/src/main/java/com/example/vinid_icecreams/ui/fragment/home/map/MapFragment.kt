@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProviders
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.base.fragment.BaseBottomSheetDiaFragment
+import com.example.vinid_icecreams.base.fragment.BaseBottomSheetFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import javax.inject.Inject
 
-class MapFragment : BaseBottomSheetDiaFragment<MapViewModel>() {
+class MapFragment : BaseBottomSheetFragment<MapViewModel>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private val mapViewModel: MapViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(MapViewModel::class.java)
+        ViewModelProviders.of(requireActivity(), viewModelFactory).get(MapViewModel::class.java)
     }
 
     override fun providerViewModel(): MapViewModel = mapViewModel
