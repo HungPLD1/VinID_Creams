@@ -47,7 +47,7 @@ class MapFragment : BaseBottomSheetFragment<MapViewModel>() {
                     override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
 
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        bottomSheetBehavior.skipCollapsed = true
+                        bottomSheetBehavior.skipCollapsed = false
                     }
                 }
                 bottomSheetBehavior.setBottomSheetCallback(bottomSheetCallback)

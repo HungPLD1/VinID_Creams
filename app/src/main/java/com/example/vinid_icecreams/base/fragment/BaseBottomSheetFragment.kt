@@ -8,12 +8,26 @@ import com.example.vinid_icecreams.base.BaseView
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFragment()
-    , BaseView {
+    , BaseView , HasAndroidInjector {
+
+    @Inject
+    lateinit var childFragmentInjector: DispatchingAndroidInjector<Any>
+
     abstract fun providerViewModel(): T
 
     override fun providerContext(): Context?  = context
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,6 +44,10 @@ abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFra
                 ProgressLoading.dismiss()
             }
         })
+    }
+
+    override fun androidInjector(): AndroidInjector<Any>? {
+        return childFragmentInjector
     }
 
     companion object{
