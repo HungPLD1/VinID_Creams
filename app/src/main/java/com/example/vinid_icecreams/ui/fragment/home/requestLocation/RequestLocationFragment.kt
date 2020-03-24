@@ -1,13 +1,8 @@
 package com.example.vinid_icecreams.ui.fragment.home.requestLocation
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +16,8 @@ import com.example.vinid_icecreams.extension.isDeniedPermanently
 import com.example.vinid_icecreams.extension.openPermissionSettings
 import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_request_location.*
 import javax.inject.Inject
 
@@ -37,8 +34,6 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
         ViewModelProviders.of(requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
     }
 
-    private var mLocationManager: LocationManager? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,27 +45,15 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
     override fun providerViewModel(): RequestLocationViewModel = viewModel
 
     override fun setUpUI() {
-        if (!isPermissionGranted()){
+        if (!isPermissionGranted()) {
             setupPermissionGuideline(
                 isDeniedPermanently(Manifest.permission.ACCESS_FINE_LOCATION)
             )
-        }else{
+        } else {
             ProgressLoading.show(context)
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), RC_LOCATION)
         }
 
-    }
-
-    override fun setupViewModel() {
-        super.setupViewModel()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (isPermissionGranted()) { // permission granted -> let's go
-            ProgressLoading.show(context)
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), RC_LOCATION)
-        }
     }
 
     override fun onRequestPermissionsResult(
@@ -82,17 +65,13 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
         if (requestCode == RC_LOCATION && grantResults.isNotEmpty()) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (isAdded) {
-                    try {
-                        ProgressLoading.show(context)
-                        mLocationManager?.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            0L,
-                            0f,
-                            locationListener
-                        )
-                    } catch (ex: SecurityException) {
-                        Log.d("myTag", "Security Exception, no location available")
+                    ProgressLoading.show(context)
+                    val fusedLocationClient: FusedLocationProviderClient? =
+                        LocationServices.getFusedLocationProviderClient(requireActivity())
+                    fusedLocationClient?.lastLocation?.addOnSuccessListener {
+                        homeViewModel.setLocation(it)
                     }
+                    toStore()
                 }
             } else {
                 if (isAdded) {
@@ -126,24 +105,11 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
                 PackageManager.PERMISSION_GRANTED
 
     private fun toStore() {
+        ProgressLoading.dismiss()
         this.findNavController().navigate(R.id.fragmentStore)
     }
 
-    /*define the listener*/
-    private val locationListener: LocationListener = object : LocationListener {
-        @SuppressLint("SetTextI18n")
-        override fun onLocationChanged(location: Location) {
-            homeViewModel.setLocation(location)
-            toStore()
-            ProgressLoading.dismiss()
-        }
-
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-        override fun onProviderEnabled(provider: String) {}
-        override fun onProviderDisabled(provider: String) {}
-    }
-
     companion object {
-        const val RC_LOCATION = 0x111
+        const val RC_LOCATION = 0
     }
 }
