@@ -6,10 +6,10 @@ import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val messageSuccess = MutableLiveData<String>()
-    protected val messageFailed = MutableLiveData<String>()
-    protected val isConnection = MutableLiveData<Boolean>()
-    protected val isLoading = MutableLiveData<Boolean>()
+    val messageSuccess = MutableLiveData<String>()
+    val messageFailed = MutableLiveData<String>()
+    val isConnection = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean>()
 
     protected var compositeDisposable: CompositeDisposable = CompositeDisposable()
 

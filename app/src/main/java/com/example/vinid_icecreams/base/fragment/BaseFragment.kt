@@ -40,7 +40,7 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),
             messageSuccess = it
         })
 
-        viewModel.messageFail.observe(viewLifecycleOwner, Observer {
+        viewModel.messageFailed.observe(viewLifecycleOwner, Observer {
             messageFailed = it
         })
     }
