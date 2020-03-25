@@ -21,7 +21,7 @@ class  Repository @Inject constructor(
     fun callLoginAccount(
         mPhoneNumber: String,
         mPassword: String
-    ): Single<MyResponse<DataUserResponse>>? {
+    ): Single<MyResponse<DataUser>>? {
         return apiService.authenticateAccount(AuthenRequest(mPhoneNumber, mPassword))
             .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
     }
@@ -29,7 +29,7 @@ class  Repository @Inject constructor(
     fun callRegisterAccount(
         mPhoneNumber: String,
         mPassword: String
-    ): Single<MyResponse<DataUserResponse>>? {
+    ): Single<MyResponse<DataUser>>? {
         val body = AuthenRequest(mPhoneNumber, mPassword)
         return apiService.registerAccount(body)
             .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
@@ -54,7 +54,7 @@ class  Repository @Inject constructor(
             .subscribeOn(Schedulers.io())
     }
 
-    fun callPayIceCream(bill: Bill): Single<MyResponse<BillResponse>>? {
+    fun callPayIceCream(bill: Bill): Single<MyResponse<com.example.vinid_icecreams.model.Bill>>? {
         return apiService.payOrderUser(bill)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -72,13 +72,13 @@ class  Repository @Inject constructor(
             .subscribeOn(Schedulers.io())
     }
 
-    fun callRequestDetailsOrder(orderID : Int) :  Single<MyResponse<BillResponse>>?{
+    fun callRequestDetailsOrder(orderID : Int) :  Single<MyResponse<com.example.vinid_icecreams.model.Bill>>?{
         return apiService.getDetailsOrder(orderID)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
     }
 
-    fun callRequestSetRating(ratingRequestBody : RatingRequest) : Single<MyResponse<RatingResponse>>?{
+    fun callRequestSetRating(ratingRequestBody : RatingRequest) : Single<MyResponse<Rating>>?{
         return apiService.setRatingForItem(ratingRequestBody)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -97,6 +97,6 @@ class  Repository @Inject constructor(
     }
 
     fun saveToken (token : String?){
-
+        iLocalDataSource.saveToken(token)
     }
 }

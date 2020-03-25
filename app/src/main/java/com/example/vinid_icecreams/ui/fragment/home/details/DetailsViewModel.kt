@@ -27,12 +27,12 @@ class DetailsViewModel @Inject constructor(
                             _iceCream.value = result.data
                         }
                         else -> {
-                            messageFail.value = result?.meta?.message
+                            messageFailed.value = result?.meta?.message
                         }
                     }
                 }
             }) { error ->
-                messageFail.value = error.toString()
+                messageFailed.value = error.toString()
             }
     }
 }

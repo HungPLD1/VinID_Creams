@@ -18,23 +18,6 @@ import javax.inject.Singleton
 
 @Module
 class ServiceModule {
-
-       @Provides
-       @Singleton
-       fun providerRetrofitBuilder(
-           gSon: Gson,
-           clientBuilder : OkHttpClient.Builder,
-           context: Context
-       ) : APIService {
-           val retrofit = Retrofit.Builder().baseUrl(
-               context.getString(R.string.BASE_URL)
-           ).client(clientBuilder.build())
-               .addCallAdapterFactory(
-                   RxJava2CallAdapterFactory.create()
-               ).addConverterFactory(GsonConverterFactory.create(gSon)).build()
-           return retrofit.create(APIService::class.java)
-       }
-
        @Provides
        @Singleton
        fun providerGsonBuilder(): Gson {

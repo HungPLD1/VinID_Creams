@@ -12,10 +12,10 @@ import retrofit2.http.*
 interface APIService {
 
     @POST("/register")
-    fun registerAccount(@Body body: AuthenRequest): Single<MyResponse<DataUserResponse>>
+    fun registerAccount(@Body body: AuthenRequest): Single<MyResponse<DataUser>>
 
     @POST("/login")
-    fun authenticateAccount(@Body body: AuthenRequest): Single<MyResponse<DataUserResponse>>
+    fun authenticateAccount(@Body body: AuthenRequest): Single<MyResponse<DataUser>>
 
     @GET("/api/stores")
     fun getListStore(): Single<MyResponse<ArrayList<Store>>>
@@ -30,16 +30,16 @@ interface APIService {
     fun getNotification(): Single<MyResponse<ArrayList<Event>>>
 
     @POST("api/orders")
-    fun payOrderUser(@Body body: Bill): Single<MyResponse<BillResponse>>
+    fun payOrderUser(@Body body: Bill): Single<MyResponse<com.example.vinid_icecreams.model.Bill>>
 
     @GET("/api/users/orders")
     fun getOrderUser(): Single<MyResponse<ArrayList<OrderInfor>>>
 
     @GET("/api/orders/{id}")
-    fun getDetailsOrder(@Path ("id") orderID:Int): Single<MyResponse<BillResponse>>
+    fun getDetailsOrder(@Path ("id") orderID:Int): Single<MyResponse<com.example.vinid_icecreams.model.Bill>>
 
     @POST("/api/ratings")
-    fun setRatingForItem(@Body body: RatingRequest): Single<MyResponse<RatingResponse>>
+    fun setRatingForItem(@Body body: RatingRequest): Single<MyResponse<Rating>>
 
     @GET("/api/users/detail")
     fun getUserProfile() : Single<MyResponse<User>>

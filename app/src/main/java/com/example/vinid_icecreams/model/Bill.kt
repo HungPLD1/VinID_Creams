@@ -2,7 +2,7 @@ package com.example.vinid_icecreams.model
 
 import com.google.gson.annotations.SerializedName
 
-data class BillResponse (
+data class Bill (
         @SerializedName("order_info")
         var orderInfo : OrderInfor,
         @SerializedName("items")

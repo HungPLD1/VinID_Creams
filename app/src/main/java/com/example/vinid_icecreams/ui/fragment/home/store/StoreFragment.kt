@@ -68,7 +68,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
             mListStore = data
         })
 
-        storeViewModel.messageFail.observe(viewLifecycleOwner, Observer {
+        storeViewModel.messageFailed.observe(viewLifecycleOwner, Observer {
             showDiaLogFailed(ERROR, it, object : DialogClickListener{
                 override fun onConfirmClickListener() {
 
@@ -111,32 +111,6 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
                 override fun onCancelListener() {
                 }
             })
-        }
-    }
-
-    private fun setLocalName(longitude: Double, latitude: Double) {
-        val geoCoder = Geocoder(context, Locale.getDefault()) //it is Geocoder
-
-        val builder = StringBuilder()
-        try {
-            val mListAddress: List<Address> =
-                geoCoder.getFromLocation(latitude, longitude, 1)
-            val maxLines: Int = mListAddress[0].maxAddressLineIndex
-            for (i in 0 until maxLines) {
-                val addressStr: String = mListAddress[0].getAddressLine(i)
-                builder.append(addressStr)
-                builder.append(" ")
-            }
-            val address = builder.toString() //This is the complete address.
-
-            if (address == "") {
-                txtStoreLocation?.text = resources.getString(R.string.default_city)
-            } else {
-                txtStoreLocation?.text = address
-            }
-            ProgressLoading.dismiss()
-        } catch (e: IOException) {
-        } catch (e: NullPointerException) {
         }
     }
 

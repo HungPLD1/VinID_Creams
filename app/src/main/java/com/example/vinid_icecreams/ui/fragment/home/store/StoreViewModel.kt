@@ -28,7 +28,7 @@ class StoreViewModel @Inject constructor(
                     _listStore.value = result.data
                 }
                 else -> {
-                    messageFail.value = result?.meta?.message
+                    messageFailed.value = result?.meta?.message
                 }
             }
         }) { error ->
@@ -37,7 +37,7 @@ class StoreViewModel @Inject constructor(
                     isConnection.value = false
                 }
                 else -> {
-                    messageFail.value = error.toString()
+                    messageFailed.value = error.toString()
                 }
             }
 

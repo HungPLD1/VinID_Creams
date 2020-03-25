@@ -29,16 +29,16 @@ class LoginViewModel @Inject constructor(
                         }
                         else -> {
                             /*handle login failse*/
-                            messageFail.value = result?.meta?.message
+                            messageFailed.value = result?.meta?.message
                             _isLoginSuccess.value = false
                         }
                     }
             }) { error ->
-                    messageFail.value = error.toString()
+                messageFailed.value = error.toString()
                     _isLoginSuccess.value = false
             }
         } else {
-            messageFail.value = VERIFY_FAIL
+            messageFailed.value = VERIFY_FAIL
             _isLoginSuccess.value = false
             return
         }

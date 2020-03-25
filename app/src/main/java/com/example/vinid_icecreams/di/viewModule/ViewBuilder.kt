@@ -17,7 +17,7 @@ interface ViewBuilder {
     @ContributesAndroidInjector(modules = [ActivityModule::class])
     fun contributeMainActivity(): HomeActivity
 
-    @ContributesAndroidInjector(modules = [LoginActivity::class])
+    @ContributesAndroidInjector(modules = [ActivityModule::class])
     fun contributeLoginActivity(): LoginActivity
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])

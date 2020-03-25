@@ -2,7 +2,7 @@ package com.example.vinid_icecreams.model
 
 import com.google.gson.annotations.SerializedName
 
-data class RatingResponse (
+data class Rating (
     @SerializedName("id")
     var id :Int?,
     @SerializedName("rating_star")
