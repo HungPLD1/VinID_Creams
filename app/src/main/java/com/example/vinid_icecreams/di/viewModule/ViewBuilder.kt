@@ -1,11 +1,14 @@
 package com.example.vinid_icecreams.di.viewModule
 
 import com.example.vinid_icecreams.ui.activity.home.HomeActivity
+import com.example.vinid_icecreams.ui.activity.login.LoginActivity
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsFragment
 import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment
+import com.example.vinid_icecreams.ui.fragment.login.register.RegisterFragment
+import com.facebook.login.LoginFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -13,6 +16,9 @@ import dagger.android.ContributesAndroidInjector
 interface ViewBuilder {
     @ContributesAndroidInjector(modules = [ActivityModule::class])
     fun contributeMainActivity(): HomeActivity
+
+    @ContributesAndroidInjector(modules = [LoginActivity::class])
+    fun contributeLoginActivity(): LoginActivity
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
     fun contributeStoreFragment(): StoreFragment
@@ -28,4 +34,10 @@ interface ViewBuilder {
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
     fun contributeMapFragment(): MapFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributeLoginFragment(): LoginFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributeRegisterFragment(): RegisterFragment
 }

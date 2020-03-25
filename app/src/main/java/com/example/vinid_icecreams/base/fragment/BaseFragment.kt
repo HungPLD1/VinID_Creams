@@ -16,6 +16,10 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),
 
     override fun providerContext(): Context?  = context
 
+    protected var messageSuccess : String? = null
+
+    protected var messageFailed :String? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpUI()
@@ -30,6 +34,14 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),
             } else {
                 ProgressLoading.dismiss()
             }
+        })
+
+        viewModel.messageSuccess.observe(viewLifecycleOwner, Observer {
+            messageSuccess = it
+        })
+
+        viewModel.messageFail.observe(viewLifecycleOwner, Observer {
+            messageFailed = it
         })
     }
 

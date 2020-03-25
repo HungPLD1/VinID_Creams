@@ -3,13 +3,17 @@ package com.example.vinid_icecreams.di.viewModelModule
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
+import com.example.vinid_icecreams.ui.activity.login.LoginMainViewModel
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsViewModel
 import com.example.vinid_icecreams.ui.fragment.home.map.MapViewModel
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationViewModel
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingViewModel
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreViewModel
+import com.example.vinid_icecreams.ui.fragment.login.login.LoginViewModel
+import com.example.vinid_icecreams.ui.fragment.login.register.RegisterViewModel
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.facebook.login.LoginFragment
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -68,5 +72,26 @@ interface ViewModelModule {
     @ViewModelKey(MapViewModel::class)
     fun binDataMapViewModel(
         dataViewModel: MapViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginMainViewModel::class)
+    fun binLoginMainViewModel(
+        dataViewModel: LoginMainViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginViewModel::class)
+    fun binLoginViewModel(
+        dataViewModel: LoginViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RegisterViewModel::class)
+    fun binRegisterViewModel(
+        dataViewModel: RegisterViewModel
     ): ViewModel
 }

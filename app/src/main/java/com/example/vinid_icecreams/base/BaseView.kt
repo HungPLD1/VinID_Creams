@@ -44,8 +44,8 @@ interface BaseView {
     }
 
     fun showDialogSuccess(
-        title: String,
-        messageSuccess: String
+        title: String?,
+        messageSuccess: String?
     ) {
         ProgressLoading.dismiss()
         KAlertDialog(providerContext(), KAlertDialog.SUCCESS_TYPE)
@@ -54,9 +54,9 @@ interface BaseView {
             .show()
     }
 
-    fun showDiaLogFail(
-        title: String,
-        messageFail: String
+    fun showDiaLogFailed(
+        title: String?,
+        messageFail: String?
     ) {
         ProgressLoading.dismiss()
         KAlertDialog(providerContext(), KAlertDialog.ERROR_TYPE)
@@ -65,7 +65,7 @@ interface BaseView {
             .show()
     }
 
-    fun showDiaLogFail(
+    fun showDiaLogFailed(
         title: String,
         messageFail: String,
         listener : DialogClickListener

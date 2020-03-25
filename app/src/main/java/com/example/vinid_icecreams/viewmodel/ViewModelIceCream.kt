@@ -23,10 +23,8 @@ class ViewModelIceCream @Inject constructor(
     var mListItemOrder = MutableLiveData<ArrayList<ItemOrder>>()
     var mUser = MutableLiveData<User>()
 
-    var mIsRequestLogin = MutableLiveData<Boolean>()
     var mIsRequestRegister = MutableLiveData<Boolean>()
     var mIsPayment = MutableLiveData<Boolean>()
-    var mToken = MutableLiveData<String>()
     var mIsRating = MutableLiveData<Boolean>()
     var mIsChargePoint = MutableLiveData<Boolean>()
 
@@ -37,76 +35,7 @@ class ViewModelIceCream @Inject constructor(
     companion object {
         val TAG = ViewModelIceCream::class.java.name
         const val CODE_200 = 200
-        const val VERIFY_FAIL = "Vui lòng kiểm tra lại thông tin"
-        const val REGISTER_FAIL = "Đăng ký không thành công"
-    }
 
-    @SuppressLint("CheckResult")
-    fun handleRegister(phoneNumber: String, password: String, passwordRepeat: String) {
-        if (checkPhoneNumber(phoneNumber) && handleComparedPassword(password, passwordRepeat)) {
-            repository.callRegisterAccount(phoneNumber, password)?.subscribe({ result ->
-                run {
-                    Log.d(TAG, result.meta?.code.toString())
-                    when (result.meta?.code) {
-                        CODE_200 -> {
-                            mMessageSuccess.postValue(result?.meta?.message)
-                            mIsRequestRegister.postValue(true)
-                            /*post token*/
-                            mToken.postValue(result.data?.token)
-                        }
-                        else -> {
-                            mMessageFail.postValue(result?.meta?.message)
-                            mIsRequestRegister.postValue(false)
-                        }
-                    }
-                }
-            }) { error ->
-                run {
-                    Log.d(TAG, error.toString())
-                    mMessageFail.postValue(error.toString())
-                    mIsRequestRegister.postValue(false)
-                }
-            }
-        } else {
-            mMessageFail.postValue(REGISTER_FAIL)
-            mIsRequestRegister.postValue(false)
-            return
-        }
-    }
-
-
-    @SuppressLint("CheckResult")
-    fun handleLogin(phoneNumber: String, password: String) {
-        if (checkPhoneNumber(phoneNumber) && checkPassWord(password)) {
-            repository.callLoginAccount(phoneNumber, password)?.subscribe({ result ->
-                run {
-                    when (result.meta?.code) {
-                        CODE_200 -> {
-                            /*post data to view */
-                            mMessageSuccess.postValue(result?.meta?.message)
-                            mIsRequestLogin.postValue(true)
-                            /*post token*/
-                            mToken.postValue(result.data?.token)
-                            Log.d(TAG, result.data?.token.toString())
-                        }
-                        else -> {
-                            /*handle login failse*/
-                            mMessageFail.postValue(result?.meta?.message)
-                            mIsRequestLogin.postValue(false)
-                        }
-                    }
-                }
-            }) { error ->
-                run {
-                    mMessageFail.postValue(error.toString())
-                    mIsRequestLogin.postValue(false)
-                }
-            }
-        } else {
-            mMessageFail.postValue(VERIFY_FAIL)
-            mIsRequestLogin.postValue(false)
-            return
-        }
     }
 
     @SuppressLint("CheckResult")
@@ -255,36 +184,5 @@ class ViewModelIceCream @Inject constructor(
                 mMessageFail.postValue(error.toString())
             }
         }
-    }
-
-
-    private fun checkPhoneNumber(phoneNumber: String): Boolean {
-        if (phoneNumber.isEmpty()) {
-            return false
-        }
-        return android.util.Patterns.PHONE.matcher(phoneNumber).matches()
-    }
-
-    private fun checkPassWord(password: String): Boolean {
-        if (password.isEmpty()) {
-            return false
-        }
-
-        return password.length >= 8
-    }
-
-    private fun handleComparedPassword(password: String, passwordRepeat: String): Boolean {
-        if (password.isEmpty() || passwordRepeat.isEmpty()) {
-            return false
-        }
-        if (password.length < 8 || passwordRepeat.length < 8) {
-            return false
-        }
-        return password == passwordRepeat
-    }
-
-    override fun onCleared() {
-        compositeDisposable.clear()
-        super.onCleared()
     }
 }

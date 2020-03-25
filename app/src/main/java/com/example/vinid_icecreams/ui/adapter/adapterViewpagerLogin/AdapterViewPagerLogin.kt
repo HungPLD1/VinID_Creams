@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.example.vinid_icecreams.ui.fragment.login.FragmentLogin
-import com.example.vinid_icecreams.ui.fragment.login.FragmentRegister
+import com.example.vinid_icecreams.ui.fragment.login.login.LoginFragment
+import com.example.vinid_icecreams.ui.fragment.login.register.RegisterFragment
 
 class AdapterViewPagerLogin(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
@@ -21,8 +21,8 @@ class AdapterViewPagerLogin(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         when(position){
-            0 -> return FragmentLogin()
-            1 -> return FragmentRegister()
+            0 -> return LoginFragment()
+            1 -> return RegisterFragment()
         }
         return Fragment()
     }

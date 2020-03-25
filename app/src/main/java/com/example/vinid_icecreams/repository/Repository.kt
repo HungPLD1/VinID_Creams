@@ -95,4 +95,8 @@ class  Repository @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
     }
+
+    fun saveToken (token : String?){
+
+    }
 }

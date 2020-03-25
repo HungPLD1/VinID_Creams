@@ -69,7 +69,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         })
 
         storeViewModel.messageFail.observe(viewLifecycleOwner, Observer {
-            showDiaLogFail(ERROR, it, object : DialogClickListener{
+            showDiaLogFailed(ERROR, it, object : DialogClickListener{
                 override fun onConfirmClickListener() {
 
                     //storeViewModel.getListStore()
