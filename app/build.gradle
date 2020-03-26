@@ -8,6 +8,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'androidx.navigation.safeargs'
 
+apply plugin: 'realm-android'
+
 kapt {
     correctErrorTypes = true
 }
@@ -153,4 +155,7 @@ dependencies {
 
     //map
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
+    //realm
+    implementation 'io.realm:android-adapters:2.0.0'
 }

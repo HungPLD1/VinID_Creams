@@ -18,7 +18,8 @@ import javax.inject.Singleton
 @Module(
     includes = [
         ServiceModule::class
-        , RealmModule::class])
+        , LocalModule::class]
+)
 class RepoModule {
 
     @Singleton
@@ -34,9 +35,9 @@ class RepoModule {
     @Singleton
     fun providerRetrofitBuilder(
         gSon: Gson,
-        clientBuilder : OkHttpClient.Builder,
+        clientBuilder: OkHttpClient.Builder,
         context: Context
-    ) : APIService {
+    ): APIService {
         val retrofit = Retrofit.Builder().baseUrl(
             context.getString(R.string.BASE_URL)
         ).client(clientBuilder.build())
@@ -48,7 +49,9 @@ class RepoModule {
 
     @Singleton
     @Provides
-    fun providerLocalDataSource(localDataSource: LocalDataSource): ILocalDataSource {
+    fun providerLocalDataSource(
+        localDataSource: LocalDataSource
+    ): ILocalDataSource {
         return localDataSource
     }
 }
