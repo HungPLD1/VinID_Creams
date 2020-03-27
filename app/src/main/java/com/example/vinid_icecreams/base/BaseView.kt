@@ -3,13 +3,18 @@ package com.example.vinid_icecreams.base
 import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
+import android.view.View
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.utils.ProgressLoading
 
 interface BaseView {
     fun providerContext() : Context?
 
-    fun setUpUI()
+    fun provideRootView(): View?
+
+    fun setUpUI(){
+        provideRootView()?.setOnClickListener(null)
+    }
 
     fun setupViewModel()
 

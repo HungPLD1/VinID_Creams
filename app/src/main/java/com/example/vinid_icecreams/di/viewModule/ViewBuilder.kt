@@ -7,8 +7,8 @@ import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment
+import com.example.vinid_icecreams.ui.fragment.login.login.LoginFragment
 import com.example.vinid_icecreams.ui.fragment.login.register.RegisterFragment
-import com.facebook.login.LoginFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

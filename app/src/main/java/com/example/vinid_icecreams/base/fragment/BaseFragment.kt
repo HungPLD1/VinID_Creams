@@ -16,6 +16,8 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),
 
     override fun providerContext(): Context?  = context
 
+    override fun provideRootView(): View?  =  view
+
     protected var messageSuccess : String? = null
 
     protected var messageFailed :String? = null

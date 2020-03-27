@@ -2,6 +2,7 @@ package com.example.vinid_icecreams.ui.activity.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity<LoginMainViewModel>() {
-    private var  mAdapterViewPagerIndicator : AdapterViewPagerIndicator? = null
+    private var mAdapterViewPagerIndicator: AdapterViewPagerIndicator? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -34,28 +35,34 @@ class LoginActivity : BaseActivity<LoginMainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-    }
-
-    override fun setUpUI() {
         checkIsLogin()
         setFlagFullScreen()
         setupViewIndicator()
     }
 
+    override fun provideRootView(): View? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun checkIsLogin() {
-        CommonUtils.token = CommonUtils.instace.getPrefContent(this,CommonUtils.TOKEN) as String
-        if (CommonUtils.token.isNotEmpty()){
-            startActivity(Intent(this,
-                HomeActivity::class.java))
+        CommonUtils.token = CommonUtils.instace.getPrefContent(this, CommonUtils.TOKEN) as String
+        if (CommonUtils.token.isNotEmpty()) {
+            startActivity(
+                Intent(
+                    this,
+                    HomeActivity::class.java
+                )
+            )
             finish()
         }
     }
 
     private fun setupViewIndicator() {
-        if (mAdapterViewPagerIndicator == null){
-            mAdapterViewPagerIndicator = AdapterViewPagerIndicator(supportFragmentManager,getListFragmentIndicator())
-            login_view_pager.adapter = mAdapterViewPagerIndicator
-            login_dots_indicator.setViewPager(login_view_pager)
+        if (mAdapterViewPagerIndicator == null) {
+            mAdapterViewPagerIndicator =
+                AdapterViewPagerIndicator(supportFragmentManager, getListFragmentIndicator())
+            loginViewPager.adapter = mAdapterViewPagerIndicator
+            loginDotsIndicator.setViewPager(loginViewPager)
         }
     }
 
@@ -81,7 +88,7 @@ class LoginActivity : BaseActivity<LoginMainViewModel>() {
         )
     }
 
-    companion object{
+    companion object {
         private var LOG = LoginActivity::class.java.name
         private var REFERENCE = "com.example.vinid_icecreams"
     }

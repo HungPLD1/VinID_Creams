@@ -17,6 +17,7 @@
 package com.example.vinid_icecreams.ui.activity.home
 
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
@@ -57,9 +58,6 @@ class HomeActivity : BaseActivity<HomeViewModel>() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         setupBottomNavigationBar()
-    }
-
-    override fun setUpUI() {
     }
 
     override fun setupViewModel() {

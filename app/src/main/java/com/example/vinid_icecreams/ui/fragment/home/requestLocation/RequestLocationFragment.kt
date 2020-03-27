@@ -99,6 +99,16 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (isPermissionGranted()){
+            toStore()
+        }else{
+            ProgressLoading.show(context)
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), RC_LOCATION)
+        }
+    }
+
     private fun isPermissionGranted(): Boolean =
         ContextCompat.checkSelfPermission(requireContext()
             , Manifest.permission.ACCESS_FINE_LOCATION) ==

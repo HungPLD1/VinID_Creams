@@ -8,13 +8,13 @@
     tools:context=".ui.activity.login.LoginActivity">
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/login_view_pager"
+        android:id="@+id/loginViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
 
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/login_dots_indicator"
+        android:id="@+id/loginDotsIndicator"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
         app:dotsSpacing="10dp"

@@ -1,7 +1,7 @@
 package com.example.vinid_icecreams.base.activity
 
 import android.content.Context
-import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import com.example.vinid_icecreams.base.BaseView
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
@@ -13,11 +13,7 @@ abstract class BaseActivity<T : BaseViewModel> : DaggerAppCompatActivity(),BaseV
 
     override fun providerContext(): Context?  = this
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setUpUI()
-        setupViewModel()
-    }
+    override fun provideRootView(): View?  =  findViewById(android.R.id.content)
 
     override fun setupViewModel() {
         val viewModel = providerViewModel()
