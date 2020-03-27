@@ -24,6 +24,7 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.ui.adapter.adapterOrder.AdapterOrder
 import com.example.vinid_icecreams.ui.adapter.adapterOrder.OnItemOrderListener
 import com.example.vinid_icecreams.ui.fragment.home.pay.FragmentPay
+import com.example.vinid_icecreams.utils.Const
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.fragment_cart.btnCartPayment
 
@@ -150,7 +151,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     //handle request permission
     private fun handleRequestPermission() {
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-        requestPermissions(permissions, CommonUtils.instace.REQUEST_CODE_PEMISSION)
+        requestPermissions(permissions, Const.REQUEST_CODE_PEMISSION)
     }
 
 
@@ -161,7 +162,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            CommonUtils.instace.REQUEST_CODE_PEMISSION -> {
+            Const.REQUEST_CODE_PEMISSION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                    ProgressLoading.show(context)
                     handleGetLocation()

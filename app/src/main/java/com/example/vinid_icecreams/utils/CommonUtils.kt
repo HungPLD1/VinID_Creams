@@ -25,7 +25,6 @@ import kotlin.math.sqrt
 
 class CommonUtils {
     val TAG = "Hungpld"
-    val REQUEST_CODE_PEMISSION = 0
 
 
     companion object {

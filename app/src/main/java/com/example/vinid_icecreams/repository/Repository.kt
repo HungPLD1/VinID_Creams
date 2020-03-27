@@ -99,4 +99,8 @@ class  Repository @Inject constructor(
     fun saveToken (token : String?){
         iLocalDataSource.saveToken(token)
     }
+
+    fun getToken ():String?{
+        return iLocalDataSource.getToken()
+    }
 }

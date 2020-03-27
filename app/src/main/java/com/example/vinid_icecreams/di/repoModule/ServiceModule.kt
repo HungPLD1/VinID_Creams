@@ -1,22 +1,19 @@
 package com.example.vinid_icecreams.di.repoModule
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.repository.remote.APIService
-import com.example.vinid_icecreams.utils.CommonUtils
+import com.example.vinid_icecreams.utils.Const
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [LocalModule::class])
 class ServiceModule {
        @Provides
        @Singleton
@@ -30,7 +27,8 @@ class ServiceModule {
        @Provides
        @Singleton
        fun providerHttpClientBuilder(
-           context: Context
+           context: Context,
+           sharedPref : SharedPreferences
        ): OkHttpClient.Builder {
            val httpClient = OkHttpClient.Builder()
            httpClient.readTimeout(10, TimeUnit.SECONDS)
@@ -42,7 +40,7 @@ class ServiceModule {
                    chain.request().newBuilder()
                        .addHeader(context.getString(R.string.TOKEN)
                            ,context.getString(R.string.PREFIX)
-                                   + CommonUtils.token).build()
+                                   + sharedPref.getString(Const.TOKEN,null)).build()
                chain.proceed(request)
            }
            return httpClient
