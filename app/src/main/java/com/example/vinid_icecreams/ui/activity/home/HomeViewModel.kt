@@ -13,8 +13,7 @@ class HomeViewModel @Inject constructor(
     private val repository: Repository
 ) : BaseViewModel() {
 
-    private val _listOrder = MutableLiveData<ArrayList<Order>>()
-    val listOrder: LiveData<ArrayList<Order>> get() = _listOrder
+    private var listOrder = ArrayList<Order>()
 
     private val _totalPayment = MutableLiveData<Int>()
     val totalPayment: LiveData<Int> get() = _totalPayment
@@ -26,17 +25,19 @@ class HomeViewModel @Inject constructor(
     private var currentLocation : Location? = null
 
     fun addOrder(order: Order) {
-        if (_listOrder.value?.size!! > 0) {
-            val i = _listOrder.value?.size!! - 1
-            if (order.mIceCream.id == _listOrder.value!![i].mIceCream.id) {
-                listOrder.value!![i].mAmount += 1
+        if (listOrder.size > 0) {
+            val i = listOrder.size!! - 1
+            if (order.mIceCream.id == listOrder[i].mIceCream.id) {
+                listOrder[i].mAmount += 1
             } else {
-                listOrder.value?.add(order)
+                listOrder.add(order)
             }
         } else {
-            listOrder.value?.add(order)
+            listOrder.add(order)
         }
     }
+
+    fun getListOrder(): ArrayList<Order> = listOrder
 
     fun setOrderPayment(total: Int){
         _totalPayment.value = total

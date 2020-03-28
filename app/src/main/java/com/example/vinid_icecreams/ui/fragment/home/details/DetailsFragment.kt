@@ -17,6 +17,7 @@ import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.Comment
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
+import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -29,6 +30,10 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
 
     private val detailsViewModel: DetailsViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(DetailsViewModel::class.java)
+    }
+
+    private val homeViewModel : HomeViewModel by lazy {
+        ViewModelProviders.of(requireActivity(),viewModelFactory).get(HomeViewModel::class.java)
     }
 
     private val detailController: DetailsController by lazy { DetailsController() }
@@ -64,6 +69,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
         super.setupViewModel()
         detailsViewModel.iceCream.observe(viewLifecycleOwner, Observer { data ->
             iceCream = data
+            setUpUI()
         })
         getDetailsIceCream()
     }
@@ -102,11 +108,11 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
     }
 
     private fun setupImagePager() {
-        val mListImage = ArrayList<String>()
-        iceCream?.image_paths?.let { mListImage.addAll(it) }
-        val mAdapterViewPagerIndicatorAd =
-            AdapterViewPagerIndiCatorDetails(requireContext(), mListImage)
-        viewPagerDetails!!.adapter = mAdapterViewPagerIndicatorAd
+        val listImage = ArrayList<String>()
+        iceCream?.image_paths?.let { listImage.addAll(it) }
+        val mAdapterViewPagerIndicatorAd
+                = AdapterViewPagerIndiCatorDetails(requireContext(), listImage)
+        viewPagerDetails?.adapter = mAdapterViewPagerIndicatorAd
         dotsIndicatorDetails?.setViewPager(viewPagerDetails!!)
 
     }
@@ -128,7 +134,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
                     sendOrderToCart()
                 }
                 R.id.btnDetailsCart -> {
-                    if (CommonUtils.instace.getOrderList()!!.size > 0) {
+                    if (homeViewModel.getListOrder().size > 0) {
                         findNavController().navigate(R.id.fragmentCart)
                     } else {
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)
@@ -145,6 +151,6 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
 
     private fun sendOrderToCart() {
         val order = Order(iceCream!!, 1, 0)
-        CommonUtils.instace.setOrderToList(order)
+        homeViewModel.addOrder(order)
     }
 }

@@ -19,9 +19,10 @@ class DetailsViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun getDetailsIceCream(iceCreamID: Int) {
-        repository.callRequestDetailsIceCream(iceCreamID)?.doOnSubscribe { isLoading.value = true }
-            ?.doAfterTerminate { isLoading.value = false }?.subscribe({ result ->
-                run {
+        repository.callRequestDetailsIceCream(iceCreamID)
+            ?.doOnSubscribe { isLoading.value = true }
+            ?.doAfterTerminate { isLoading.value = false }
+            ?.subscribe({ result ->
                     when (result.meta?.code) {
                         ViewModelIceCream.CODE_200 -> {
                             _iceCream.value = result.data
@@ -30,7 +31,6 @@ class DetailsViewModel @Inject constructor(
                             messageFailed.value = result?.meta?.message
                         }
                     }
-                }
             }) { error ->
                 messageFailed.value = error.toString()
             }
