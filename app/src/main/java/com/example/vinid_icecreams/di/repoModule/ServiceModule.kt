@@ -39,7 +39,7 @@ class ServiceModule {
                val request: Request =
                    chain.request().newBuilder()
                        .addHeader(context.getString(R.string.TOKEN)
-                           ,context.getString(R.string.PREFIX)
+                           ,context.getString(R.string.PREFIX)+" "
                                    + sharedPref.getString(Const.TOKEN,null)).build()
                chain.proceed(request)
            }
