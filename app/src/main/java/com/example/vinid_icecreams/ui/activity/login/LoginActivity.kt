@@ -2,15 +2,14 @@ package com.example.vinid_icecreams.ui.activity.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.base.activity.BaseActivity
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.ui.activity.home.HomeActivity
-import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterViewPagerIndicator
 import com.example.vinid_icecreams.ui.fragment.login.listFragmentViewIndicator.FragmentFirstIndicator
 import com.example.vinid_icecreams.ui.fragment.login.listFragmentViewIndicator.FragmentLastIndicator
@@ -35,26 +34,19 @@ class LoginActivity : BaseActivity<LoginMainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        checkIsLogin()
+        observeData()
         setFlagFullScreen()
         setupViewIndicator()
     }
 
-    override fun provideRootView(): View? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    private fun checkIsLogin() {
-        CommonUtils.token = CommonUtils.instace.getPrefContent(this, CommonUtils.TOKEN) as String
-        if (CommonUtils.token.isNotEmpty()) {
-            startActivity(
-                Intent(
-                    this,
-                    HomeActivity::class.java
-                )
-            )
-            finish()
-        }
+    private fun observeData() {
+        loginMainViewModel.isHaveToken.observe(this, Observer {
+            if (it) {
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            }
+        })
+        loginMainViewModel.checkIsLogin()
     }
 
     private fun setupViewIndicator() {

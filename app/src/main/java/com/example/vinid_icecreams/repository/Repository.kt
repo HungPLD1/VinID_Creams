@@ -11,6 +11,7 @@ import com.example.vinid_icecreams.repository.remote.MyResponse
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 class  Repository @Inject constructor(
@@ -97,6 +98,7 @@ class  Repository @Inject constructor(
     }
 
     fun saveToken (token : String?){
+        Timber.d(token)
         iLocalDataSource.saveToken(token)
     }
 

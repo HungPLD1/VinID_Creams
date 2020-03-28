@@ -78,6 +78,8 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
                     setupPermissionGuideline(
                         isDeniedPermanently(Manifest.permission.ACCESS_FINE_LOCATION)
                     )
+                }else{
+                    activity?.finish()
                 }
             }
         }

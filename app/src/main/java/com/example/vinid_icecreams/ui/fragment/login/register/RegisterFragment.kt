@@ -36,7 +36,6 @@ class RegisterFragment : BaseFragment<RegisterViewModel>(),View.OnClickListener 
 
     override fun setupViewModel() {
         super.setupViewModel()
-        handleRegister()
         viewModel.isRegisterSuccess.observe(viewLifecycleOwner, Observer {
             if (it){
                 registerSuccess()
