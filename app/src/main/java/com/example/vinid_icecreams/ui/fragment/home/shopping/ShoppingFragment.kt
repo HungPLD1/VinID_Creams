@@ -58,6 +58,11 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
         initView()
         setupBackDevice()
         setUpSpinnerFilter()
+        setUpSearchView()
+    }
+
+    private fun setUpSearchView() {
+        svShoppingIcecream.setOnQueryTextListener(this)
     }
 
     override fun setupViewModel() {

@@ -41,9 +41,7 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
 
     override fun setUpUI() {
         super.setUpUI()
-        setupPermissionGuideline(
-            isDeniedPermanently(Manifest.permission.ACCESS_FINE_LOCATION)
-        )
+        setupPermissionGuideline(false)
     }
 
     override fun onRequestPermissionsResult(
@@ -63,19 +61,20 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
                     setupPermissionGuideline(
                         isDeniedPermanently(Manifest.permission.ACCESS_FINE_LOCATION)
                     )
-                }else{
+                } else {
                     activity?.finish()
                 }
             }
         }
     }
 
-    private fun getLocation(){
+    private fun getLocation() {
         ProgressLoading.show(context)
         val fusedLocationClient: FusedLocationProviderClient? =
             LocationServices.getFusedLocationProviderClient(requireActivity())
         fusedLocationClient?.lastLocation?.addOnSuccessListener {
             viewModel.saveLocation(it)
+            ProgressLoading.dismiss()
         }
     }
 
@@ -97,20 +96,18 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
 
     override fun onResume() {
         super.onResume()
-        if (viewModel.getLocation() != null){
+        if (isPermissionGranted()) {
+            getLocation()
             toStore()
-        }else{
-            if (isPermissionGranted()){
-                getLocation()
-                toStore()
-            }
         }
     }
 
+
     private fun isPermissionGranted(): Boolean =
-        ContextCompat.checkSelfPermission(requireContext()
-            , Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED
+        ContextCompat.checkSelfPermission(
+            requireContext()
+            , Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
 
     private fun toStore() {
         ProgressLoading.dismiss()

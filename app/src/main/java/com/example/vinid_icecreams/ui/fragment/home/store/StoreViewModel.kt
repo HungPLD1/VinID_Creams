@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
+import com.example.vinid_icecreams.repository.remote.MyResponse
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import timber.log.Timber
+import java.net.CacheResponse
 import java.net.ConnectException
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -27,12 +29,13 @@ class StoreViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getListStore() {
         repository.callRequestListStore()
+            ?.map { response ->  mapSortStore(response)}
             ?.doOnSubscribe { isLoading.value = true }
-            ?.doFinally { isLoading.value = false }?.subscribe({ result ->
-                Timber.d(result.toString())
+            ?.doFinally { isLoading.value = false }
+            ?.subscribe({ result ->
                 when (result.meta?.code) {
                     ViewModelIceCream.CODE_200 -> {
-                        _listStore.value = result.data?.let { mapSortStore(it) }
+                        _listStore.value = result?.data
                     }
                     else -> {
                         messageFailed.value = result?.meta?.message
@@ -51,11 +54,10 @@ class StoreViewModel @Inject constructor(
             }
     }
 
-    @SuppressLint("LogNotTimber")
-    private fun mapSortStore(arrStore: ArrayList<Store>): ArrayList<Store> {
+    private fun mapSortStore(response : MyResponse<ArrayList<Store>>): MyResponse<ArrayList<Store>> {
         val currentLocation = repository.getLocation()
         if (currentLocation != null) {
-            arrStore.forEach { store ->
+            response.data?.forEach { store ->
                 val range = calculationByDistance(
                     currentLocation.latitude
                     , currentLocation.longitude
@@ -67,7 +69,8 @@ class StoreViewModel @Inject constructor(
         } else {
             messageFailed.value = "K xác định được vị trí của bạn"
         }
-        return sortList(arrStore)
+        response.data = response.data?.let { sortList(it) }
+        return response
     }
 
     /*fun get rage of two point*/
