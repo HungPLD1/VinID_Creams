@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentCart"
-        android:name="com.example.vinid_icecreams.ui.fragment.home.cart.FragmentCart"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.cart.CartFragment"
         android:label="FragmentCart">
         <action
             android:id="@+id/action_fragmentCart_to_fragmentPay"

@@ -18,24 +18,24 @@ import java.text.DecimalFormat
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class StoreHolderView @JvmOverloads constructor(
     context: Context,
-    attrs : AttributeSet? = null,
-    defStyle : Int = 0
-):LinearLayout(context,attrs,defStyle){
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+) : LinearLayout(context, attrs, defStyle) {
 
-    var onClickStoreListener : ((View?) -> Unit)? = null
-    @CallbackProp set
+    var onClickStoreListener: ((View?) -> Unit)? = null
+        @CallbackProp set
 
-    var store : Store? = null
-    @ModelProp set
+    var store: Store? = null
+        @ModelProp set
 
     init {
-        View.inflate(context, R.layout.raw_layout_store,this)
+        View.inflate(context, R.layout.raw_layout_store, this)
         orientation = VERTICAL
     }
 
     @SuppressLint("SetTextI18n")
     @AfterPropsSet
-    fun bind(){
+    fun bind() {
         txtNameStore?.text = store?.name
         txtStoreAddress.text = store?.address
         Picasso.with(context).load(store?.imagePath)
@@ -44,7 +44,7 @@ class StoreHolderView @JvmOverloads constructor(
             .into(imgStore)
 
         /*set store ranger*/
-        if (store?.range != 0.0){
+        if (store?.range != 0.0) {
             val newFormat = DecimalFormat("###.#")
             val rangeInDec: String = String.format(newFormat.format(store?.range))
             txtStoreRange?.text = "Cách $rangeInDec km"
@@ -56,7 +56,7 @@ class StoreHolderView @JvmOverloads constructor(
         }
     }
 
-    companion object{
+    companion object {
         var TAG = StoreHolderView::class.java.name
     }
 }

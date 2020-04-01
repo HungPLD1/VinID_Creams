@@ -54,6 +54,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
     }
 
     override fun setUpUI(){
+        super.setUpUI()
         mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         imgStoreLocation?.setOnClickListener(this)
         setupViewIndicatorAd()
@@ -71,8 +72,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         storeViewModel.messageFailed.observe(viewLifecycleOwner, Observer {
             showDiaLogFailed(ERROR, it, object : DialogClickListener{
                 override fun onConfirmClickListener() {
-
-                    //storeViewModel.getListStore()
+                    storeViewModel.getListStore()
                 }
                 override fun onCancelListener() {
                 }

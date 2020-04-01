@@ -105,4 +105,10 @@ class  Repository @Inject constructor(
     fun getToken ():String?{
         return iLocalDataSource.getToken()
     }
+
+    fun saveListOrder(listOrder: ArrayList<Order>) {
+        iLocalDataSource.saveListOrder(listOrder)
+    }
+
+    fun getListOrder() = iLocalDataSource.getListOrder()
 }

@@ -10,39 +10,60 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.base.fragment.BaseFragment
+import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.repository.remote.requestBody.Coordinates
 import com.example.vinid_icecreams.repository.remote.requestBody.Bill
 import com.example.vinid_icecreams.repository.remote.requestBody.Item
 import com.example.vinid_icecreams.model.Order
+import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.example.vinid_icecreams.ui.adapter.adapterOrder.AdapterOrder
-import com.example.vinid_icecreams.ui.adapter.adapterOrder.OnItemOrderListener
 import com.example.vinid_icecreams.ui.fragment.home.pay.FragmentPay
+import com.example.vinid_icecreams.ui.fragment.home.store.StoreController
 import com.example.vinid_icecreams.utils.Const
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.fragment_cart.btnCartPayment
+import javax.inject.Inject
 
-class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
-    private var mLocationManager: LocationManager? = null
+class CartFragment : BaseFragment<CartViewModel>()
+    , View.OnClickListener {
 
-    private var mAdapterOrder: AdapterOrder? = null
-    private var mListOrder: ArrayList<Order>? = null
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    override fun providerViewModel(): CartViewModel = viewModel
+
+    private val viewModel: CartViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(CartViewModel::class.java)
+    }
+
+    private val mainViewModel: HomeViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
+    }
+
+    private val cartController: CartController by lazy {
+        CartController(
+            mainViewModel,
+            ::showDialog,
+            ::showTotalPrice
+        )
+    }
+
+    private var locationManager: LocationManager? = null
+
+    private var listOrder: ArrayList<Order>? = null
     private var mStoreSelected = CommonUtils.instace.getStoreSelected()
 
-    private var addressBill  : Coordinates? = null
-    private var totalBill : Int? = null
+    private var addressBill: Coordinates? = null
+    private var totalBill: Int? = null
     private var listItemBill = ArrayList<Item>()
-    private var bill : Bill? = null
+    private var bill: Bill? = null
 
-    companion object{
-        var TAG = FragmentCart::class.java.name
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,11 +73,13 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
+    override fun setUpUI() {
+        super.setUpUI()
         setupBackDevice()
-        setupListOrder()
+        setupRecycleView()
+        locationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        imgCartBack?.setOnClickListener(this)
+        btnCartPayment?.setOnClickListener(this)
     }
 
     private fun setupBackDevice() {
@@ -65,22 +88,17 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         }
     }
 
-    private fun setupListOrder() {
-        mListOrder = CommonUtils.instace.getOrderList()
-        if (mListOrder != null) {
-            mAdapterOrder = AdapterOrder(context, mListOrder!!, this)
-            rcvCartOrder?.layoutManager = LinearLayoutManager(context)
-            rcvCartOrder?.adapter = mAdapterOrder
+    private fun setupRecycleView() {
+        rcvCartOrder.run {
+            setItemSpacingDp(3)
+            setController(cartController)
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun initView() {
-        mLocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-
-
-        imgCartBack?.setOnClickListener(this)
-        btnCartPayment?.setOnClickListener(this)
+    override fun setupViewModel() {
+        super.setupViewModel()
+        listOrder = mainViewModel.getListOrder()
+        cartController.listOrder = listOrder
     }
 
     override fun onClick(view: View?) {
@@ -94,7 +112,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
                         showDiaLogPay()
                     } else {
                         if (CommonUtils.instace.checkPermission(
-                                context!!,
+                                requireContext(),
                                 Manifest.permission.ACCESS_FINE_LOCATION
                             )
                         ) {
@@ -112,8 +130,8 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
 
     @SuppressLint("MissingPermission")
     private fun handleGetLocation() {
-        val location = mLocationManager?.getLastKnownLocation( LocationManager.NETWORK_PROVIDER)
-        if (location != null){
+        val location = locationManager?.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+        if (location != null) {
             addressBill = Coordinates(
                 location.latitude,
                 location.longitude
@@ -128,7 +146,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
             CommonUtils.instace.saveStoreSelected(mStoreSelected!!)
             showDiaLogPay()
             ProgressLoading.dismiss()
-        }else{
+        } else {
             ProgressLoading.dismiss()
             KAlertDialog(activity, KAlertDialog.WARNING_TYPE)
                 .setTitleText("Location error")
@@ -137,23 +155,11 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         }
     }
 
-    override fun onReturn() {
-        activity?.onBackPressed()
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun showTotal(total: Int) {
-        totalBill = total
-        CommonUtils.instace.setTotalPayment(total)
-        txtCartTotalPayment?.text = "$total $"
-    }
-
     //handle request permission
     private fun handleRequestPermission() {
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
         requestPermissions(permissions, Const.REQUEST_CODE_PEMISSION)
     }
-
 
 
     override fun onRequestPermissionsResult(
@@ -164,7 +170,7 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
         when (requestCode) {
             Const.REQUEST_CODE_PEMISSION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                   ProgressLoading.show(context)
+                    ProgressLoading.show(context)
                     handleGetLocation()
                 }
             }
@@ -185,12 +191,12 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
     }
 
 
-    private fun addDataToBill(){
-        for(i in 0 until mListOrder!!.size){
+    private fun addDataToBill() {
+        for (i in 0 until listOrder!!.size) {
             listItemBill.add(
                 Item(
-                    mListOrder!![i].mIceCream.id,
-                    mListOrder!![i].mAmount
+                    listOrder!![i].iceCream.id,
+                    listOrder!![i].amount
                 )
             )
         }
@@ -201,6 +207,28 @@ class FragmentCart : Fragment(), View.OnClickListener, OnItemOrderListener {
             totalBill,
             listItemBill
         )
-        
+    }
+
+    private fun showDialog(position: Int) {
+        val mDialog = KAlertDialog(requireContext(), KAlertDialog.WARNING_TYPE)
+            .setTitleText("Are you sure?")
+            .setContentText("Delete this file")
+            .setConfirmText("Yes,delete it!")
+        mDialog.setConfirmClickListener {
+            mainViewModel.getListOrder().removeAt(position)
+            mDialog.dismiss()
+            if (mainViewModel.getListOrder().size == 0) {
+                activity?.onBackPressed()
+            }
+            cartController.requestModelBuild()
+        }.show()
+    }
+
+    private fun showTotalPrice(totalPrice : Int){
+        txtCartTotalPayment.text = totalPrice.toString()
+    }
+
+    companion object {
+        var TAG = CartFragment::class.java.name
     }
 }

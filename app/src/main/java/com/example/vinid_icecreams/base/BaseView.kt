@@ -8,11 +8,11 @@ import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.utils.ProgressLoading
 
 interface BaseView {
-    fun providerContext() : Context?
+    fun providerContext(): Context?
 
     fun provideRootView(): View?
 
-    fun setUpUI(){
+    fun setUpUI() {
         provideRootView()?.setOnClickListener(null)
     }
 
@@ -73,7 +73,7 @@ interface BaseView {
     fun showDiaLogFailed(
         title: String,
         messageFail: String,
-        listener : DialogClickListener
+        listener: DialogClickListener
     ) {
         ProgressLoading.dismiss()
         KAlertDialog(providerContext(), KAlertDialog.ERROR_TYPE)
@@ -81,7 +81,19 @@ interface BaseView {
             .setContentText(messageFail)
             .setConfirmClickListener {
                 it.dismiss()
-                listener.onConfirmClickListener() }
+                listener.onConfirmClickListener()
+            }
+            .show()
+    }
+
+    fun showDialogWarning(
+        title: String?,
+        messageWarning: String?
+    ) {
+        ProgressLoading.dismiss()
+        KAlertDialog(providerContext(), KAlertDialog.WARNING_TYPE)
+            .setTitleText(title)
+            .setContentText(messageWarning)
             .show()
     }
 
@@ -92,7 +104,7 @@ interface BaseView {
     }
 }
 
-interface DialogClickListener{
+interface DialogClickListener {
     fun onConfirmClickListener()
     fun onCancelListener()
 }

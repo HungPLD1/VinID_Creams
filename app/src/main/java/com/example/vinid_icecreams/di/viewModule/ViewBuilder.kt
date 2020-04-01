@@ -2,6 +2,7 @@ package com.example.vinid_icecreams.di.viewModule
 
 import com.example.vinid_icecreams.ui.activity.home.HomeActivity
 import com.example.vinid_icecreams.ui.activity.login.LoginActivity
+import com.example.vinid_icecreams.ui.fragment.home.cart.CartFragment
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsFragment
 import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment
@@ -40,4 +41,7 @@ interface ViewBuilder {
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
     fun contributeRegisterFragment(): RegisterFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributeCartFragment(): CartFragment
 }

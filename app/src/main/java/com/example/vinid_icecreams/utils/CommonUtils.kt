@@ -87,8 +87,8 @@ class CommonUtils {
     fun setOrderToList(order: Order) {
         if (mListOrder?.size!! > 0) {
             val i = mListOrder!!.size - 1
-            if (order.mIceCream.id == mListOrder!![i].mIceCream.id) {
-                mListOrder!![i].mAmount += 1
+            if (order.iceCream.id == mListOrder!![i].iceCream.id) {
+                mListOrder!![i].amount += 1
             } else {
                 mListOrder?.add(order)
             }

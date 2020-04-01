@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.ui.activity.login.LoginMainViewModel
+import com.example.vinid_icecreams.ui.fragment.home.cart.CartViewModel
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsViewModel
 import com.example.vinid_icecreams.ui.fragment.home.map.MapViewModel
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment
@@ -93,5 +94,12 @@ interface ViewModelModule {
     @ViewModelKey(RegisterViewModel::class)
     fun binRegisterViewModel(
         dataViewModel: RegisterViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CartViewModel::class)
+    fun binCartViewModel(
+        dataViewModel: CartViewModel
     ): ViewModel
 }
