@@ -1,6 +1,5 @@
 package com.example.vinid_icecreams.ui.activity.home
 
-import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
@@ -18,21 +17,17 @@ class HomeViewModel @Inject constructor(
     private val _totalPayment = MutableLiveData<Int>()
     val totalPayment: LiveData<Int> get() = _totalPayment
 
-    private val _storeSelection = MutableLiveData<Store>()
-    val storeSelection: LiveData<Store> get() = _storeSelection
-
     fun addOrder(order: Order) {
         if (listOrder.size > 0) {
             val i = listOrder.size - 1
             if (order.iceCream.id == listOrder[i].iceCream.id) {
-                listOrder[i].amount += 1
+                repository.increaseOrder(i)
             } else {
-                listOrder.add(order)
+                repository.saveOrder(order)
             }
         } else {
-            listOrder.add(order)
+            repository.saveOrder(order)
         }
-        repository.saveListOrder(listOrder)
     }
 
     fun getListOrder(): ArrayList<Order> = repository.getListOrder()
@@ -42,6 +37,14 @@ class HomeViewModel @Inject constructor(
     }
 
     fun setStoreSelection(store : Store){
-        _storeSelection.value = store
+        repository.saveStoreSelection(store)
+    }
+
+    fun getStoreSelection() : Store?{
+        return repository.getSoreSelection()
+    }
+
+    fun resetOrder(){
+        repository.saveListOrder(ArrayList())
     }
 }

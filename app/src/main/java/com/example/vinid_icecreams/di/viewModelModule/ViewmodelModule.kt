@@ -77,6 +77,13 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(CartViewModel::class)
+    fun binCartViewModel(
+        dataViewModel: CartViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(LoginMainViewModel::class)
     fun binLoginMainViewModel(
         dataViewModel: LoginMainViewModel
@@ -94,12 +101,5 @@ interface ViewModelModule {
     @ViewModelKey(RegisterViewModel::class)
     fun binRegisterViewModel(
         dataViewModel: RegisterViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(CartViewModel::class)
-    fun binCartViewModel(
-        dataViewModel: CartViewModel
     ): ViewModel
 }

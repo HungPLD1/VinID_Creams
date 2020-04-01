@@ -157,11 +157,6 @@ class CommonUtils {
         mSelectedStore = store
     }
 
-    fun getStoreSelected(): Store? {
-        return mSelectedStore
-    }
-
-
     fun savePrefContent(context: Context?, key: String, value: String?) {
         val editor = context?.getSharedPreferences(
             PREF_SAVE_NAME,

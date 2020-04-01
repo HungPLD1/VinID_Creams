@@ -2,12 +2,11 @@ package com.example.vinid_icecreams.ui.fragment.home.cart
 
 import com.airbnb.epoxy.EpoxyController
 import com.example.vinid_icecreams.model.Order
-import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.ui.fragment.home.cart.model.CartItemHolder
 import com.example.vinid_icecreams.ui.fragment.home.cart.model.cartItemHolder
 
 class CartController(
-    private val mainViewModel: HomeViewModel,
+    private val viewModel: CartViewModel,
     private val showDialog: (index :Int) -> Unit,
     private val showTotal : (totalPrice : Int) -> Unit
 ) : EpoxyController() {
@@ -23,7 +22,7 @@ class CartController(
         listOrder?.forEachIndexed { index, order ->
             var count = order.amount
             cartItemHolder {
-                id(CartItemHolder.TAG)
+                id(order.iceCream.id)
                 order(order)
                 count(order.amount)
                 cartItemListener(object : CartItemHolder.Listener {
@@ -45,11 +44,6 @@ class CartController(
                             order.amount = count
                             order.total = order.iceCream.price!! * count
                             insertTotal()
-                            cartItemHolder {
-                                id(CartItemHolder.TAG)
-                                order(order)
-                                count(order.amount)
-                            }
                         } else {
                             showDialog(index)
                         }
@@ -62,10 +56,9 @@ class CartController(
 
     private fun insertTotal() {
         val totalPrice = ArrayList<Int>()
-        mainViewModel.getListOrder().forEach {
+        viewModel.getListOrder().forEach {
             totalPrice.add(it.total)
         }
-
         showTotalOnView(totalPrice)
     }
 

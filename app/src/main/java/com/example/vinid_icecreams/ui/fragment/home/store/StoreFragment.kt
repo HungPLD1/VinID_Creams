@@ -1,14 +1,10 @@
 package com.example.vinid_icecreams.ui.fragment.home.store
 
-import android.content.Context.LOCATION_SERVICE
-import android.location.*
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.utils.CommonUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -16,6 +12,7 @@ import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.base.DialogClickListener
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.Store
+import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
@@ -30,10 +27,12 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
     private var listStore: ArrayList<Store> = ArrayList()
 
-    private var locationManager: LocationManager? = null
-
-    private val storeViewModel: StoreViewModel by lazy {
+    private val viewModel: StoreViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(StoreViewModel::class.java)
+    }
+
+    private val homeViewModel : HomeViewModel by lazy {
+        ViewModelProviders.of(requireActivity(),viewModelFactory).get(HomeViewModel::class.java)
     }
 
     private val storeController: StoreController by lazy {
@@ -42,7 +41,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         )
     }
 
-    override fun providerViewModel(): StoreViewModel = storeViewModel
+    override fun providerViewModel(): StoreViewModel = viewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +53,6 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
     override fun setUpUI(){
         super.setUpUI()
-        locationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         imgStoreLocation?.setOnClickListener(this)
         setupViewIndicatorAd()
         setupEpoxyRecycleView()
@@ -63,15 +61,15 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
     override fun setupViewModel() {
         super.setupViewModel()
         getListStore()
-        storeViewModel.listStore.observe(viewLifecycleOwner, Observer { data ->
+        viewModel.listStore.observe(viewLifecycleOwner, Observer { data ->
             storeController.listStore = data
             listStore = data
         })
 
-        storeViewModel.messageFailed.observe(viewLifecycleOwner, Observer {
+        viewModel.messageFailed.observe(viewLifecycleOwner, Observer {
             showDiaLogFailed(ERROR, it, object : DialogClickListener{
                 override fun onConfirmClickListener() {
-                    storeViewModel.getListStore()
+                    viewModel.getListStore()
                 }
                 override fun onCancelListener() {
                 }
@@ -101,11 +99,11 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
     private fun getListStore() {
         if (isConnectToNetwork(context)) {
             ProgressLoading.show(context)
-            storeViewModel.getListStore()
+            viewModel.getListStore()
         } else {
             showNoConnection(object : DialogClickListener {
                 override fun onConfirmClickListener() {
-                    storeViewModel.getListStore()
+                    viewModel.getListStore()
                 }
                 override fun onCancelListener() {
                 }
@@ -131,8 +129,8 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
 
     private fun toShopping(position: Int) {
-        CommonUtils.instace.saveStoreSelected(listStore[position])
-        CommonUtils.mListOrder = ArrayList()
+        homeViewModel.setStoreSelection(listStore[position])
+        homeViewModel.resetOrder()
         this.findNavController().navigate(R.id.fragmentShopping)
     }
 }

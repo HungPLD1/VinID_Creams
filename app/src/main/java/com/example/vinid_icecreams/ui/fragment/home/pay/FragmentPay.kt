@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.developer.kalert.KAlertDialog
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.remote.requestBody.Bill
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
@@ -28,7 +29,7 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
 
     private var mShip = 0.0
     private var mStatus = 0
-    private var mStoreSelected = CommonUtils.instace.getStoreSelected()
+    private var mStoreSelected:Store? = null
     private var mBill: Bill? = null
     private val mViewModel: ViewModelIceCream by lazy {
         ViewModelProviders.of(this).get(ViewModelIceCream::class.java)

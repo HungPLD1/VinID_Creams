@@ -11,9 +11,9 @@ import com.example.vinid_icecreams.repository.local.ILocalDataSource
 import com.example.vinid_icecreams.repository.remote.MyResponse
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import java.text.FieldPosition
 import javax.inject.Inject
 
 class  Repository @Inject constructor(
@@ -112,6 +112,14 @@ class  Repository @Inject constructor(
         iLocalDataSource.saveListOrder(listOrder)
     }
 
+    fun saveOrder(order : Order){
+        iLocalDataSource.saveOrder(order)
+    }
+
+    fun increaseOrder(position: Int){
+        iLocalDataSource.increaseOrder(position)
+    }
+
     fun getListOrder() = iLocalDataSource.getListOrder()
 
     fun saveLocation(location : Location){
@@ -119,4 +127,12 @@ class  Repository @Inject constructor(
     }
 
     fun getLocation():Location? = iLocalDataSource.getLocation()
+
+    fun saveStoreSelection (store : Store) {
+        iLocalDataSource.saveStoreSelection(store)
+    }
+
+    fun getSoreSelection () : Store?{
+        return iLocalDataSource.getStoreSelection()
+    }
 }

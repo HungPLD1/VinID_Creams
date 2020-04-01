@@ -19,6 +19,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.IceCream
+import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingController.Companion.ITEM_PER_ROW
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
@@ -34,6 +35,10 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
 
     private val shoppingViewModel: ShoppingViewModel by lazy {
         ViewModelProviders.of(this,viewModelFactory).get(ShoppingViewModel::class.java)
+    }
+
+    private val homeViewModel: HomeViewModel by lazy {
+        ViewModelProviders.of(requireActivity(),viewModelFactory).get(HomeViewModel::class.java)
     }
 
     private var listIceCream : ArrayList<IceCream> = ArrayList()
@@ -96,13 +101,13 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
 
     /*handle get list ice cream*/
     private fun handleGetListIceCream() {
-        val id = CommonUtils.mSelectedStore?.id
+        val id = homeViewModel.getStoreSelection()?.id
         if (id == null){
-            CommonUtils.instace.showSomeThingWentWrong(activity)
+            showSomeThingWentWrong(activity)
             return
         }
         ProgressLoading.show(context)
-        if (CommonUtils.instace.isConnectToNetwork(context)) {
+        if (isConnectToNetwork(context)) {
             shoppingViewModel.getListIceCream(id)
         }else{
             ProgressLoading.dismiss()
