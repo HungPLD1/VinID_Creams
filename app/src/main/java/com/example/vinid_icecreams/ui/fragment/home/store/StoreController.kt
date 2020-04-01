@@ -2,7 +2,6 @@ package com.example.vinid_icecreams.ui.fragment.home.store
 
 import com.airbnb.epoxy.EpoxyController
 import com.example.vinid_icecreams.model.Store
-import com.example.vinid_icecreams.ui.fragment.home.store.model.StoreHolderView
 import com.example.vinid_icecreams.ui.fragment.home.store.model.storeHolderView
 
 class StoreController(
@@ -18,7 +17,7 @@ class StoreController(
     override fun buildModels() {
         listStore?.forEachIndexed { index, store ->
             storeHolderView {
-                id(StoreHolderView.TAG)
+                id(store.id)
                 store(store)
                 onClickStoreListener { toShopping(index) }
             }

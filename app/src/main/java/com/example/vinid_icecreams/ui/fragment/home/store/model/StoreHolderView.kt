@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
+import androidx.cardview.widget.CardView
 import com.airbnb.epoxy.AfterPropsSet
 import com.airbnb.epoxy.CallbackProp
 import com.airbnb.epoxy.ModelProp
@@ -20,7 +21,7 @@ class StoreHolderView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
-) : LinearLayout(context, attrs, defStyle) {
+) : CardView(context, attrs, defStyle) {
 
     var onClickStoreListener: ((View?) -> Unit)? = null
         @CallbackProp set
@@ -30,7 +31,6 @@ class StoreHolderView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.raw_layout_store, this)
-        orientation = VERTICAL
     }
 
     @SuppressLint("SetTextI18n")

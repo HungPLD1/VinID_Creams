@@ -1,9 +1,11 @@
 package com.example.vinid_icecreams.repository.local
 
 import android.content.SharedPreferences
+import android.location.Location
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.utils.Const
 import io.realm.Realm
+import io.realm.RealmObject
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
@@ -35,7 +37,14 @@ class LocalDataSource @Inject constructor(
         return listOrder
     }
 
+    override fun saveLocation(location: Location?) {
+        currentLocation = location
+    }
+
+    override fun getLocation(): Location? = currentLocation
+
     companion object{
         var listOrder = ArrayList<Order>()
+        var currentLocation : Location? =  null
     }
 }

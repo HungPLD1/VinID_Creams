@@ -21,7 +21,7 @@ class ShoppingController(
         Timber.d(listIceCream?.size.toString())
         listIceCream?.forEachIndexed { index, iceCream ->
             iceCreamHolderView {
-                id(IceCreamHolderView.TAG)
+                id(iceCream.id)
                 iceCream(iceCream)
                 onClickStoreListener {
                     toDetailsIceCream(index)

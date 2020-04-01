@@ -3,6 +3,7 @@ package com.example.vinid_icecreams.ui.fragment.home.store
 import android.content.Context.LOCATION_SERVICE
 import android.location.*
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +20,6 @@ import com.example.vinid_icecreams.utils.ProgressLoading
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
 import kotlinx.android.synthetic.main.fragment_store.*
-import java.io.IOException
-import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
@@ -29,9 +28,9 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private var mListStore: ArrayList<Store> = ArrayList()
+    private var listStore: ArrayList<Store> = ArrayList()
 
-    private var mLocationManager: LocationManager? = null
+    private var locationManager: LocationManager? = null
 
     private val storeViewModel: StoreViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(StoreViewModel::class.java)
@@ -55,7 +54,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
     override fun setUpUI(){
         super.setUpUI()
-        mLocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
+        locationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager?
         imgStoreLocation?.setOnClickListener(this)
         setupViewIndicatorAd()
         setupEpoxyRecycleView()
@@ -66,7 +65,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         getListStore()
         storeViewModel.listStore.observe(viewLifecycleOwner, Observer { data ->
             storeController.listStore = data
-            mListStore = data
+            listStore = data
         })
 
         storeViewModel.messageFailed.observe(viewLifecycleOwner, Observer {
@@ -132,7 +131,7 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
 
     private fun toShopping(position: Int) {
-        CommonUtils.instace.saveStoreSelected(mListStore[position])
+        CommonUtils.instace.saveStoreSelected(listStore[position])
         CommonUtils.mListOrder = ArrayList()
         this.findNavController().navigate(R.id.fragmentShopping)
     }

@@ -1,5 +1,6 @@
 package com.example.vinid_icecreams.repository
 
+import android.location.Location
 import com.example.vinid_icecreams.repository.remote.APIService
 import com.example.vinid_icecreams.repository.remote.requestBody.AuthenRequest
 import com.example.vinid_icecreams.repository.remote.requestBody.Bill
@@ -10,6 +11,7 @@ import com.example.vinid_icecreams.repository.local.ILocalDataSource
 import com.example.vinid_icecreams.repository.remote.MyResponse
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
@@ -111,4 +113,10 @@ class  Repository @Inject constructor(
     }
 
     fun getListOrder() = iLocalDataSource.getListOrder()
+
+    fun saveLocation(location : Location){
+        iLocalDataSource.saveLocation(location)
+    }
+
+    fun getLocation():Location? = iLocalDataSource.getLocation()
 }

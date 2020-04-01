@@ -21,9 +21,6 @@ class HomeViewModel @Inject constructor(
     private val _storeSelection = MutableLiveData<Store>()
     val storeSelection: LiveData<Store> get() = _storeSelection
 
-
-    private var currentLocation : Location? = null
-
     fun addOrder(order: Order) {
         if (listOrder.size > 0) {
             val i = listOrder.size - 1
@@ -47,10 +44,4 @@ class HomeViewModel @Inject constructor(
     fun setStoreSelection(store : Store){
         _storeSelection.value = store
     }
-
-    fun setLocation(location : Location){
-        currentLocation = location
-    }
-
-    fun getLocation() : Location? = currentLocation
 }

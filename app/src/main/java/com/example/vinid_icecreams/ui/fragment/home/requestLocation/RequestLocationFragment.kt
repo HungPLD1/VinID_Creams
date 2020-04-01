@@ -14,7 +14,6 @@ import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.extension.isDeniedPermanently
 import com.example.vinid_icecreams.extension.openPermissionSettings
-import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -30,10 +29,6 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
         ViewModelProviders.of(this, viewModelFactory).get(RequestLocationViewModel::class.java)
     }
 
-    private val homeViewModel: HomeViewModel by lazy {
-        ViewModelProviders.of(requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,15 +40,10 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
     override fun providerViewModel(): RequestLocationViewModel = viewModel
 
     override fun setUpUI() {
-        if (!isPermissionGranted()) {
-            setupPermissionGuideline(
-                isDeniedPermanently(Manifest.permission.ACCESS_FINE_LOCATION)
-            )
-        } else {
-            ProgressLoading.show(context)
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), RC_LOCATION)
-        }
-
+        super.setUpUI()
+        setupPermissionGuideline(
+            isDeniedPermanently(Manifest.permission.ACCESS_FINE_LOCATION)
+        )
     }
 
     override fun onRequestPermissionsResult(
@@ -65,12 +55,7 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
         if (requestCode == RC_LOCATION && grantResults.isNotEmpty()) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (isAdded) {
-                    ProgressLoading.show(context)
-                    val fusedLocationClient: FusedLocationProviderClient? =
-                        LocationServices.getFusedLocationProviderClient(requireActivity())
-                    fusedLocationClient?.lastLocation?.addOnSuccessListener {
-                        homeViewModel.setLocation(it)
-                    }
+                    getLocation()
                     toStore()
                 }
             } else {
@@ -82,6 +67,15 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
                     activity?.finish()
                 }
             }
+        }
+    }
+
+    private fun getLocation(){
+        ProgressLoading.show(context)
+        val fusedLocationClient: FusedLocationProviderClient? =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+        fusedLocationClient?.lastLocation?.addOnSuccessListener {
+            viewModel.saveLocation(it)
         }
     }
 
@@ -103,11 +97,13 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
 
     override fun onResume() {
         super.onResume()
-        if (isPermissionGranted()){
+        if (viewModel.getLocation() != null){
             toStore()
         }else{
-            ProgressLoading.show(context)
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), RC_LOCATION)
+            if (isPermissionGranted()){
+                getLocation()
+                toStore()
+            }
         }
     }
 
