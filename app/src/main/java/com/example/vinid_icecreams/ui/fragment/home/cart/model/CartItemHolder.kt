@@ -21,7 +21,7 @@ class CartItemHolder @JvmOverloads constructor(
     defStyle : Int = 0
 ): CardView(context,attrs,defStyle){
 
-    lateinit var order: Order
+    var order: Order? = null
         @ModelProp set
 
     var cartItemListener : Listener? = null
@@ -37,26 +37,26 @@ class CartItemHolder @JvmOverloads constructor(
     @SuppressLint("SetTextI18n")
     @AfterPropsSet
     fun bind(){
-        txtNameOrder.text = order.iceCream.name
-        txtPriceOrder.text = order.iceCream.price.toString()+ " $"
-        order.total = order.iceCream.price!! * count
-        txtTotal.text = order.total.toString() + " $"
-        txtCount.text = order.amount.toString()
+        txt_name_order.text = order?.iceCream?.name
+        txt_price_order.text = order?.iceCream?.price.toString()+ " $"
+        order?.total = order?.iceCream?.price!! * count
+        txt_total.text = order?.total.toString() + " $"
+        txt_count.text = order?.amount.toString()
         cartItemListener?.onInsertTotal()
-        Picasso.with(context).load(order.iceCream.image_paths?.get(0))
+        Picasso.with(context).load(order?.iceCream?.image_paths?.get(0))
             .placeholder(R.drawable.loading_image)
             .error(R.drawable.default_image)
-            .into(imgOrder)
+            .into(img_order)
         handleClickPlusAndMinus()
     }
 
     /*handle click in plus and minus*/
     private fun handleClickPlusAndMinus() {
-        btnPlus.setOnClickListener {
+        btn_plus.setOnClickListener {
             cartItemListener?.onClickPlus()
         }
 
-        btnMinus.setOnClickListener {
+        btn_minus.setOnClickListener {
             cartItemListener?.onClickMinus()
         }
     }

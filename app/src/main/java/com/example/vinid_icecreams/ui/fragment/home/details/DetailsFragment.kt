@@ -99,7 +99,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
             listComment?.get(index)?.rating_star?.let { mListRatingBar.add(it) }
         }
         when (mListRatingBar.size) {
-            0 -> rattingDetails?.rating = 0F
+            0 -> rattingDetails?.rating = 5F
             1 -> rattingDetails?.rating = mListRatingBar[0].toFloat()
             else -> {
                 rattingDetails?.rating = CommonUtils.instace.calculateAverage(mListRatingBar)

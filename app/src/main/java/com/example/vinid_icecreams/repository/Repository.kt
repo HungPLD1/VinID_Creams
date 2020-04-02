@@ -112,7 +112,7 @@ class  Repository @Inject constructor(
         iLocalDataSource.saveListOrder(listOrder)
     }
 
-    fun saveOrder(order : Order){
+    fun addOrder(order : Order){
         iLocalDataSource.saveOrder(order)
     }
 
@@ -121,6 +121,10 @@ class  Repository @Inject constructor(
     }
 
     fun getListOrder() = iLocalDataSource.getListOrder()
+
+    fun removeOrder(position: Int){
+        iLocalDataSource.removeOrder(position)
+    }
 
     fun saveLocation(location : Location){
         iLocalDataSource.saveLocation(location)
@@ -134,5 +138,9 @@ class  Repository @Inject constructor(
 
     fun getSoreSelection () : Store?{
         return iLocalDataSource.getStoreSelection()
+    }
+
+    fun setTotalPrice(total : Int) {
+        iLocalDataSource.saveTotalPrice(total)
     }
 }

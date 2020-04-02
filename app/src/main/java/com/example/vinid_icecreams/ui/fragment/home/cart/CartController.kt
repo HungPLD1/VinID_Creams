@@ -6,7 +6,6 @@ import com.example.vinid_icecreams.ui.fragment.home.cart.model.CartItemHolder
 import com.example.vinid_icecreams.ui.fragment.home.cart.model.cartItemHolder
 
 class CartController(
-    private val viewModel: CartViewModel,
     private val showDialog: (index :Int) -> Unit,
     private val showTotal : (totalPrice : Int) -> Unit
 ) : EpoxyController() {
@@ -19,6 +18,10 @@ class CartController(
         }
 
     override fun buildModels() {
+        buildCartItemView()
+    }
+
+    private fun buildCartItemView() {
         listOrder?.forEachIndexed { index, order ->
             var count = order.amount
             cartItemHolder {
@@ -37,7 +40,6 @@ class CartController(
                             insertTotal()
                         }
                     }
-
                     override fun onClickMinus() {
                         if (count > 1) {
                             count -= 1
@@ -48,15 +50,15 @@ class CartController(
                             showDialog(index)
                         }
                     }
-
                 })
             }
         }
+
     }
 
     private fun insertTotal() {
         val totalPrice = ArrayList<Int>()
-        viewModel.getListOrder().forEach {
+        listOrder?.forEach {
             totalPrice.add(it.total)
         }
         showTotalOnView(totalPrice)

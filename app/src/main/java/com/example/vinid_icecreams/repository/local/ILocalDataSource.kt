@@ -10,7 +10,10 @@ interface ILocalDataSource {
     fun saveListOrder(dataOrder : ArrayList<Order>)
     fun getListOrder() : ArrayList<Order>
     fun saveOrder(order: Order)
+    fun removeOrder(position: Int)
     fun increaseOrder(position: Int)
+    fun saveTotalPrice(total : Int)
+    fun getTotalPrice(): Int?
     fun saveLocation(location: Location?)
     fun getLocation() : Location?
     fun saveStoreSelection(store: Store)

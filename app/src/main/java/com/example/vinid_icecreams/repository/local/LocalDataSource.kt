@@ -42,9 +42,19 @@ class LocalDataSource @Inject constructor(
         listOrder.add(order)
     }
 
+    override fun removeOrder(position: Int) {
+        listOrder.removeAt(position)
+    }
+
     override fun increaseOrder(position: Int) {
         listOrder[position].amount += 1
     }
+
+    override fun saveTotalPrice(total: Int) {
+        totalPrice = total
+    }
+
+    override fun getTotalPrice(): Int? = totalPrice
 
     override fun saveLocation(location: Location?) {
         currentLocation = location
@@ -62,5 +72,6 @@ class LocalDataSource @Inject constructor(
         var listOrder = ArrayList<Order>()
         var currentLocation: Location? = null
         var storeSelection: Store? = null
+        var totalPrice: Int? = null
     }
 }

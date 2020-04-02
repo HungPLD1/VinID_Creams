@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.developer.kalert.KAlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vinid_icecreams.R
+import com.example.vinid_icecreams.base.DialogClickListener
 import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.repository.remote.requestBody.Coordinates
@@ -17,12 +19,14 @@ import com.example.vinid_icecreams.repository.remote.requestBody.Bill
 import com.example.vinid_icecreams.repository.remote.requestBody.Item
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
+import com.example.vinid_icecreams.ui.fragment.home.cart.model.CartAdapter
 import com.example.vinid_icecreams.ui.fragment.home.pay.FragmentPay
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.fragment_cart.btnCartPayment
 import javax.inject.Inject
 
-class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener {
+class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener,
+    CartAdapter.OnItemOrderListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -33,15 +37,9 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener {
 
     override fun providerViewModel(): CartViewModel = viewModel
 
-    private val cartController: CartController by lazy {
-        CartController(
-            viewModel,
-            ::showDialog,
-            ::showTotalPrice
-        )
-    }
+    private var adapterCart: CartAdapter? = null
 
-    private var listOrder: ArrayList<Order>? = null
+    lateinit var listOrder: ArrayList<Order>
     private var storeSelected : Store? = null
 
     private var addressBill: Coordinates? = null
@@ -62,7 +60,6 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener {
         super.setUpUI()
         storeSelected = viewModel.getStoreSelection()
         setupBackDevice()
-        setupRecycleView()
         imgCartBack?.setOnClickListener(this)
         btnCartPayment?.setOnClickListener(this)
     }
@@ -73,17 +70,19 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener {
         }
     }
 
-    private fun setupRecycleView() {
-        rcvCartOrder.run {
-            setItemSpacingDp(3)
-            setController(cartController)
-        }
+    private fun setupRecycleView(arrOrder : ArrayList<Order>) {
+        adapterCart = CartAdapter(context, arrOrder, this)
+        rcvCartOrder?.layoutManager = LinearLayoutManager(context)
+        rcvCartOrder?.adapter = adapterCart
     }
 
     override fun setupViewModel() {
         super.setupViewModel()
-        listOrder = viewModel.getListOrder()
-        cartController.listOrder = listOrder
+        viewModel.getListOrder()
+        viewModel.listOrder.observe(viewLifecycleOwner, Observer {
+            listOrder = it
+            setupRecycleView(listOrder)
+        })
     }
 
     override fun onClick(view: View?) {
@@ -125,7 +124,7 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener {
 
 
     private fun addDataToBill() {
-        listOrder?.forEach {
+        listOrder.forEach {
             listItemBill.add(Item(it.iceCream.id,it.amount))
         }
         bill = Bill(
@@ -137,23 +136,58 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener {
         )
     }
 
-    private fun showDialog(position: Int) {
-        val mDialog = KAlertDialog(requireContext(), KAlertDialog.WARNING_TYPE)
-            .setTitleText("Are you sure?")
-            .setContentText("Delete this file")
-            .setConfirmText("Yes,delete it!")
-        mDialog.setConfirmClickListener {
-            viewModel.getListOrder().removeAt(position)
-            mDialog.dismiss()
-            if (viewModel.getListOrder().size == 0) {
-                activity?.onBackPressed()
-            }
-            cartController.requestModelBuild()
-        }.show()
+    override fun onPlus(position: Int) {
+        var count  = listOrder[position].amount
+        if (count < 99) {
+            count += 1
+            listOrder[position].amount = count
+            listOrder[position].total = listOrder[position].iceCream.price!! * count
+            insertTotal()
+            adapterCart?.notifyDataSetChanged()
+        }
     }
 
-    private fun showTotalPrice(totalPrice : Int){
-        txtCartTotalPayment.text = totalPrice.toString()
+    override fun onMinus(position: Int) {
+        var count  = listOrder[position].amount
+        if (count > 1) {
+            count -= 1
+            listOrder[position].amount = count
+            listOrder[position].total = listOrder[position].iceCream.price!! * count
+            insertTotal()
+            adapterCart?.notifyDataSetChanged()
+        } else {
+            showDialogWarning("Are you sure?"
+                ,"Delete this file"
+                ,"Yes,delete it!"
+                ,object : DialogClickListener{
+                    override fun onConfirmClickListener() {
+                        viewModel.removeOrder(position)
+                        if (listOrder.size == 0) {
+                            activity?.onBackPressed()
+                        }else{
+                            adapterCart?.notifyDataSetChanged()
+                        }
+                    }
+                    override fun onCancelListener() {
+                    }
+                })
+        }
+    }
+
+    override fun insertTotal() {
+        val listPrice = ArrayList<Int>()
+        for (i in 0 until listOrder.size) {
+            listPrice.add(listOrder[i].total)
+        }
+        showTotalOnView(listPrice)
+    }
+
+    private fun showTotalOnView(listPrice: ArrayList<Int>) {
+        var total = 0
+        for (i in 0 until listPrice.size) {
+            total += listPrice[i]
+        }
+        txtCartTotalPayment.text = total.toString()
     }
 
     companion object {

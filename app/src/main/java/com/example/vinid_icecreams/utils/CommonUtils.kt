@@ -29,7 +29,6 @@ class CommonUtils {
 
     companion object {
         var instace = CommonUtils()
-        var mListOrder: ArrayList<Order>? = ArrayList()
         var mTotalPayment = 0
         var mSelectedStore: Store? = null
         var mAmount = 0
@@ -84,23 +83,6 @@ class CommonUtils {
         return sum
     }
 
-    fun setOrderToList(order: Order) {
-        if (mListOrder?.size!! > 0) {
-            val i = mListOrder!!.size - 1
-            if (order.iceCream.id == mListOrder!![i].iceCream.id) {
-                mListOrder!![i].amount += 1
-            } else {
-                mListOrder?.add(order)
-            }
-
-        } else {
-            mListOrder?.add(order)
-        }
-    }
-
-    fun getOrderList(): ArrayList<Order>? {
-        return mListOrder
-    }
 
     fun setTotalPayment(total: Int) {
         mTotalPayment = total

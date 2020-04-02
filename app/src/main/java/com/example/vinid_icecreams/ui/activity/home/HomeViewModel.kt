@@ -23,10 +23,10 @@ class HomeViewModel @Inject constructor(
             if (order.iceCream.id == listOrder[i].iceCream.id) {
                 repository.increaseOrder(i)
             } else {
-                repository.saveOrder(order)
+                repository.addOrder(order)
             }
         } else {
-            repository.saveOrder(order)
+            repository.addOrder(order)
         }
     }
 

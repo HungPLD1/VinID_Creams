@@ -179,7 +179,6 @@ class FragmentPay : DialogFragment(), View.OnClickListener, OnSpinnerItemSelecte
             .setContentText(mMessageSuccess).setConfirmClickListener {
                 dialog?.dismiss()
                 it.dismiss()
-                CommonUtils.mListOrder?.clear()
                 findNavController().navigate(R.id.fragmentShopping)
             }
         dialogPaySuccess.setCanceledOnTouchOutside(false)

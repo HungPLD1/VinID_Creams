@@ -172,7 +172,7 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
                     this.findNavController().navigate(R.id.fragmentStore)
                 }
                 R.id.imgShoppingToCart->{
-                    if (CommonUtils.instace.getOrderList()!!.size > 0){
+                    if (homeViewModel.getListOrder().size > 0){
                         this.findNavController().navigate(R.id.fragmentCart)
                     }else{
                         val pDialog = KAlertDialog(context, KAlertDialog.WARNING_TYPE)

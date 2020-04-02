@@ -97,6 +97,24 @@ interface BaseView {
             .show()
     }
 
+    fun showDialogWarning(
+        title: String?,
+        messageWarning: String?,
+        confirmText: String?,
+        listener: DialogClickListener
+    ) {
+        ProgressLoading.dismiss()
+        KAlertDialog(providerContext(), KAlertDialog.WARNING_TYPE)
+            .setTitleText(title)
+            .setContentText(messageWarning)
+            .setConfirmText(confirmText)
+            .setConfirmClickListener {
+                it.dismiss()
+                listener.onConfirmClickListener()
+            }
+            .show()
+    }
+
     fun showSomeThingWentWrong(activity: Activity?) {
         KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
             .setTitleText("Some thing went wrong")
