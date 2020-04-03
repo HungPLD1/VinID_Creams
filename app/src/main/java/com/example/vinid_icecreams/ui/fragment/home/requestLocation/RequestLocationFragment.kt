@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.vinid_icecreams.R
@@ -54,7 +55,6 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (isAdded) {
                     getLocation()
-                    toStore()
                 }
             } else {
                 if (isAdded) {
@@ -66,6 +66,17 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
                 }
             }
         }
+    }
+
+    override fun setupViewModel() {
+        super.setupViewModel()
+        viewModel.isSaveLocationSuccess.observe(viewLifecycleOwner, Observer {
+            if (it){
+                toStore()
+            }else{
+                getLocation()
+            }
+        })
     }
 
     private fun getLocation() {
@@ -98,7 +109,6 @@ class RequestLocationFragment : BaseFragment<RequestLocationViewModel>() {
         super.onResume()
         if (isPermissionGranted()) {
             getLocation()
-            toStore()
         }
     }
 

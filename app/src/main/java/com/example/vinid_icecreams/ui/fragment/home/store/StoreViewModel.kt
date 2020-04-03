@@ -1,6 +1,7 @@
 package com.example.vinid_icecreams.ui.fragment.home.store
 
 import android.annotation.SuppressLint
+import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,8 +10,6 @@ import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.MyResponse
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import timber.log.Timber
-import java.net.CacheResponse
 import java.net.ConnectException
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -25,6 +24,9 @@ class StoreViewModel @Inject constructor(
 
     private val _listStore = MutableLiveData<ArrayList<Store>>()
     val listStore: LiveData<ArrayList<Store>> get() = _listStore
+
+    private val _location = MutableLiveData<Location>()
+    val location: LiveData<Location> get() = _location
 
     @SuppressLint("CheckResult")
     fun getListStore() {
@@ -65,11 +67,9 @@ class StoreViewModel @Inject constructor(
                     , store.longitude
                 )
                 store.range = range
+                response.data = response.data?.let { sortList(it) }
             }
-        } else {
-            messageFailed.value = "K xác định được vị trí của bạn"
         }
-        response.data = response.data?.let { sortList(it) }
         return response
     }
 
@@ -103,5 +103,9 @@ class StoreViewModel @Inject constructor(
 
     private fun sortList(listData: ArrayList<Store>): ArrayList<Store> {
         return ArrayList(listData.sortedWith(compareBy { it.range }))
+    }
+
+    fun getLocation(){
+        _location.value = repository.getLocation()
     }
 }

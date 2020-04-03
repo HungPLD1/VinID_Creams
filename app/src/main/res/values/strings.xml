@@ -15,7 +15,7 @@
     <string name="repeat_password">Repeat Password</string>
     <string name="next">NEXT</string>
     <string name="register">REGISTER</string>
-    <string name="click_location">Find around here</string>
+    <string name="user_location">Hà Nội</string>
     <string name="hint_username">Enter a new username</string>
     <string name="hint_email_reset">Enter your email</string>
     <string name="enter_group_name">Enter group name</string>
