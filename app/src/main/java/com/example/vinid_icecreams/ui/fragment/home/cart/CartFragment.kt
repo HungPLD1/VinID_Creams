@@ -137,23 +137,19 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener,
     }
 
     override fun onPlus(position: Int) {
-        var count  = listOrder[position].amount
+        val count  = listOrder[position].amount
         if (count < 99) {
-            count += 1
-            listOrder[position].amount = count
-            listOrder[position].total = listOrder[position].iceCream.price!! * count
             insertTotal()
+            viewModel.increaseOrder(position)
             adapterCart?.notifyDataSetChanged()
         }
     }
 
     override fun onMinus(position: Int) {
-        var count  = listOrder[position].amount
+        val count  = listOrder[position].amount
         if (count > 1) {
-            count -= 1
-            listOrder[position].amount = count
-            listOrder[position].total = listOrder[position].iceCream.price!! * count
             insertTotal()
+            viewModel.decreaseOrder(position)
             adapterCart?.notifyDataSetChanged()
         } else {
             showDialogWarning("Are you sure?"

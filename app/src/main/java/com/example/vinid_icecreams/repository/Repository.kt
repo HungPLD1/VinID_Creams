@@ -120,6 +120,10 @@ class  Repository @Inject constructor(
         iLocalDataSource.increaseOrder(position)
     }
 
+    fun decreaseOrder(position: Int){
+        iLocalDataSource.decreaseOrder(position)
+    }
+
     fun getListOrder() = iLocalDataSource.getListOrder()
 
     fun removeOrder(position: Int){

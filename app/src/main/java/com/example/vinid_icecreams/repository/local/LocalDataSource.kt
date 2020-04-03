@@ -50,6 +50,10 @@ class LocalDataSource @Inject constructor(
         listOrder[position].amount += 1
     }
 
+    override fun decreaseOrder(position: Int) {
+        listOrder[position].amount -= 1
+    }
+
     override fun saveTotalPrice(total: Int) {
         totalPrice = total
     }

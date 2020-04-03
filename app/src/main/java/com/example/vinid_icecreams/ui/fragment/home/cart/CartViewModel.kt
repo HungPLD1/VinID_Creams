@@ -25,6 +25,14 @@ class CartViewModel @Inject constructor(
         repository.removeOrder(position)
     }
 
+    fun increaseOrder(position: Int){
+        repository.increaseOrder(position)
+    }
+
+    fun decreaseOrder(position: Int){
+        repository.decreaseOrder(position)
+    }
+
     fun getStoreSelection() : Store? = repository.getSoreSelection()
 
     fun getCurrentLocation(): Location? = repository.getLocation()
