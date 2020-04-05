@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/fragmentProfile"
-        android:name="com.example.vinid_icecreams.ui.fragment.user.HomeUser"
+        android:name="com.example.vinid_icecreams.ui.fragment.user.homeUser.UserFragment"
         android:label="FragmentProfile" >
         <action
             android:id="@+id/action_fragmentProfile_to_fragmentOrderHistory"

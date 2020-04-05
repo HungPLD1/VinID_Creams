@@ -57,25 +57,6 @@ class ViewModelIceCream @Inject constructor(
         }
     }
 
-    @SuppressLint("CheckResult")
-    fun getUserProfile() {
-        repository.callRequestUserProfile()?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    CODE_200 -> {
-                        mUser.postValue(result?.data)
-                    }
-                    else -> {
-                        mMessageFail.postValue(result?.meta?.message)
-                    }
-                }
-            }
-        }) { error ->
-            run {
-                Log.d(TAG, error.toString())
-            }
-        }
-    }
 
     @SuppressLint("CheckResult")
     fun getListItemInfo(orderID: Int) {

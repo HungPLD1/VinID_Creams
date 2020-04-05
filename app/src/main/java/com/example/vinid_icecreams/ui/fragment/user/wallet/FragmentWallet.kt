@@ -45,7 +45,7 @@ class FragmentWallet : Fragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
-        txtMoney?.text = CommonUtils.mAmount.toString()  + " $"
+        //txtMoney?.text = CommonUtils.mAmount.toString()  + " $"
         observeData()
     }
 

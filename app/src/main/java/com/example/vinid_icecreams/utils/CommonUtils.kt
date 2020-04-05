@@ -27,7 +27,6 @@ class CommonUtils {
 
     companion object {
         var instace = CommonUtils()
-        var mAmount = 0
         var token = ""
         const val TOKEN = "token"
         const val PREF_SAVE_NAME = "IceCream data"
