@@ -20,7 +20,7 @@
         android:background="@android:color/holo_blue_light"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <androidx.recyclerview.widget.RecyclerView
+    <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/rcvEvent"
         android:layout_margin="10dp"
         android:layout_width="match_parent"

@@ -55,6 +55,10 @@ class LocalDataSource @Inject constructor(
         listOrder[position].amount -= 1
     }
 
+    override fun setEmptyOrder() {
+        listOrder.clear()
+    }
+
     override fun saveTotalPrice(total: Int) {
         totalPrice = total
     }

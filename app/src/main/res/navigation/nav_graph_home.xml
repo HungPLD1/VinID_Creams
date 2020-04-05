@@ -61,6 +61,6 @@
     </fragment>
     <dialog
         android:id="@+id/fragmentPay"
-        android:name="com.example.vinid_icecreams.ui.fragment.home.pay.FragmentPay"
+        android:name="com.example.vinid_icecreams.ui.fragment.home.pay.PayFragment"
         android:label="FragmentPay" />
 </navigation>

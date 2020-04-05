@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class Event (
     @SerializedName("id")
-    var mId :Int,
+    var id :Int,
     @SerializedName("image_path")
-    var mImage : String,
+    var image : String,
     @SerializedName("title")
-    var mTitle : String,
+    var title : String,
     @SerializedName("content")
-    var mContent : String
+    var content : String
 )

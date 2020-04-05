@@ -1,7 +1,7 @@
 package com.example.vinid_icecreams.repository.remote
 
 import com.example.vinid_icecreams.repository.remote.requestBody.AuthenRequest
-import com.example.vinid_icecreams.repository.remote.requestBody.Bill
+import com.example.vinid_icecreams.repository.remote.requestBody.BillRequest
 import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
 import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
 import com.example.vinid_icecreams.model.*
@@ -30,13 +30,13 @@ interface APIService {
     fun getNotification(): Single<MyResponse<ArrayList<Event>>>
 
     @POST("api/orders")
-    fun payOrderUser(@Body body: Bill): Single<MyResponse<com.example.vinid_icecreams.model.Bill>>
+    fun payOrderUser(@Body body: BillRequest): Single<MyResponse<Bill>>
 
     @GET("/api/users/orders")
     fun getOrderUser(): Single<MyResponse<ArrayList<OrderInfor>>>
 
     @GET("/api/orders/{id}")
-    fun getDetailsOrder(@Path ("id") orderID:Int): Single<MyResponse<com.example.vinid_icecreams.model.Bill>>
+    fun getDetailsOrder(@Path ("id") orderID:Int): Single<MyResponse<Bill>>
 
     @POST("/api/ratings")
     fun setRatingForItem(@Body body: RatingRequest): Single<MyResponse<Rating>>

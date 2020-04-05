@@ -15,12 +15,12 @@ import com.example.vinid_icecreams.base.DialogClickListener
 import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.repository.remote.requestBody.Coordinates
-import com.example.vinid_icecreams.repository.remote.requestBody.Bill
+import com.example.vinid_icecreams.repository.remote.requestBody.BillRequest
 import com.example.vinid_icecreams.repository.remote.requestBody.Item
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.ui.fragment.home.cart.model.CartAdapter
-import com.example.vinid_icecreams.ui.fragment.home.pay.FragmentPay
+import com.example.vinid_icecreams.ui.fragment.home.pay.PayFragment
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.fragment_cart.btnCartPayment
 import javax.inject.Inject
@@ -45,7 +45,7 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener,
     private var addressBill: Coordinates? = null
     private var totalBill: Int? = null
     private var listItemBill = ArrayList<Item>()
-    private var bill: Bill? = null
+    private var billRequest: BillRequest? = null
 
 
     override fun onCreateView(
@@ -115,8 +115,8 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener,
     private fun showDiaLogPay() {
         addDataToBill()
         val bundle = Bundle()
-        val fragmentPay = FragmentPay()
-        bundle.putSerializable("BILL", bill)
+        val fragmentPay = PayFragment()
+        bundle.putSerializable("BILL", billRequest)
         fragmentPay.arguments = bundle
         fragmentPay.isCancelable = false
         fragmentManager?.let { fragmentPay.show(it, null) }
@@ -127,7 +127,7 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener,
         listOrder.forEach {
             listItemBill.add(Item(it.iceCream.id,it.amount))
         }
-        bill = Bill(
+        billRequest = BillRequest(
             0,
             addressBill,
             0,
@@ -183,6 +183,8 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener,
         for (i in 0 until listPrice.size) {
             total += listPrice[i]
         }
+        totalBill = total
+        viewModel.setTotalPayment(total)
         txtCartTotalPayment.text = total.toString()
     }
 

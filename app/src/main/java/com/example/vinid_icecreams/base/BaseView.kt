@@ -59,6 +59,23 @@ interface BaseView {
             .show()
     }
 
+    fun showDialogSuccess(
+        title: String?,
+        messageSuccess: String?,
+        listener: DialogClickListener
+    ) {
+        ProgressLoading.dismiss()
+        val dialogSuccess = KAlertDialog(providerContext(), KAlertDialog.SUCCESS_TYPE)
+            .setTitleText(title)
+            .setContentText(messageSuccess)
+            .setConfirmClickListener {
+                it.dismiss()
+                listener.onConfirmClickListener()
+            }
+        dialogSuccess.setCanceledOnTouchOutside(false)
+        dialogSuccess.show()
+    }
+
     fun showDiaLogFailed(
         title: String?,
         messageFail: String?

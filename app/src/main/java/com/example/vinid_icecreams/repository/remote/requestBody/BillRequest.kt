@@ -3,7 +3,7 @@ package com.example.vinid_icecreams.repository.remote.requestBody
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class Bill(
+data class BillRequest(
     @SerializedName("status")
     var status: Int?,
     @SerializedName("coordinates")

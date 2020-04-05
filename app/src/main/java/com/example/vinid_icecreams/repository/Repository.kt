@@ -3,7 +3,7 @@ package com.example.vinid_icecreams.repository
 import android.location.Location
 import com.example.vinid_icecreams.repository.remote.APIService
 import com.example.vinid_icecreams.repository.remote.requestBody.AuthenRequest
-import com.example.vinid_icecreams.repository.remote.requestBody.Bill
+import com.example.vinid_icecreams.repository.remote.requestBody.BillRequest
 import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
 import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
 import com.example.vinid_icecreams.model.*
@@ -13,7 +13,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import java.text.FieldPosition
 import javax.inject.Inject
 
 class  Repository @Inject constructor(
@@ -57,8 +56,8 @@ class  Repository @Inject constructor(
             .subscribeOn(Schedulers.io())
     }
 
-    fun callPayIceCream(bill: Bill): Single<MyResponse<com.example.vinid_icecreams.model.Bill>>? {
-        return apiService.payOrderUser(bill)
+    fun callPayIceCream(billRequest: BillRequest): Single<MyResponse<Bill>>? {
+        return apiService.payOrderUser(billRequest)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
     }
@@ -146,5 +145,11 @@ class  Repository @Inject constructor(
 
     fun setTotalPrice(total : Int) {
         iLocalDataSource.saveTotalPrice(total)
+    }
+
+    fun getTotalPrice() : Int? = iLocalDataSource.getTotalPrice()
+
+    fun setEmptyOrder(){
+        iLocalDataSource.setEmptyOrder()
     }
 }

@@ -5,7 +5,6 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +20,6 @@ import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterSliderAd
 import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.fragment_store.*
 import java.util.*
 import javax.inject.Inject
@@ -132,7 +129,6 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
     private fun getListStore() {
         if (isConnectToNetwork(context)) {
-            ProgressLoading.show(context)
             viewModel.getListStore()
         } else {
             showNoConnection(object : DialogClickListener {

@@ -31,9 +31,9 @@ class StoreViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getListStore() {
         repository.callRequestListStore()
-            ?.map { response ->  mapSortStore(response)}
             ?.doOnSubscribe { isLoading.value = true }
             ?.doFinally { isLoading.value = false }
+            ?.map { response ->  mapSortStore(response)}
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     ViewModelIceCream.CODE_200 -> {

@@ -24,13 +24,9 @@ import kotlin.math.sqrt
 
 
 class CommonUtils {
-    val TAG = "Hungpld"
-
 
     companion object {
         var instace = CommonUtils()
-        var mTotalPayment = 0
-        var mSelectedStore: Store? = null
         var mAmount = 0
         var token = ""
         const val TOKEN = "token"
@@ -45,7 +41,7 @@ class CommonUtils {
             dateFormat.timeZone = TimeZone.getDefault()
             return dateFormat.format(Date(System.currentTimeMillis()))
         } catch (e: Exception) {
-            Log.d(TAG, e.toString())
+
         }
         return null
     }
@@ -82,87 +78,4 @@ class CommonUtils {
         }
         return sum
     }
-
-
-    fun setTotalPayment(total: Int) {
-        mTotalPayment = total
-    }
-
-    fun getTotalPayment(): Int {
-        return mTotalPayment
-    }
-
-    /*fun get rage of two point*/
-    fun calculationByDistance(
-        startLatitude: Double,
-        startLongitude: Double,
-        endLatitude: Double,
-        endLongitude: Double
-    ): Double {
-        val radius = 6371 // radius of earth in Km
-        val lat1: Double = startLatitude
-        val lat2: Double = endLatitude
-        val lon1: Double = startLongitude
-        val lon2: Double = endLongitude
-        val dLat = Math.toRadians(lat2 - lat1)
-        val dLon = Math.toRadians(lon2 - lon1)
-        val a = (sin(dLat / 2) * sin(dLat / 2)
-                + (cos(Math.toRadians(lat1))
-                * cos(Math.toRadians(lat2)) * sin(dLon / 2)
-                * sin(dLon / 2)))
-        val c = 2 * asin(sqrt(a))
-        val valueResult = radius * c
-        val km = valueResult / 1
-        val newFormat = DecimalFormat("####")
-        val kmInDec: Int = Integer.valueOf(newFormat.format(km))
-        val meter = valueResult % 1000
-        val meterInDec: Int = Integer.valueOf(newFormat.format(meter))
-        Log.i(
-            "Radius Value", "" + valueResult + "   KM  " + kmInDec
-                    + " Meter   " + meterInDec
-        )
-        return valueResult
-    }
-
-    fun sortList(mListData: ArrayList<Store>): ArrayList<Store> {
-        return ArrayList(mListData.sortedWith(compareBy { it.range }))
-    }
-
-    fun showSomeThingWentWrong(activity: Activity?) {
-        KAlertDialog(activity, KAlertDialog.ERROR_TYPE)
-            .setTitleText("Some thing went wrong")
-            .show()
-    }
-
-
-    fun saveStoreSelected(store: Store) {
-        mSelectedStore = store
-    }
-
-    fun savePrefContent(context: Context?, key: String, value: String?) {
-        val editor = context?.getSharedPreferences(
-            PREF_SAVE_NAME,
-            Context.MODE_PRIVATE
-        )?.edit()
-        editor?.putString(key, value)
-        editor?.apply()
-    }
-
-    fun getPrefContent(context: Context?, key: String): String? {
-        var result = ""
-        val sharedPreferences = context?.getSharedPreferences(PREF_SAVE_NAME, Context.MODE_PRIVATE)
-        if (sharedPreferences != null) {
-            result = sharedPreferences.getString(key, "")!!
-        }
-        return result
-    }
-
-    fun Context.openPermissionSettings() {
-        val intent = Intent()
-        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        val uri = Uri.fromParts("package", packageName, null)
-        intent.data = uri
-        startActivity(intent)
-    }
-
 }

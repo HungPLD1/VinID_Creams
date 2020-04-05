@@ -3,20 +3,19 @@ package com.example.vinid_icecreams.base.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.example.vinid_icecreams.base.BaseView
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFragment()
-    , BaseView , HasAndroidInjector {
-
+abstract class BaseDialogFragment<T : BaseViewModel> : DialogFragment()
+    , HasAndroidInjector, BaseView {
     @Inject
     lateinit var childFragmentInjector: DispatchingAndroidInjector<Any>
 
@@ -26,7 +25,14 @@ abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFra
 
     override fun provideRootView(): View?  =  view
 
+    protected var messageSuccess : String? = null
 
+    protected var messageFailed :String? = null
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,6 +48,14 @@ abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFra
             } else {
                 ProgressLoading.dismiss()
             }
+        })
+
+        viewModel.messageSuccess.observe(viewLifecycleOwner, Observer {
+            messageSuccess = it
+        })
+
+        viewModel.messageFailed.observe(viewLifecycleOwner, Observer {
+            messageFailed = it
         })
     }
 

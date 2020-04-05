@@ -2,12 +2,12 @@ package com.example.vinid_icecreams.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Bill (
-        @SerializedName("order_info")
-        var orderInfo : OrderInfor,
-        @SerializedName("items")
-        var mListItems: ArrayList<ItemOrder>
-    )
+data class Bill(
+    @SerializedName("order_info")
+    var orderInfo : OrderInfor,
+    @SerializedName("items")
+    var mListItems: ArrayList<ItemOrder>
+)
 
 data class OrderInfor(
     @SerializedName("id")

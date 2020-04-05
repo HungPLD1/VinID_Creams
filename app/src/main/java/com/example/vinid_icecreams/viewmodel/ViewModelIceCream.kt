@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.vinid_icecreams.repository.remote.requestBody.Bill
 import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
 import com.example.vinid_icecreams.model.*
 import com.example.vinid_icecreams.repository.Repository
@@ -36,49 +35,6 @@ class ViewModelIceCream @Inject constructor(
         val TAG = ViewModelIceCream::class.java.name
         const val CODE_200 = 200
 
-    }
-
-    @SuppressLint("CheckResult")
-    fun getNotification() {
-        repository.callRequestNotification()?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    CODE_200 -> {
-                        mListEvent.postValue(result.data)
-                    }
-                    else -> {
-                        mMessageFail.postValue(result?.meta?.message)
-                    }
-                }
-            }
-        }) { error ->
-            run {
-
-            }
-        }
-    }
-
-    @SuppressLint("CheckResult")
-    fun handlePayment(bill: Bill) {
-        repository.callPayIceCream(bill)?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    CODE_200 -> {
-                        mMessageSuccess.postValue(result?.meta?.message)
-                        mIsPayment.postValue(true)
-                    }
-                    else -> {
-                        mMessageFail.postValue(result?.meta?.message)
-                        mIsPayment.postValue(false)
-                    }
-                }
-            }
-        }) { error ->
-            run {
-                mMessageFail.postValue(error.toString())
-                mIsPayment.postValue(false)
-            }
-        }
     }
 
     @SuppressLint("CheckResult")

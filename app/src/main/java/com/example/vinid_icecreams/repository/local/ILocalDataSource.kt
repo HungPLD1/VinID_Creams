@@ -13,6 +13,7 @@ interface ILocalDataSource {
     fun removeOrder(position: Int)
     fun increaseOrder(position: Int)
     fun decreaseOrder(position: Int)
+    fun setEmptyOrder()
     fun saveTotalPrice(total : Int)
     fun getTotalPrice(): Int?
     fun saveLocation(location: Location?)

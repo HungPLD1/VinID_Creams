@@ -5,6 +5,6 @@
 
     <fragment
         android:id="@+id/fragmentEvent"
-        android:name="com.example.vinid_icecreams.ui.fragment.event.FragmentEvent"
+        android:name="com.example.vinid_icecreams.ui.fragment.event.EventFragment"
         android:label="FragmentEvent" />
 </navigation>

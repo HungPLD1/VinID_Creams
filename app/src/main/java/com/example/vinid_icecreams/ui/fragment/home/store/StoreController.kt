@@ -2,7 +2,7 @@ package com.example.vinid_icecreams.ui.fragment.home.store
 
 import com.airbnb.epoxy.EpoxyController
 import com.example.vinid_icecreams.model.Store
-import com.example.vinid_icecreams.ui.fragment.home.store.model.storeHolderView
+import com.example.vinid_icecreams.ui.fragment.home.store.model.storeItemView
 
 class StoreController(
     private val toShopping: (index :Int) -> Unit
@@ -16,7 +16,7 @@ class StoreController(
 
     override fun buildModels() {
         listStore?.forEachIndexed { index, store ->
-            storeHolderView {
+            storeItemView {
                 id(store.id)
                 store(store)
                 onClickStoreListener { toShopping(index) }

@@ -2,9 +2,11 @@ package com.example.vinid_icecreams.di.viewModule
 
 import com.example.vinid_icecreams.ui.activity.home.HomeActivity
 import com.example.vinid_icecreams.ui.activity.login.LoginActivity
+import com.example.vinid_icecreams.ui.fragment.event.EventFragment
 import com.example.vinid_icecreams.ui.fragment.home.cart.CartFragment
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsFragment
 import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
+import com.example.vinid_icecreams.ui.fragment.home.pay.PayFragment
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment
@@ -44,4 +46,10 @@ interface ViewBuilder {
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
     fun contributeCartFragment(): CartFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributePaymentFragment(): PayFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributeEventFragment(): EventFragment
 }

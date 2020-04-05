@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import com.airbnb.epoxy.AfterPropsSet
 import com.airbnb.epoxy.CallbackProp
@@ -17,7 +16,7 @@ import kotlinx.android.synthetic.main.raw_layout_store.view.*
 import java.text.DecimalFormat
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
-class StoreHolderView @JvmOverloads constructor(
+class StoreItemView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
@@ -57,6 +56,6 @@ class StoreHolderView @JvmOverloads constructor(
     }
 
     companion object {
-        var TAG = StoreHolderView::class.java.name
+        var TAG = StoreItemView::class.java.name
     }
 }
