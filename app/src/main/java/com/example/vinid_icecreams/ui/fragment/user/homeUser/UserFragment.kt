@@ -110,7 +110,7 @@ class UserFragment : BaseFragment<UserViewModel>(), View.OnClickListener {
                 btnHistory ->{
                     findNavController().navigate(R.id.fragmentOrderHistory)
                 }
-                btnHistory ->{
+                btnBalance ->{
                     findNavController().navigate(R.id.fragmentWallet)
                 }
             }

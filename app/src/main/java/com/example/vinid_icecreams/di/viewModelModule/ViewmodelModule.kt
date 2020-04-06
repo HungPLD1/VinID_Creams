@@ -16,6 +16,7 @@ import com.example.vinid_icecreams.ui.fragment.home.store.StoreViewModel
 import com.example.vinid_icecreams.ui.fragment.login.login.LoginViewModel
 import com.example.vinid_icecreams.ui.fragment.login.register.RegisterViewModel
 import com.example.vinid_icecreams.ui.fragment.user.homeUser.UserViewModel
+import com.example.vinid_icecreams.ui.fragment.user.wallet.WalletViewModel
 import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
 import com.facebook.login.LoginFragment
 import dagger.Binds
@@ -125,5 +126,12 @@ interface ViewModelModule {
     @ViewModelKey(UserViewModel::class)
     fun binUserViewModel(
         dataViewModel: UserViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WalletViewModel::class)
+    fun binWalletViewModel(
+        dataViewModel: WalletViewModel
     ): ViewModel
 }

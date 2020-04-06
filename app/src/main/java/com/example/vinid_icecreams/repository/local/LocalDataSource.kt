@@ -2,12 +2,10 @@ package com.example.vinid_icecreams.repository.local
 
 import android.content.SharedPreferences
 import android.location.Location
-import android.util.Log
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.utils.Const
 import io.realm.Realm
-import io.realm.RealmObject
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(

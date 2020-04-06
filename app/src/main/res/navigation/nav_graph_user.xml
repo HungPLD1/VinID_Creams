@@ -28,7 +28,7 @@
         android:label="FragmentOrderDetails" />
     <fragment
         android:id="@+id/fragmentWallet"
-        android:name="com.example.vinid_icecreams.ui.fragment.user.wallet.FragmentWallet"
+        android:name="com.example.vinid_icecreams.ui.fragment.user.wallet.WalletFragment"
         android:label="FragmentWallet" >
     </fragment>
 </navigation>

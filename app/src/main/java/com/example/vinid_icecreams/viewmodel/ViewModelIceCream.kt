@@ -99,27 +99,4 @@ class ViewModelIceCream @Inject constructor(
             }
         }
     }
-
-    @SuppressLint("CheckResult")
-    fun setPointUser(amount: Int) {
-        repository.callRequestChargePoint(PointRequest(amount))?.subscribe({ result ->
-            run {
-                when (result.meta?.code) {
-                    CODE_200 -> {
-                        mIsChargePoint.postValue(true)
-                        mUser.postValue(result.data)
-                    }
-                    else -> {
-                        mIsChargePoint.postValue(false)
-                        mMessageFail.postValue(result.meta?.message)
-                    }
-                }
-            }
-        }) { error ->
-            run {
-                mIsChargePoint.postValue(false)
-                mMessageFail.postValue(error.toString())
-            }
-        }
-    }
 }
