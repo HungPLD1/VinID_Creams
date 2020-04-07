@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:id="@+id/img_back_to_user"
+            android:id="@+id/imgBackToUser"
             android:src="@drawable/back"
             android:layout_gravity="center"
             android:layout_margin="10dp"
@@ -30,8 +30,8 @@
         android:background="@android:color/holo_blue_light"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_order"
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/rcvHistory"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

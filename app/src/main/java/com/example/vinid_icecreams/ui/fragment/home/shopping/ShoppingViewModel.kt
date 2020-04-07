@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.repository.Repository
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.example.vinid_icecreams.utils.Const.CODE_200
 import javax.inject.Inject
 
 class ShoppingViewModel @Inject constructor(
@@ -18,16 +18,16 @@ class ShoppingViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun getListIceCream(storeID: Int) {
-        repository.callRequestListIceCream(storeID)?.doOnSubscribe { isLoading.value = true }
-            ?.doFinally { isLoading.value = false }?.subscribe({ result ->
-                run {
-                    when (result.meta?.code) {
-                        ViewModelIceCream.CODE_200 -> {
-                            _listIceCream.value = result.data
-                        }
-                        else -> {
-                            messageFailed.value = result?.meta?.message
-                        }
+        repository.callRequestListIceCream(storeID)
+            ?.doOnSubscribe { isLoading.value = true }
+            ?.doFinally { isLoading.value = false }
+            ?.subscribe({ result ->
+                when (result.meta?.code) {
+                    CODE_200 -> {
+                        _listIceCream.value = result.data
+                    }
+                    else -> {
+                        messageFailed.value = result?.meta?.message
                     }
                 }
             }) { error ->

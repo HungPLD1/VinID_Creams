@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.ui.adapter.adapterViewpagerLogin
+package com.example.vinid_icecreams.ui.activity.login.model
 
 import android.view.View
 import android.view.ViewGroup

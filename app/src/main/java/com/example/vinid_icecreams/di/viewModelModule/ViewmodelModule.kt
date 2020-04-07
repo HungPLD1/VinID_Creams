@@ -9,16 +9,15 @@ import com.example.vinid_icecreams.ui.fragment.home.cart.CartViewModel
 import com.example.vinid_icecreams.ui.fragment.home.details.DetailsViewModel
 import com.example.vinid_icecreams.ui.fragment.home.map.MapViewModel
 import com.example.vinid_icecreams.ui.fragment.home.pay.PayViewModel
-import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationFragment
 import com.example.vinid_icecreams.ui.fragment.home.requestLocation.RequestLocationViewModel
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingViewModel
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreViewModel
 import com.example.vinid_icecreams.ui.fragment.login.login.LoginViewModel
 import com.example.vinid_icecreams.ui.fragment.login.register.RegisterViewModel
+import com.example.vinid_icecreams.ui.fragment.user.detailsHistory.DetailsHistoryViewModel
+import com.example.vinid_icecreams.ui.fragment.user.history.HistoryViewModel
 import com.example.vinid_icecreams.ui.fragment.user.homeUser.UserViewModel
 import com.example.vinid_icecreams.ui.fragment.user.wallet.WalletViewModel
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import com.facebook.login.LoginFragment
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -28,14 +27,6 @@ interface ViewModelModule {
 
     @Binds
     fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(ViewModelIceCream::class)
-    fun bindDataViewModel(
-        dataViewModel: ViewModelIceCream
-    ): ViewModel
-
 
     @Binds
     @IntoMap
@@ -133,5 +124,19 @@ interface ViewModelModule {
     @ViewModelKey(WalletViewModel::class)
     fun binWalletViewModel(
         dataViewModel: WalletViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HistoryViewModel::class)
+    fun binHistoryViewModel(
+        dataViewModel: HistoryViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsHistoryViewModel::class)
+    fun binDetailsHistoryViewModel(
+        dataViewModel: DetailsHistoryViewModel
     ): ViewModel
 }

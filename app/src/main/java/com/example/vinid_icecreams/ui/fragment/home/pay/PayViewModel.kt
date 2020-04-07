@@ -8,7 +8,7 @@ import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.requestBody.BillRequest
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.example.vinid_icecreams.utils.Const.CODE_200
 import javax.inject.Inject
 
 class PayViewModel @Inject constructor(
@@ -26,7 +26,7 @@ class PayViewModel @Inject constructor(
             ?.doFinally { isLoading.value = false }
             ?.subscribe({ result ->
                 when (result.meta?.code) {
-                    ViewModelIceCream.CODE_200 -> {
+                    CODE_200 -> {
                         messageSuccess.value = result?.meta?.message
                         _isPayment.value = true
                     }

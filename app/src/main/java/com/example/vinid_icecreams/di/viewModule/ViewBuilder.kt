@@ -12,6 +12,8 @@ import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingFragment
 import com.example.vinid_icecreams.ui.fragment.home.store.StoreFragment
 import com.example.vinid_icecreams.ui.fragment.login.login.LoginFragment
 import com.example.vinid_icecreams.ui.fragment.login.register.RegisterFragment
+import com.example.vinid_icecreams.ui.fragment.user.detailsHistory.DetailsHistoryFragment
+import com.example.vinid_icecreams.ui.fragment.user.history.HistoryFragment
 import com.example.vinid_icecreams.ui.fragment.user.homeUser.UserFragment
 import com.example.vinid_icecreams.ui.fragment.user.wallet.WalletFragment
 import dagger.Module
@@ -60,4 +62,10 @@ interface ViewBuilder {
 
     @ContributesAndroidInjector(modules = [FragmentModule::class])
     fun contributeWalletFragment(): WalletFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributeHistoryFragment(): HistoryFragment
+
+    @ContributesAndroidInjector(modules = [FragmentModule::class])
+    fun contributeDetailsHistoryFragment(): DetailsHistoryFragment
 }

@@ -10,7 +10,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.base.activity.BaseActivity
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.ui.activity.home.HomeActivity
-import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterViewPagerIndicator
+import com.example.vinid_icecreams.ui.activity.login.model.AdapterViewPagerIndicator
 import com.example.vinid_icecreams.ui.fragment.login.listFragmentViewIndicator.FragmentFirstIndicator
 import com.example.vinid_icecreams.ui.fragment.login.listFragmentViewIndicator.FragmentLastIndicator
 import com.example.vinid_icecreams.ui.fragment.login.listFragmentViewIndicator.FragmentSecondIndicator
@@ -52,7 +52,10 @@ class LoginActivity : BaseActivity<LoginMainViewModel>() {
     private fun setupViewIndicator() {
         if (mAdapterViewPagerIndicator == null) {
             mAdapterViewPagerIndicator =
-                AdapterViewPagerIndicator(supportFragmentManager, getListFragmentIndicator())
+                AdapterViewPagerIndicator(
+                    supportFragmentManager,
+                    getListFragmentIndicator()
+                )
             loginViewPager.adapter = mAdapterViewPagerIndicator
             loginDotsIndicator.setViewPager(loginViewPager)
         }

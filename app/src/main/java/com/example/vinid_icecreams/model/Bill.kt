@@ -6,7 +6,7 @@ data class Bill(
     @SerializedName("order_info")
     var orderInfo : OrderInfor,
     @SerializedName("items")
-    var mListItems: ArrayList<ItemOrder>
+    var listItem: ArrayList<ItemOrder>
 )
 
 data class OrderInfor(

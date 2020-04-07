@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.model.Event
 import com.example.vinid_icecreams.repository.Repository
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.example.vinid_icecreams.utils.Const.CODE_200
 import javax.inject.Inject
 
 class EventViewModel @Inject constructor(
@@ -23,7 +23,7 @@ class EventViewModel @Inject constructor(
             ?.doFinally { isLoading.value = false }
             ?.subscribe({ result ->
             when (result.meta?.code) {
-                ViewModelIceCream.CODE_200 -> {
+                CODE_200 -> {
                     _listEvent.value = result.data
                 }
                 else -> {

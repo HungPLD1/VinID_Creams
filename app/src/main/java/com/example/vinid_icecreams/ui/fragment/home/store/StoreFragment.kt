@@ -17,9 +17,8 @@ import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
-import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterSliderAd
+import com.example.vinid_icecreams.ui.fragment.home.store.model.AdapterSliderAd
 import com.example.vinid_icecreams.ui.fragment.home.map.MapFragment
-import com.example.vinid_icecreams.utils.ProgressLoading
 import kotlinx.android.synthetic.main.fragment_store.*
 import java.util.*
 import javax.inject.Inject
@@ -148,7 +147,11 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         mListAd.add(R.drawable.green_ice)
         mListAd.add(R.drawable.ad_3)
         mListAd.add(R.drawable.green_2)
-        val mSlideAdapter = AdapterSliderAd(requireContext(), mListAd)
+        val mSlideAdapter =
+            AdapterSliderAd(
+                requireContext(),
+                mListAd
+            )
         sliderStoreAd?.sliderAdapter = mSlideAdapter
     }
 

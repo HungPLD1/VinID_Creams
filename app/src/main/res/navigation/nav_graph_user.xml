@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentOrderHistory"
-        android:name="com.example.vinid_icecreams.ui.fragment.user.history.FragmentOrderHistory"
+        android:name="com.example.vinid_icecreams.ui.fragment.user.history.HistoryFragment"
         android:label="FragmentOrderHistory" >
         <action
             android:id="@+id/action_fragmentOrderHistory_to_fragmentOrderDetails"
@@ -24,7 +24,7 @@
     </fragment>
     <dialog
         android:id="@+id/fragmentOrderDetails"
-        android:name="com.example.vinid_icecreams.ui.fragment.user.history.FragmentOrderDetails"
+        android:name="com.example.vinid_icecreams.ui.fragment.user.detailsHistory.DetailsHistoryFragment"
         android:label="FragmentOrderDetails" />
     <fragment
         android:id="@+id/fragmentWallet"

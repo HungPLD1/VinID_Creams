@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.ui.adapter.adapterIndicator
+package com.example.vinid_icecreams.ui.fragment.home.store.model
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,9 +13,11 @@ import java.util.*
 class AdapterSliderAd (var mContext: Context, var arrAd: ArrayList<Int>) :
     SliderViewAdapter<AdapterSliderAd.SliderAdapterVH>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup?):SliderAdapterVH {
+    override fun onCreateViewHolder(parent: ViewGroup?): SliderAdapterVH {
         val view = LayoutInflater.from(mContext).inflate(R.layout.raw_layout_pager_ad,parent,false)
-        return SliderAdapterVH(view)
+        return SliderAdapterVH(
+            view
+        )
     }
 
     override fun onBindViewHolder(viewHolder: SliderAdapterVH?, position: Int) {

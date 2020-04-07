@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.ui.adapter.adapterIndicator
+package com.example.vinid_icecreams.ui.fragment.home.details.model
 
 import android.content.Context
 import android.view.LayoutInflater

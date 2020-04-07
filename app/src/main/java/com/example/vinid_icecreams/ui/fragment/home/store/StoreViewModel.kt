@@ -9,7 +9,7 @@ import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.MyResponse
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
+import com.example.vinid_icecreams.utils.Const.CODE_200
 import java.net.ConnectException
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -36,7 +36,7 @@ class StoreViewModel @Inject constructor(
             ?.map { response ->  mapSortStore(response)}
             ?.subscribe({ result ->
                 when (result.meta?.code) {
-                    ViewModelIceCream.CODE_200 -> {
+                    CODE_200 -> {
                         _listStore.value = result?.data
                     }
                     else -> {

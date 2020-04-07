@@ -1,17 +1,12 @@
 package com.example.vinid_icecreams.ui.fragment.login.login
 
 import android.annotation.SuppressLint
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.utils.CommonUtils
-import com.example.vinid_icecreams.utils.Const
 import com.example.vinid_icecreams.utils.Const.CODE_200
-import com.example.vinid_icecreams.viewmodel.ViewModelIceCream
-import timber.log.Timber
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(

@@ -19,7 +19,7 @@ import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.utils.CommonUtils
-import com.example.vinid_icecreams.ui.adapter.adapterIndicator.AdapterViewPagerIndiCatorDetails
+import com.example.vinid_icecreams.ui.fragment.home.details.model.AdapterViewPagerIndiCatorDetails
 import kotlinx.android.synthetic.main.fragment_details.*
 import javax.inject.Inject
 
@@ -111,7 +111,11 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
         val listImage = ArrayList<String>()
         iceCream?.image_paths?.let { listImage.addAll(it) }
         val mAdapterViewPagerIndicatorAd
-                = AdapterViewPagerIndiCatorDetails(requireContext(), listImage)
+                =
+            AdapterViewPagerIndiCatorDetails(
+                requireContext(),
+                listImage
+            )
         viewPagerDetails?.adapter = mAdapterViewPagerIndicatorAd
         dotsIndicatorDetails?.setViewPager(viewPagerDetails!!)
 

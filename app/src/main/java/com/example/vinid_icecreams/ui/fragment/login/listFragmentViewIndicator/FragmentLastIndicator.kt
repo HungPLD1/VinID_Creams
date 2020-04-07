@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.ui.adapter.adapterViewpagerLogin.AdapterViewPagerLogin
+import com.example.vinid_icecreams.ui.activity.login.model.AdapterViewPagerLogin
 import kotlinx.android.synthetic.main.fragment_indicator_3.*
 
 class FragmentLastIndicator : Fragment() {
@@ -30,7 +30,10 @@ class FragmentLastIndicator : Fragment() {
     }
 
     private fun setUpFormLoginAndRegister() {
-        val mAdapterViewPagerLogin = AdapterViewPagerLogin(childFragmentManager)
+        val mAdapterViewPagerLogin =
+            AdapterViewPagerLogin(
+                childFragmentManager
+            )
         viewPagerLogin!!.adapter = mAdapterViewPagerLogin
         mAdapterViewPagerLogin.notifyDataSetChanged()
         tabLayoutLogin!!.setupWithViewPager(viewPagerLogin)

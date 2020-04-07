@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.ui.adapter.adapterIndicator
+package com.example.vinid_icecreams.ui.activity.login.model
 
 import android.view.View
 import androidx.fragment.app.Fragment
