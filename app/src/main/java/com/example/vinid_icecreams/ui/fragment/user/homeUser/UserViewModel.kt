@@ -35,4 +35,8 @@ class UserViewModel @Inject constructor(
             messageFailed.value = error?.toString()
         }
     }
+
+    fun removeToken(){
+        repository.saveToken(null)
+    }
 }

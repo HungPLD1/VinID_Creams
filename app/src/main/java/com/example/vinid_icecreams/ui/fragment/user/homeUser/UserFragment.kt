@@ -97,10 +97,7 @@ class UserFragment : BaseFragment<UserViewModel>(), View.OnClickListener {
                         .setConfirmText("Đúng rồi ")
                         .setConfirmClickListener {
                             it.dismiss()
-                            context?.getSharedPreferences(
-                                CommonUtils.PREF_SAVE_NAME,
-                                Context.MODE_PRIVATE
-                            )?.edit()?.remove(CommonUtils.TOKEN)?.apply()
+                            viewModel.removeToken()
                             startActivity(Intent(activity, LoginActivity::class.java))
                             activity?.finish()
                         }

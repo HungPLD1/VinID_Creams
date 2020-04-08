@@ -30,8 +30,8 @@ class StoreViewModel @Inject constructor(
     fun getListStore() {
         repository.callRequestListStore()
             ?.doOnSubscribe { isLoading.value = true }
-            ?.doFinally { isLoading.value = false }
             ?.map { response -> mapSortStore(response) }
+            ?.doFinally { isLoading.value = false }
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {

@@ -59,6 +59,18 @@ interface BaseView {
             .show()
     }
 
+    fun showDialogSuccessActivity(
+        activity: Activity?,
+        title: String?,
+        messageSuccess: String?
+    ) {
+        ProgressLoading.dismiss()
+        KAlertDialog(activity, KAlertDialog.SUCCESS_TYPE)
+            .setTitleText(title)
+            .setContentText(messageSuccess)
+            .show()
+    }
+
     fun showDialogSuccess(
         title: String?,
         messageSuccess: String?,

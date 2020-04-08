@@ -26,7 +26,6 @@ class LoginViewModel @Inject constructor(
                             messageSuccess.value = result?.meta?.message
                             _isLoginSuccess.value = true
                             /*save token*/
-                            CommonUtils.token = result.data?.token.toString()
                             repository.saveToken(result.data?.token)
                         }
                         else -> {

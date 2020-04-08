@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +55,7 @@ class PayFragment : BaseDialogFragment<PayViewModel>(), View.OnClickListener,
     override fun setUpUI() {
         super.setUpUI()
         initView()
-        setupChareShip()
+        setupChargeShip()
         setupBill()
         setupSpinner()
     }
@@ -150,9 +149,8 @@ class PayFragment : BaseDialogFragment<PayViewModel>(), View.OnClickListener,
         }
     }
 
-    private fun setupChareShip() {
+    private fun setupChargeShip() {
         /*phí ship 10$/1 km */
-        Log.d("Hungpd1",storeSelected?.range.toString() )
         if (storeSelected?.range != null) {
             shipFee = storeSelected!!.range * 10
         }
