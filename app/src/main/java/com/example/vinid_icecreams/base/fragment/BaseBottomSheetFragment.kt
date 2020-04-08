@@ -26,8 +26,6 @@ abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFra
 
     override fun provideRootView(): View?  =  view
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpUI()

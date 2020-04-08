@@ -17,11 +17,11 @@ class MapFragment : BaseBottomSheetFragment<MapViewModel>() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val mapViewModel: MapViewModel by lazy {
-        ViewModelProviders.of(requireActivity(), viewModelFactory).get(MapViewModel::class.java)
+    private val viewModel: MapViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(MapViewModel::class.java)
     }
 
-    override fun providerViewModel(): MapViewModel = mapViewModel
+    override fun providerViewModel(): MapViewModel = viewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
