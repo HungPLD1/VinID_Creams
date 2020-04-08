@@ -11,7 +11,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="@dimen/dp_50"
         tools:context=".MainActivity">
 
         <fragment
@@ -26,7 +26,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navHomeScreen"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_50"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimaryDark"
         app:itemIconTint="@color/selector_bottom_navi"

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="1dp"
-    app:cardCornerRadius="10dp"
-    android:innerRadius="0dp"
+    android:elevation="@dimen/dp_1"
+    app:cardCornerRadius="@dimen/dp_10"
+    android:innerRadius="@dimen/dp_0"
     android:shape="ring"
     android:thicknessRatio="1.9"
-    android:layout_height="120dp"
-    android:layout_margin="5dp">
+    android:layout_height="@dimen/dp_120"
+    android:layout_margin="@dimen/dp_5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,19 +18,19 @@
 
         <ImageView
             android:id="@+id/img_order"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp" />
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:layout_margin="@dimen/dp_10" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/dp_0"
                 android:orientation="horizontal"
                 android:weightSum="10"
                 android:layout_weight="1">
@@ -39,36 +40,36 @@
                     android:layout_weight="5"
                     android:lines="1"
                     android:layout_gravity="center"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    tools:ignore="NestedWeights" />
                 <ImageView
                     android:id="@+id/btn_minus"
                     android:layout_gravity="center"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="@dimen/dp_20"
                     android:src="@drawable/minus"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"/>
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_30"/>
                 <TextView
                     android:id="@+id/txt_count"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:text="1"
                     android:layout_weight="2"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"/>
                 <ImageView
                     android:id="@+id/btn_plus"
                     android:src="@drawable/plus"
                     android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_gravity="center"
-                    android:layout_height="30dp"/>
+                    android:layout_height="@dimen/dp_30"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/dp_0"
                 android:orientation="horizontal"
                 android:layout_weight="1">
                 <TextView
@@ -77,7 +78,8 @@
                     android:lines="1"
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    tools:ignore="NestedWeights" />
                 <TextView
                     android:id="@+id/txt_total"
                     android:layout_gravity="center_vertical"

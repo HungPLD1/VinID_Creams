@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:elevation="1dp"
-    android:innerRadius="0dp"
+    android:layout_margin="@dimen/dp_5"
+    android:elevation="@dimen/dp_1"
+    android:innerRadius="@dimen/dp_0"
     android:shape="ring"
     android:thicknessRatio="1.9"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="@dimen/dp_10">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,26 +23,26 @@
 
             <ImageView
                 android:id="@+id/imgOrder"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="10dp" />
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
+                android:layout_margin="@dimen/dp_10" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/dp_10"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="@dimen/dp_0"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="10">
 
                     <TextView
                         android:id="@+id/txtName"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="6"
@@ -50,7 +51,7 @@
 
                     <TextView
                         android:id="@+id/txtCount"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="4"
@@ -60,22 +61,23 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="@dimen/dp_0"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="10">
 
                     <TextView
                         android:id="@+id/txtPrice"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="6"
-                        android:lines="1" />
+                        android:lines="1"
+                        tools:ignore="NestedWeights" />
 
                     <TextView
                         android:id="@+id/txtTotal"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="4"
@@ -87,23 +89,24 @@
                 <LinearLayout
                     android:id="@+id/viewShowRating"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="@dimen/dp_0"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:src="@drawable/ic_star"
-                        android:padding="7dp"
-                        android:layout_width="0dp"
+                        android:padding="@dimen/dp_7"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="2" />
+                        android:layout_weight="2"
+                        tools:ignore="NestedWeights" />
 
                     <TextView
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp_12"
                         android:layout_weight="8"
-                        android:layout_width="0dp"
+                        android:layout_width="@dimen/dp_0"
                         android:layout_height="match_parent"
                         android:lines="1"
                         android:gravity="center_vertical"
@@ -118,10 +121,10 @@
             android:visibility="gone"
             android:id="@+id/lnContainerRating"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_height="@dimen/dp_150"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatRatingBar
@@ -129,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="@dimen/dp_5"
                 android:numStars="5"
                 android:rating="5"
                 />
@@ -145,8 +148,8 @@
                 android:id="@+id/btnSubmitRating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/custum_button_enable"
+                android:layout_marginTop="@dimen/dp_5"
+                android:background="@drawable/custom_button_enable"
                 android:textAllCaps="false"
                 android:text="@string/submit"
                 android:textColor="@android:color/white" />

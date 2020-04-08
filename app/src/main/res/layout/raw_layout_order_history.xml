@@ -1,13 +1,14 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="140dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="1dp"
-    app:cardCornerRadius="10dp"
-    android:innerRadius="0dp"
+    android:elevation="@dimen/dp_1"
+    app:cardCornerRadius="@dimen/dp_10"
+    android:innerRadius="@dimen/dp_0"
     android:shape="ring"
     android:thicknessRatio="1.9"
-    android:layout_margin="5dp">
+    android:layout_margin="@dimen/dp_5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,81 +17,84 @@
         android:weightSum="10">
         <LinearLayout
             android:weightSum="10"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/dp_5"
             android:layout_weight="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="@dimen/dp_0">
             <ImageView
                 android:src="@drawable/ic_clock"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                tools:ignore="NestedWeights" />
         <TextView
             android:textColor="@android:color/black"
             android:layout_gravity="center_vertical"
             android:layout_weight="5"
             android:text="@string/time_order"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/txtHistoryTime"
             android:lines="1"
             android:layout_gravity="center_vertical"
             android:layout_weight="4"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:weightSum="10"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/dp_5"
             android:layout_weight="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="@dimen/dp_0">
             <ImageView
                 android:src="@drawable/ic_purchase"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                tools:ignore="NestedWeights" />
             <TextView
                 android:textColor="@android:color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="5"
                 android:text= "@string/fee_order"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/txtHistoryTotal"
                 android:lines="1"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="4"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
             android:weightSum="10"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/dp_5"
             android:layout_weight="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="@dimen/dp_0">
             <ImageView
                 android:src="@drawable/ic_ship"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                tools:ignore="NestedWeights" />
             <TextView
                 android:textColor="@android:color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="5"
                 android:text="@string/fee_ship"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/txtHistoryShip"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="4"
@@ -99,66 +103,68 @@
         </LinearLayout>
         <LinearLayout
             android:weightSum="10"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/dp_5"
             android:layout_weight="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="@dimen/dp_0">
             <ImageView
                 android:src="@drawable/ic_payment"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                tools:ignore="NestedWeights" />
             <TextView
                 android:textColor="@android:color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="5"
                 android:text="@string/payment_order"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/txtHistoryPayment"
                 android:lines="1"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="4"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"/>
         </LinearLayout>
         <LinearLayout
             android:weightSum="10"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/dp_5"
             android:layout_weight="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="@dimen/dp_0">
             <ImageView
                 android:src="@drawable/ic_details"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                tools:ignore="NestedWeights" />
             <TextView
                 android:textColor="@android:color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="5"
                 android:text="@string/profile_order_details"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/txtHistoryDetails"
-                android:text="CLICK HERE !!!"
+                android:text="@string/click_here"
                 android:textColor="@android:color/holo_red_dark"
                 android:lines="1"
                 android:gravity="start"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="4"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="match_parent"/>
         </LinearLayout>
         <View
             android:background="@color/backGroundIceCream"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
     </LinearLayout>

@@ -6,16 +6,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_50"
         android:orientation="horizontal"
         android:weightSum="10">
 
         <ImageView
             android:id="@+id/imgCartBack"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/dp_30"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:layout_weight="1"
             android:src="@drawable/back" />
 
@@ -27,15 +27,15 @@
             android:lines="1"
             android:text="@string/info_cart"
             android:textColor="@android:color/holo_blue_light"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp_20"
             android:textStyle="bold" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
         android:background="@android:color/holo_blue_light" />
 
     <androidx.core.widget.NestedScrollView
@@ -51,34 +51,34 @@
                 android:id="@+id/rcvCartOrder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp" />
+                android:layout_margin="@dimen/dp_10" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:background="@android:color/black" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/dp_50"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_weight="7"
                     android:gravity="center_vertical"
                     android:text="@string/total_price" />
 
                 <TextView
                     android:id="@+id/txtCartTotalPayment"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="@dimen/dp_5"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:textColor="@android:color/holo_red_dark" />
@@ -88,8 +88,8 @@
                 android:id="@+id/btnCartPayment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/custum_button_enable"
+                android:layout_margin="@dimen/dp_10"
+                android:background="@drawable/custom_button_enable"
                 android:text="@string/goto_payment"
                 android:textColor="@android:color/white" />
         </LinearLayout>

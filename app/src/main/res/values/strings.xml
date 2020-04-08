@@ -69,4 +69,10 @@
     <string name="request_location_explain_forever_desc">Để tiếp tục, bạn cần cho phép app truy cập vị trí của bạn. Vào Cài đặt > Quyền và cho phép truy cập vị trí</string>
     <string name="scan_qr_code_permission_forever_action">Mở cài đặt</string>
     <string name="request_location_explain">Vui lòng cho phép app truy cập vị trí của bạn.</string>
+    <string name="details_order">Chi tiết đơn hàng</string>
+    <string name="My_wallet">Ví của tôi</string>
+    <string name="charge_point">Nạp tiền</string>
+    <string name="input_number">Cho xin con số</string>
+    <string name="sub_mit">Submit</string>
+    <string name="click_here">CLICK HERE !!!</string>
 </resources>

@@ -8,21 +8,21 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="1dp"
+        android:elevation="@dimen/dp_1"
         android:innerRadius="0dp"
         android:shape="ring"
         android:thicknessRatio="1.9"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="@dimen/dp_10">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/custum_background_dialog"
+            android:background="@drawable/custom_background_dialog"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/dp_50"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
@@ -32,29 +32,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_weight="8"
                     android:lines="1"
                     android:text="@string/payment"
                     android:textColor="@android:color/holo_blue_light"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/imgPaymentClose"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_30"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:padding="4dp"
+                    android:padding="@dimen/dp_4"
                     android:src="@drawable/ic_x" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:background="@android:color/holo_blue_light" />
 
             <androidx.core.widget.NestedScrollView
@@ -68,27 +68,26 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
                         android:orientation="horizontal"
-
                         android:weightSum="10">
 
                         <ImageView
                             android:id="@+id/imgStoreLocation"
-                            android:layout_width="0dp"
+                            android:layout_width="@dimen/dp_0"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:src="@drawable/ic_store" />
 
                         <TextView
                             android:id="@+id/txtPaymentStoreName"
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_30"
                             android:layout_gravity="center"
-                            android:layout_marginStart="20dp"
+                            android:layout_marginStart="@dimen/dp_20"
                             android:layout_weight="8"
                             android:gravity="center_vertical"
                             android:lines="1"
@@ -97,14 +96,14 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_margin="@dimen/dp_10"
                         android:orientation="horizontal"
                         android:weightSum="10">
 
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_height="30dp"
+                            android:layout_height="@dimen/dp_30"
                             android:layout_weight="5"
                             android:gravity="center_vertical"
                             android:text="@string/total_payment"
@@ -112,8 +111,8 @@
 
                         <TextView
                             android:id="@+id/txtPaymentChargeOrder"
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_30"
                             android:layout_weight="5"
                             android:gravity="center"
                             android:lines="1" />
@@ -121,14 +120,14 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_margin="@dimen/dp_10"
                         android:orientation="horizontal"
                         android:weightSum="10">
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_30"
                             android:layout_weight="5"
                             android:gravity="center_vertical"
                             android:lines="1"
@@ -137,8 +136,8 @@
 
                         <TextView
                             android:id="@+id/txtPaymentChargeShip"
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_30"
                             android:layout_gravity="center"
                             android:layout_weight="5"
                             android:gravity="center" />
@@ -147,22 +146,22 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
                         android:background="@android:color/black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
                         android:orientation="horizontal"
                         android:weightSum="10">
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_30"
                             android:layout_weight="5"
                             android:gravity="center_vertical"
                             android:text="@string/total_pay"
@@ -170,8 +169,8 @@
 
                         <TextView
                             android:id="@+id/txtPaymentTotalCharge"
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_30"
                             android:layout_gravity="center"
                             android:layout_weight="5"
                             android:gravity="center"
@@ -180,16 +179,16 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_marginBottom="@dimen/dp_10"
                         android:orientation="horizontal"
                         android:weightSum="10">
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/dp_0"
+                            android:layout_height="@dimen/dp_30"
                             android:layout_weight="5"
                             android:gravity="center_vertical"
                             android:text="@string/type_payment"
@@ -198,7 +197,7 @@
                         <org.angmarch.views.NiceSpinner
                             android:id="@+id/spnPayment"
                             android:layout_width="0dp"
-                            android:layout_height="50dp"
+                            android:layout_height="@dimen/dp_50"
                             android:layout_weight="5"
                             android:gravity="center"
                             android:lines="1" />
@@ -208,8 +207,8 @@
                         android:id="@+id/btnPaymentAccept"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/custum_button_enable"
+                        android:layout_margin="@dimen/dp_10"
+                        android:background="@drawable/custom_button_enable"
                         android:text="@string/accept"
                         android:textColor="@android:color/white" />
                 </LinearLayout>

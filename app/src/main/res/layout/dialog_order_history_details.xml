@@ -8,56 +8,54 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="1dp"
-        android:innerRadius="0dp"
+        android:elevation="@dimen/dp_1"
         android:shape="ring"
         android:thicknessRatio="1.9"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="@dimen/dp_10">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/custum_background_dialog"
+            android:background="@drawable/custom_background_dialog"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/dp_50"
                 android:orientation="horizontal"
                 android:weightSum="10">
 
-
                 <TextView
                     android:id="@+id/back_to_cart"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_weight="8"
                     android:lines="1"
-                    android:text="Chi tiết đơn hàng"
+                    android:text="@string/details_order"
                     android:textColor="@android:color/holo_blue_light"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp_20"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/btnClose"
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="@dimen/dp_30"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:padding="4dp"
+                    android:padding="@dimen/dp_4"
                     android:src="@drawable/ic_x" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:background="@android:color/holo_blue_light" />
             <com.airbnb.epoxy.EpoxyRecyclerView
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/dp_10"
                 android:id="@+id/rcvDetailsOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

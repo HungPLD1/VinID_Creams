@@ -16,7 +16,7 @@ object ProgressLoading {
     }
 
     private fun isLoading(): Boolean {
-        return pdLoading != null && pdLoading!!.isShowing()
+        return pdLoading != null && pdLoading!!.isShowing
     }
 
     fun show(context: Context?) {

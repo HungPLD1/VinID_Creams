@@ -16,8 +16,8 @@
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/loginDotsIndicator"
         android:layout_centerInParent="true"
-        android:layout_margin="10dp"
-        app:dotsSpacing="10dp"
+        android:layout_margin="@dimen/dp_10"
+        app:dotsSpacing="@dimen/dp_10"
         app:dotsColor="@android:color/white"
         app:selectedDotColor="#0C70C2"
         android:layout_alignParentBottom="true"

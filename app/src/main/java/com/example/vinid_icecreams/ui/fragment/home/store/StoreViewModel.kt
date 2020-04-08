@@ -2,7 +2,6 @@ package com.example.vinid_icecreams.ui.fragment.home.store
 
 import android.annotation.SuppressLint
 import android.location.Location
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
@@ -11,7 +10,6 @@ import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.MyResponse
 import com.example.vinid_icecreams.utils.Const.CODE_200
 import java.net.ConnectException
-import java.text.DecimalFormat
 import javax.inject.Inject
 import kotlin.math.asin
 import kotlin.math.cos
@@ -33,7 +31,7 @@ class StoreViewModel @Inject constructor(
         repository.callRequestListStore()
             ?.doOnSubscribe { isLoading.value = true }
             ?.doFinally { isLoading.value = false }
-            ?.map { response ->  mapSortStore(response)}
+            ?.map { response -> mapSortStore(response) }
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -56,7 +54,7 @@ class StoreViewModel @Inject constructor(
             }
     }
 
-    private fun mapSortStore(response : MyResponse<ArrayList<Store>>): MyResponse<ArrayList<Store>> {
+    private fun mapSortStore(response: MyResponse<ArrayList<Store>>): MyResponse<ArrayList<Store>> {
         val currentLocation = repository.getLocation()
         if (currentLocation != null) {
             response.data?.forEach { store ->
@@ -92,20 +90,14 @@ class StoreViewModel @Inject constructor(
                 * cos(Math.toRadians(lat2)) * sin(dLon / 2)
                 * sin(dLon / 2)))
         val c = 2 * asin(sqrt(a))
-        val valueResult = radius * c
-        val km = valueResult / 1
-        val newFormat = DecimalFormat("####")
-        val kmInDec: Int = Integer.valueOf(newFormat.format(km))
-        val meter = valueResult % 1000
-        val meterInDec: Int = Integer.valueOf(newFormat.format(meter))
-        return valueResult
+        return radius * c
     }
 
     private fun sortList(listData: ArrayList<Store>): ArrayList<Store> {
         return ArrayList(listData.sortedWith(compareBy { it.range }))
     }
 
-    fun getLocation(){
+    fun getLocation() {
         _location.value = repository.getLocation()
     }
 }

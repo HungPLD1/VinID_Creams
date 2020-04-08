@@ -43,7 +43,7 @@ class CommentHolderView @JvmOverloads constructor(
         txtRawCommentContent?.text = comment?.comment
         Picasso.with(context).load(comment?.user_avatar)
             .placeholder(R.drawable.loading_image)
-            .error(R.drawable.default_avata)
+            .error(R.drawable.default_avatar)
             .into(imgRawComment)
     }
 

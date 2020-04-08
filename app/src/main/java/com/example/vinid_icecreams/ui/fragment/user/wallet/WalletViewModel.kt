@@ -7,7 +7,6 @@ import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.model.User
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.requestBody.PointRequest
-import com.example.vinid_icecreams.utils.Const
 import com.example.vinid_icecreams.utils.Const.CODE_200
 import javax.inject.Inject
 
@@ -51,7 +50,7 @@ class WalletViewModel @Inject constructor(
             ?.doFinally { isLoading.value = false }
             ?.subscribe({ result ->
                 when (result.meta?.code) {
-                    Const.CODE_200 -> {
+                    CODE_200 -> {
                         _user.value = result?.data
                     }
                     else -> {

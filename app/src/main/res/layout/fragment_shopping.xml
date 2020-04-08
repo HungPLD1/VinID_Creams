@@ -7,15 +7,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dp_50"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imgShoppingBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:src="@drawable/back" />
 
         <TextView
@@ -25,63 +25,63 @@
             android:lines="1"
             android:text="@string/shopping"
             android:textColor="@android:color/holo_blue_light"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp_20"
             android:textStyle="bold" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="@dimen/dp_1"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
         android:background="@android:color/holo_blue_light" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_margin="10dp"
+        android:layout_height="@dimen/dp_30"
+        android:layout_margin="@dimen/dp_10"
         android:orientation="horizontal"
         android:weightSum="10">
 
         <SearchView
             android:id="@+id/svShoppingIcecream"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_weight="8" />
 
         <ImageView
             android:id="@+id/imgShoppingToCart"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:padding="2dp"
+            android:padding="@dimen/dp_2"
             android:src="@drawable/ic_cart_3" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/dp_60"
         android:orientation="horizontal">
 
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spnShoppingFilterByType"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:layout_weight="1" />
 
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spnShoppingFilterByPrice"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:layout_weight="1" />
 
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spnShoppingFilterByDiscount"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -89,5 +89,5 @@
         android:id="@+id/rcvShoppingIceCream"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp" />
+        android:layout_margin="@dimen/dp_10" />
 </LinearLayout>

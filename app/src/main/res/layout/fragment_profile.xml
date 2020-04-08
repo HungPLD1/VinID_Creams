@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -6,46 +7,46 @@
     <RelativeLayout
         android:id="@+id/layoutTop"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="@dimen/dp_200">
 
         <ImageView
             android:id="@+id/imgBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/background" />
+            android:src="@drawable/background_default_user" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp_0"
         android:layout_below="@id/layoutTop"
         android:layout_alignParentBottom="true">
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
         android:layout_above="@id/layoutBottom"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-40dp"
-        android:src="@drawable/default_avata" />
+        android:src="@drawable/default_avatar" />
     <TextView
         android:typeface="serif"
         android:id="@+id/txtNameUser"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/dp_50"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imgAvatar"
         android:lines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <LinearLayout
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dp_30"
         android:orientation="vertical"
         android:id="@+id/rcv_"
         android:layout_below="@+id/txtNameUser"
@@ -53,17 +54,17 @@
         android:layout_height="match_parent">
         <androidx.cardview.widget.CardView
             android:id="@+id/btnBalance"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="10dp"
-            android:elevation="1dp"
-            app:cardCornerRadius="10dp"
-            android:innerRadius="0dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:elevation="@dimen/dp_1"
+            app:cardCornerRadius="@dimen/dp_10"
+            android:innerRadius="@dimen/dp_0"
             android:shape="ring"
             android:thicknessRatio="1.9"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="@dimen/dp_60">
             <LinearLayout
                 android:weightSum="10"
                 android:layout_width="match_parent"
@@ -73,43 +74,44 @@
                     android:src="@drawable/ic_wallet"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"/>
                 <TextView
                     android:text="@string/my_wallet"
                     android:typeface="serif"
                     android:lines="1"
-                    android:paddingStart="20dp"
+                    android:paddingStart="@dimen/dp_20"
                     android:gravity="center_vertical"
                     android:layout_weight="5"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    tools:ignore="RtlSymmetry" />
                 <TextView
                     android:text="9"
                     android:id="@+id/txtBalance"
                     android:textColor="@android:color/holo_red_dark"
                     android:typeface="serif"
                     android:lines="1"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="5dp"
+                    android:paddingStart="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_5"
                     android:gravity="center"
                     android:layout_weight="3"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="10dp"
-            android:elevation="1dp"
-            app:cardCornerRadius="10dp"
-            android:innerRadius="0dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:elevation="@dimen/dp_1"
+            app:cardCornerRadius="@dimen/dp_10"
+            android:innerRadius="@dimen/dp_0"
             android:shape="ring"
             android:thicknessRatio="1.9"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="@dimen/dp_60">
             <LinearLayout
                 android:weightSum="10"
                 android:layout_width="match_parent"
@@ -119,33 +121,33 @@
                     android:src="@drawable/ic_user_profile"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"/>
                 <TextView
                     android:text="@string/setup_profile"
                     android:typeface="serif"
                     android:lines="1"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="5dp"
+                    android:paddingStart="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_5"
                     android:gravity="center_vertical"
                     android:layout_weight="8"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:id="@+id/btnHistory"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="10dp"
-            android:elevation="1dp"
-            app:cardCornerRadius="10dp"
-            android:innerRadius="0dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:elevation="@dimen/dp_1"
+            app:cardCornerRadius="@dimen/dp_10"
+            android:innerRadius="@dimen/dp_0"
             android:shape="ring"
             android:thicknessRatio="1.9"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="@dimen/dp_60">
             <LinearLayout
                 android:weightSum="10"
                 android:layout_width="match_parent"
@@ -155,33 +157,33 @@
                     android:src="@drawable/ic_history_profile"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"/>
                 <TextView
                     android:text="@string/history_order"
                     android:typeface="serif"
                     android:lines="1"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="5dp"
+                    android:paddingStart="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_5"
                     android:gravity="center_vertical"
                     android:layout_weight="8"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:id="@+id/btnLogout"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="10dp"
-            android:elevation="1dp"
-            app:cardCornerRadius="10dp"
-            android:innerRadius="0dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:elevation="@dimen/dp_1"
+            app:cardCornerRadius="@dimen/dp_10"
+            android:innerRadius="@dimen/dp_0"
             android:shape="ring"
             android:thicknessRatio="1.9"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="@dimen/dp_60">
             <LinearLayout
                 android:weightSum="10"
                 android:layout_width="match_parent"
@@ -191,17 +193,17 @@
                     android:src="@drawable/ic_logout"
                     android:layout_gravity="center"
                     android:layout_weight="2"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"/>
                 <TextView
                     android:text="@string/log_out"
                     android:typeface="serif"
                     android:lines="1"
-                    android:paddingEnd="5dp"
-                    android:paddingStart="20dp"
+                    android:paddingEnd="@dimen/dp_5"
+                    android:paddingStart="@dimen/dp_20"
                     android:gravity="center_vertical"
                     android:layout_weight="8"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/dp_0"
                     android:layout_height="match_parent"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

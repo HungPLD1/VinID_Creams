@@ -1,27 +1,12 @@
 package com.example.vinid_icecreams.utils
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
-import android.net.Uri
-import android.provider.Settings
-import android.util.Log
 import android.view.WindowManager
-import com.developer.kalert.KAlertDialog
-import com.example.vinid_icecreams.model.Order
-import com.example.vinid_icecreams.model.Store
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.math.asin
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
-
 
 class CommonUtils {
 

@@ -21,7 +21,6 @@ import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingController.Companion.ITEM_PER_ROW
-import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.ProgressLoading
 import kotlinx.android.synthetic.main.fragment_shopping.*
 import javax.inject.Inject

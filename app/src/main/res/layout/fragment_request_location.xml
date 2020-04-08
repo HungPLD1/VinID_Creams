@@ -25,13 +25,13 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:textSize="20sp"
+            android:textSize="@dimen/sp_20"
             android:textStyle="bold"
             android:id="@+id/tvAccessLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/dp_20"
             android:text="@string/request_location" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp_8"
             android:gravity="center"
             android:text="@string/request_location_content" />
 
@@ -48,10 +48,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dp_10"
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
-            android:padding="16dp"
+            android:padding="@dimen/dp_16"
             android:textColor="@color/com_facebook_blue"
             android:text="@string/allow_to_access" />
     </LinearLayout>

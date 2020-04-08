@@ -15,7 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/dp_30"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
@@ -24,16 +24,16 @@
         android:textStyle="bold">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/dp_30"
             android:id="@+id/imgCheat"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
             android:src="@drawable/cat" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/dp_5"
             android:typeface="serif"
             android:text="@string/sologan"
             android:textColor="@android:color/black" />
@@ -41,7 +41,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/dp_0"
         android:layout_weight="8"
         android:orientation="vertical">
 
@@ -53,12 +53,12 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_width="@dimen/dp_300"
+                android:layout_height="@dimen/dp_300"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                app:cardCornerRadius="6dp"
-                app:cardElevation="3dp"
+                app:cardCornerRadius="@dimen/dp_7"
+                app:cardElevation="@dimen/dp_3"
                 app:cardUseCompatPadding="true">
                 <LinearLayout
                     android:weightSum="7"
@@ -69,14 +69,14 @@
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabLayoutLogin"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="@dimen/dp_0"
                         android:layout_weight="1" />
 
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/viewPagerLogin"
                         android:layout_width="match_parent"
                         android:layout_weight="6"
-                        android:layout_height="0dp" />
+                        android:layout_height="@dimen/dp_0" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
@@ -85,7 +85,7 @@
             android:id="@+id/btnLoginFacebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="@dimen/dp_15"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
@@ -93,7 +93,7 @@
             android:id="@+id/btnLoginGoogle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dp_10"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
     </LinearLayout>
