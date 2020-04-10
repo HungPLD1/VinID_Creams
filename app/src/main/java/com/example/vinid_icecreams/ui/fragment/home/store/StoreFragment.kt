@@ -191,4 +191,10 @@ class StoreFragment : BaseFragment<StoreViewModel>() {
             skeleton?.show()
         }
     }
+
+    override fun onDestroyView() {
+        skeleton = null
+        rcvStore.adapter = null
+        super.onDestroyView()
+    }
 }
