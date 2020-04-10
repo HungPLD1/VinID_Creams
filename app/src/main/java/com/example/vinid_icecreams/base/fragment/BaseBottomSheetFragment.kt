@@ -11,7 +11,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFragment()

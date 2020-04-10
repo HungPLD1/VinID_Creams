@@ -30,14 +30,6 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment(),
 
     override fun setupViewModel() {
         val viewModel = providerViewModel()
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                ProgressLoading.show(requireContext())
-            } else {
-                ProgressLoading.dismiss()
-            }
-        })
-
         viewModel.messageSuccess.observe(viewLifecycleOwner, Observer {
             messageSuccess = it
         })

@@ -14,7 +14,7 @@ class AdapterSliderAd (var mContext: Context, var arrAd: ArrayList<Int>) :
     SliderViewAdapter<AdapterSliderAd.SliderAdapterVH>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?): SliderAdapterVH {
-        val view = LayoutInflater.from(mContext).inflate(R.layout.raw_layout_pager_ad,parent,false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.raw_pager_ad,parent,false)
         return SliderAdapterVH(
             view
         )

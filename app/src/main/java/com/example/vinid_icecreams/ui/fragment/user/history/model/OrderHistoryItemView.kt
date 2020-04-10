@@ -11,7 +11,7 @@ import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.OrderInfor
-import kotlinx.android.synthetic.main.raw_layout_order_history.view.*
+import kotlinx.android.synthetic.main.raw_order_history.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class OrderHistoryItemView @JvmOverloads constructor(
@@ -27,7 +27,7 @@ class OrderHistoryItemView @JvmOverloads constructor(
         @ModelProp set
 
     init {
-        View.inflate(context, R.layout.raw_layout_order_history, this)
+        View.inflate(context, R.layout.raw_order_history, this)
     }
 
     @SuppressLint("SetTextI18n")

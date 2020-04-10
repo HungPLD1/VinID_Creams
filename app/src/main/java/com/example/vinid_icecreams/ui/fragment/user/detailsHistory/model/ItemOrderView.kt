@@ -15,8 +15,7 @@ import com.airbnb.epoxy.ModelView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.ItemOrder
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_wallet.view.*
-import kotlinx.android.synthetic.main.raw_layout_order_details.view.*
+import kotlinx.android.synthetic.main.raw_order_details.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class ItemOrderView @JvmOverloads constructor(
@@ -36,7 +35,7 @@ class ItemOrderView @JvmOverloads constructor(
         @ModelProp set
 
     init {
-        View.inflate(context, R.layout.raw_layout_order_details, this)
+        View.inflate(context, R.layout.raw_order_details, this)
     }
 
     @SuppressLint("SetTextI18n")

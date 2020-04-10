@@ -12,7 +12,7 @@ import com.airbnb.epoxy.ModelView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Store
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.raw_layout_store.view.*
+import kotlinx.android.synthetic.main.raw_store.view.*
 import java.text.DecimalFormat
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
@@ -29,7 +29,7 @@ class StoreItemView @JvmOverloads constructor(
         @ModelProp set
 
     init {
-        View.inflate(context, R.layout.raw_layout_store, this)
+        View.inflate(context, R.layout.raw_store, this)
     }
 
     @SuppressLint("SetTextI18n")

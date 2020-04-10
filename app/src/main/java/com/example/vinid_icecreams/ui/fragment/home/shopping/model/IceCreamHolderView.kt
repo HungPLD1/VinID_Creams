@@ -13,7 +13,7 @@ import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.raw_layout_ice_cream.view.*
+import kotlinx.android.synthetic.main.raw_ice_cream.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class IceCreamHolderView @JvmOverloads constructor(
@@ -29,7 +29,7 @@ class IceCreamHolderView @JvmOverloads constructor(
         @ModelProp set
 
     init {
-        View.inflate(context, R.layout.raw_layout_ice_cream,this)
+        View.inflate(context, R.layout.raw_ice_cream,this)
     }
 
     @SuppressLint("SetTextI18n")

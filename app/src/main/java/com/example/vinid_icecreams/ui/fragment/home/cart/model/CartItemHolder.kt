@@ -12,7 +12,7 @@ import com.airbnb.epoxy.ModelView
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.model.Order
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.raw_layout_cart.view.*
+import kotlinx.android.synthetic.main.raw_cart.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class CartItemHolder @JvmOverloads constructor(
@@ -31,7 +31,7 @@ class CartItemHolder @JvmOverloads constructor(
         @ModelProp set
 
     init {
-        View.inflate(context, R.layout.raw_layout_cart,this)
+        View.inflate(context, R.layout.raw_cart,this)
     }
 
     @SuppressLint("SetTextI18n")

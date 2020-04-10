@@ -18,7 +18,7 @@ class MapFragment : BaseBottomSheetFragment<MapViewModel>() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel: MapViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(MapViewModel::class.java)
+        ViewModelProviders.of(requireActivity(), viewModelFactory).get(MapViewModel::class.java)
     }
 
     override fun providerViewModel(): MapViewModel = viewModel

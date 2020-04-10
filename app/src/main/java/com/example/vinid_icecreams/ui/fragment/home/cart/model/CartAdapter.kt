@@ -2,7 +2,6 @@ package com.example.vinid_icecreams.ui.fragment.home.cart.model
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ class CartAdapter(
 ) : RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val mView = LayoutInflater.from(context).inflate(R.layout.raw_layout_cart, parent, false)
+        val mView = LayoutInflater.from(context).inflate(R.layout.raw_cart, parent, false)
         return MyViewHolder(mView)
     }
 

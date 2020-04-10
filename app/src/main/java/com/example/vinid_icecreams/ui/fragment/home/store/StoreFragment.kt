@@ -8,9 +8,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RawRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.ethanhua.skeleton.Skeleton
+import com.ethanhua.skeleton.SkeletonScreen
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.base.DialogClickListener
 import com.example.vinid_icecreams.base.fragment.BaseFragment
@@ -25,7 +28,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
+class StoreFragment : BaseFragment<StoreViewModel>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -46,6 +49,8 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         )
     }
 
+    private var skeleton: SkeletonScreen? = null
+
     override fun providerViewModel(): StoreViewModel = viewModel
 
     override fun onCreateView(
@@ -60,11 +65,17 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         super.setUpUI()
         setupViewIndicatorAd()
         setupEpoxyRecycleView()
-        setupLocation()
+        handleClickButton()
     }
 
-    private fun setupLocation() {
-        imgStoreLocation?.setOnClickListener(this)
+    private fun handleClickButton() {
+        imgStoreLocation?.setOnClickListener {
+            showBottomSheetDiaLogMap()
+        }
+        swRefreshLayout.setOnRefreshListener {
+            viewModel.getListStore()
+            swRefreshLayout.isRefreshing = false
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -106,6 +117,10 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
             })
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+                toggleSkeletonVisibility(it)
+        })
     }
 
     /*set up list store */
@@ -113,16 +128,6 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         rcvStore.run {
             setItemSpacingDp(4)
             setController(storeController)
-        }
-    }
-
-    override fun onClick(view: View?) {
-        if (view != null) {
-            when (view) {
-                imgStoreLocation -> {
-                    showBottomSheetDiaLogMap()
-                }
-            }
         }
     }
 
@@ -143,14 +148,14 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
 
     /*set up slider ad*/
     private fun setupViewIndicatorAd() {
-        val mListAd: ArrayList<Int> = ArrayList()
-        mListAd.add(R.drawable.green_ice)
-        mListAd.add(R.drawable.ad_3)
-        mListAd.add(R.drawable.green_2)
+        val listAd: ArrayList<Int> = ArrayList()
+        listAd.add(R.drawable.green_ice)
+        listAd.add(R.drawable.ad_3)
+        listAd.add(R.drawable.green_2)
         val mSlideAdapter =
             AdapterSliderAd(
                 requireContext(),
-                mListAd
+                listAd
             )
         sliderStoreAd?.sliderAdapter = mSlideAdapter
     }
@@ -166,5 +171,24 @@ class StoreFragment : BaseFragment<StoreViewModel>(), View.OnClickListener {
         homeViewModel.setStoreSelection(listStore[position])
         homeViewModel.resetOrder()
         this.findNavController().navigate(R.id.fragmentShopping)
+    }
+
+    private fun toggleSkeletonVisibility(isLoading: Boolean) {
+        if (!isLoading) {
+            skeleton?.hide()
+            skeleton = null
+            return
+        }
+        if (skeleton == null) {
+            skeleton = Skeleton.bind(rcvStore)
+                .adapter(rcvStore.adapter)
+                .load(R.layout.raw_store_skeleton)
+                .shimmer(true)
+                .color(android.R.color.white)
+                .angle(0)
+                .show()
+        } else {
+            skeleton?.show()
+        }
     }
 }
