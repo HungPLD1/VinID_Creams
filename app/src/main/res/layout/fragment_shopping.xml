@@ -84,10 +84,16 @@
             android:layout_margin="@dimen/dp_10"
             android:layout_weight="1" />
     </LinearLayout>
-
-    <com.airbnb.epoxy.EpoxyRecyclerView
-        android:id="@+id/rcvShoppingIceCream"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swRefreshLayout"
+        android:layout_margin="@dimen/dp_10"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/dp_10" />
+        android:layout_height="match_parent">
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/rcvShoppingIceCream"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </LinearLayout>

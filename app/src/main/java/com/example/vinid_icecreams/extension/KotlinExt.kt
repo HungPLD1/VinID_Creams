@@ -44,6 +44,8 @@ fun BigDecimal.format(separator: Char = '.'): String {
     return formatter.format(this)
 }
 
+fun String?.orEmpty() : String = this ?: ""
+
 fun Boolean?.orFalse(): Boolean = this ?: false
 
 fun Double?.orMax(): Double = this ?: Double.MAX_VALUE

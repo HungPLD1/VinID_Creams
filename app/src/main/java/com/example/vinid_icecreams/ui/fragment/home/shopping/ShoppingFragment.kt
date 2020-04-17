@@ -15,13 +15,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.developer.kalert.KAlertDialog
+import com.ethanhua.skeleton.Skeleton
+import com.ethanhua.skeleton.SkeletonScreen
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.IceCream
 import com.example.vinid_icecreams.ui.activity.home.HomeViewModel
 import com.example.vinid_icecreams.ui.fragment.home.shopping.ShoppingController.Companion.ITEM_PER_ROW
-import com.example.vinid_icecreams.utils.ProgressLoading
 import kotlinx.android.synthetic.main.fragment_shopping.*
 import javax.inject.Inject
 
@@ -32,7 +33,7 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private val shoppingViewModel: ShoppingViewModel by lazy {
+    private val viewModel: ShoppingViewModel by lazy {
         ViewModelProviders.of(this,viewModelFactory).get(ShoppingViewModel::class.java)
     }
 
@@ -42,13 +43,15 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
 
     private var listIceCream : ArrayList<IceCream> = ArrayList()
 
+    private var skeleton: SkeletonScreen? = null
+
     private val shoppingController: ShoppingController by lazy {
         ShoppingController(
             ::toDetailsIceCream
         )
     }
 
-    override fun providerViewModel(): ShoppingViewModel = shoppingViewModel
+    override fun providerViewModel(): ShoppingViewModel = viewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +62,7 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
     }
 
     override fun setUpUI() {
-        initView()
+        handleOnClick()
         setupBackDevice()
         setUpSpinnerFilter()
         setUpSearchView()
@@ -71,17 +74,26 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
 
     override fun setupViewModel() {
         super.setupViewModel()
-        shoppingViewModel.listIceCream.observe(viewLifecycleOwner, Observer { data ->
+        viewModel.listIceCream.observe(viewLifecycleOwner, Observer { data ->
             listIceCream = data
             setupListIceCream(listIceCream)
         })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
+            toggleSkeletonVisibility(it)
+            swRefreshLayout.isRefreshing = it
+        })
+
         handleGetListIceCream()
     }
 
-    private fun initView() {
+    private fun handleOnClick() {
         /*handle onclick*/
         imgShoppingBack.setOnClickListener(this)
         imgShoppingToCart.setOnClickListener(this)
+        swRefreshLayout.setOnRefreshListener {
+            handleGetListIceCream()
+        }
     }
 
     private fun setupBackDevice() {
@@ -105,11 +117,9 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
             showSomeThingWentWrong(activity)
             return
         }
-        ProgressLoading.show(context)
         if (isConnectToNetwork(context)) {
-            shoppingViewModel.getListIceCream(id)
+            viewModel.getListIceCream(id)
         }else{
-            ProgressLoading.dismiss()
             showNoConnection()
         }
     }
@@ -145,9 +155,9 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (parent != null) {
             when(parent){
-                spnShoppingFilterByType -> handleLogicFileterByType()
-                spnShoppingFilterByPrice ->handleLogicFileterByPrice()
-                spnShoppingFilterByDiscount ->handleLogicFileterByDiscount()
+                spnShoppingFilterByType -> handleLogicFilterByType()
+                spnShoppingFilterByPrice ->handleLogicFilterByPrice()
+                spnShoppingFilterByDiscount ->handleLogicFilterByDiscount()
             }
         }
     }
@@ -155,13 +165,13 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }
 
-    private fun handleLogicFileterByDiscount() {
+    private fun handleLogicFilterByDiscount() {
     }
 
-    private fun handleLogicFileterByPrice() {
+    private fun handleLogicFilterByPrice() {
     }
 
-    private fun handleLogicFileterByType() {
+    private fun handleLogicFilterByType() {
     }
 
     override fun onClick(v: View?) {
@@ -210,5 +220,28 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
         var TAG = ShoppingFragment::class.java.name
     }
 
+    private fun toggleSkeletonVisibility(isLoading: Boolean) {
+        if (!isLoading) {
+            skeleton?.hide()
+            skeleton = null
+            return
+        }
+        if (skeleton == null) {
+            skeleton = Skeleton.bind(rcvShoppingIceCream)
+                .adapter(rcvShoppingIceCream.adapter)
+                .load(R.layout.raw_ice_cream_skeleton)
+                .shimmer(true)
+                .color(android.R.color.white)
+                .angle(0)
+                .show()
+        } else {
+            skeleton?.show()
+        }
+    }
 
+    override fun onDestroyView() {
+        skeleton = null
+        rcvShoppingIceCream.adapter = null
+        super.onDestroyView()
+    }
 }

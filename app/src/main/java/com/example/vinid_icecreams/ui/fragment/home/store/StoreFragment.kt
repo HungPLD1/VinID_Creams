@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RawRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -74,7 +73,6 @@ class StoreFragment : BaseFragment<StoreViewModel>() {
         }
         swRefreshLayout.setOnRefreshListener {
             viewModel.getListStore()
-            swRefreshLayout.isRefreshing = false
         }
     }
 
@@ -119,7 +117,8 @@ class StoreFragment : BaseFragment<StoreViewModel>() {
         })
 
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-                toggleSkeletonVisibility(it)
+            toggleSkeletonVisibility(it)
+            swRefreshLayout.isRefreshing = it
         })
     }
 
