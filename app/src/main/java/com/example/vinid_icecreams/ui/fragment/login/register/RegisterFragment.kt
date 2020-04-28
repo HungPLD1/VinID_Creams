@@ -66,7 +66,7 @@ class RegisterFragment : BaseFragment<RegisterViewModel>(),View.OnClickListener 
     }
 
     private fun registerSuccess() {
-        showDialogSuccess(REGISTER_SUCCESS,messageSuccess)
+        showDialogSuccess(context?.getString(R.string.register_success),messageSuccess)
         Handler().postDelayed({
             startActivity(Intent(activity, HomeActivity::class.java))
             activity?.finish()
@@ -75,13 +75,10 @@ class RegisterFragment : BaseFragment<RegisterViewModel>(),View.OnClickListener 
     }
 
     private fun registerFail(){
-      showDiaLogFailed(REGISTER_FAILED,messageFailed)
+      showDiaLogFailed(context?.getString(R.string.register_failed),messageFailed)
     }
 
     companion object{
         var TAG = RegisterFragment::class.java.name
-        var REGISTER_SUCCESS = "Đăng kí thành công"
-        var REGISTER_FAILED = "Đăng kí thất bại"
     }
-
 }

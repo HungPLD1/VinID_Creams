@@ -50,6 +50,8 @@ fun Boolean?.orFalse(): Boolean = this ?: false
 
 fun Double?.orMax(): Double = this ?: Double.MAX_VALUE
 
+fun Int?.orZero() : Int = this ?: 0
+
 internal fun Context.hasPermission(permission: String) =
     ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
 

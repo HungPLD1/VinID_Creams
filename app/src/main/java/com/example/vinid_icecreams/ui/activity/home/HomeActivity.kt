@@ -17,7 +17,6 @@
 package com.example.vinid_icecreams.ui.activity.home
 
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
@@ -25,7 +24,7 @@ import androidx.navigation.NavController
 import com.example.vinid_icecreams.R
 import com.example.vinid_icecreams.base.activity.BaseActivity
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
-import com.example.vinid_icecreams.navigation.setupWithNavController
+import com.example.vinid_icecreams.extension.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject

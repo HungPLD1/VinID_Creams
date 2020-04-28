@@ -75,7 +75,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>(), View.OnClickListener {
     }
 
     private fun getDetailsIceCream() {
-        if (CommonUtils.instace.isConnectToNetwork(context)) {
+        if (isConnectToNetwork(context)) {
             detailsViewModel.getDetailsIceCream(getIDIceCream())
         } else {
             showNoConnection()

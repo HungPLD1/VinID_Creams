@@ -36,10 +36,6 @@ class MapFragment : BaseBottomSheetFragment<MapViewModel>() {
         setupBottomSheetDiaLog()
     }
 
-    override fun setupViewModel() {
-        super.setupViewModel()
-    }
-
     private fun setupBottomSheetDiaLog() {
         dialog?.setOnShowListener {
             dialog?.findViewById<FrameLayout>(R.id.design_bottom_sheet)?.let { frameLayout ->
@@ -48,8 +44,8 @@ class MapFragment : BaseBottomSheetFragment<MapViewModel>() {
                     override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
                         bottomSheetBehavior.skipCollapsed = true
-                        when(newState){
-                            BottomSheetBehavior.STATE_HIDDEN -> dismiss()
+                        if (newState == BottomSheetBehavior.STATE_HIDDEN){
+                            dismiss()
                         }
                     }
                 }

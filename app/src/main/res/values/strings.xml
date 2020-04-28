@@ -75,4 +75,6 @@
     <string name="input_number">Cho xin con số</string>
     <string name="sub_mit">Submit</string>
     <string name="click_here">CLICK HERE !!!</string>
+    <string name="register_success">Đăng kí thành công</string>
+    <string name="register_failed">Đăng kí thất bại</string>
 </resources>
