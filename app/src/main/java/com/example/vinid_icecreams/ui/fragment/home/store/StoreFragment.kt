@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.ethanhua.skeleton.Skeleton
 import com.ethanhua.skeleton.SkeletonScreen
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.base.DialogClickListener
+import com.example.vinid_icecreams.base.view.DialogClickListener
 import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.model.Store
@@ -105,7 +105,8 @@ class StoreFragment : BaseFragment<StoreViewModel>() {
         })
 
         viewModel.messageFailed.observe(viewLifecycleOwner, Observer {
-            showDiaLogFailed(ERROR, it, object : DialogClickListener {
+            showDiaLogFailed(ERROR, it, object :
+                DialogClickListener {
                 override fun onConfirmClickListener() {
                     viewModel.getListStore()
                 }
@@ -134,7 +135,8 @@ class StoreFragment : BaseFragment<StoreViewModel>() {
         if (isConnectToNetwork(context)) {
             viewModel.getListStore()
         } else {
-            showNoConnection(object : DialogClickListener {
+            showNoConnection(object :
+                DialogClickListener {
                 override fun onConfirmClickListener() {
                     viewModel.getListStore()
                 }

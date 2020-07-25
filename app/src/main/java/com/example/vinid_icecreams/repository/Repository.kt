@@ -25,7 +25,6 @@ class  Repository @Inject constructor(
         mPassword: String
     ): Single<MyResponse<DataUser>>? {
         return apiService.authenticateAccount(AuthenRequest(mPhoneNumber, mPassword))
-            .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
     }
 
     fun callRegisterAccount(
@@ -34,68 +33,47 @@ class  Repository @Inject constructor(
     ): Single<MyResponse<DataUser>>? {
         val body = AuthenRequest(mPhoneNumber, mPassword)
         return apiService.registerAccount(body)
-            .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
     }
 
     fun callRequestListStore(): Single<MyResponse<ArrayList<Store>>>? {
         return apiService.getListStore()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun callRequestListIceCream(storeID: Int): Single<MyResponse<ArrayList<IceCream>>>? {
         return apiService.getListIceCream(storeID)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
 
     fun callRequestDetailsIceCream(iceCreamID: Int): Single<MyResponse<IceCream>>? {
         return apiService.getDetailsIceCream(iceCreamID)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun callPayIceCream(billRequest: BillRequest): Single<MyResponse<Bill>>? {
         return apiService.payOrderUser(billRequest)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun callRequestNotification(): Single<MyResponse<ArrayList<Event>>>?{
         return apiService.getNotification()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun callRequestOrderUser() : Single<MyResponse<ArrayList<OrderInfor>>>?{
         return apiService.getOrderUser()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun callRequestDetailsOrder(orderID : Int) :  Single<MyResponse<com.example.vinid_icecreams.model.Bill>>?{
         return apiService.getDetailsOrder(orderID)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun callRequestSetRating(ratingRequestBody : RatingRequest) : Single<MyResponse<Rating>>?{
         return apiService.setRatingForItem(ratingRequestBody)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun callRequestUserProfile() : Single<MyResponse<User>>?{
         return apiService.getUserProfile()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun callRequestChargePoint(pointRequest :PointRequest) : Single<MyResponse<User>>?{
         return apiService.chargePointUser(pointRequest)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
     }
 
     fun saveToken (token : String?){

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
+import com.example.vinid_icecreams.extension.add
+import com.example.vinid_icecreams.extension.applySchedulersSingle
 import com.example.vinid_icecreams.model.OrderInfor
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.utils.Const.CODE_200
@@ -19,8 +21,7 @@ class HistoryViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getOrderUser() {
         repository.callRequestOrderUser()
-            ?.doOnSubscribe { isLoading.value = true }
-            ?.doFinally { isLoading.value = false }
+            ?.compose(applySchedulersSingle(isLoading))
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -32,6 +33,6 @@ class HistoryViewModel @Inject constructor(
                 }
         }) { error ->
             messageFailed.value = error.toString()
-        }
+        }?.add(this)
     }
 }

@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
+import com.example.vinid_icecreams.extension.add
+import com.example.vinid_icecreams.extension.applySchedulersSingle
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.requestBody.BillRequest
@@ -20,10 +22,8 @@ class PayViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun handlePayment(billRequest: BillRequest) {
-        Log.d("Hungpld1",billRequest.toString())
         repository.callPayIceCream(billRequest)
-            ?.doOnSubscribe { isLoading.value = true }
-            ?.doFinally { isLoading.value = false }
+            ?.compose(applySchedulersSingle(isLoading))
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -38,7 +38,7 @@ class PayViewModel @Inject constructor(
         }) { error ->
             messageFailed.value = error.toString()
             _isPayment.value = false
-        }
+        }?.add(this)
     }
 
     fun getTotalPayment() : Int? = repository.getTotalPrice()

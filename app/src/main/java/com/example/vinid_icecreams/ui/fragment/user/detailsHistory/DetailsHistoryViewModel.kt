@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
+import com.example.vinid_icecreams.extension.add
+import com.example.vinid_icecreams.extension.applySchedulersSingle
 import com.example.vinid_icecreams.model.ItemOrder
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.requestBody.RatingRequest
@@ -20,11 +22,9 @@ class DetailsHistoryViewModel @Inject constructor(
     private val _isRating = MutableLiveData<Boolean>()
     val isRating: LiveData<Boolean> get() = _isRating
 
-    @SuppressLint("CheckResult")
     fun getListItemOrder(orderID: Int) {
         repository.callRequestDetailsOrder(orderID)
-            ?.doOnSubscribe { isLoading.value = true }
-            ?.doFinally { isLoading.value = false }
+            ?.compose(applySchedulersSingle(isLoading))
             ?.subscribe({ result ->
             when (result.meta?.code) {
                 CODE_200 -> {
@@ -36,15 +36,13 @@ class DetailsHistoryViewModel @Inject constructor(
             }
         }) { error ->
             messageFailed.value = error.toString()
-        }
+        }?.add(this)
     }
 
-    @SuppressLint("CheckResult")
     fun setRatingItem(itemID: Int?, ratingStar: Int?, comment: String?) {
         val bodyRating = RatingRequest(itemID, ratingStar, comment)
         repository.callRequestSetRating(bodyRating)
-            ?.doOnSubscribe { isLoading.value = true }
-            ?.doFinally { isLoading.value = false }
+            ?.compose(applySchedulersSingle(isLoading))
             ?.subscribe({ result ->
             when (result.meta?.code) {
                 CODE_200 -> {
@@ -58,6 +56,6 @@ class DetailsHistoryViewModel @Inject constructor(
         }) { error ->
             _isRating.value = false
             messageFailed.value = error.toString()
-        }
+        }?.add(this)
     }
 }

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
+import com.example.vinid_icecreams.extension.add
+import com.example.vinid_icecreams.extension.applySchedulersSingle
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.utils.Const.CODE_200
 import javax.inject.Inject
@@ -19,8 +21,7 @@ class RegisterViewModel @Inject constructor(
     fun handleRegister(phoneNumber: String, password: String, passwordRepeat: String) {
         if (checkPhoneNumber(phoneNumber) && handleComparedPassword(password, passwordRepeat)) {
             repository.callRegisterAccount(phoneNumber, password)
-                ?.doOnSubscribe { isLoading.value = true }
-                ?.doFinally { isLoading.value = false }
+                ?.compose(applySchedulersSingle(isLoading))
                 ?.subscribe({ result ->
                     when (result.meta?.code) {
                         CODE_200 -> {
@@ -37,7 +38,7 @@ class RegisterViewModel @Inject constructor(
                 }) { error ->
                     messageFailed.value = error.toString()
                     _isRegisterSuccess.value = false
-                }
+                }?.add(this)
         } else {
             messageFailed.value = RegisterViewModel.REGISTER_FAIL
             _isRegisterSuccess.value = false

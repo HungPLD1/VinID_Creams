@@ -3,12 +3,13 @@ package com.example.vinid_icecreams.base.activity
 import android.content.Context
 import android.view.View
 import androidx.lifecycle.Observer
-import com.example.vinid_icecreams.base.BaseView
+import com.example.vinid_icecreams.base.view.BaseView
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
 import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity<T : BaseViewModel> : DaggerAppCompatActivity(),BaseView {
+abstract class BaseActivity<T : BaseViewModel> : DaggerAppCompatActivity(),
+    BaseView {
     abstract fun providerViewModel(): T
 
     override fun providerContext(): Context?  = this

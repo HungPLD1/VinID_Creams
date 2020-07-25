@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import com.example.vinid_icecreams.base.BaseView
+import com.example.vinid_icecreams.base.view.BaseView
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.utils.ProgressLoading
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -14,7 +14,7 @@ import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
 abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFragment()
-    , BaseView , HasAndroidInjector {
+    , BaseView, HasAndroidInjector {
 
     @Inject
     lateinit var childFragmentInjector: DispatchingAndroidInjector<Any>

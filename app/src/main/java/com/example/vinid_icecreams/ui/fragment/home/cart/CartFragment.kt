@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vinid_icecreams.R
-import com.example.vinid_icecreams.base.DialogClickListener
+import com.example.vinid_icecreams.base.view.DialogClickListener
 import com.example.vinid_icecreams.base.fragment.BaseFragment
 import com.example.vinid_icecreams.di.viewModelModule.ViewModelFactory
 import com.example.vinid_icecreams.repository.remote.requestBody.Coordinates
@@ -155,7 +155,8 @@ class CartFragment : BaseFragment<CartViewModel>(), View.OnClickListener,
             showDialogWarning("Are you sure?"
                 ,"Delete this file"
                 ,"Yes,delete it!"
-                ,object : DialogClickListener{
+                ,object :
+                    DialogClickListener {
                     override fun onConfirmClickListener() {
                         viewModel.removeOrder(position)
                         if (listOrder.size == 0) {

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
+import com.example.vinid_icecreams.extension.add
+import com.example.vinid_icecreams.extension.applySchedulersSingle
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.Const.CODE_200
@@ -19,17 +21,16 @@ class LoginViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun handleLogin(phoneNumber: String, password: String) {
         if (checkPhoneNumber(phoneNumber) && checkPassWord(password)) {
-            repository.callLoginAccount(phoneNumber, password)?.subscribe({ result ->
+            repository.callLoginAccount(phoneNumber, password)
+                ?.compose(applySchedulersSingle(isLoading))
+                ?.subscribe({ result ->
                     when (result.meta?.code) {
                         CODE_200 -> {
-                            /*post data to view */
                             messageSuccess.value = result?.meta?.message
                             _isLoginSuccess.value = true
-                            /*save token*/
                             repository.saveToken(result.data?.token)
                         }
                         else -> {
-                            /*handle login failse*/
                             messageFailed.value = result?.meta?.message
                             _isLoginSuccess.value = false
                         }
@@ -37,7 +38,7 @@ class LoginViewModel @Inject constructor(
             }) { error ->
                 messageFailed.value = error.toString()
                     _isLoginSuccess.value = false
-            }
+            }?.add(this)
         } else {
             messageFailed.value = VERIFY_FAIL
             _isLoginSuccess.value = false

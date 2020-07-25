@@ -1,4 +1,4 @@
-package com.example.vinid_icecreams.base
+package com.example.vinid_icecreams.base.view
 
 import android.app.Activity
 import android.content.Context

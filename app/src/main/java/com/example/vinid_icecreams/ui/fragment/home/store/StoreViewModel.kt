@@ -5,10 +5,13 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
+import com.example.vinid_icecreams.extension.add
+import com.example.vinid_icecreams.extension.applySchedulersSingle
 import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.MyResponse
 import com.example.vinid_icecreams.utils.Const.CODE_200
+import io.reactivex.SingleTransformer
 import java.net.ConnectException
 import javax.inject.Inject
 import kotlin.math.asin
@@ -29,9 +32,8 @@ class StoreViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getListStore() {
         repository.callRequestListStore()
-            ?.doOnSubscribe { isLoading.value = true }
+            ?.compose(applySchedulersSingle(isLoading))
             ?.map { response -> mapSortStore(response) }
-            ?.doFinally { isLoading.value = false }
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -50,8 +52,7 @@ class StoreViewModel @Inject constructor(
                         messageFailed.value = error.toString()
                     }
                 }
-
-            }
+            }?.add(this)
     }
 
     private fun mapSortStore(response: MyResponse<ArrayList<Store>>): MyResponse<ArrayList<Store>> {

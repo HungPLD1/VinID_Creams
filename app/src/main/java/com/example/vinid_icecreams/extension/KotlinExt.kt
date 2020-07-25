@@ -31,11 +31,7 @@ fun Context.openPermissionSettings() {
 }
 
 fun Fragment.isDeniedPermanently(permission: String): Boolean {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        shouldShowRequestPermissionRationale(permission).not()
-    } else {
-        false
-    }
+    return shouldShowRequestPermissionRationale(permission).not()
 }
 
 fun BigDecimal.format(separator: Char = '.'): String {
