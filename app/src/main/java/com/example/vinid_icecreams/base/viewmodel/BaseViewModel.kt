@@ -11,7 +11,7 @@ abstract class BaseViewModel : ViewModel() {
     val messageSuccess = MutableLiveData<String>()
     val messageFailed = MutableLiveData<String>()
     val isConnection = MutableLiveData<Boolean>()
-    val isLoading = MutableLiveData<LoadingState>()
+    val loading = MutableLiveData<LoadingState>()
 
     private var compositeDisposable: CompositeDisposable? = null
 

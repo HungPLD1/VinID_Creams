@@ -2,6 +2,8 @@ package com.example.vinid_icecreams.di.repoModule
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
+import com.example.vinid_icecreams.repository.local.room.IcreamDatabase
 import dagger.Module
 import dagger.Provides
 import io.realm.Realm
@@ -22,6 +24,16 @@ class LocalModule {
             .schemaVersion(0)
             .build()
         return Realm.getInstance(realmConfig)
+    }
+
+    @Singleton
+    @Provides
+    fun providerRoom(
+        context: Context
+    ): IcreamDatabase {
+        return Room.databaseBuilder(context, IcreamDatabase::class.java, "IceCreams")
+                    .fallbackToDestructiveMigration()
+                    .build()
     }
 
     @Singleton

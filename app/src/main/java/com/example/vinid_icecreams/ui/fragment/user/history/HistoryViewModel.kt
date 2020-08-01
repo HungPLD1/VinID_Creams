@@ -21,7 +21,7 @@ class HistoryViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getOrderUser() {
         repository.callRequestOrderUser()
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {

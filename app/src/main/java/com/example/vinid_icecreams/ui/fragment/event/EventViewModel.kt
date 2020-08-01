@@ -19,7 +19,7 @@ class EventViewModel @Inject constructor(
 
     fun getNotification() {
         repository.callRequestNotification()
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
             when (result.meta?.code) {
                 CODE_200 -> {

@@ -1,7 +1,6 @@
 package com.example.vinid_icecreams.ui.fragment.home.pay
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
@@ -23,7 +22,7 @@ class PayViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun handlePayment(billRequest: BillRequest) {
         repository.callPayIceCream(billRequest)
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {

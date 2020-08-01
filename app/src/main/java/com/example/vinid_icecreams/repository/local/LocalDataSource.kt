@@ -4,12 +4,14 @@ import android.content.SharedPreferences
 import android.location.Location
 import com.example.vinid_icecreams.model.Order
 import com.example.vinid_icecreams.model.Store
+import com.example.vinid_icecreams.repository.local.room.IcreamDatabase
 import com.example.vinid_icecreams.utils.Const
 import io.realm.Realm
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
     private val realm: Realm,
+    private val database: IcreamDatabase,
     private val sharedPref: SharedPreferences
 ) : ILocalDataSource {
 

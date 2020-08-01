@@ -21,7 +21,7 @@ class ShoppingViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getListIceCream(storeID: Int) {
         repository.callRequestListIceCream(storeID)
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {

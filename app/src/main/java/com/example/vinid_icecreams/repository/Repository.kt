@@ -60,7 +60,7 @@ class  Repository @Inject constructor(
         return apiService.getOrderUser()
     }
 
-    fun callRequestDetailsOrder(orderID : Int) :  Single<MyResponse<com.example.vinid_icecreams.model.Bill>>?{
+    fun callRequestDetailsOrder(orderID : Int) :  Single<MyResponse<Bill>>?{
         return apiService.getDetailsOrder(orderID)
     }
 

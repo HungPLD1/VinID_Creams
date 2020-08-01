@@ -7,7 +7,6 @@ import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
 import com.example.vinid_icecreams.extension.add
 import com.example.vinid_icecreams.extension.applySchedulersSingle
 import com.example.vinid_icecreams.repository.Repository
-import com.example.vinid_icecreams.utils.CommonUtils
 import com.example.vinid_icecreams.utils.Const.CODE_200
 import javax.inject.Inject
 
@@ -22,7 +21,7 @@ class LoginViewModel @Inject constructor(
     fun handleLogin(phoneNumber: String, password: String) {
         if (checkPhoneNumber(phoneNumber) && checkPassWord(password)) {
             repository.callLoginAccount(phoneNumber, password)
-                ?.compose(applySchedulersSingle(isLoading))
+                ?.compose(applySchedulersSingle(loading))
                 ?.subscribe({ result ->
                     when (result.meta?.code) {
                         CODE_200 -> {

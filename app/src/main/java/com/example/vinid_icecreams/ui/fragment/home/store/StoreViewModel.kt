@@ -11,7 +11,6 @@ import com.example.vinid_icecreams.model.Store
 import com.example.vinid_icecreams.repository.Repository
 import com.example.vinid_icecreams.repository.remote.MyResponse
 import com.example.vinid_icecreams.utils.Const.CODE_200
-import io.reactivex.SingleTransformer
 import java.net.ConnectException
 import javax.inject.Inject
 import kotlin.math.asin
@@ -32,7 +31,7 @@ class StoreViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getListStore() {
         repository.callRequestListStore()
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.map { response -> mapSortStore(response) }
             ?.subscribe({ result ->
                 when (result.meta?.code) {

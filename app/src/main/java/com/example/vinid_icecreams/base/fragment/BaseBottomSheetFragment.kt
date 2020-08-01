@@ -33,8 +33,8 @@ abstract class BaseBottomSheetFragment<T : BaseViewModel> : BottomSheetDialogFra
 
     override fun setupViewModel() {
         val viewModel = providerViewModel()
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            if (it) {
+        viewModel.loading.observe(viewLifecycleOwner, Observer {
+            if (it.isLoading) {
                 ProgressLoading.show(requireContext())
             } else {
                 ProgressLoading.dismiss()

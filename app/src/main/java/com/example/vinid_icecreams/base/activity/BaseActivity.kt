@@ -18,8 +18,8 @@ abstract class BaseActivity<T : BaseViewModel> : DaggerAppCompatActivity(),
 
     override fun setupViewModel() {
         val viewModel = providerViewModel()
-        viewModel.isLoading.observe(this, Observer {
-            if (it) {
+        viewModel.loading.observe(this, Observer {
+            if (it.isLoading) {
                 ProgressLoading.show(this)
             } else {
                 ProgressLoading.dismiss()

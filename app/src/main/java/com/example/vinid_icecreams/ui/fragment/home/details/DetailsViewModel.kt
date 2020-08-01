@@ -21,7 +21,7 @@ class DetailsViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun getDetailsIceCream(iceCreamID: Int) {
         repository.callRequestDetailsIceCream(iceCreamID)
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {

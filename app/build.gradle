@@ -159,6 +159,10 @@ dependencies {
     //realm
     implementation 'io.realm:android-adapters:2.0.0'
 
+    //room
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+
     //skeleton
     implementation 'com.ethanhua:skeleton:1.1.2'
     implementation 'io.supercharge:shimmerlayout:2.1.0'

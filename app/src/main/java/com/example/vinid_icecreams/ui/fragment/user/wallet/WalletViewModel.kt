@@ -23,7 +23,7 @@ class WalletViewModel @Inject constructor(
 
     fun setPointUser(amount: Int) {
         repository.callRequestChargePoint(PointRequest(amount))
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {
@@ -43,7 +43,7 @@ class WalletViewModel @Inject constructor(
 
     fun getUserProfile() {
         repository.callRequestUserProfile()
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
                 when (result.meta?.code) {
                     CODE_200 -> {

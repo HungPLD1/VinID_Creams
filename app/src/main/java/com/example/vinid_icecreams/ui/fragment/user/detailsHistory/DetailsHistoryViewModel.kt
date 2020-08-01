@@ -1,6 +1,5 @@
 package com.example.vinid_icecreams.ui.fragment.user.detailsHistory
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vinid_icecreams.base.viewmodel.BaseViewModel
@@ -24,7 +23,7 @@ class DetailsHistoryViewModel @Inject constructor(
 
     fun getListItemOrder(orderID: Int) {
         repository.callRequestDetailsOrder(orderID)
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
             when (result.meta?.code) {
                 CODE_200 -> {
@@ -42,7 +41,7 @@ class DetailsHistoryViewModel @Inject constructor(
     fun setRatingItem(itemID: Int?, ratingStar: Int?, comment: String?) {
         val bodyRating = RatingRequest(itemID, ratingStar, comment)
         repository.callRequestSetRating(bodyRating)
-            ?.compose(applySchedulersSingle(isLoading))
+            ?.compose(applySchedulersSingle(loading))
             ?.subscribe({ result ->
             when (result.meta?.code) {
                 CODE_200 -> {

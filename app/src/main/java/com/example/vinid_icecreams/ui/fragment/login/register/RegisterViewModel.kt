@@ -21,7 +21,7 @@ class RegisterViewModel @Inject constructor(
     fun handleRegister(phoneNumber: String, password: String, passwordRepeat: String) {
         if (checkPhoneNumber(phoneNumber) && handleComparedPassword(password, passwordRepeat)) {
             repository.callRegisterAccount(phoneNumber, password)
-                ?.compose(applySchedulersSingle(isLoading))
+                ?.compose(applySchedulersSingle(loading))
                 ?.subscribe({ result ->
                     when (result.meta?.code) {
                         CODE_200 -> {

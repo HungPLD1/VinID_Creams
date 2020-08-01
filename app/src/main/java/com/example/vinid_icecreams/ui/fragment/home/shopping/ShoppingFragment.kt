@@ -79,9 +79,9 @@ class ShoppingFragment : BaseFragment<ShoppingViewModel>(), AdapterView.OnItemSe
             setupListIceCream(listIceCream)
         })
 
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            toggleSkeletonVisibility(it)
-            swRefreshLayout.isRefreshing = it
+        viewModel.loading.observe(viewLifecycleOwner, Observer {
+            toggleSkeletonVisibility(it.isLoading)
+            swRefreshLayout.isRefreshing = it.isLoading
         })
 
         handleGetListIceCream()
